@@ -2,7 +2,7 @@ package cittadini;
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
 public class CittadiniUI {
 
-    CittadiniUI(){
+    public CittadiniUI(){
         createUI();
     }
 
