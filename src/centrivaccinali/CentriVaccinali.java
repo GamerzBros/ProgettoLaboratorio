@@ -9,11 +9,12 @@ public class CentriVaccinali {
 
     private void createUI(){
         //TODO Crea Interfaccia Grafica Centri Vaccinali
+
     }
 
 
     public static void main(String[] args){
 
     }
-    
+
 }
