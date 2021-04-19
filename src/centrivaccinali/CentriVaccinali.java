@@ -15,12 +15,5 @@ public class CentriVaccinali {
     public static void main(String[] args){
 
     }
-
-<<<<<<< Updated upstream
-    private void test(){}
-=======
-    public void metodoDiPole(){
-        
-    }
->>>>>>> Stashed changes
+    
 }
