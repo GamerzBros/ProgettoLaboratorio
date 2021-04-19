@@ -7,7 +7,7 @@ public class SingoloCittadino {
     private String codice_fiscale;
 
 
-    SingoloCittadino(String nome, String cognome, String codice_fiscale){
+    public SingoloCittadino(String nome, String cognome, String codice_fiscale){
         this.nome=nome;
         this.cognome=cognome;
         this.codice_fiscale=codice_fiscale;
