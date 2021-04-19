@@ -1,12 +1,12 @@
 package cittadini;
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
-public class Cittadini {
+public class CittadiniUI {
 
-    public Cittadini(){
+    CittadiniUI(){
         createUI();
     }
 
     private void createUI(){
-        //TODO Crea Interfaccia Grafica Cittadini
+        //TODO CREARE UI CITTADINI
     }
 }
