@@ -1,8 +1,8 @@
 package centrivaccinali;
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
-public class CentroVaccinaleUI {
+public class CentriVaccinaliUI {
 
-    public CentroVaccinaleUI(){
+    public CentriVaccinaliUI(){
         createUI();
     }
 
