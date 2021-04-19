@@ -16,5 +16,11 @@ public class CentriVaccinali {
 
     }
 
+<<<<<<< Updated upstream
     private void test(){}
+=======
+    public void metodoDiPole(){
+        
+    }
+>>>>>>> Stashed changes
 }
