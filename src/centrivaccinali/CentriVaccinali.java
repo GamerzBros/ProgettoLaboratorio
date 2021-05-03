@@ -7,7 +7,7 @@ public class CentriVaccinali {
 
     }
 
-    public void registraCentroVaccinale(SingoloCentroVaccinale centroVaccinale){
+    public void registraCentroVaccinale(SingoloCentroVaccinale centroVaccinale){ //metodo per registrare i centri
 
     }
 
