@@ -4,7 +4,9 @@ public class CentriVaccinali {
 
 //boia che branch
     public CentriVaccinali(){
-
+        while(true){
+            System.out.println("Minchia che branch");
+        }
     }
 
     public void registraCentroVaccinale(SingoloCentroVaccinale centroVaccinale){ //metodo per registrare i centri
