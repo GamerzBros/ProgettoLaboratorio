@@ -2,7 +2,7 @@ package centrivaccinali;
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
 public class CentriVaccinali {
 
-
+//boia che branch
     public CentriVaccinali(){
 
     }
