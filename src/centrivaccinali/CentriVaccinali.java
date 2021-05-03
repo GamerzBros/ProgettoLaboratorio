@@ -5,6 +5,9 @@ public class CentriVaccinali {
 //boia che branch
     public CentriVaccinali(){
 
+        for(int i=0;i<5;i++){
+            System.out.println("ciao");
+        }
     }
 
     public void registraCentroVaccinale(SingoloCentroVaccinale centroVaccinale){ //metodo per registrare i centri
