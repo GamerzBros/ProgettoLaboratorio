@@ -19,6 +19,7 @@ public class CentriVaccinali {
             Scene scene=new Scene(root);
 
             Stage stage=new Stage();
+            
 
             stage.setTitle("Seleziona il modulo");
             stage.setScene(scene);
