@@ -3,7 +3,7 @@ package cittadini;
 public class Cittadini {
 
     public Cittadini(){
-
+        new CittadiniUI();
     }
 
     public void registraVaccinato(SingoloCittadino cittadino){
