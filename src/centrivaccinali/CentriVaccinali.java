@@ -57,6 +57,9 @@ public class CentriVaccinali extends Application {
         Image image = new Image(icon);
 
         stage.getIcons().add(image);
+
+        scene=stage.getScene();
+
         stage.show();
 
     }
@@ -90,21 +93,11 @@ public class CentriVaccinali extends Application {
        // new Cittadini();
     }
 
-    public void onCentrivaccinaliHoverOn(Event event){
-        if(scene==null){
-            System.out.println("scena nulla");
-        }
-        else {
-            scene.lookup("#centriVaccinaliShadow").setVisible(true);
-        }
+    public void onCentrivaccinaliHoverOn(){
+        scene.lookup("centriVaccinaliShadow").setVisible(true);
     }
-    public void onCentriVaccinaliHoverOff(Event event){
-        if(scene==null){
-            System.out.println("scena nulla");
-        }
-        else {
-            scene.lookup("#centriVaccinaliShadow").setVisible(false);
-        }
+    public void onCentriVaccinaliHoverOff(){
+        scene.lookup("centriVaccinaliShadow").setVisible(false);
     }
     public void onCittadiniHoverOn() {
         scene.lookup("cittadiniShadow").setVisible(true);
