@@ -1,6 +1,7 @@
 package centrivaccinali;
 import cittadini.Cittadini;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -8,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.application.Application;
 
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -89,6 +91,11 @@ public class CentriVaccinali extends Application {
         stage.setScene(new Scene(root));
         stage.setTitle("login");
         stage.show();
+    }
+
+    @FXML
+    private TextField user_txtfeld;
+    public void onLoginClicked() throws Exception{
     }
 
 
