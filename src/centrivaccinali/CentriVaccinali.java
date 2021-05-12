@@ -15,6 +15,7 @@ import java.net.URL;
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
 public class CentriVaccinali extends Application {
 
+
     public CentriVaccinali(){
        /* try {
             Parent root=FXMLLoader.load(getClass().getResource("SelectionUI.fxml"));
@@ -92,6 +93,9 @@ public class CentriVaccinali extends Application {
 
 
     public static void main(String[] args){
+      
+        new CentriVaccinali();
+
         Application.launch();
     }
 
