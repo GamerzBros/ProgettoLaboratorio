@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.application.Application;
 import java.io.InputStream;
@@ -88,7 +89,11 @@ public class CentriVaccinali extends Application {
     }
 
     public void onCentrivaccinaliHoverOn(){
-        scene.lookup("centriVaccinaliShadow").setVisible(true);
+
+        AnchorPane p=(AnchorPane)scene.lookup("anchorPane");
+        p.lookup("centriVaccinaliShadow").setVisible(true);
+
+        //scene.lookup("centriVaccinaliShadow").setVisible(true);
     }
     public void onCentriVaccinaliHoverOff(){
         scene.lookup("centriVaccinaliShadow").setVisible(false);
