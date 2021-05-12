@@ -3,6 +3,7 @@ package centrivaccinali;
 
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,12 +18,11 @@ import java.net.URL;
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
 public class CentriVaccinali extends Application {
     private Scene scene;
+    @FXML
     private Rectangle cittadiniShadow;
+    @FXML
     private Rectangle centriVaccinaliShadow;
 
-    public CentriVaccinali(){
-
-    }
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -37,15 +37,17 @@ public class CentriVaccinali extends Application {
         stage.setScene(scene);
         stage.setTitle("Pagina iniziale");
 
-        cittadiniShadow=(Rectangle)scene.lookup("#cittadiniShadow");
-        centriVaccinaliShadow=(Rectangle)scene.lookup("#centriVaccinaliShadow");
-
         InputStream icon = getClass().getResourceAsStream("fiorellino.png");
         Image image = new Image(icon);
 
         stage.getIcons().add(image);
         stage.show();
 
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
     }
 
     public void registraCentroVaccinale(SingoloCentroVaccinale centroVaccinale){ //metodo per registrare i centri
@@ -77,13 +79,11 @@ public class CentriVaccinali extends Application {
        // new Cittadini();
     }
 
-    public void onCentrivaccinaliHoverOn(ActionEvent e){
-        System.out.println(((Button)e.getSource()).getId());
+    public void onCentrivaccinaliHoverOn(){
         //scene.lookup("centriVaccinaliShadow").setVisible(true);
         centriVaccinaliShadow.setVisible(true);
     }
-    public void onCentriVaccinaliHoverOff(ActionEvent e){
-        System.out.println(((Button)e.getSource()).getId());
+    public void onCentriVaccinaliHoverOff(){
         //scene.lookup("centriVaccinaliShadow").setVisible(false);
         centriVaccinaliShadow.setVisible(false);
     }
