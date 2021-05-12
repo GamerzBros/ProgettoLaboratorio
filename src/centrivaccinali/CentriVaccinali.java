@@ -1,16 +1,17 @@
 package centrivaccinali;
-import cittadini.Cittadini;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.application.Application;
 
-import java.awt.*;
-import java.io.IOException;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.InputStream;
 import java.net.URL;
 
@@ -93,14 +94,25 @@ public class CentriVaccinali extends Application {
         stage.show();
     }
 
+
     @FXML
-    private TextField user_txtfeld;
-    public void onLoginClicked() throws Exception{
+    private TextField user_txtfield;
+    @FXML
+    private PasswordField user_password;
+
+
+    public void onLoginClicked() throws Exception{ //TODO FAR ANDARE A CAPO QUANDO SCRIVE
+        String pwd = user_password.getText();
+        String user = user_txtfield.getText();
+        FileWriter writer = new FileWriter("data/Cittadini_Registrati.dati.txt");
+        String scrivi = user+";"+pwd;
+        writer.write(scrivi);
+        writer.close();
+
     }
 
-
     public static void main(String[] args){
-      
+
         new CentriVaccinali();
 
         Application.launch();
