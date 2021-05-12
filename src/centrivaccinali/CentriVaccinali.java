@@ -14,6 +14,7 @@ import java.net.URL;
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
 public class CentriVaccinali extends Application {
     private Scene scene;
+    private Stage stage;
 
     public CentriVaccinali(){
        /* try {
@@ -47,6 +48,8 @@ public class CentriVaccinali extends Application {
         Parent root = loader.load();
 
         scene=new Scene(root);
+
+        this.stage=stage;
 
         stage.setScene(scene);
         stage.setTitle("Pagina iniziale");
@@ -90,8 +93,10 @@ public class CentriVaccinali extends Application {
 
     public void onCentrivaccinaliHoverOn(){
 
-        AnchorPane p=(AnchorPane)scene.lookup("anchorPane");
-        p.lookup("centriVaccinaliShadow").setVisible(true);
+        /*AnchorPane p=(AnchorPane)scene.lookup("anchorPane");
+        p.lookup("centriVaccinaliShadow").setVisible(true);*/
+
+        stage.getScene().lookup("centriVaccinaliShadow").setVisible(true);
 
         //scene.lookup("centriVaccinaliShadow").setVisible(true);
     }
