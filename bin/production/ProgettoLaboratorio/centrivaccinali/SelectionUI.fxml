@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.CentriVaccinali">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.CentriVaccinali">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff0505" height="400.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="259.0" />
       <Polygon fill="#ff0505" layoutX="308.0" layoutY="129.0" points="-50.0, 271.0, 292.0, 271.0, -50.0, -129.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
@@ -23,5 +23,10 @@
          <effect>
             <DropShadow />
          </effect></Button>
+      <TextArea editable="false" layoutX="89.0" layoutY="5.0" prefHeight="166.0" prefWidth="415.0" rotate="355.0" style="-fx-border-color: transaprent; -fx-background-color: transparent;" text="Scegli il portale a cui accedere" visible="false" wrapText="true">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </TextArea>
    </children>
 </AnchorPane>
