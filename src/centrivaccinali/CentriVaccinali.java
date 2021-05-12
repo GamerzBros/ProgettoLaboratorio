@@ -11,7 +11,7 @@ import java.io.IOException;
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
 public class CentriVaccinali {
 
-//boia che branch
+
     public CentriVaccinali(){
         try {
             Parent root=FXMLLoader.load(getClass().getResource("SelectionUI.fxml"));
@@ -62,7 +62,7 @@ public class CentriVaccinali {
 
 
     public static void main(String[] args){
-
+        new CentriVaccinali();
     }
 
 }
