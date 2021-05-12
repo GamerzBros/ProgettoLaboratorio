@@ -1,17 +1,12 @@
 package centrivaccinali;
-import cittadini.Cittadini;
+
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import javafx.application.Application;
-
-import java.awt.*;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
@@ -47,11 +42,17 @@ public class CentriVaccinali extends Application {
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = getClass().getResource("SelectionUI.fxml");
         loader.setLocation(xmlUrl);
+
         Parent root = loader.load();
-        stage.setScene(new Scene(root));
+
+        scene=new Scene(root);
+
+        stage.setScene(scene);
         stage.setTitle("Pagina iniziale");
+
         InputStream icon = getClass().getResourceAsStream("fiorellino.png");
         Image image = new Image(icon);
+
         stage.getIcons().add(image);
         stage.show();
 
@@ -84,18 +85,6 @@ public class CentriVaccinali extends Application {
 
     public void onCittadiniSelected() throws Exception{
        // new Cittadini();
-        FXMLLoader loader = new FXMLLoader();
-        URL xmlUrl = getClass().getResource("login.fxml");
-        loader.setLocation(xmlUrl);
-
-        Parent root = loader.load();
-
-        scene=new Scene(root);
-
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setTitle("login");
-        stage.show();
     }
 
     public void onCentrivaccinaliHoverOn(){
