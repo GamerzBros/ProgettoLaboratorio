@@ -35,8 +35,8 @@ public class CentriVaccinali extends Application {
         stage.setScene(scene);
         stage.setTitle("Pagina iniziale");
 
-        cittadiniShadow=(Rectangle)scene.lookup("cittadiniShadow");
-        centriVaccinaliShadow=(Rectangle)scene.lookup("centriVaccinaliShadow");
+        cittadiniShadow=(Rectangle)scene.lookup("#cittadiniShadow");
+        centriVaccinaliShadow=(Rectangle)scene.lookup("#centriVaccinaliShadow");
 
         InputStream icon = getClass().getResourceAsStream("fiorellino.png");
         Image image = new Image(icon);
