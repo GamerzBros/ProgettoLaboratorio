@@ -79,7 +79,7 @@ public class CentriVaccinali extends Application {
     }
 
     public void onCentriVaccinaliSelected() throws Exception{
-        //new CentriVaccinaliUI();
+        new CentriVaccinaliUI();
 
     }
 
@@ -94,7 +94,7 @@ public class CentriVaccinali extends Application {
         scene.lookup("centriVaccinaliShadow").setVisible(false);
     }
     public void onCittadiniHoverOn() {
-        scene.lookup("centriVaccinaliittadini").setVisible(true);
+        scene.lookup("cittadiniShadow").setVisible(true);
     }
     public void onCittadiniHoverOff(){
         scene.lookup("cittadiniShadow").setVisible(false);
