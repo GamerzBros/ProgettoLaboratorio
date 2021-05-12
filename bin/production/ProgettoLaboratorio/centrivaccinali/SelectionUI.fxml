@@ -23,10 +23,5 @@
          <effect>
             <DropShadow />
          </effect></Button>
-      <TextArea editable="false" layoutX="89.0" layoutY="5.0" prefHeight="166.0" prefWidth="415.0" rotate="355.0" style="-fx-border-color: transaprent; -fx-background-color: transparent;" text="Scegli il portale a cui accedere" visible="false" wrapText="true">
-         <font>
-            <Font size="48.0" />
-         </font>
-      </TextArea>
    </children>
 </AnchorPane>
