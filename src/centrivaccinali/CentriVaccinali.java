@@ -91,10 +91,20 @@ public class CentriVaccinali extends Application {
     }
 
     public void onCentrivaccinaliHoverOn(Event event){
-        scene.lookup("#centriVaccinaliShadow").setVisible(true);
+        if(scene==null){
+            System.out.println("scena nulla");
+        }
+        else {
+            scene.lookup("#centriVaccinaliShadow").setVisible(true);
+        }
     }
     public void onCentriVaccinaliHoverOff(Event event){
-        scene.lookup("#centriVaccinaliShadow").setVisible(false);
+        if(scene==null){
+            System.out.println("scena nulla");
+        }
+        else {
+            scene.lookup("#centriVaccinaliShadow").setVisible(false);
+        }
     }
     public void onCittadiniHoverOn() {
         scene.lookup("cittadiniShadow").setVisible(true);
