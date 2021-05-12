@@ -1,13 +1,12 @@
 package centrivaccinali;
 
 
-import javafx.event.Event;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.application.Application;
 import java.io.InputStream;
@@ -16,27 +15,10 @@ import java.net.URL;
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
 public class CentriVaccinali extends Application {
     private Scene scene;
+    private Rectangle cittadiniShadow;
+    private Rectangle centriVaccinaliShadow;
 
     public CentriVaccinali(){
-       /* try {
-            Parent root=FXMLLoader.load(getClass().getResource("SelectionUI.fxml"));
-
-            Scene scene=new Scene(root);
-
-            Stage stage=new Stage();
-            
-
-            stage.setTitle("Seleziona il modulo");
-            stage.setScene(scene);
-            stage.show();
-
-            //scene.lookup();  per prendere un elemento grafico dato il suo ID
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        */
 
     }
 
@@ -53,13 +35,13 @@ public class CentriVaccinali extends Application {
         stage.setScene(scene);
         stage.setTitle("Pagina iniziale");
 
+        cittadiniShadow=(Rectangle)scene.lookup("cittadiniShadow");
+        centriVaccinaliShadow=(Rectangle)scene.lookup("centriVaccinaliShadow");
+
         InputStream icon = getClass().getResourceAsStream("fiorellino.png");
         Image image = new Image(icon);
 
         stage.getIcons().add(image);
-
-        scene=stage.getScene();
-
         stage.show();
 
     }
@@ -94,16 +76,20 @@ public class CentriVaccinali extends Application {
     }
 
     public void onCentrivaccinaliHoverOn(){
-        scene.lookup("centriVaccinaliShadow").setVisible(true);
+        //scene.lookup("centriVaccinaliShadow").setVisible(true);
+        centriVaccinaliShadow.setVisible(true);
     }
     public void onCentriVaccinaliHoverOff(){
-        scene.lookup("centriVaccinaliShadow").setVisible(false);
+        //scene.lookup("centriVaccinaliShadow").setVisible(false);
+        centriVaccinaliShadow.setVisible(false);
     }
     public void onCittadiniHoverOn() {
-        scene.lookup("cittadiniShadow").setVisible(true);
+        //scene.lookup("cittadiniShadow").setVisible(true);
+        cittadiniShadow.setVisible(true);
     }
     public void onCittadiniHoverOff(){
-        scene.lookup("cittadiniShadow").setVisible(false);
+        //scene.lookup("cittadiniShadow").setVisible(false);
+        cittadiniShadow.setVisible(false);
     }
 
 
