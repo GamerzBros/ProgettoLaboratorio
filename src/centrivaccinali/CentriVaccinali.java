@@ -2,9 +2,11 @@ package centrivaccinali;
 
 
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -75,11 +77,13 @@ public class CentriVaccinali extends Application {
        // new Cittadini();
     }
 
-    public void onCentrivaccinaliHoverOn(){
+    public void onCentrivaccinaliHoverOn(ActionEvent e){
+        System.out.println(((Button)e.getSource()).getId());
         //scene.lookup("centriVaccinaliShadow").setVisible(true);
         centriVaccinaliShadow.setVisible(true);
     }
-    public void onCentriVaccinaliHoverOff(){
+    public void onCentriVaccinaliHoverOff(ActionEvent e){
+        System.out.println(((Button)e.getSource()).getId());
         //scene.lookup("centriVaccinaliShadow").setVisible(false);
         centriVaccinaliShadow.setVisible(false);
     }
