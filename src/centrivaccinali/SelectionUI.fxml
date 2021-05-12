@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.CentriVaccinali">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.CentriVaccinali">
    <children>
-      <Button fx:id="btn_centriVaccinali" layoutX="111.0" layoutY="181.0" mnemonicParsing="false" onAction="#onCentriVaccinaliSelected" prefHeight="66.0" prefWidth="73.0" text="Centri Vaccinali" />
-      <Button fx:id="btn_cittadini" layoutX="404.0" layoutY="181.0" mnemonicParsing="false" onAction="#onCittadiniSelected" prefHeight="66.0" prefWidth="73.0" text="Cittadini" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff0505" height="400.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="259.0" />
+      <Polygon fill="#ff0505" layoutX="308.0" layoutY="129.0" points="-50.0, 271.0, 292.0, 271.0, -50.0, -129.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+      <Rectangle fx:id="centriVaccinaliShadow" arcHeight="5.0" arcWidth="5.0" height="58.0" layoutX="81.0" layoutY="182.0" rotate="353.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="162.0" />
+      <Rectangle fx:id="cittadiniShadow" arcHeight="5.0" arcWidth="5.0" height="58.0" layoutX="364.0" layoutY="180.0" rotate="355.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="164.0" />
+      <Button fx:id="btn_cittadini" layoutX="373.0" layoutY="181.0" mnemonicParsing="false" onAction="#onCittadiniSelected" onMouseEntered="#onCittadiniHoverOn" onMouseExited="#onCittadiniHoverOff" prefHeight="50.0" prefWidth="142.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #000000; -fx-border-width: 3;" text="Cittadini" textAlignment="CENTER">
+         <font>
+            <Font name="Franklin Gothic Medium" size="17.0" />
+         </font></Button>
+      <Button fx:id="btn_centriVaccinali" layoutX="89.0" layoutY="181.0" mnemonicParsing="false" onAction="#onCentriVaccinaliSelected" onMouseEntered="#onCentriVaccinaliHoverOff" onMouseExited="#onCentrivaccinaliHoverOn" prefHeight="50.0" prefWidth="148.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #000000; -fx-border-width: 3;" text="Centri Vaccinali" textAlignment="CENTER">
+         <font>
+            <Font name="Franklin Gothic Medium" size="17.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect></Button>
    </children>
 </AnchorPane>

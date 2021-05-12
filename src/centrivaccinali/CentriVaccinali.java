@@ -5,16 +5,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import javafx.application.Application;
 
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
 public class CentriVaccinali extends Application {
-
+    private Scene scene;
 
     public CentriVaccinali(){
        /* try {
@@ -84,11 +87,28 @@ public class CentriVaccinali extends Application {
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = getClass().getResource("login.fxml");
         loader.setLocation(xmlUrl);
+
         Parent root = loader.load();
+
+        scene=new Scene(root);
+
         Stage stage = new Stage();
-        stage.setScene(new Scene(root));
+        stage.setScene(scene);
         stage.setTitle("login");
         stage.show();
+    }
+
+    public void onCentrivaccinaliHoverOn(){
+        scene.lookup("centriVaccinaliShadow").setVisible(true);
+    }
+    public void onCentriVaccinaliHoverOff(){
+        scene.lookup("centriVaccinaliShadow").setVisible(false);
+    }
+    public void onCittadiniHoverOn() {
+        scene.lookup("centriVaccinaliittadini").setVisible(true);
+    }
+    public void onCittadiniHoverOff(){
+        scene.lookup("cittadiniShadow").setVisible(false);
     }
 
 
