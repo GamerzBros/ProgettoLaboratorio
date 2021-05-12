@@ -16,7 +16,7 @@
          <font>
             <Font name="Franklin Gothic Medium" size="17.0" />
          </font></Button>
-      <Button fx:id="btn_centriVaccinali" layoutX="89.0" layoutY="181.0" mnemonicParsing="false" onAction="#onCentriVaccinaliSelected" onMouseEntered="#onCentrivaccinaliHoverOn" onMouseExited="#onCentriVaccinaliHoverOff" prefHeight="50.0" prefWidth="148.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #000000; -fx-border-width: 3;" text="Centri Vaccinali" textAlignment="CENTER">
+      <Button id="btn_centriVaccinali" layoutX="89.0" layoutY="181.0" mnemonicParsing="false" onAction="#onCentriVaccinaliSelected" onMouseEntered="#onCentrivaccinaliHoverOn" onMouseExited="#onCentriVaccinaliHoverOff" prefHeight="50.0" prefWidth="148.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #000000; -fx-border-width: 3;" text="Centri Vaccinali" textAlignment="CENTER">
          <font>
             <Font name="Franklin Gothic Medium" size="17.0" />
          </font>
