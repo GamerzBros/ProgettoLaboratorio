@@ -11,13 +11,13 @@ import javafx.stage.Stage;
 import javafx.application.Application;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.net.URL;
 
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
-public class CentriVaccinali extends Application {
+public class
+CentriVaccinali extends Application {
 
 
     public CentriVaccinali(){
@@ -58,8 +58,17 @@ public class CentriVaccinali extends Application {
 
     }
 
-    public void registraCentroVaccinale(SingoloCentroVaccinale centroVaccinale){ //metodo per registrare i centri
-
+    public void registraCentroVaccinale(SingoloCentroVaccinale centroVaccinale)throws Exception{ //metodo per registrare i centri //TODO mettere il try catch al posto del throws
+        String nome = centroVaccinale.getNome();
+        String indirizzo = centroVaccinale.getIndirizzo();
+        String tipologia = centroVaccinale.getTipologia();
+        FileWriter writer = new FileWriter("data/CentriVaccinali.txt",true);
+        BufferedWriter out = new BufferedWriter(writer);
+        String fileInput =nome+";"+indirizzo+";"+tipologia;
+        out.write(fileInput);
+        out.newLine();
+        out.flush();
+        out.close();
     }
 
     public void cercaCentroVaccinale(String nomeCentroVaccinale){
@@ -118,11 +127,13 @@ public class CentriVaccinali extends Application {
 
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception {
 
         new CentriVaccinali();
-
+        CentriVaccinali supercentro = new CentriVaccinali();
         Application.launch();
+
+
     }
 
 }

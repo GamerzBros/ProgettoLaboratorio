@@ -1,10 +1,14 @@
 package centrivaccinali;
+
+import java.util.Date;
+
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
-public class SingoloCentroVaccinale {
+public class
+SingoloCentroVaccinale {
     //TODO Definire gli attributi dei Centri vaccinali
     private String nome;
     private String indirizzo;
-    private String tipologia;
+    private String tipologia; //TODO creare un enum per la tipologia di centro vaccinale (ospedaliero,aziendale,hub)
 
     public SingoloCentroVaccinale(String nome, String indirizzo, String tipologia) {
         this.nome = nome;
