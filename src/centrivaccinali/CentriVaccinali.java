@@ -127,9 +127,9 @@ CentriVaccinali extends Application {
     public void onLoginClicked() throws Exception{ //TODO TRY CATCH
         String user = user_txtfield.getText();
         String pwd = user_password.getText();
-        String user_temp;
+        String user_temp; //questi temp sono i "candidati" user e psw presi dal reader dal file
         String pwd_temp;
-        String[] parts;
+        String[] parts;//contenitore per il metodo split
         File file = new File("data/Cittadini_Registrati.dati.txt");
         Scanner reader = new Scanner(file);
         while (reader.hasNextLine()){
@@ -138,7 +138,7 @@ CentriVaccinali extends Application {
             user_temp=parts[0];
             pwd_temp=parts[1];
             if(user_temp.equals(user) && pwd_temp.equals(pwd)){
-                System.out.println("nice");  //in qualche modo qui caricherà la nuova interface, vai pole divertiti
+                System.out.println("LOGGATO");  //in qualche modo qui caricherà la nuova interface, vai pole divertiti
             }
         }
     }
