@@ -10,10 +10,9 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.application.Application;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
+import java.util.Scanner;
 
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
 public class
@@ -123,14 +122,30 @@ CentriVaccinali extends Application {
 
     }
 
-    public void onLoginClicked() throws Exception{
 
+
+    public void onLoginClicked() throws Exception{ //TODO TRY CATCH
+        String user = user_txtfield.getText();
+        String pwd = user_password.getText();
+        String user_temp;
+        String pwd_temp;
+        String[] parts;
+        File file = new File("data/Cittadini_Registrati.dati.txt");
+        Scanner reader = new Scanner(file);
+        while (reader.hasNextLine()){
+            String line = reader.nextLine();
+            parts = line.split(";");
+            user_temp=parts[0];
+            pwd_temp=parts[1];
+            if(user_temp.equals(user) && pwd_temp.equals(pwd)){
+                System.out.println("nice");  //in qualche modo qui caricherà la nuova interface, vai pole divertiti
+            }
+        }
     }
 
     public static void main(String[] args) throws Exception {
 
         new CentriVaccinali();
-        CentriVaccinali supercentro = new CentriVaccinali();
         Application.launch();
 
 
