@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.application.Application;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStream;
@@ -101,13 +102,19 @@ public class CentriVaccinali extends Application {
     private PasswordField user_password;
 
 
-    public void onLoginClicked() throws Exception{ //TODO FAR ANDARE A CAPO QUANDO SCRIVE
+    public void onRegisterClicked() throws Exception{ //TODO FAR ANDARE A CAPO QUANDO SCRIVE
         String pwd = user_password.getText();
         String user = user_txtfield.getText();
-        FileWriter writer = new FileWriter("data/Cittadini_Registrati.dati.txt");
+        FileWriter writer = new FileWriter("data/Cittadini_Registrati.dati.txt",true);
+        BufferedWriter out = new BufferedWriter(writer);
         String scrivi = user+";"+pwd;
-        writer.write(scrivi);
-        writer.close();
+        out.write(scrivi);
+        out.newLine();
+        out.close();
+
+    }
+
+    public void onLoginClicked() throws Exception{
 
     }
 

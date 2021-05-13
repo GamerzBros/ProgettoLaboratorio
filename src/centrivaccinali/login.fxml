@@ -22,8 +22,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <Button fx:id="user_login_button" layoutX="274.0" layoutY="295.0" mnemonicParsing="false" onAction="#onLoginClicked" text="Login" />
+      <Button fx:id="user_login_button" layoutX="197.0" layoutY="295.0" mnemonicParsing="false" onAction="#onLoginClicked" text="Login" />
+      <Button fx:id="register_button" layoutX="371.0" layoutY="295.0" mnemonicParsing="false" onAction="#onRegisterClicked" text="Register" />
    </children>
 </AnchorPane>
-
-
