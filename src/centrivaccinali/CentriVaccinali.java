@@ -141,7 +141,7 @@ CentriVaccinali extends Application {
                 if(user_temp.equals(user) && pwd_temp.equals(pwd)){
                     System.out.println("LOGGATO");  //in qualche modo qui caricherà la nuova interface, vai pole divertiti
                 }else{
-                    System.out.println("User inesistente, premere sul tasto 'register'");
+                    System.out.println("User inesistente, premere sul tasto 'register'");//popup magari (?)
                 }
             }
         }else{
