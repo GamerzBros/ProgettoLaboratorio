@@ -130,16 +130,22 @@ CentriVaccinali extends Application {
         String user_temp; //questi temp sono i "candidati" user e psw presi dal reader dal file
         String pwd_temp;
         String[] parts;//contenitore per il metodo split
-        File file = new File("data/Cittadini_Registrati.dati.txt");
-        Scanner reader = new Scanner(file);
-        while (reader.hasNextLine()){
-            String line = reader.nextLine();
-            parts = line.split(";");
-            user_temp=parts[0];
-            pwd_temp=parts[1];
-            if(user_temp.equals(user) && pwd_temp.equals(pwd)){
-                System.out.println("LOGGATO");  //in qualche modo qui caricherà la nuova interface, vai pole divertiti
+        if(!user.equals("") && !pwd.equals("")){
+            File file = new File("data/Cittadini_Registrati.dati.txt");
+            Scanner reader = new Scanner(file);
+            while (reader.hasNextLine()){
+                String line = reader.nextLine();
+                parts = line.split(";");
+                user_temp=parts[0];
+                pwd_temp=parts[1];
+                if(user_temp.equals(user) && pwd_temp.equals(pwd)){
+                    System.out.println("LOGGATO");  //in qualche modo qui caricherà la nuova interface, vai pole divertiti
+                }else{
+                    System.out.println("User inesistente, premere sul tasto 'register'");
+                }
             }
+        }else{
+            System.out.println("Inserire dei dati");
         }
     }
 
