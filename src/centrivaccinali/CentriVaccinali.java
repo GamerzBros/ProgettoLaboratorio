@@ -17,7 +17,8 @@ import java.util.Scanner;
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
 public class
 CentriVaccinali extends Application {
-
+    public static final String PATH_TO_CENTRIVACCINALI="data/CentriVaccinali.txt";
+    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI="data/Cittadini_Registrati.dati.txt";
 
     public CentriVaccinali(){
        /* try {
@@ -61,7 +62,7 @@ CentriVaccinali extends Application {
         String nome = centroVaccinale.getNome();
         String indirizzo = centroVaccinale.getIndirizzo();
         String tipologia = centroVaccinale.getTipologia();
-        FileWriter writer = new FileWriter("data/CentriVaccinali.txt",true);
+        FileWriter writer = new FileWriter(PATH_TO_CENTRIVACCINALI,true);
         BufferedWriter out = new BufferedWriter(writer);
         String fileInput =nome+";"+indirizzo+";"+tipologia;
         out.write(fileInput);
@@ -70,15 +71,37 @@ CentriVaccinali extends Application {
         out.close();
     }
 
-    public void cercaCentroVaccinale(String nomeCentroVaccinale){
+    public void cercaCentroVaccinale(String nomeCentroVaccinale)throws FileNotFoundException{ //Ricerca centro per nome, ogni centro che contiene quella "parte" di nome, viene visualizzato
+        File file = new File(PATH_TO_CENTRIVACCINALI);
+        Scanner reader = new Scanner(file);
+        String[] parts;
+        while(reader.hasNext()){
+            String line = reader.nextLine();
+            parts = line.split(";");
+            if(parts[0].contains(nomeCentroVaccinale)){
+                System.out.println("Centri trovati:"+parts[0]);
+            }else{
+                System.out.println("Il centro potrebbe non esistere");
+            }
+        }
+        reader.close();
+        /*parts = line.split(";");
+        if(parts[0].contains(nomeCentroVaccinale)){
+            System.out.println("Centro trovato");
+        }else{
+            System.out.println("Il centro potrebbe non esistere");
+        }
+        reader.close();
+
+         */
+    }
+
+    public void cercaCentroVaccinale(String comune, String tipologia) throws FileNotFoundException{  //TODO rivedere i tipi dei parametri e try catch
 
     }
 
-    public void cercaCentroVaccinale(String comune, String tipologia){  //TODO rivedere i tipi dei parametri
-
-    }
-
-    public void visualizzaInfoCentroVaccinale(){
+    public void visualizzaInfoCentroVaccinale(SingoloCentroVaccinale centroVaccinale){
+        System.out.println(centroVaccinale.toString());
 
     }
 
@@ -113,7 +136,7 @@ CentriVaccinali extends Application {
     public void onRegisterClicked() throws Exception{ //TODO FAR ANDARE A CAPO QUANDO SCRIVE
         String pwd = user_password.getText();
         String user = user_txtfield.getText();
-        FileWriter writer = new FileWriter("data/Cittadini_Registrati.dati.txt",true);
+        FileWriter writer = new FileWriter(PATH_TO_CITTADINI_REGISTRATI_DATI,true);
         BufferedWriter out = new BufferedWriter(writer);
         String scrivi = user+";"+pwd;
         out.write(scrivi);
@@ -131,7 +154,7 @@ CentriVaccinali extends Application {
         String pwd_temp;
         String[] parts;//contenitore per il metodo split
         if(!user.equals("") && !pwd.equals("")){
-            File file = new File("data/Cittadini_Registrati.dati.txt");
+            File file = new File(PATH_TO_CITTADINI_REGISTRATI_DATI);
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()){
                 String line = reader.nextLine();
@@ -151,7 +174,9 @@ CentriVaccinali extends Application {
 
     public static void main(String[] args) throws Exception {
 
-        new CentriVaccinali();
+         CentriVaccinali c = new CentriVaccinali();
+         c.cercaCentroVaccinale("Nome");
+
         Application.launch();
 
 
