@@ -14,6 +14,12 @@ import javafx.stage.Stage;
 import javafx.application.Application;
 import java.io.InputStream;
 import java.net.URL;
+<<<<<<< Updated upstream
+=======
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.util.Scanner;
+>>>>>>> Stashed changes
 
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
 public class CentriVaccinali extends Application {
@@ -79,9 +85,36 @@ public class CentriVaccinali extends Application {
        // new Cittadini();
     }
 
+<<<<<<< Updated upstream
     public void onCentrivaccinaliHoverOn(){
         //scene.lookup("centriVaccinaliShadow").setVisible(true);
         centriVaccinaliShadow.setVisible(true);
+=======
+
+    @FXML
+    private TextField user_txtfield;
+    @FXML
+    private PasswordField user_password;
+
+
+    public void onRegisterClicked() throws Exception{ //TODO FAR ANDARE A CAPO QUANDO SCRIVE
+        String pwd = user_password.getText();
+        String user = user_txtfield.getText();
+
+        //Hashing della password per renderla one-way
+        MessageDigest messageDigest=MessageDigest.getInstance("SHA-256");
+        pwd=new String(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8))); //TODO controlalre che questo controllore sia giusto. sul web dicono che non funzioni correttamente
+
+
+
+        FileWriter writer = new FileWriter(PATH_TO_CITTADINI_REGISTRATI_DATI,true);
+        BufferedWriter out = new BufferedWriter(writer);
+        String scrivi = user+";"+pwd;
+        out.write(scrivi);
+        out.newLine();
+        out.close();
+
+>>>>>>> Stashed changes
     }
     public void onCentriVaccinaliHoverOff(){
         //scene.lookup("centriVaccinaliShadow").setVisible(false);
