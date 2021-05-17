@@ -4,7 +4,6 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.CentriVaccinali">
    <children>
       <AnchorPane layoutX="197.0" layoutY="66.0" prefHeight="200.0" prefWidth="200.0">
@@ -14,8 +13,8 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <PasswordField layoutX="26.0" layoutY="137.0" />
-            <TextField layoutX="26.0" layoutY="59.0" />
+            <PasswordField fx:id="user_password" layoutX="26.0" layoutY="137.0" />
+            <TextField fx:id="user_txtfield" layoutX="26.0" layoutY="59.0" />
             <Label layoutX="78.0" layoutY="24.0" prefHeight="17.0" prefWidth="44.0" text="User">
                <font>
                   <Font size="15.0" />
@@ -23,6 +22,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <Button layoutX="274.0" layoutY="295.0" mnemonicParsing="false" text="Login" />
+      <Button fx:id="user_login_button" layoutX="197.0" layoutY="295.0" mnemonicParsing="false" onAction="#onLoginClicked" text="Login" />
+      <Button fx:id="register_button" layoutX="371.0" layoutY="295.0" mnemonicParsing="false" onAction="#onRegisterClicked" text="Register" />
    </children>
 </AnchorPane>
