@@ -12,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.application.Application;
+
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.io.*;
@@ -133,7 +135,7 @@ public class CentriVaccinali extends Application {
 
         //Hashing della password per renderla one-way
         MessageDigest messageDigest=MessageDigest.getInstance("SHA-256");
-        pwd=new String(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8))); //TODO controlalre che questo controllore sia giusto. sul web dicono che non funzioni correttamente
+        pwd=String.format("%064x",new BigInteger(1,messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8))));
 
 
 
@@ -176,7 +178,7 @@ public class CentriVaccinali extends Application {
                 pwd_temp=parts[1];
 
                 MessageDigest messageDigest=MessageDigest.getInstance("SHA-256");
-                pwd_temp=new String(messageDigest.digest(pwd_temp.getBytes(StandardCharsets.UTF_8)));
+                pwd_temp=String.format("%064x",new BigInteger(1,messageDigest.digest(pwd_temp.getBytes(StandardCharsets.UTF_8))));
 
                 if(user_temp.equals(user) && pwd_temp.equals(pwd)){
                     System.out.println("LOGGATO");  //in qualche modo qui caricherà la nuova interface, vai pole divertiti
