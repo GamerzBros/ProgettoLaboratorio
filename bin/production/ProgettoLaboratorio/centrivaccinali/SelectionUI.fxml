@@ -21,33 +21,33 @@
                   </Stop>
                   <Stop offset="1.0">
                      <color>
-                        <Color red="0.09868421405553818" green="0.49013158679008484" blue="0.7894737124443054" />
+                        <Color red="0.09803921729326248" green="0.4901960790157318" blue="0.7882353067398071" />
                      </color>
                   </Stop>
                </stops>
             </RadialGradient>
          </fill></Rectangle>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="660.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
-      <Button fx:id="btn_cittadini" layoutX="70.0" layoutY="450.0" mnemonicParsing="false" onAction="#onCittadiniSelected" onMouseEntered="#onCittadiniHoverOn" onMouseExited="#onCittadiniHoverOff" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Cittadini" textAlignment="CENTER">
+      <Button fx:id="btn_cittadini" layoutX="70.0" layoutY="450.0" mnemonicParsing="false" onAction="#onCittadiniSelected" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Cittadini" textAlignment="CENTER">
          <font>
             <Font name="Franklin Gothic Medium" size="17.0" />
          </font>
          <effect>
             <DropShadow />
          </effect></Button>
-      <Button fx:id="btn_centriVaccinali" layoutX="330.0" layoutY="450.0" mnemonicParsing="false" onAction="#onCentriVaccinaliSelected" onMouseEntered="#onCentrivaccinaliHoverOn" onMouseExited="#onCentriVaccinaliHoverOff" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Centri Vaccinali" textAlignment="CENTER">
+      <Button fx:id="btn_centriVaccinali" layoutX="330.0" layoutY="450.0" mnemonicParsing="false" onAction="#onCentriVaccinaliSelected" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Centri Vaccinali" textAlignment="CENTER">
          <font>
             <Font name="Franklin Gothic Medium" size="17.0" />
          </font>
          <effect>
             <DropShadow />
          </effect></Button>
-      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="72.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="72.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@stickman%20png.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="200.0" fitWidth="168.0" layoutX="323.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="200.0" fitWidth="168.0" layoutX="323.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@vaccinali%20png.png" />
          </image></ImageView>

@@ -2,3 +2,5 @@
 .idea/libraries/lib.xml
 ProgettoLaboratorio.iml
 ProgettoLaboratorio.iml
+*.class
+*.class

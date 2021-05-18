@@ -11,7 +11,7 @@
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="700.0" stroke="BLACK" strokeType="INSIDE" width="550.0">
          <fill>
-            <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" radius="0.5">
+            <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" radius="0.74">
                <stops>
                   <Stop>
                      <color>
@@ -20,7 +20,7 @@
                   </Stop>
                   <Stop offset="1.0">
                      <color>
-                        <Color red="0.34117648005485535" green="0.658823549747467" blue="0.9215686321258545" />
+                        <Color red="0.09803921729326248" green="0.4901960790157318" blue="0.7882353067398071" />
                      </color>
                   </Stop>
                </stops>
@@ -34,8 +34,8 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <PasswordField layoutX="26.0" layoutY="138.0" />
-            <TextField layoutX="26.0" layoutY="59.0" />
+            <PasswordField fx:id="user_password" layoutX="26.0" layoutY="138.0" />
+            <TextField fx:id="user_txtfield" layoutX="26.0" layoutY="59.0" />
             <Label layoutX="40.0" layoutY="24.0" prefHeight="35.0" prefWidth="121.0" text="Username:">
                <font>
                   <Font size="24.0" />
@@ -43,7 +43,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <Button layoutX="230.0" layoutY="480.0" mnemonicParsing="false" text="Login">
+      <Button fx:id="login_button" layoutX="230.0" layoutY="480.0" mnemonicParsing="false" onAction="#onLoginClicked" text="Login">
          <font>
             <Font size="24.0" />
          </font></Button>
