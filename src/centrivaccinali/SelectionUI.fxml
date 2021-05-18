@@ -2,26 +2,54 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.CentriVaccinali">
+<AnchorPane fx:id="anchorPane" prefHeight="700.0" prefWidth="550.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.CentriVaccinali">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff0505" height="400.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="259.0" />
-      <Polygon fill="#ff0505" layoutX="308.0" layoutY="129.0" points="-50.0, 271.0, 292.0, 271.0, -50.0, -129.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
-      <Rectangle fx:id="centriVaccinaliShadow" arcHeight="5.0" arcWidth="5.0" height="58.0" layoutX="81.0" layoutY="182.0" rotate="353.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="162.0" />
-      <Rectangle fx:id="cittadiniShadow" arcHeight="5.0" arcWidth="5.0" height="58.0" layoutX="364.0" layoutY="180.0" rotate="355.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="164.0" />
-      <Button fx:id="btn_cittadini" layoutX="373.0" layoutY="181.0" mnemonicParsing="false" onAction="#onCittadiniSelected" onMouseEntered="#onCittadiniHoverOn" onMouseExited="#onCittadiniHoverOff" prefHeight="50.0" prefWidth="142.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #000000; -fx-border-width: 3;" text="Cittadini" textAlignment="CENTER">
-         <font>
-            <Font name="Franklin Gothic Medium" size="17.0" />
-         </font></Button>
-      <Button fx:id="btn_centriVaccinali" layoutX="89.0" layoutY="181.0" mnemonicParsing="false" onAction="#onCentriVaccinaliSelected" onMouseEntered="#onCentrivaccinaliHoverOn" onMouseExited="#onCentriVaccinaliHoverOff" prefHeight="50.0" prefWidth="148.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #000000; -fx-border-width: 3;" text="Centri Vaccinali" textAlignment="CENTER">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="700.0" stroke="BLACK" strokeType="INSIDE" width="550.0">
+         <fill>
+            <RadialGradient centerX="0.4888888888888889" centerY="0.5142857142857142" cycleMethod="REFLECT" radius="0.744186046511628">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.09803921729326248" green="0.4901960790157318" blue="0.7882353067398071" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill></Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="660.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
+      <Button fx:id="btn_cittadini" layoutX="70.0" layoutY="450.0" mnemonicParsing="false" onAction="#onCittadiniSelected" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Cittadini" textAlignment="CENTER">
          <font>
             <Font name="Franklin Gothic Medium" size="17.0" />
          </font>
          <effect>
             <DropShadow />
          </effect></Button>
+      <Button fx:id="btn_centriVaccinali" layoutX="330.0" layoutY="450.0" mnemonicParsing="false" onAction="#onCentriVaccinaliSelected" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Centri Vaccinali" textAlignment="CENTER">
+         <font>
+            <Font name="Franklin Gothic Medium" size="17.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect></Button>
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="72.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@stickman%20png.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="200.0" fitWidth="168.0" layoutX="323.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@vaccinali%20png.png" />
+         </image></ImageView>
    </children>
 </AnchorPane>
