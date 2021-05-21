@@ -55,17 +55,21 @@ public class CentriVaccinali extends Application {
     }
 
 
-    public void registraCentroVaccinale(SingoloCentroVaccinale centroVaccinale)throws Exception { //metodo per registrare i centri //TODO mettere il try catch al posto del throws
+    public void registraCentroVaccinale(SingoloCentroVaccinale centroVaccinale){ //metodo per registrare i centri
         String nome = centroVaccinale.getNome();
         String indirizzo = centroVaccinale.getIndirizzo();
         String tipologia = centroVaccinale.getTipologia();
-        FileWriter writer = new FileWriter(PATH_TO_CENTRIVACCINALI, true);
-        BufferedWriter out = new BufferedWriter(writer);
-        String fileInput = nome + ";" + indirizzo + ";" + tipologia;
-        out.write(fileInput);
-        out.newLine();
-        out.flush();
-        out.close();
+        try{
+            FileWriter writer = new FileWriter(PATH_TO_CENTRIVACCINALI, true);
+            BufferedWriter out = new BufferedWriter(writer);
+            String fileInput = nome + ";" + indirizzo + ";" + tipologia;
+            out.write(fileInput);
+            out.newLine();
+            out.flush();
+            out.close();
+        }catch(IOException e){
+            System.out.println("\"File inesistente o non trovato\"");
+        }
     }
 
     @Override
@@ -73,20 +77,21 @@ public class CentriVaccinali extends Application {
         super.stop();
     }
 
-    public void cercaCentroVaccinale(String nomeCentroVaccinale)throws FileNotFoundException{ //Ricerca centro per nome, ogni centro che contiene quella "parte" di nome, viene visualizzato
-        File file = new File(PATH_TO_CENTRIVACCINALI);
-        Scanner reader = new Scanner(file);
-        String[] parts;
-        while(reader.hasNext()){
-            String line = reader.nextLine();
-            parts = line.split(";");
-            if(parts[0].contains(nomeCentroVaccinale)){
-                System.out.println("Centri trovati:"+parts[0]);
-            }else{
-                System.out.println("Il centro potrebbe non esistere");
+    public void cercaCentroVaccinale(String nomeCentroVaccinale){ //Ricerca centro per nome, ogni centro che contiene quella "parte" di nome, viene visualizzato
+        try{
+            File file = new File(PATH_TO_CENTRIVACCINALI);
+            Scanner reader = new Scanner(file);
+            String[] parts;
+            while(reader.hasNext()){
+                String line = reader.nextLine();
+                parts = line.split(";");
+                if(parts[0].contains(nomeCentroVaccinale)){
+                    System.out.println("Centri trovati:"+parts[0]);
+                }else{
+                    System.out.println("Il centro potrebbe non esistere");
+                }
             }
-        }
-        reader.close();
+            reader.close();
         /*parts = line.split(";");
         if(parts[0].contains(nomeCentroVaccinale)){
             System.out.println("Centro trovato");
@@ -96,6 +101,9 @@ public class CentriVaccinali extends Application {
         reader.close();
 
          */
+        }catch (FileNotFoundException fe) {
+            fe.printStackTrace();
+        }
     }
 
     public void cercaCentroVaccinale(String comune, String tipologia) throws FileNotFoundException{  //TODO rivedere i tipi dei parametri e try catch
@@ -131,11 +139,18 @@ public class CentriVaccinali extends Application {
         String pwd = user_password.getText();
         String user = user_txtfield.getText();
 
-        //Hashing della password per renderla one-way
+        /*Hashing della password per renderla one-way
         MessageDigest messageDigest=MessageDigest.getInstance("SHA-256");
-        pwd=new String(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8))); //TODO controlalre che questo controllore sia giusto. sul web dicono che non funzioni correttamente
+        pwd=new String(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8)));*/ //TODO controlalre che questo controllore sia giusto. sul web dicono che non funzioni correttamente
 
-
+        try{
+            MessageDigest messageDigest=MessageDigest.getInstance("SHA-256");
+            byte[] hash = messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8));
+            pwd = toHexString(hash);
+            System.out.println(pwd);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
 
         FileWriter writer = new FileWriter(PATH_TO_CITTADINI_REGISTRATI_DATI,true);
         BufferedWriter out = new BufferedWriter(writer);
@@ -143,6 +158,19 @@ public class CentriVaccinali extends Application {
         out.write(scrivi);
         out.newLine();
         out.close();
+    }
+
+    private String toHexString(byte[] array) {
+        StringBuilder sb = new StringBuilder(array.length * 2);
+
+        for (byte b : array){
+            int value = 0xFF & b;
+            String toAppend = Integer.toHexString(value);
+
+            sb.append(toAppend);
+        }
+        sb.setLength(sb.length()-1);
+        return sb.toString();
     }
 
     public void onCentriVaccinaliHoverOff(){
@@ -158,35 +186,44 @@ public class CentriVaccinali extends Application {
         cittadiniShadow.setVisible(false);
     }
 
-
-
-    public void onLoginClicked() throws Exception{ //TODO TRY CATCH
+    public void onLoginClicked(){
         String user = user_txtfield.getText();
         String pwd = user_password.getText();
         String user_temp; //questi temp sono i "candidati" user e psw presi dal reader dal file
         String pwd_temp;
         String[] parts;//contenitore per il metodo split
-        if(!user.equals("") && !pwd.equals("")){
-            File file = new File(PATH_TO_CITTADINI_REGISTRATI_DATI);
-            Scanner reader = new Scanner(file);
-            while (reader.hasNextLine()){
-                String line = reader.nextLine();
-                parts = line.split(";");
-                user_temp=parts[0];
-                pwd_temp=parts[1];
 
-                MessageDigest messageDigest=MessageDigest.getInstance("SHA-256");
-                pwd_temp=new String(messageDigest.digest(pwd_temp.getBytes(StandardCharsets.UTF_8)));
+        try{
+            if(!user.equals("") && !pwd.equals("")){
+                File file = new File(PATH_TO_CITTADINI_REGISTRATI_DATI);
+                Scanner reader = new Scanner(file);
+                while (reader.hasNextLine()){
+                    String line = reader.nextLine();
+                    parts = line.split(";");
+                    user_temp=parts[0];
+                    pwd_temp=parts[1];
 
-                if(user_temp.equals(user) && pwd_temp.equals(pwd)){
-                    System.out.println("LOGGATO");  //in qualche modo qui caricherà la nuova interface, vai pole divertiti
-                }else{
-                    System.out.println("User inesistente, premere sul tasto 'register'");//popup magari (?)
+                    MessageDigest messageDigest=MessageDigest.getInstance("SHA-256");
+                    pwd_temp=new String(messageDigest.digest(pwd_temp.getBytes(StandardCharsets.UTF_8))); //TODO Rivedere controllore
+
+                    if(user_temp.equals(user) && pwd_temp.equals(pwd)){
+                        System.out.println("LOGGATO");  //in qualche modo qui caricherà la nuova interface, vai pole divertiti
+                    }else{
+                        System.out.println("User inesistente, premere sul tasto 'register'");//popup magari (?)
+                        /*
+                        JOptionPane.showMessageDialog(null,
+                            "User inesistente, premere sul tasto 'register'",
+                            JOptionPane.ERROR_MESSAGE);                           popup?
+                        */
+                    }
                 }
+            }else{
+                System.out.println("Inserire dei dati");
             }
-        }else{
-            System.out.println("Inserire dei dati");
+        }catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
     public static void main(String[] args) throws Exception {
