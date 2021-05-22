@@ -52,5 +52,10 @@
             <Image url="@vaccinali%20png.png" />
          </image>
       </ImageView>
+      <Button fx:id="register_botton" layoutX="236.0" layoutY="546.0" mnemonicParsing="false" style="-fx-background-color: #91ceff;" text="Registrati" textAlignment="CENTER" underline="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
