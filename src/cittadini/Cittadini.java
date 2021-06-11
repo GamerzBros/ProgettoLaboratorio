@@ -6,9 +6,7 @@ public class Cittadini {
         new CittadiniUI();
     }
 
-    public void registraVaccinato(SingoloCittadino cittadino){
 
-    }
 
     public void registraCittadino(SingoloCittadino cittadino){
 

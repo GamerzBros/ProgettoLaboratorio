@@ -13,7 +13,6 @@ public class CentriVaccinaliUI {
     private Scene scene;
 
     public CentriVaccinaliUI(){
-
         try {
             FXMLLoader loader = new FXMLLoader();
             URL xmlUrl = getClass().getResource("loginMedico.fxml");

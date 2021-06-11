@@ -1,5 +1,6 @@
 package centrivaccinali;
 
+import cittadini.SingoloCittadino;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -57,6 +58,8 @@ public class CentriVaccinali extends Application {
 
 
     public void registraCentroVaccinale(SingoloCentroVaccinale centroVaccinale)throws Exception { //metodo per registrare i centri //TODO mettere il try catch al posto del throws
+        //TODO creare per ogni centro vaccinale un file .txt dinamicamente ( crea un bel algoritmo )
+        //ESEMPIO: SE UN CENTRO VACCINALE SI CHIAMA SANGIORGIO, DOVRAI CREARE UN .TXT CHIAMATO Vaccinati_SanGiorgio.dati.txt
         String nome = centroVaccinale.getNome();
         String indirizzo = centroVaccinale.getIndirizzo();
         String tipologia = centroVaccinale.getTipologia();
@@ -194,6 +197,11 @@ public class CentriVaccinali extends Application {
         }else{
             System.out.println("Inserire dei dati");
         }
+    }
+
+    public static void registraVaccinato(SingoloCittadino cittadino){
+        //TODO chiamare questo metodo dopo registrazione (pole deve fare la sua parte)
+        //TODO  scrivere dati del cittadino nel file (Vaccinati_NomeCentroVaccinale.dati )
     }
 
     public static void main(String[] args) throws Exception {
