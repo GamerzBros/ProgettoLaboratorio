@@ -49,7 +49,7 @@
          </font></Button>
       <ImageView fitHeight="200.0" fitWidth="171.0" layoutX="193.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@vaccinali%20png.png" />
+            <Image url="@vaccinali.png" />
          </image>
       </ImageView>
       <Button fx:id="register_botton" layoutX="236.0" layoutY="546.0" mnemonicParsing="false" style="-fx-background-color: #91ceff;" text="Registrati" textAlignment="CENTER" underline="true">

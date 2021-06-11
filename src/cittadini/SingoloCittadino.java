@@ -4,7 +4,6 @@ import java.util.Date;
 
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
 public class SingoloCittadino {
-    //TODO Definire gli attributi dei cittadini
     private String nome;
     private String cognome;
     private String codice_fiscale;
@@ -67,7 +66,7 @@ public class SingoloCittadino {
     }
 
     @Override
-    public String toString() {
+    public String toString() { //TODO mettere i ; al posto di sta roba figa
         return "SingoloCittadino{" +
                 "nome='" + nome + '\'' +
                 ", cognome='" + cognome + '\'' +
