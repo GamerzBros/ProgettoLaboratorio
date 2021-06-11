@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.CentriVaccinali">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="1080.0" stroke="BLACK" strokeType="INSIDE" width="1920.0">
+         <fill>
+            <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" radius="0.74">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.09803921729326248" green="0.4901960790157318" blue="0.7882353067398071" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill></Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="1040.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="1890.0" />
+      <ImageView fitHeight="200.0" fitWidth="171.0" layoutX="193.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@vaccinali%20png%20cittadino.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="112.0" layoutY="264.0" prefHeight="35.0" prefWidth="326.0" text="Ricerca il tuo centro vaccinale:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="207.0" layoutY="578.0" mnemonicParsing="false" text="Conferma">
+         <font>
+            <Font size="24.0" />
+         </font></Button>
+      <TextField layoutX="115.0" layoutY="315.0" prefHeight="25.0" prefWidth="320.0" />
+      <ListView layoutX="115.0" layoutY="350.0" prefHeight="200.0" prefWidth="320.0" />
+   </children>
+</AnchorPane>

@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="700.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.CentriVaccinali">
+<AnchorPane prefHeight="700.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.OpzioniLoggato">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="700.0" stroke="BLACK" strokeType="INSIDE" width="550.0">
          <fill>
@@ -27,30 +27,23 @@
             </RadialGradient>
          </fill></Rectangle>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="660.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
-      <AnchorPane layoutX="175.0" layoutY="250.0" prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <Label layoutX="48.0" layoutY="100.0" prefHeight="35.0" prefWidth="106.0" text="Password:">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <PasswordField fx:id="user_password" layoutX="26.0" layoutY="138.0" />
-            <TextField fx:id="user_txtfield" layoutX="26.0" layoutY="59.0" />
-            <Label layoutX="40.0" layoutY="24.0" prefHeight="35.0" prefWidth="121.0" text="Username:">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <Button layoutX="230.0" layoutY="480.0" mnemonicParsing="false" onAction="#onLoginClicked" text="Login">
+      <Button layoutX="70.0" layoutY="450.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="N. Vaccinato">
          <font>
-            <Font size="24.0" />
+            <Font name="Franklin Gothic Medium" size="18.0" />
          </font></Button>
-      <ImageView fitHeight="200.0" fitWidth="171.0" layoutX="199.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+      <Button layoutX="330.0" layoutY="450.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="N. Centro">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="314.0" layoutY="212.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@vaccinali%20png.png" />
+            <Image url="@ospedale%20png.png" />
          </image>
       </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="70.0" layoutY="212.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@siringa%20png.png" />
+         </image></ImageView>
    </children>
 </AnchorPane>

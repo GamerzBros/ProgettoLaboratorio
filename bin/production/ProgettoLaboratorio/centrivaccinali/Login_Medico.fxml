@@ -47,10 +47,15 @@
          <font>
             <Font size="24.0" />
          </font></Button>
-      <ImageView fitHeight="200.0" fitWidth="171.0" layoutX="199.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="200.0" fitWidth="171.0" layoutX="193.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@vaccinali%20png.png" />
          </image>
       </ImageView>
+      <Button fx:id="register_botton" layoutX="236.0" layoutY="546.0" mnemonicParsing="false" style="-fx-background-color: #91ceff;" text="Registrati" textAlignment="CENTER" underline="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

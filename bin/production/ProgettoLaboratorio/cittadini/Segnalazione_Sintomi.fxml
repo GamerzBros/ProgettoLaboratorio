@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.NuovoCittadino">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="700.0" stroke="BLACK" strokeType="INSIDE" width="550.0">
+         <fill>
+            <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.09803921729326248" green="0.4901960790157318" blue="0.7882353067398071" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill></Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="660.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
+      <TextField layoutX="95.0" layoutY="500.0" prefHeight="25.0" prefWidth="180.0" />
+      <Spinner editable="true" layoutX="365.0" layoutY="150.0" prefHeight="25.0" prefWidth="55.0" />
+      <Spinner layoutX="365.0" layoutY="200.0" prefHeight="25.0" prefWidth="55.0" />
+      <Spinner layoutX="365.0" layoutY="250.0" prefHeight="25.0" prefWidth="55.0" />
+      <Label layoutX="95.0" layoutY="150.0" prefHeight="22.0" prefWidth="109.0" text="Mal di testa:">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="95.0" layoutY="200.0" prefHeight="22.0" prefWidth="70.0" text="Febbre:">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="95.0" layoutY="250.0" prefHeight="22.0" prefWidth="228.0" text="Dolori muscolari o articolari:">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="83.0" layoutY="68.0" prefHeight="67.0" prefWidth="384.0" text="Per ogni sintomo se riscontrato inserire un valore da 1 a 5 che rappresenti l'intensità del sintomo:" wrapText="true">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="95.0" layoutY="300.0" prefHeight="22.0" prefWidth="145.0" text="Linfoadenopatia:">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="395.0" layoutY="605.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Conferma">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font></Button>
+      <Button layoutX="270.0" layoutY="605.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="109.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Annulla">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Button>
+      <Spinner layoutX="365.0" layoutY="300.0" prefHeight="25.0" prefWidth="55.0" />
+      <Label layoutX="95.0" layoutY="350.0" prefHeight="22.0" prefWidth="109.0" text="Tachicardia:">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Label>
+      <Spinner layoutX="365.0" layoutY="350.0" prefHeight="25.0" prefWidth="55.0" />
+      <Label layoutX="95.0" layoutY="400.0" prefHeight="22.0" prefWidth="145.0" text="Crisi ipertensiva:">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Label>
+      <Spinner layoutX="365.0" layoutY="400.0" prefHeight="25.0" prefWidth="55.0" />
+      <Spinner layoutX="365.0" layoutY="550.0" prefHeight="25.0" prefWidth="55.0" />
+      <TextField layoutX="95.0" layoutY="550.0" prefHeight="25.0" prefWidth="180.0" />
+      <Spinner layoutX="365.0" layoutY="500.0" prefHeight="25.0" prefWidth="55.0" />
+      <Label layoutX="95.0" layoutY="450.0" prefHeight="22.0" prefWidth="298.0" text="Altri sintomi (massimo 256 caratteri):">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

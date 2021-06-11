@@ -34,8 +34,8 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <PasswordField fx:id="user_password" layoutX="26.0" layoutY="138.0" />
-            <TextField fx:id="user_txtfield" layoutX="26.0" layoutY="59.0" />
+            <PasswordField layoutX="26.0" layoutY="138.0" />
+            <TextField layoutX="26.0" layoutY="59.0" />
             <Label layoutX="40.0" layoutY="24.0" prefHeight="35.0" prefWidth="121.0" text="Username:">
                <font>
                   <Font size="24.0" />
@@ -43,14 +43,19 @@
             </Label>
          </children>
       </AnchorPane>
-      <Button layoutX="230.0" layoutY="480.0" mnemonicParsing="false" onAction="#onLoginClicked" text="Login">
+      <Button layoutX="230.0" layoutY="480.0" mnemonicParsing="false" text="Login">
          <font>
             <Font size="24.0" />
          </font></Button>
-      <ImageView fitHeight="200.0" fitWidth="171.0" layoutX="199.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="200.0" fitWidth="171.0" layoutX="193.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@vaccinali%20png.png" />
+            <Image url="@stickman%20png%20cittadino.png" />
          </image>
       </ImageView>
+      <Button fx:id="register_botton" layoutX="236.0" layoutY="546.0" mnemonicParsing="false" style="-fx-background-color: #91ceff;" text="Registrati" textAlignment="CENTER" underline="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

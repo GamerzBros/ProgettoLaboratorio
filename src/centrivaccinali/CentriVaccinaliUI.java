@@ -16,7 +16,7 @@ public class CentriVaccinaliUI {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            URL xmlUrl = getClass().getResource("login.fxml");
+            URL xmlUrl = getClass().getResource("loginMedico.fxml");
             loader.setLocation(xmlUrl);
 
             Parent root = loader.load();

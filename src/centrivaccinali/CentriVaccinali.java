@@ -1,21 +1,22 @@
 package centrivaccinali;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.application.Application;
+
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.io.*;
 import java.net.URL;
+import java.util.Base64;
 import java.util.Scanner;
 
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
@@ -87,6 +88,7 @@ public class CentriVaccinali extends Application {
             }
         }
         reader.close();
+
         /*parts = line.split(";");
         if(parts[0].contains(nomeCentroVaccinale)){
             System.out.println("Centro trovato");
@@ -131,38 +133,46 @@ public class CentriVaccinali extends Application {
         String pwd = user_password.getText();
         String user = user_txtfield.getText();
 
+
         //Hashing della password per renderla one-way
         MessageDigest messageDigest=MessageDigest.getInstance("SHA-256");
-        pwd=new String(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8))); //TODO controlalre che questo controllore sia giusto. sul web dicono che non funzioni correttamente
+        byte[] pwdBytes=messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8));
 
+        //Trasformazione dei byte hashati della password in stringa esadecimale
+        StringBuilder sb=new StringBuilder(pwdBytes.length*2);
+        for(byte b: pwdBytes){
+            sb.append(String.format("%02x",b));
+        }
+        pwd=sb.toString();
 
 
         FileWriter writer = new FileWriter(PATH_TO_CITTADINI_REGISTRATI_DATI,true);
         BufferedWriter out = new BufferedWriter(writer);
+
         String scrivi = user+";"+pwd;
         out.write(scrivi);
         out.newLine();
         out.close();
     }
 
-    public void onCentriVaccinaliHoverOff(){
-        //scene.lookup("centriVaccinaliShadow").setVisible(false);
-        centriVaccinaliShadow.setVisible(false);
-    }
-    public void onCittadiniHoverOn() {
-        //scene.lookup("cittadiniShadow").setVisible(true);
-        cittadiniShadow.setVisible(true);
-    }
-    public void onCittadiniHoverOff(){
-        //scene.lookup("cittadiniShadow").setVisible(false);
-        cittadiniShadow.setVisible(false);
-    }
 
 
-
-    public void onLoginClicked() throws Exception{ //TODO TRY CATCH
+    public void onLoginClicked() throws Exception { //TODO TRY CATCH
         String user = user_txtfield.getText();
         String pwd = user_password.getText();
+
+        //Hashing della password per renderla one-way
+        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+        byte[] pwdBytes = messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8));
+
+        //Trasformazione dei byte hashati della password in stringa esadecimale
+        StringBuilder sb = new StringBuilder(pwdBytes.length * 2);
+        for (byte b : pwdBytes){
+            sb.append(String.format("%02x", b));
+        }
+        pwd=sb.toString();
+
+
         String user_temp; //questi temp sono i "candidati" user e psw presi dal reader dal file
         String pwd_temp;
         String[] parts;//contenitore per il metodo split
@@ -174,9 +184,6 @@ public class CentriVaccinali extends Application {
                 parts = line.split(";");
                 user_temp=parts[0];
                 pwd_temp=parts[1];
-
-                MessageDigest messageDigest=MessageDigest.getInstance("SHA-256");
-                pwd_temp=new String(messageDigest.digest(pwd_temp.getBytes(StandardCharsets.UTF_8)));
 
                 if(user_temp.equals(user) && pwd_temp.equals(pwd)){
                     System.out.println("LOGGATO");  //in qualche modo qui caricherà la nuova interface, vai pole divertiti

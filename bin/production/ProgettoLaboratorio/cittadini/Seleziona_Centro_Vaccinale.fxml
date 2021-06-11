@@ -27,30 +27,21 @@
             </RadialGradient>
          </fill></Rectangle>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="660.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
-      <AnchorPane layoutX="175.0" layoutY="250.0" prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <Label layoutX="48.0" layoutY="100.0" prefHeight="35.0" prefWidth="106.0" text="Password:">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <PasswordField fx:id="user_password" layoutX="26.0" layoutY="138.0" />
-            <TextField fx:id="user_txtfield" layoutX="26.0" layoutY="59.0" />
-            <Label layoutX="40.0" layoutY="24.0" prefHeight="35.0" prefWidth="121.0" text="Username:">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <Button layoutX="230.0" layoutY="480.0" mnemonicParsing="false" onAction="#onLoginClicked" text="Login">
+      <ImageView fitHeight="200.0" fitWidth="171.0" layoutX="193.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@vaccinali%20png%20cittadino.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="112.0" layoutY="264.0" prefHeight="35.0" prefWidth="326.0" text="Ricerca il tuo centro vaccinale:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="207.0" layoutY="578.0" mnemonicParsing="false" text="Conferma">
          <font>
             <Font size="24.0" />
          </font></Button>
-      <ImageView fitHeight="200.0" fitWidth="171.0" layoutX="199.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@vaccinali%20png.png" />
-         </image>
-      </ImageView>
+      <TextField layoutX="115.0" layoutY="315.0" prefHeight="25.0" prefWidth="320.0" />
+      <ListView layoutX="115.0" layoutY="350.0" prefHeight="200.0" prefWidth="320.0" />
    </children>
 </AnchorPane>
