@@ -10,3 +10,5 @@ ProgettoLaboratorio.iml
 .idea/shelf/Uncommitted_changes_before_Checkout_at_19_05_2021_16_54_[Default_Changelist]/shelved.patch
 .idea/shelf/Uncommitted_changes_before_Checkout_at_19_05_2021_16_54_[Default_Changelist]/SingoloCentroVaccinale.class
 .idea/shelf/Uncommitted_changes_before_Checkout_at_19_05_2021_16_54__Default_Changelist_.xml
+*.xml
+*.class
