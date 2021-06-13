@@ -200,14 +200,16 @@ public class CentriVaccinali extends Application {
         }
     }
 
-    public static void registraVaccinato(SingoloCittadino cittadino){
+    public static void registraVaccinato(SingoloCittadino cittadino,SingoloCentroVaccinale centro){
         //TODO chiamare questo metodo dopo registrazione (pole deve fare la sua parte)
-        //TODO  scrivere dati del cittadino nel file (Vaccinati_NomeCentroVaccinale.dati )
         String nome = cittadino.getNome();
         String cognome = cittadino.getCognome();
         String codice_fiscale = cittadino.getCodice_fiscale();
         String tipoVaccino = cittadino.getTipoVaccino();
-        String centroVaccinale = cittadino.getCentroVaccinale();
+        String centroVaccinale = centro.getNome();
+
+        cittadino.setCentroVaccinale(centroVaccinale);
+        
         int idVaccino = cittadino.getIdVaccino();
         Date dataVaccinazione = cittadino.getDataVaccinazione();
 
