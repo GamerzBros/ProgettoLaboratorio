@@ -18,6 +18,7 @@ import java.security.MessageDigest;
 import java.io.*;
 import java.net.URL;
 import java.util.Base64;
+import java.util.Date;
 import java.util.Scanner;
 
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
@@ -202,14 +203,34 @@ public class CentriVaccinali extends Application {
     public static void registraVaccinato(SingoloCittadino cittadino){
         //TODO chiamare questo metodo dopo registrazione (pole deve fare la sua parte)
         //TODO  scrivere dati del cittadino nel file (Vaccinati_NomeCentroVaccinale.dati )
+        String nome = cittadino.getNome();
+        String cognome = cittadino.getCognome();
+        String codice_fiscale = cittadino.getCodice_fiscale();
+        String tipoVaccino = cittadino.getTipoVaccino();
+        String centroVaccinale = cittadino.getCentroVaccinale();
+        int idVaccino = cittadino.getIdVaccino();
+        Date dataVaccinazione = cittadino.getDataVaccinazione();
+
+        String output = nome+cognome+codice_fiscale+tipoVaccino+idVaccino+dataVaccinazione;
+        String file_ID = "Vaccinati_"+centroVaccinale+".dati.txt";
+        try{
+            FileWriter writer = new FileWriter(file_ID);
+            BufferedWriter out = new BufferedWriter(writer);
+            out.write(output);
+            out.flush();
+            out.newLine();
+            out.close();
+            writer.close();
+        }catch (IOException e){
+            e.toString();
+        }
     }
 
     public static void main(String[] args) throws Exception {
 
          CentriVaccinali c = new CentriVaccinali();
          c.cercaCentroVaccinale("Nome");
-
-        Application.launch();
+         Application.launch();
 
 
     }
