@@ -209,7 +209,7 @@ public class CentriVaccinali extends Application {
         String centroVaccinale = centro.getNome();
 
         cittadino.setCentroVaccinale(centroVaccinale);
-        
+
         int idVaccino = cittadino.getIdVaccino();
         Date dataVaccinazione = cittadino.getDataVaccinazione();
 
