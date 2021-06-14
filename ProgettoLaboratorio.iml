@@ -10,6 +10,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="javafx" level="application" />
-    <orderEntry type="library" exported="" name="lib" level="project" />
+    <orderEntry type="library" name="javafx-sdk-16" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>
