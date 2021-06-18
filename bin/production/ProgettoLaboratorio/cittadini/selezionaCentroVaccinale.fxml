@@ -29,7 +29,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="660.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
       <ImageView fitHeight="200.0" fitWidth="171.0" layoutX="193.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@vaccinali%20png%20cittadino.png" />
+            <Image url="@vaccinaliCittadino.png" />
          </image>
       </ImageView>
       <Label layoutX="112.0" layoutY="264.0" prefHeight="35.0" prefWidth="326.0" text="Ricerca il tuo centro vaccinale:">

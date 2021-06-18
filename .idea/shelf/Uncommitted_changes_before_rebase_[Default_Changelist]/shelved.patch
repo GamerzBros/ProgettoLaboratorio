@@ -1,0 +1,25 @@
+Index: .idea/shelf/Uncommitted_changes_before_Merge_at_18_05_2021_20_55_[Default_Changelist]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Merge_at_18_05_2021_20_55_[Default_Changelist]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Merge_at_18_05_2021_20_55_[Default_Changelist]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Merge_at_18_05_2021_20_55_[Default_Changelist]/shelved.patch	(revision b7c2a3ba0432fcf69c1a11f255217989f57e28a0)
++++ /dev/null	(revision b7c2a3ba0432fcf69c1a11f255217989f57e28a0)
+@@ -1,18 +0,0 @@
+-Index: ProgettoLaboratorio.iml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"JAVA_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\" inherit-compiler-output=\"true\">\r\n    <exclude-output />\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src\" isTestSource=\"false\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/data\" type=\"java-resource\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/Images\" type=\"java-resource\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n    <orderEntry type=\"library\" exported=\"\" name=\"javafx\" level=\"application\" />\r\n  </component>\r\n</module>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/ProgettoLaboratorio.iml b/ProgettoLaboratorio.iml
+---- a/ProgettoLaboratorio.iml	(revision 149abc043054be20efd9916c4f7631b136abe50a)
+-+++ b/ProgettoLaboratorio.iml	(date 1621364038957)
+-@@ -10,5 +10,6 @@
+-     <orderEntry type="inheritedJdk" />
+-     <orderEntry type="sourceFolder" forTests="false" />
+-     <orderEntry type="library" exported="" name="javafx" level="application" />
+-+    <orderEntry type="library" name="lib" level="project" />
+-   </component>
+- </module>
+-\ No newline at end of file

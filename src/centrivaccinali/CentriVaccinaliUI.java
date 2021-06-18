@@ -1,5 +1,6 @@
 package centrivaccinali;
 
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,10 +10,24 @@ import java.io.IOException;
 import java.net.URL;
 
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
-public class CentriVaccinaliUI {
+public class CentriVaccinaliUI extends Application {
     private Scene scene;
 
     public CentriVaccinaliUI(){
+
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+    }
+
+    public void login(){
         try {
             FXMLLoader loader = new FXMLLoader();
             URL xmlUrl = getClass().getResource("loginMedico.fxml");

@@ -1,13 +1,12 @@
 package centrivaccinali;
 
-import javafx.event.ActionEvent;
+import cittadini.Cittadini;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -23,10 +22,6 @@ public class CentriVaccinali extends Application {
     public static final String PATH_TO_CENTRIVACCINALI="data/CentriVaccinali.txt";
     public static final String PATH_TO_CITTADINI_REGISTRATI_DATI="data/Cittadini_Registrati.dati.txt";
     private Scene scene;
-    @FXML
-    private Rectangle cittadiniShadow;
-    @FXML
-    private Rectangle centriVaccinaliShadow;
     @FXML
     private TextField user_txtfield;
     @FXML
@@ -125,13 +120,7 @@ public class CentriVaccinali extends Application {
     }
 
     public void onCittadiniSelected() throws Exception{
-       // new Cittadini();
-    }
-
-
-    public void onCentrivaccinaliHoverOn() {
-        //scene.lookup("centriVaccinaliShadow").setVisible(true);
-        centriVaccinaliShadow.setVisible(true);
+       new Cittadini();
     }
 
 
@@ -171,19 +160,6 @@ public class CentriVaccinali extends Application {
         }
         sb.setLength(sb.length()-1);
         return sb.toString();
-    }
-
-    public void onCentriVaccinaliHoverOff(){
-        //scene.lookup("centriVaccinaliShadow").setVisible(false);
-        centriVaccinaliShadow.setVisible(false);
-    }
-    public void onCittadiniHoverOn() {
-        //scene.lookup("cittadiniShadow").setVisible(true);
-        cittadiniShadow.setVisible(true);
-    }
-    public void onCittadiniHoverOff(){
-        //scene.lookup("cittadiniShadow").setVisible(false);
-        cittadiniShadow.setVisible(false);
     }
 
     public void onLoginClicked(){
