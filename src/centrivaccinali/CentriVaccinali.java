@@ -164,29 +164,29 @@ public class CentriVaccinali extends Application {
         return sb.toString();
     }
 
-    public void onLoginClicked(){
+    public void onLoginClicked() {
         String user = user_txtfield.getText();
         String pwd = user_password.getText();
         String user_temp; //questi temp sono i "candidati" user e psw presi dal reader dal file
         String pwd_temp;
         String[] parts;//contenitore per il metodo split
 
-        try{
-            if(!user.equals("") && !pwd.equals("")){
+        try {
+            if (!user.equals("") && !pwd.equals("")) {
                 File file = new File(PATH_TO_CITTADINI_REGISTRATI_DATI);
                 Scanner reader = new Scanner(file);
-                while (reader.hasNextLine()){
+                while (reader.hasNextLine()) {
                     String line = reader.nextLine();
                     parts = line.split(";");
-                    user_temp=parts[0];
-                    pwd_temp=parts[1];
+                    user_temp = parts[0];
+                    pwd_temp = parts[1];
 
-                    MessageDigest messageDigest=MessageDigest.getInstance("SHA-256");
-                    pwd_temp=new String(messageDigest.digest(pwd_temp.getBytes(StandardCharsets.UTF_8))); //TODO Rivedere controllore
+                    MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+                    pwd_temp = new String(messageDigest.digest(pwd_temp.getBytes(StandardCharsets.UTF_8))); //TODO Rivedere controllore
 
-                    if(user_temp.equals(user) && pwd_temp.equals(pwd)){
+                    if (user_temp.equals(user) && pwd_temp.equals(pwd)) {
                         System.out.println("LOGGATO");  //in qualche modo qui caricherà la nuova interface, vai pole divertiti
-                    }else{
+                    } else {
                         System.out.println("User inesistente, premere sul tasto 'register'");//popup magari (?)
                         /*
                         JOptionPane.showMessageDialog(null,
@@ -195,12 +195,13 @@ public class CentriVaccinali extends Application {
                         */
                     }
                 }
-            }else{
+            } else {
                 System.out.println("Inserire dei dati");
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
     public static void registraVaccinato(SingoloCittadino cittadino,SingoloCentroVaccinale centro){
         //TODO chiamare questo metodo dopo registrazione (pole deve fare la sua parte)

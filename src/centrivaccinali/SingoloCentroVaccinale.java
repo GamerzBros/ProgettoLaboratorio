@@ -8,15 +8,16 @@ public class SingoloCentroVaccinale {
     private String nome;
     private String indirizzo;
     private String tipologia;
-    public enum Tipologia{
-        ospedaliero,
-        aziendale,
-        hub
-    }
 
     public SingoloCentroVaccinale(String nome,String indirizzo){
         this.nome = nome;
         this.indirizzo = indirizzo;
+    }
+
+    public SingoloCentroVaccinale(String nome,String indirizzo,String tipologia){
+        this.nome = nome;
+        this.indirizzo = indirizzo;
+        this.tipologia=tipologia;
     }
 
     public String getNome() {
