@@ -1,6 +1,7 @@
 package centrivaccinali;
 
 import cittadini.Cittadini;
+import cittadini.SingoloCittadino;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,13 +9,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.application.Application;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.io.*;
 import java.net.URL;
+import java.util.Date;
 import java.util.Scanner;
 
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
@@ -72,7 +73,7 @@ public class CentriVaccinali extends Application {
         super.stop();
     }
 
-    public void cercaCentroVaccinale(String nomeCentroVaccinale){ //Ricerca centro per nome, ogni centro che contiene quella "parte" di nome, viene visualizzato
+    public void cercaCentroVaccinale(String nomeCentroVaccinale)throws FileNotFoundException{ //Ricerca centro per nome, ogni centro che contiene quella "parte" di nome, viene visualizzato
         try{
             File file = new File(PATH_TO_CENTRIVACCINALI);
             Scanner reader = new Scanner(file);
@@ -87,6 +88,7 @@ public class CentriVaccinali extends Application {
                 }
             }
             reader.close();
+
         /*parts = line.split(";");
         if(parts[0].contains(nomeCentroVaccinale)){
             System.out.println("Centro trovato");
@@ -200,14 +202,39 @@ public class CentriVaccinali extends Application {
             e.printStackTrace();
         }
 
+    public static void registraVaccinato(SingoloCittadino cittadino,SingoloCentroVaccinale centro){
+        //TODO chiamare questo metodo dopo registrazione (pole deve fare la sua parte)
+        String nome = cittadino.getNome();
+        String cognome = cittadino.getCognome();
+        String codice_fiscale = cittadino.getCodice_fiscale();
+        String tipoVaccino = cittadino.getTipoVaccino();
+        String centroVaccinale = centro.getNome();
+
+        cittadino.setCentroVaccinale(centroVaccinale);
+
+        int idVaccino = cittadino.getIdVaccino();
+        Date dataVaccinazione = cittadino.getDataVaccinazione();
+
+        String output = nome+cognome+codice_fiscale+tipoVaccino+idVaccino+dataVaccinazione;
+        String file_ID = "Vaccinati_"+centroVaccinale+".dati.txt";
+        try{
+            FileWriter writer = new FileWriter(file_ID);
+            BufferedWriter out = new BufferedWriter(writer);
+            out.write(output);
+            out.flush();
+            out.newLine();
+            out.close();
+            writer.close();
+        }catch (IOException e){
+            e.toString();
+        }
     }
 
     public static void main(String[] args) throws Exception {
 
          CentriVaccinali c = new CentriVaccinali();
          c.cercaCentroVaccinale("Nome");
-
-        Application.launch();
+         Application.launch();
 
 
     }

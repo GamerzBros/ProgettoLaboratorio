@@ -7,12 +7,16 @@ public class SingoloCentroVaccinale {
     //TODO Definire gli attributi dei Centri vaccinali
     private String nome;
     private String indirizzo;
-    private String tipologia; //TODO creare un enum per la tipologia di centro vaccinale (ospedaliero,aziendale,hub)
+    private String tipologia;
+    public enum Tipologia{
+        ospedaliero,
+        aziendale,
+        hub
+    }
 
-    public SingoloCentroVaccinale(String nome, String indirizzo, String tipologia) {
+    public SingoloCentroVaccinale(String nome,String indirizzo){
         this.nome = nome;
         this.indirizzo = indirizzo;
-        this.tipologia = tipologia;
     }
 
     public String getNome() {
