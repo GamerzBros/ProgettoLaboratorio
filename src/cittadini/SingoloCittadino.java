@@ -10,6 +10,7 @@ public class SingoloCittadino {
     private Date dataVaccinazione;
     private String tipoVaccino; //TODO creare un enum per il tipo di vaccino (Pfizer, AstraZeneca, Moderna, J&J)
     private int idVaccino; //16 bit
+    private String centroVaccinale;
 
 
     public SingoloCittadino(String nome, String cognome, String codice_fiscale){
@@ -63,6 +64,14 @@ public class SingoloCittadino {
 
     public void setCodice_fiscale(String codice_fiscale) {
         this.codice_fiscale = codice_fiscale;
+    }
+
+    public String getCentroVaccinale() {
+        return centroVaccinale;
+    }
+
+    public void setCentroVaccinale(String centroVaccinale) {
+        this.centroVaccinale = centroVaccinale;
     }
 
     @Override
