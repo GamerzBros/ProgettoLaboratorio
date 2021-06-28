@@ -22,6 +22,9 @@ import java.util.Scanner;
 public class CentriVaccinali extends Application {
     public static final String PATH_TO_CENTRIVACCINALI="data/CentriVaccinali.dati.txt";
     public static final String PATH_TO_CITTADINI_REGISTRATI_DATI="data/Cittadini_Registrati.dati.txt";
+    public static final String PATH_TO_DATA="data/";
+    public static final String PREFIX = "Vaccinati_";
+    public static final String SUFFIX = ".dati.txt";
     private Scene scene;
     @FXML
     private TextField user_txtfield;
@@ -56,9 +59,11 @@ public class CentriVaccinali extends Application {
         String indirizzo = centroVaccinale.getIndirizzo();
         String tipologia = centroVaccinale.getTipologia();
         try{
-            FileWriter writer = new FileWriter(PATH_TO_CENTRIVACCINALI, true);
+            File file = new File(PATH_TO_DATA+PREFIX+nome+SUFFIX);
+            FileWriter fw = new FileWriter(file);
+            FileWriter writer = new FileWriter("account.txt", true);
             BufferedWriter out = new BufferedWriter(writer);
-            String fileInput = nome + ";" + indirizzo + ";" + tipologia;
+            String fileInput = nome + ";" + tipologia + ";" + indirizzo;
             out.write(fileInput);
             out.newLine();
             out.flush();
