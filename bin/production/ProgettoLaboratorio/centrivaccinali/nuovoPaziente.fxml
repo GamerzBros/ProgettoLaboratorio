@@ -29,9 +29,6 @@
       <ChoiceBox fx:id="vaccino_somministrato" layoutX="50.0" layoutY="425.0" prefWidth="180.0" />
       <TextField fx:id="nome_paziente" layoutX="50.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
       <TextField fx:id="cognome_paziente" layoutX="324.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
-      <Spinner fx:id="data_giorno" editable="true" layoutX="324.0" layoutY="425.0" prefHeight="25.0" prefWidth="55.0" />
-      <Spinner fx:id="data_mese" layoutX="379.0" layoutY="425.0" prefHeight="25.0" prefWidth="55.0" />
-      <Spinner fx:id="data_anno" layoutX="434.0" layoutY="425.0" prefHeight="25.0" prefWidth="70.0" />
       <TextField fx:id="cf_paziente" layoutX="50.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
       <TextField fx:id="ID_vaccinazione" layoutX="324.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
       <Label layoutX="81.0" layoutY="150.0" prefHeight="22.0" prefWidth="119.0" text="Nome Paziente">
@@ -70,7 +67,7 @@
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Label>
-      <Button layoutX="395.0" layoutY="605.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Conferma">
+      <Button fx:id="nuovoPaziente_confirm" layoutX="395.0" layoutY="605.0" mnemonicParsing="false" onAction="#registraVaccinato" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Conferma">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font></Button>
@@ -79,5 +76,6 @@
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Button>
+      <DatePicker fx:id="data_vaccinazione" layoutX="317.0" layoutY="425.0" />
    </children>
 </AnchorPane>

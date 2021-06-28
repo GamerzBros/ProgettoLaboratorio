@@ -6,8 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.application.Application;
@@ -15,6 +14,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.io.*;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -23,10 +24,25 @@ public class CentriVaccinali extends Application {
     public static final String PATH_TO_CENTRIVACCINALI="data/CentriVaccinali.dati.txt";
     public static final String PATH_TO_CITTADINI_REGISTRATI_DATI="data/Cittadini_Registrati.dati.txt";
     private Scene scene;
+    CentriVaccinaliUI cUI = new CentriVaccinaliUI();
     @FXML
     private TextField user_txtfield;
     @FXML
     private PasswordField user_password;
+    @FXML
+    private TextField nome_paziente;
+    @FXML
+    private TextField cognome_paziente;
+    @FXML
+    private TextField cf_paziente;
+    @FXML
+    private TextField ID_vaccinazione;
+    @FXML
+    private ChoiceBox<String> vaccino_somministrato;
+    @FXML
+    private DatePicker data_vaccinazione;
+    @FXML
+    private ChoiceBox<String> centro_vaccinale;
 
 
     @Override
@@ -117,10 +133,7 @@ public class CentriVaccinali extends Application {
     }
 
     public void onCentriVaccinaliSelected() throws Exception{
-        CentriVaccinaliUI cUI = new CentriVaccinaliUI();
         cUI.opzioniLoggato();
-
-
     }
 
     public void onCittadiniSelected() throws Exception{
@@ -205,23 +218,28 @@ public class CentriVaccinali extends Application {
         }
     }
 
-    public static void registraVaccinato(SingoloCittadino cittadino,SingoloCentroVaccinale centro){
+    public void registraVaccinato(){
         //TODO chiamare questo metodo dopo registrazione (pole deve fare la sua parte)
-        String nome = cittadino.getNome();
-        String cognome = cittadino.getCognome();
-        String codice_fiscale = cittadino.getCodice_fiscale();
-        String tipoVaccino = cittadino.getTipoVaccino();
-        String centroVaccinale = centro.getNome();
+        String nome = nome_paziente.getText();
+        String cognome = cognome_paziente.getText();
+        String codice_fiscale =cf_paziente.getText();
+        String tipoVaccino = vaccino_somministrato.getValue();
+        String centroVaccinale = centro_vaccinale.getValue();
+        String id_vaccino = ID_vaccinazione.getText();
+        LocalDate dataVaccino = data_vaccinazione.getValue();
+        String dataVaccinazione = dataVaccino.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
 
+
+        SingoloCittadino cittadino = new SingoloCittadino(nome,cognome,codice_fiscale);
         cittadino.setCentroVaccinale(centroVaccinale);
+        cittadino.setIdVaccino(Integer.parseInt(id_vaccino));
 
         int idVaccino = cittadino.getIdVaccino();
-        Date dataVaccinazione = cittadino.getDataVaccinazione();
 
         String output = nome+cognome+codice_fiscale+tipoVaccino+idVaccino+dataVaccinazione;
-        String file_ID = "Vaccinati_"+centroVaccinale+".dati.txt";
+        String file_ID = "data/"+"Vaccinati_"+centroVaccinale+".dati.txt";
         try{
-            FileWriter writer = new FileWriter(file_ID);
+            FileWriter writer = new FileWriter(file_ID,true);
             BufferedWriter out = new BufferedWriter(writer);
             out.write(output);
             out.flush();
@@ -233,24 +251,9 @@ public class CentriVaccinali extends Application {
         }
     }
 
+
     public void onNewVaccinateClicked(){
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            URL xmlUrl = getClass().getResource("nuovoPaziente.fxml");
-            loader.setLocation(xmlUrl);
-
-            Parent root = loader.load();
-
-            scene = new Scene(root);
-
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("Nuovo Paziente");
-            stage.show();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
+        cUI.onNewVaccinateClicked();
     }
 
 
