@@ -8,9 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.application.Application;
 import java.nio.charset.StandardCharsets;
@@ -22,7 +20,7 @@ import java.util.Scanner;
 
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
 public class CentriVaccinali extends Application {
-    public static final String PATH_TO_CENTRIVACCINALI="data/CentriVaccinali.txt";
+    public static final String PATH_TO_CENTRIVACCINALI="data/CentriVaccinali.dati.txt";
     public static final String PATH_TO_CITTADINI_REGISTRATI_DATI="data/Cittadini_Registrati.dati.txt";
     private Scene scene;
     @FXML
@@ -53,7 +51,7 @@ public class CentriVaccinali extends Application {
     }
 
 
-    public void registraCentroVaccinale(SingoloCentroVaccinale centroVaccinale){ //metodo per registrare i centri
+    public static void registraCentroVaccinale(SingoloCentroVaccinale centroVaccinale){ //metodo per registrare i centri
         String nome = centroVaccinale.getNome();
         String indirizzo = centroVaccinale.getIndirizzo();
         String tipologia = centroVaccinale.getTipologia();

@@ -1,7 +1,7 @@
 package cittadini;
 
+import centrivaccinali.CentriVaccinali;
 import centrivaccinali.SingoloCentroVaccinale;
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +11,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
@@ -20,18 +19,21 @@ import java.util.Vector;
 
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
 public class CittadiniUI{
+    private Cittadini cittadini;
+
     @FXML
-    ScrollPane scrollPane_CentriVaccinali;
-    Vector<SingoloCentroVaccinale> centriVaccinaliList=new Vector<>();
+    private ScrollPane scrollPane_CentriVaccinali;
+    private Vector<SingoloCentroVaccinale> centriVaccinaliList=new Vector<>();
 
     public CittadiniUI(){
         createUI();
+        cittadini=new Cittadini();
     }
 
     public void createUI(){
         try {
             FXMLLoader fxmlLoader=new FXMLLoader();
-            URL url=getClass().getResource("home.fxml");
+            URL url=getClass().getResource("mainCittadini.fxml");
             fxmlLoader.setLocation(url);
             Parent root=fxmlLoader.load();
 
@@ -60,7 +62,7 @@ public class CittadiniUI{
         Vector<SingoloCentroVaccinale> vector=new Vector<>();
 
         try {
-            FileReader fileReader = new FileReader("CentriVaccinali.txt");
+            FileReader fileReader = new FileReader(CentriVaccinali.PATH_TO_CENTRIVACCINALI);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             String line=null;

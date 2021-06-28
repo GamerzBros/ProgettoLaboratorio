@@ -1,6 +1,5 @@
 package centrivaccinali;
 
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,22 +9,14 @@ import java.io.IOException;
 import java.net.URL;
 
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
-public class CentriVaccinaliUI extends Application {
+public class CentriVaccinaliUI{
     private Scene scene;
 
     public CentriVaccinaliUI(){
-
+        //TODO Cristian deve mettere che si apre la finestra opzioniLoggato.fxml
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
-
-    }
-
-    @Override
-    public void stop() throws Exception {
-        super.stop();
-    }
+    //TODO Shopper: creare un file interfaccia per l'inserimento di un nuovo centro vaccinale
 
     public void login(){
         try {
@@ -46,6 +37,4 @@ public class CentriVaccinaliUI extends Application {
             e.printStackTrace();
         }
     }
-
-    //TODO Crea Interfaccia Grafica Centri Vaccinali
 }
