@@ -117,7 +117,9 @@ public class CentriVaccinali extends Application {
     }
 
     public void onCentriVaccinaliSelected() throws Exception{
-        new CentriVaccinaliUI();
+        CentriVaccinaliUI cUI = new CentriVaccinaliUI();
+        cUI.opzioniLoggato();
+
 
     }
 
@@ -230,6 +232,28 @@ public class CentriVaccinali extends Application {
             e.toString();
         }
     }
+
+    public void onNewVaccinateClicked(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            URL xmlUrl = getClass().getResource("nuovoPaziente.fxml");
+            loader.setLocation(xmlUrl);
+
+            Parent root = loader.load();
+
+            scene = new Scene(root);
+
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Nuovo Paziente");
+            stage.show();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+
 
     public static void main(String[] args) throws Exception {
 

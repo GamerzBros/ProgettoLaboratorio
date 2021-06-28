@@ -18,7 +18,27 @@ public class CentriVaccinaliUI{
 
     //TODO Shopper: creare un file interfaccia per l'inserimento di un nuovo centro vaccinale
 
-    public void login(){
+    public void opzioniLoggato(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            URL xmlUrl = getClass().getResource("opzioniLoggato.fxml");
+            loader.setLocation(xmlUrl);
+
+            Parent root = loader.load();
+
+            scene = new Scene(root);
+
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("opzioniLoggato");
+            stage.show();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public  void login(){
         try {
             FXMLLoader loader = new FXMLLoader();
             URL xmlUrl = getClass().getResource("loginMedico.fxml");

@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="700.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.NuovoPaziente">
+<AnchorPane prefHeight="700.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.CentriVaccinali">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="700.0" stroke="BLACK" strokeType="INSIDE" width="550.0">
          <fill>
@@ -26,14 +26,14 @@
             </RadialGradient>
          </fill></Rectangle>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="660.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
-      <ChoiceBox layoutX="50.0" layoutY="425.0" prefWidth="180.0" />
-      <TextField layoutX="50.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
-      <TextField layoutX="324.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
-      <Spinner editable="true" layoutX="324.0" layoutY="425.0" prefHeight="25.0" prefWidth="55.0" />
-      <Spinner layoutX="379.0" layoutY="425.0" prefHeight="25.0" prefWidth="55.0" />
-      <Spinner layoutX="434.0" layoutY="425.0" prefHeight="25.0" prefWidth="70.0" />
-      <TextField layoutX="50.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
-      <TextField layoutX="324.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
+      <ChoiceBox fx:id="vaccino_somministrato" layoutX="50.0" layoutY="425.0" prefWidth="180.0" />
+      <TextField fx:id="nome_paziente" layoutX="50.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
+      <TextField fx:id="cognome_paziente" layoutX="324.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
+      <Spinner fx:id="data_giorno" editable="true" layoutX="324.0" layoutY="425.0" prefHeight="25.0" prefWidth="55.0" />
+      <Spinner fx:id="data_mese" layoutX="379.0" layoutY="425.0" prefHeight="25.0" prefWidth="55.0" />
+      <Spinner fx:id="data_anno" layoutX="434.0" layoutY="425.0" prefHeight="25.0" prefWidth="70.0" />
+      <TextField fx:id="cf_paziente" layoutX="50.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
+      <TextField fx:id="ID_vaccinazione" layoutX="324.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
       <Label layoutX="81.0" layoutY="150.0" prefHeight="22.0" prefWidth="119.0" text="Nome Paziente">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
@@ -64,7 +64,7 @@
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Label>
-      <ChoiceBox layoutX="50.0" layoutY="540.0" prefHeight="25.0" prefWidth="282.0" />
+      <ChoiceBox fx:id="centro_vaccinale" layoutX="50.0" layoutY="540.0" prefHeight="25.0" prefWidth="282.0" />
       <Label layoutX="124.0" layoutY="495.0" prefHeight="22.0" prefWidth="152.0" text="Centro Vaccinale">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
