@@ -146,7 +146,7 @@ public class CentriVaccinaliUI{
 
         int idVaccino = cittadino.getIdVaccino();
 
-        String output = nome+cognome+codice_fiscale+tipoVaccino+idVaccino+dataVaccinazione;
+        String output = nome+";"+cognome+";"+codice_fiscale+";"+tipoVaccino+";"+idVaccino+";"+dataVaccinazione;
         String file_ID = "data/"+"Vaccinati_"+centroVaccinale+".dati.txt";
         try{
             FileWriter writer = new FileWriter(file_ID,true);
