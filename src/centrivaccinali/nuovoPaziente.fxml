@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="700.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.CentriVaccinali">
+<AnchorPane prefHeight="700.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.CentriVaccinaliUI">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="700.0" stroke="BLACK" strokeType="INSIDE" width="550.0">
          <fill>
@@ -26,7 +26,7 @@
             </RadialGradient>
          </fill></Rectangle>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="660.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
-      <ChoiceBox fx:id="vaccino_somministrato" layoutX="50.0" layoutY="425.0" prefWidth="180.0" />
+      <ChoiceBox fx:id="vaccino_somministrato" layoutX="50.0" layoutY="425.0" onMousePressed="#vaccino_somministrato_setter" prefWidth="180.0" />
       <TextField fx:id="nome_paziente" layoutX="50.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
       <TextField fx:id="cognome_paziente" layoutX="324.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
       <TextField fx:id="cf_paziente" layoutX="50.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
@@ -61,7 +61,7 @@
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="centro_vaccinale" layoutX="50.0" layoutY="540.0" prefHeight="25.0" prefWidth="282.0" />
+      <ChoiceBox fx:id="centro_vaccinale" layoutX="50.0" layoutY="540.0" onMousePressed="#centro_vaccinale_setter" prefHeight="25.0" prefWidth="282.0" />
       <Label layoutX="124.0" layoutY="495.0" prefHeight="22.0" prefWidth="152.0" text="Centro Vaccinale">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />

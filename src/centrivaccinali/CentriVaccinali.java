@@ -29,20 +29,7 @@ public class CentriVaccinali extends Application {
     private TextField user_txtfield;
     @FXML
     private PasswordField user_password;
-    @FXML
-    private TextField nome_paziente;
-    @FXML
-    private TextField cognome_paziente;
-    @FXML
-    private TextField cf_paziente;
-    @FXML
-    private TextField ID_vaccinazione;
-    @FXML
-    private ChoiceBox<String> vaccino_somministrato;
-    @FXML
-    private DatePicker data_vaccinazione;
-    @FXML
-    private ChoiceBox<String> centro_vaccinale;
+
 
 
     @Override
@@ -218,42 +205,12 @@ public class CentriVaccinali extends Application {
         }
     }
 
-    public void registraVaccinato(){
-        //TODO chiamare questo metodo dopo registrazione (pole deve fare la sua parte)
-        String nome = nome_paziente.getText();
-        String cognome = cognome_paziente.getText();
-        String codice_fiscale =cf_paziente.getText();
-        String tipoVaccino = vaccino_somministrato.getValue();
-        String centroVaccinale = centro_vaccinale.getValue();
-        String id_vaccino = ID_vaccinazione.getText();
-        LocalDate dataVaccino = data_vaccinazione.getValue();
-        String dataVaccinazione = dataVaccino.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
 
-
-        SingoloCittadino cittadino = new SingoloCittadino(nome,cognome,codice_fiscale);
-        cittadino.setCentroVaccinale(centroVaccinale);
-        cittadino.setIdVaccino(Integer.parseInt(id_vaccino));
-
-        int idVaccino = cittadino.getIdVaccino();
-
-        String output = nome+cognome+codice_fiscale+tipoVaccino+idVaccino+dataVaccinazione;
-        String file_ID = "data/"+"Vaccinati_"+centroVaccinale+".dati.txt";
-        try{
-            FileWriter writer = new FileWriter(file_ID,true);
-            BufferedWriter out = new BufferedWriter(writer);
-            out.write(output);
-            out.flush();
-            out.newLine();
-            out.close();
-            writer.close();
-        }catch (IOException e){
-            e.toString();
-        }
-    }
 
 
     public void onNewVaccinateClicked(){
         cUI.onNewVaccinateClicked();
+
     }
 
 
