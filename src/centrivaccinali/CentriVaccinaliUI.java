@@ -106,12 +106,12 @@ public class CentriVaccinaliUI{
         }
     }
 
-    public void vaccino_somministrato_setter(){ //TODO CRISTIAN DA RIVEDERE PERCHE COSI TRIGGHERA OGNI VOLTA L'EVENTO PER SETTARE IL CHOICEBOX
+    public void vaccino_somministrato_setter(){
         vaccino_somministrato.setItems(vaccino_somministrato_items);
     }
 
     public void centro_vaccinale_setter(){
-        String[] parts; //TODO CRISTIAN RIVEDERE OGNI VOLTA AGGIUNGE LO STESSO
+        String[] parts; 
         String nome_centro_vaccinale="";
         try{
             File file = new File(PATH_TO_CENTRIVACCINALI_DATI);
@@ -120,6 +120,7 @@ public class CentriVaccinaliUI{
                 String line = reader.nextLine();
                 parts = line.split(";");
                 nome_centro_vaccinale = parts[0];
+                if(!centro_vaccinale_items.contains(nome_centro_vaccinale))
                 centro_vaccinale_items.add(nome_centro_vaccinale);
             }
             centro_vaccinale.setItems(centro_vaccinale_items);
