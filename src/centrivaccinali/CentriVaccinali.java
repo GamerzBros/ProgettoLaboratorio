@@ -7,8 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.application.Application;
@@ -16,6 +15,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.io.*;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -27,10 +28,12 @@ public class CentriVaccinali extends Application {
     public static final String PREFIX = "Vaccinati_";
     public static final String SUFFIX = ".dati.txt";
     private Scene scene;
+    CentriVaccinaliUI cUI = new CentriVaccinaliUI();
     @FXML
     private TextField user_txtfield;
     @FXML
     private PasswordField user_password;
+
 
 
     @Override
@@ -123,8 +126,7 @@ public class CentriVaccinali extends Application {
     }
 
     public void onCentriVaccinaliSelected() throws Exception{
-        new CentriVaccinaliUI();
-
+        cUI.opzioniLoggato();
     }
 
     public void onCittadiniSelected() throws Exception{
@@ -210,33 +212,15 @@ public class CentriVaccinali extends Application {
         }
     }
 
-    public static void registraVaccinato(SingoloCittadino cittadino,SingoloCentroVaccinale centro){
-        //TODO chiamare questo metodo dopo registrazione (pole deve fare la sua parte)
-        String nome = cittadino.getNome();
-        String cognome = cittadino.getCognome();
-        String codice_fiscale = cittadino.getCodice_fiscale();
-        String tipoVaccino = cittadino.getTipoVaccino();
-        String centroVaccinale = centro.getNome();
 
-        cittadino.setCentroVaccinale(centroVaccinale);
 
-        int idVaccino = cittadino.getIdVaccino();
-        Date dataVaccinazione = cittadino.getDataVaccinazione();
 
-        String output = nome+cognome+codice_fiscale+tipoVaccino+idVaccino+dataVaccinazione;
-        String file_ID = "Vaccinati_"+centroVaccinale+".dati.txt";
-        try{
-            FileWriter writer = new FileWriter(file_ID);
-            BufferedWriter out = new BufferedWriter(writer);
-            out.write(output);
-            out.flush();
-            out.newLine();
-            out.close();
-            writer.close();
-        }catch (IOException e){
-            e.toString();
-        }
+    public void onNewVaccinateClicked(){
+        cUI.onNewVaccinateClicked();
+
     }
+
+
 
     public static void main(String[] args) throws Exception {
 
