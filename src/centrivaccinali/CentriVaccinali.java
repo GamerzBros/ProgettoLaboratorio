@@ -1,6 +1,7 @@
 package centrivaccinali;
 
 import cittadini.Cittadini;
+import cittadini.CittadiniUI;
 import cittadini.SingoloCittadino;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -127,7 +128,8 @@ public class CentriVaccinali extends Application {
     }
 
     public void onCittadiniSelected() throws Exception{
-       new Cittadini();
+        System.out.println("creao la ui");
+        new Cittadini();
     }
 
 

@@ -1,3 +1,0 @@
-Nome;Indirizzo;Tipologia
-Nome1;Indirizzo;Tipologia
-Nome2;Indirizzo;Tipologia

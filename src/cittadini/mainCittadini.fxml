@@ -3,13 +3,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
-   <children>
-      <ScrollPane fx:id="scrollPane_CentriVaccinali" layoutX="11.0" layoutY="53.0" prefHeight="329.0" prefWidth="573.0">
-         <content>
-            <VBox/>
-         </content></ScrollPane>
-      <TextField layoutX="11.0" layoutY="14.0" prefHeight="30.0" prefWidth="483.0" />
-      <Button layoutX="504.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" text="Cerca" />
-   </children>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.CittadiniUI">
+    <children>
+        <ScrollPane fx:id="scrollPane_CentriVaccinali" layoutX="11.0" layoutY="53.0" prefHeight="329.0" prefWidth="573.0">
+            <content>
+                <VBox />
+            </content></ScrollPane>
+        <TextField layoutX="11.0" layoutY="14.0" prefHeight="30.0" prefWidth="483.0" />
+        <Button layoutX="504.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" text="Cerca" />
+    </children>
 </AnchorPane>
