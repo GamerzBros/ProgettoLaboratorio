@@ -2,14 +2,19 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.CittadiniUI">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
     <children>
-        <ScrollPane fx:id="scrollPane_CentriVaccinali" layoutX="11.0" layoutY="53.0" prefHeight="329.0" prefWidth="573.0">
-            <content>
-                <VBox />
-            </content></ScrollPane>
-        <TextField layoutX="11.0" layoutY="14.0" prefHeight="30.0" prefWidth="483.0" />
-        <Button layoutX="504.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" text="Cerca" />
+      <Pane prefHeight="42.0" prefWidth="600.0" style="-fx-background-color: #0f62fe;">
+         <children>
+            <Label alignment="CENTER" layoutX="247.0" layoutY="8.0" text="Portale Cittadini" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+         </children></Pane>
+        <ScrollPane fx:id="scrollPane_CentriVaccinali" layoutX="13.0" layoutY="88.0" prefHeight="303.0" prefWidth="573.0" />
+        <TextField layoutX="13.0" layoutY="50.0" prefHeight="30.0" prefWidth="490.0" />
+        <Button layoutX="511.0" layoutY="50.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" text="Cerca" />
     </children>
 </AnchorPane>

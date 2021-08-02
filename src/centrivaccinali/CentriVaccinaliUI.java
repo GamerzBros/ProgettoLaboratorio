@@ -44,12 +44,8 @@ public class CentriVaccinaliUI{
     private ChoiceBox<String> centro_vaccinale;
 
 
-
-    public CentriVaccinaliUI(){
-        //TODO Cristian deve mettere che si apre la finestra opzioniLoggato.fxml
-    }
-
     //TODO Shopper: creare un file interfaccia per l'inserimento di un nuovo centro vaccinale
+    //TODO Cri: fare backend inserimento centro vaccinale
 
     public void opzioniLoggato(){
         try {
@@ -106,29 +102,6 @@ public class CentriVaccinaliUI{
         }
     }
 
-    public void vaccino_somministrato_setter(){
-        vaccino_somministrato.setItems(vaccino_somministrato_items);
-    }
-
-    public void centro_vaccinale_setter(){
-        String[] parts; 
-        String nome_centro_vaccinale="";
-        try{
-            File file = new File(PATH_TO_CENTRIVACCINALI_DATI);
-            Scanner reader = new Scanner(file);
-            while (reader.hasNextLine()){
-                String line = reader.nextLine();
-                parts = line.split(";");
-                nome_centro_vaccinale = parts[0];
-                if(!centro_vaccinale_items.contains(nome_centro_vaccinale))
-                centro_vaccinale_items.add(nome_centro_vaccinale);
-            }
-            centro_vaccinale.setItems(centro_vaccinale_items);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
     public void registraVaccinato(){
         //TODO chiamare questo metodo dopo registrazione (pole deve fare la sua parte)
         String nome = nome_paziente.getText();
@@ -161,6 +134,8 @@ public class CentriVaccinaliUI{
             e.toString();
         }
     }
+
+    /*
     public void login(){
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -177,6 +152,30 @@ public class CentriVaccinaliUI{
             stage.show();
         }
         catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+    */
+
+    public void vaccino_somministrato_setter(){
+        vaccino_somministrato.setItems(vaccino_somministrato_items);
+    }
+
+    public void centro_vaccinale_setter(){
+        String[] parts;
+        String nome_centro_vaccinale="";
+        try{
+            File file = new File(PATH_TO_CENTRIVACCINALI_DATI);
+            Scanner reader = new Scanner(file);
+            while (reader.hasNextLine()){
+                String line = reader.nextLine();
+                parts = line.split(";");
+                nome_centro_vaccinale = parts[0];
+                if(!centro_vaccinale_items.contains(nome_centro_vaccinale))
+                    centro_vaccinale_items.add(nome_centro_vaccinale);
+            }
+            centro_vaccinale.setItems(centro_vaccinale_items);
+        }catch (IOException e){
             e.printStackTrace();
         }
     }

@@ -1,8 +1,7 @@
 package centrivaccinali;
 
 import cittadini.Cittadini;
-import cittadini.CittadiniUI;
-import cittadini.SingoloCittadino;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,9 +14,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.io.*;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Scanner;
 
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
@@ -27,12 +23,16 @@ public class CentriVaccinali extends Application {
     public static final String PATH_TO_DATA="data/";
     public static final String PREFIX = "Vaccinati_";
     public static final String SUFFIX = ".dati.txt";
-    private Scene scene;
     CentriVaccinaliUI cUI = new CentriVaccinaliUI();
+    Cittadini cittadini;
     @FXML
     private TextField user_txtfield;
     @FXML
     private PasswordField user_password;
+    @FXML
+    private Button btn_cittadini;
+    @FXML
+    private Button btn_centriVaccinali;
 
 
 
@@ -44,7 +44,8 @@ public class CentriVaccinali extends Application {
 
         Parent root = loader.load();
 
-        scene=new Scene(root);
+        Scene scene=new Scene(root);
+
 
         stage.setScene(scene);
         stage.setTitle("Pagina iniziale");
@@ -54,7 +55,6 @@ public class CentriVaccinali extends Application {
 
         stage.getIcons().add(image);
         stage.show();
-
     }
 
 
@@ -126,12 +126,20 @@ public class CentriVaccinali extends Application {
     }
 
     public void onCentriVaccinaliSelected() throws Exception{
-        cUI.opzioniLoggato();
+        cUI.opzioniLoggato(); //TODO Cri:includere qui dentro la creazione di tutte le UI dei centri vaccinali.
+        Stage stage=(Stage)btn_cittadini.getScene().getWindow();
+        stage.close();
     }
 
-    public void onCittadiniSelected() throws Exception{
-        System.out.println("creao la ui");
-        new Cittadini();
+    public void onCittadiniSelected(){
+        cittadini=new Cittadini();
+        try {
+            cittadini.loadUI();
+            Stage stage=(Stage)btn_cittadini.getScene().getWindow();
+            stage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -223,11 +231,7 @@ public class CentriVaccinali extends Application {
 
 
     public static void main(String[] args) throws Exception {
-
-         CentriVaccinali c = new CentriVaccinali();
-         c.cercaCentroVaccinale("Nome");
          Application.launch();
-
 
     }
 
