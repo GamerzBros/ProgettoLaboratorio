@@ -27,9 +27,9 @@
          </fill></Rectangle>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="660.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
       <TextField layoutX="95.0" layoutY="500.0" prefHeight="25.0" prefWidth="180.0" />
-      <Spinner editable="true" layoutX="365.0" layoutY="150.0" prefHeight="25.0" prefWidth="55.0" />
-      <Spinner layoutX="365.0" layoutY="200.0" prefHeight="25.0" prefWidth="55.0" />
-      <Spinner layoutX="365.0" layoutY="250.0" prefHeight="25.0" prefWidth="55.0" />
+      <Spinner id="box1" editable="true" layoutX="365.0" layoutY="150.0" prefHeight="25.0" prefWidth="55.0" />
+      <Spinner id="box2" layoutX="365.0" layoutY="200.0" prefHeight="25.0" prefWidth="55.0" />
+      <Spinner id="box3" layoutX="365.0" layoutY="250.0" prefHeight="25.0" prefWidth="55.0" />
       <Label layoutX="95.0" layoutY="150.0" prefHeight="22.0" prefWidth="109.0" text="Mal di testa:">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
@@ -64,19 +64,19 @@
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Button>
-      <Spinner layoutX="365.0" layoutY="300.0" prefHeight="25.0" prefWidth="55.0" />
+      <Spinner id="box4" layoutX="365.0" layoutY="300.0" prefHeight="25.0" prefWidth="55.0" />
       <Label layoutX="95.0" layoutY="350.0" prefHeight="22.0" prefWidth="109.0" text="Tachicardia:">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Label>
-      <Spinner layoutX="365.0" layoutY="350.0" prefHeight="25.0" prefWidth="55.0" />
+      <Spinner id="box5" layoutX="365.0" layoutY="350.0" prefHeight="25.0" prefWidth="55.0" />
       <Label layoutX="95.0" layoutY="400.0" prefHeight="22.0" prefWidth="145.0" text="Crisi ipertensiva:">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Label>
-      <Spinner layoutX="365.0" layoutY="400.0" prefHeight="25.0" prefWidth="55.0" />
+      <Spinner id="box6" layoutX="365.0" layoutY="400.0" prefHeight="25.0" prefWidth="55.0" />
       <Spinner layoutX="365.0" layoutY="550.0" prefHeight="25.0" prefWidth="55.0" />
       <TextField layoutX="95.0" layoutY="550.0" prefHeight="25.0" prefWidth="180.0" />
       <Spinner layoutX="365.0" layoutY="500.0" prefHeight="25.0" prefWidth="55.0" />

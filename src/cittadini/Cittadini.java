@@ -26,9 +26,14 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
 public class Cittadini implements EventHandler<ActionEvent> {
     private SingoloCittadino cittadinoLoggato;
+
     @FXML
     private ScrollPane scrollPane_CentriVaccinali;
     private Vector<SingoloCentroVaccinale> centriVaccinaliList=new Vector<>();
@@ -105,35 +110,46 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        Button source=(Button)actionEvent.getSource();
-        int buttonID=Integer.parseInt(source.getId());
+        Button source = (Button) actionEvent.getSource();
+        int buttonID = Integer.parseInt(source.getId());
+        //TODO David: far partire il metodo che carica la ui del centro vaccinale (in base all'id)    }
 
-        //TODO David: far partire il metodo che carica la ui del centro vaccinale (in base all'id)
+    public static void registerEventiAvversi()throws Exception {
+        String evento1 = box1.getSelectedItem().toString(); //evento1 = Mal di testa
+        String evento2 = box2.getSelectedItem().toString(); //evento2 = Febbre
+        String evento3 = box3.getSelectedItem().toString(); //evento3 = Dolori muscolari o articolari
+        String evento4 = box4.getSelectedItem().toString(); //evento4 = Linfoadenopatia
+        String evento5 = box5.getSelectedItem().toString(); //evento5 = Tachicardia
+        String evento6 = box6.getSelectedItem().toString(); //evento6 = Crisi ipertensiva
+        FileWriter writer = new FileWriter("account.txt", true);
+        BufferedWriter out = new BufferedWriter(writer);
+        String fileInput =  "Mal di Testa:" + evento1 + ";" + "Febbre:" + evento2 + ";" + "Dolori muscolari o articolari:" + evento3 + ";" + "Linfoadenopatia:" + evento4 + ";" + "Tachicardia:" + evento5 + ";" + "Crisi ipertensiva:" + evento6 + ";";
+        out.write(fileInput);
+        out.newLine();
+        out.flush();
+        out.close();
     }
 
-
-
-    public static Vector<SingoloCentroVaccinale> getCentriVaccinaliFromFile(){
-        Vector<SingoloCentroVaccinale> vector=new Vector<>();
+    public static Vector<SingoloCentroVaccinale> getCentriVaccinaliFromFile() {
+        Vector<SingoloCentroVaccinale> vector = new Vector<>();
 
         try {
             FileReader fileReader = new FileReader(CentriVaccinali.PATH_TO_CENTRIVACCINALI);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-            String line=null;
+            String line = null;
 
-            while ((line=bufferedReader.readLine())!=null){
-                StringTokenizer st=new StringTokenizer(line,";");
-                if(st.countTokens()==3){
-                    String nome=st.nextToken();
-                    String indirizzo=st.nextToken();
-                    String tipologia=st.nextToken();
+            while ((line = bufferedReader.readLine()) != null) {
+                StringTokenizer st = new StringTokenizer(line, ";");
+                if (st.countTokens() == 3) {
+                    String nome = st.nextToken();
+                    String indirizzo = st.nextToken();
+                    String tipologia = st.nextToken();
 
-                    vector.add(new SingoloCentroVaccinale(nome,indirizzo,tipologia));
+                    vector.add(new SingoloCentroVaccinale(nome, indirizzo, tipologia));
                 }
             }
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -141,8 +157,9 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
     }
 
+
     //TODO Marsio:creare registrazione e login cittadino
-    public void registraCittadino(SingoloCittadino cittadino){
+    public void registraCittadino(SingoloCittadino cittadino) {
 
     }
 
@@ -151,6 +168,8 @@ public class Cittadini implements EventHandler<ActionEvent> {
     }
 
     //TODO: Marsio: implementare ricerca centro vaccinale
+
+}
 
 
 }
