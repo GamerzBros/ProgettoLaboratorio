@@ -1,0 +1,46 @@
+Index: src/cittadini/Cittadini.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package cittadini;\r\n\r\nimport centrivaccinali.CentriVaccinali;\r\nimport centrivaccinali.SingoloCentroVaccinale;\r\nimport javafx.event.ActionEvent;\r\nimport javafx.event.EventHandler;\r\nimport javafx.fxml.FXML;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.Scene;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.control.Label;\r\nimport javafx.scene.control.ScrollPane;\r\nimport javafx.scene.layout.Background;\r\nimport javafx.scene.layout.Pane;\r\nimport javafx.scene.layout.VBox;\r\nimport javafx.scene.paint.Color;\r\nimport javafx.scene.text.Font;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.io.BufferedReader;\r\nimport java.io.FileReader;\r\nimport java.io.IOException;\r\nimport java.net.URL;\r\nimport java.util.List;\r\nimport java.util.StringTokenizer;\r\nimport java.util.Vector;\r\n\r\n\r\nimport java.io.BufferedWriter;\r\nimport java.io.FileWriter;\r\n\r\n//TODO METTERE NOME COGNOME MATRICOLA SEDE\r\npublic class Cittadini implements EventHandler<ActionEvent> {\r\n    private SingoloCittadino cittadinoLoggato;\r\n\r\n    @FXML\r\n    private ScrollPane scrollPane_CentriVaccinali;\r\n    private Vector<SingoloCentroVaccinale> centriVaccinaliList=new Vector<>();\r\n\r\n\r\n    public void loadUI() throws Exception {\r\n        FXMLLoader fxmlLoader=new FXMLLoader();\r\n        URL url=getClass().getResource(\"mainCittadini.fxml\");\r\n        fxmlLoader.setLocation(url);\r\n        Parent root=fxmlLoader.load();\r\n\r\n        Scene scene=new Scene(root);\r\n\r\n        Stage stage=new Stage();\r\n        stage.setScene(scene);\r\n        stage.setTitle(\"Portale Cittadini\");\r\n\r\n        scrollPane_CentriVaccinali=(ScrollPane) scene.lookup(\"#scrollPane_CentriVaccinali\");\r\n\r\n        centriVaccinaliList=Cittadini.getCentriVaccinaliFromFile();\r\n\r\n        creaVbox(centriVaccinaliList);\r\n\r\n        stage.show();\r\n    }\r\n\r\n    private void creaVbox(List<SingoloCentroVaccinale> centriVaccinaliMostrati){\r\n        VBox scrollPaneContent=new VBox();\r\n        scrollPaneContent.setMinWidth(scrollPane_CentriVaccinali.getPrefWidth()-2);\r\n\r\n        scrollPane_CentriVaccinali.setContent(scrollPaneContent);\r\n\r\n        //scrollPaneContent.getChildren().add();\r\n\r\n        for (int i=0;i<centriVaccinaliMostrati.size();i++){\r\n            Pane panel=new Pane();\r\n            panel.setMinHeight(30);\r\n            SingoloCentroVaccinale currentCentro=centriVaccinaliMostrati.get(i);\r\n\r\n            panel.setStyle(\"-fx-background-color: #FFFFFF\");\r\n            Label lblName=new Label(currentCentro.getNome());\r\n            Label lblAddress=new Label(currentCentro.getIndirizzo());\r\n            Label lblType=new Label(currentCentro.getTipologia());\r\n            Button btnGoTo=new Button(\">\");\r\n\r\n            lblName.setLayoutX(6);\r\n            lblName.setMinHeight(30);\r\n            lblName.setFont(new Font(\"Arial\",19));\r\n\r\n            lblAddress.setLayoutX(175);\r\n            lblAddress.setMinHeight(30);\r\n            lblAddress.setFont(new Font(\"Arial\",19));\r\n\r\n            lblType.setLayoutX(420);\r\n            lblType.setMinHeight(30);\r\n            lblType.setFont(new Font(\"Arial\",19));\r\n\r\n            btnGoTo.setLayoutX(520);\r\n            btnGoTo.setFont(new Font(\"Arial\",19));\r\n            btnGoTo.setStyle( \"-fx-background-radius: 5em;\" + \"-fx-min-width: 1px;\" + \"-fx-background-color: #FFFFFF;\" + \"-fx-border-radius: 5em;\" + \"-fx-border-color: #000000;\");\r\n            btnGoTo.setId(String.valueOf(i));\r\n            btnGoTo.setOnAction(this);\r\n\r\n\r\n            panel.getChildren().add(lblName);\r\n            panel.getChildren().add(lblAddress);\r\n            panel.getChildren().add(lblType);\r\n            panel.getChildren().add(btnGoTo);\r\n\r\n\r\n            scrollPaneContent.getChildren().add(panel);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void handle(ActionEvent actionEvent) {\r\n        Button source = (Button) actionEvent.getSource();\r\n        int buttonID = Integer.parseInt(source.getId());\r\n        //TODO David: far partire il metodo che carica la ui del centro vaccinale (in base all'id)    }\r\n\r\n    public static void registerEventiAvversi()throws Exception {\r\n        String evento1 = box1.getSelectedItem().toString(); //evento1 = Mal di testa\r\n        String evento2 = box2.getSelectedItem().toString(); //evento2 = Febbre\r\n        String evento3 = box3.getSelectedItem().toString(); //evento3 = Dolori muscolari o articolari\r\n        String evento4 = box4.getSelectedItem().toString(); //evento4 = Linfoadenopatia\r\n        String evento5 = box5.getSelectedItem().toString(); //evento5 = Tachicardia\r\n        String evento6 = box6.getSelectedItem().toString(); //evento6 = Crisi ipertensiva\r\n        FileWriter writer = new FileWriter(\"account.txt\", true);\r\n        BufferedWriter out = new BufferedWriter(writer);\r\n        String fileInput =  \"Mal di Testa:\" + evento1 + \";\" + \"Febbre:\" + evento2 + \";\" + \"Dolori muscolari o articolari:\" + evento3 + \";\" + \"Linfoadenopatia:\" + evento4 + \";\" + \"Tachicardia:\" + evento5 + \";\" + \"Crisi ipertensiva:\" + evento6 + \";\";\r\n        out.write(fileInput);\r\n        out.newLine();\r\n        out.flush();\r\n        out.close();\r\n    }\r\n\r\n    public static Vector<SingoloCentroVaccinale> getCentriVaccinaliFromFile() {\r\n        Vector<SingoloCentroVaccinale> vector = new Vector<>();\r\n\r\n        try {\r\n            FileReader fileReader = new FileReader(CentriVaccinali.PATH_TO_CENTRIVACCINALI);\r\n            BufferedReader bufferedReader = new BufferedReader(fileReader);\r\n\r\n            String line = null;\r\n\r\n            while ((line = bufferedReader.readLine()) != null) {\r\n                StringTokenizer st = new StringTokenizer(line, \";\");\r\n                if (st.countTokens() == 3) {\r\n                    String nome = st.nextToken();\r\n                    String indirizzo = st.nextToken();\r\n                    String tipologia = st.nextToken();\r\n\r\n                    vector.add(new SingoloCentroVaccinale(nome, indirizzo, tipologia));\r\n                }\r\n            }\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n\r\n        return vector;\r\n\r\n    }\r\n\r\n\r\n    //TODO Marsio:creare registrazione e login cittadino\r\n    public void registraCittadino(SingoloCittadino cittadino) {\r\n\r\n    }\r\n\r\n    public void loggaCittadini() {\r\n\r\n    }\r\n\r\n    //TODO: Marsio: implementare ricerca centro vaccinale\r\n\r\n}\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/cittadini/Cittadini.java b/src/cittadini/Cittadini.java
+--- a/src/cittadini/Cittadini.java	
++++ b/src/cittadini/Cittadini.java	
+@@ -11,13 +11,10 @@
+ import javafx.scene.control.Button;
+ import javafx.scene.control.Label;
+ import javafx.scene.control.ScrollPane;
+-import javafx.scene.layout.Background;
+ import javafx.scene.layout.Pane;
+ import javafx.scene.layout.VBox;
+-import javafx.scene.paint.Color;
+ import javafx.scene.text.Font;
+ import javafx.stage.Stage;
+-
+ import java.io.BufferedReader;
+ import java.io.FileReader;
+ import java.io.IOException;
+@@ -25,8 +22,6 @@
+ import java.util.List;
+ import java.util.StringTokenizer;
+ import java.util.Vector;
+-
+-
+ import java.io.BufferedWriter;
+ import java.io.FileWriter;
+ 
+@@ -112,9 +107,10 @@
+     public void handle(ActionEvent actionEvent) {
+         Button source = (Button) actionEvent.getSource();
+         int buttonID = Integer.parseInt(source.getId());
+-        //TODO David: far partire il metodo che carica la ui del centro vaccinale (in base all'id)    }
++        //TODO David: far partire il metodo che carica la ui del centro vaccinale (in base all'id)
++    }
+ 
+-    public static void registerEventiAvversi()throws Exception {
++    public static void registerEventiAvversi() throws Exception {
+         String evento1 = box1.getSelectedItem().toString(); //evento1 = Mal di testa
+         String evento2 = box2.getSelectedItem().toString(); //evento2 = Febbre
+         String evento3 = box3.getSelectedItem().toString(); //evento3 = Dolori muscolari o articolari

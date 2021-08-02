@@ -11,13 +11,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -25,15 +22,12 @@ import java.net.URL;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Vector;
-
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
 public class Cittadini implements EventHandler<ActionEvent> {
     private SingoloCittadino cittadinoLoggato;
-
     @FXML
     private ScrollPane scrollPane_CentriVaccinali;
     private Vector<SingoloCentroVaccinale> centriVaccinaliList=new Vector<>();
@@ -112,9 +106,10 @@ public class Cittadini implements EventHandler<ActionEvent> {
     public void handle(ActionEvent actionEvent) {
         Button source = (Button) actionEvent.getSource();
         int buttonID = Integer.parseInt(source.getId());
-        //TODO David: far partire il metodo che carica la ui del centro vaccinale (in base all'id)    }
+        //TODO David: far partire il metodo che carica la ui del centro vaccinale (in base all'id)
+    }
 
-    public static void registerEventiAvversi()throws Exception {
+    /*public static void registerEventiAvversi()throws Exception {
         String evento1 = box1.getSelectedItem().toString(); //evento1 = Mal di testa
         String evento2 = box2.getSelectedItem().toString(); //evento2 = Febbre
         String evento3 = box3.getSelectedItem().toString(); //evento3 = Dolori muscolari o articolari
@@ -128,7 +123,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
         out.newLine();
         out.flush();
         out.close();
-    }
+    }*/
 
     public static Vector<SingoloCentroVaccinale> getCentriVaccinaliFromFile() {
         Vector<SingoloCentroVaccinale> vector = new Vector<>();
@@ -168,8 +163,5 @@ public class Cittadini implements EventHandler<ActionEvent> {
     }
 
     //TODO: Marsio: implementare ricerca centro vaccinale
-
-}
-
 
 }
