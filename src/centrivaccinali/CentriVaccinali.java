@@ -1,6 +1,9 @@
 package centrivaccinali;
 
 import cittadini.Cittadini;
+import cittadini.SingoloCittadino;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +17,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.io.*;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
@@ -23,7 +28,10 @@ public class CentriVaccinali extends Application {
     public static final String PATH_TO_DATA="data/";
     public static final String PREFIX = "Vaccinati_";
     public static final String SUFFIX = ".dati.txt";
-    CentriVaccinaliUI cUI = new CentriVaccinaliUI();
+    private ObservableList<String> vaccino_somministrato_items = FXCollections.observableArrayList("Pfizer","AstraZeneca","Moderna","J&J");
+    private ObservableList<String> centro_vaccinale_items = FXCollections.observableArrayList();
+    public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
+    private Scene scene;
     Cittadini cittadini;
     @FXML
     private TextField user_txtfield;
@@ -33,6 +41,20 @@ public class CentriVaccinali extends Application {
     private Button btn_cittadini;
     @FXML
     private Button btn_centriVaccinali;
+    @FXML
+    private javafx.scene.control.TextField nome_paziente;
+    @FXML
+    private javafx.scene.control.TextField cognome_paziente;
+    @FXML
+    private javafx.scene.control.TextField cf_paziente;
+    @FXML
+    private TextField ID_vaccinazione;
+    @FXML
+    private ChoiceBox<String> vaccino_somministrato;
+    @FXML
+    private DatePicker data_vaccinazione;
+    @FXML
+    private ChoiceBox<String> centro_vaccinale;
 
 
 
@@ -125,10 +147,69 @@ public class CentriVaccinali extends Application {
 
     }
 
+    public void opzioniLoggato(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            URL xmlUrl = getClass().getResource("opzioniLoggato.fxml");
+            loader.setLocation(xmlUrl);
+
+            Parent root = loader.load();
+
+            scene = new Scene(root);
+
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("opzioniLoggato");
+
+            InputStream icon = getClass().getResourceAsStream("fiorellino.png");
+            Image image = new Image(icon);
+
+            stage.getIcons().add(image);
+
+            stage.show();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void registraVaccinato(){
+        //TODO chiamare questo metodo dopo registrazione (pole deve fare la sua parte)
+        String nome = nome_paziente.getText();
+        String cognome = cognome_paziente.getText();
+        String codice_fiscale =cf_paziente.getText();
+        String tipoVaccino = vaccino_somministrato.getValue();
+        String centroVaccinale = centro_vaccinale.getValue();
+        String id_vaccino = ID_vaccinazione.getText();
+        LocalDate dataVaccino = data_vaccinazione.getValue();
+        String dataVaccinazione = dataVaccino.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
+
+
+        SingoloCittadino cittadino = new SingoloCittadino(nome,cognome,codice_fiscale);
+        cittadino.setCentroVaccinale(centroVaccinale);
+        cittadino.setIdVaccino(Integer.parseInt(id_vaccino));
+
+        int idVaccino = cittadino.getIdVaccino();
+
+        String output = nome+";"+cognome+";"+codice_fiscale+";"+tipoVaccino+";"+idVaccino+";"+dataVaccinazione;
+        String file_ID = "data/"+"Vaccinati_"+centroVaccinale+".dati.txt";
+        try{
+            FileWriter writer = new FileWriter(file_ID,true);
+            BufferedWriter out = new BufferedWriter(writer);
+            out.write(output);
+            out.flush();
+            out.newLine();
+            out.close();
+            writer.close();
+        }catch (IOException e){
+            e.toString();
+        }
+    }
+
     public void onCentriVaccinaliSelected() throws Exception{
-        cUI.opzioniLoggato(); //TODO Cri:includere qui dentro la creazione di tutte le UI dei centri vaccinali.
-        Stage stage=(Stage)btn_cittadini.getScene().getWindow();
-        stage.close();
+        opzioniLoggato(); //TODO Cri:includere qui dentro la creazione di tutte le UI dei centri vaccinali.
+        //Stage stage=(Stage)btn_cittadini.getScene().getWindow();
+        //stage.close();
     }
 
     public void onCittadiniSelected(){
@@ -220,12 +301,63 @@ public class CentriVaccinali extends Application {
         }
     }
 
+    public void onNewVaccinate(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            URL xmlUrl = getClass().getResource("nuovoPaziente.fxml");
+            loader.setLocation(xmlUrl);
+
+            Parent root = loader.load();
+
+
+
+            scene = new Scene(root);
+
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Nuovo Paziente");
+
+
+
+            InputStream icon = getClass().getResourceAsStream("fiorellino.png");
+            Image image = new Image(icon);
+            stage.getIcons().add(image);
+            stage.show();
+
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void vaccino_somministrato_setter(){
+        vaccino_somministrato.setItems(vaccino_somministrato_items);
+    }
+
+    public void centro_vaccinale_setter(){
+        String[] parts;
+        String nome_centro_vaccinale="";
+        try{
+            File file = new File(PATH_TO_CENTRIVACCINALI_DATI);
+            Scanner reader = new Scanner(file);
+            while (reader.hasNextLine()){
+                String line = reader.nextLine();
+                parts = line.split(";");
+                nome_centro_vaccinale = parts[0];
+                if(!centro_vaccinale_items.contains(nome_centro_vaccinale))
+                    centro_vaccinale_items.add(nome_centro_vaccinale);
+            }
+            centro_vaccinale.setItems(centro_vaccinale_items);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
 
 
 
     public void onNewVaccinateClicked(){
-        cUI.onNewVaccinateClicked();
-
+        onNewVaccinate();
     }
 
 
