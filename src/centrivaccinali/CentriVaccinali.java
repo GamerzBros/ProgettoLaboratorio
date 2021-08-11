@@ -30,6 +30,7 @@ public class CentriVaccinali extends Application {
     public static final String SUFFIX = ".dati.txt";
     private ObservableList<String> vaccino_somministrato_items = FXCollections.observableArrayList("Pfizer","AstraZeneca","Moderna","J&J");
     private ObservableList<String> centro_vaccinale_items = FXCollections.observableArrayList();
+    private ObservableList<String> qualificatore_items = FXCollections.observableArrayList("via","v.le","pzza");
     public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
     private Scene scene;
     Cittadini cittadini;
@@ -55,6 +56,23 @@ public class CentriVaccinali extends Application {
     private DatePicker data_vaccinazione;
     @FXML
     private ChoiceBox<String> centro_vaccinale;
+    @FXML
+    private TextField nome_centro;
+    @FXML
+    private TextField nome_via;
+    @FXML
+    private TextField numero_civico;
+    @FXML
+    private TextField comune;
+    @FXML
+    private TextField provincia;
+    @FXML
+    private TextField cap;
+    @FXML
+    private ChoiceBox<String> qualificatore;
+    @FXML
+    private Button annulla;
+
 
 
 
@@ -80,7 +98,7 @@ public class CentriVaccinali extends Application {
     }
 
 
-    public static void registraCentroVaccinale(SingoloCentroVaccinale centroVaccinale){ //metodo per registrare i centri
+    /*public static void registraCentroVaccinale(SingoloCentroVaccinale centroVaccinale){ //metodo per registrare i centri
         String nome = centroVaccinale.getNome();
         String indirizzo = centroVaccinale.getIndirizzo();
         String tipologia = centroVaccinale.getTipologia();
@@ -96,6 +114,41 @@ public class CentriVaccinali extends Application {
             out.close();
         }catch(IOException e){
             System.out.println("\"File inesistente o non trovato\"");
+        }
+    }
+*/ //TODO RIVEDERE QUI SOPRA
+
+    public void registraCentroVaccinale(){
+        String nome = nome_centro.getText();
+        String qualif = qualificatore.getValue();
+        String via = nome_via.getText();
+        String civico = numero_civico.getText();
+        String com = comune.getText();
+        String prov = provincia.getText();
+        String Cap = cap.getText();
+        if(nome.equals("") || qualif==null || via.equals("")|| civico.equals("")|| com.equals("")|| prov.equals("")|| Cap.equals("")){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText(null);
+            alert.setContentText("Controllare i dati inseriti");
+            alert.showAndWait();
+        }else{
+            try{
+                File file = new File(PATH_TO_CENTRIVACCINALI_DATI);
+                BufferedWriter out = new BufferedWriter(new FileWriter(file,true));
+                String output = nome+";"+qualif+";"+via+";"+civico+";"+com+";"+prov+";"+Cap;
+                out.write(output);
+                out.newLine();
+                out.flush();
+                out.close();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Successo");
+                alert.setHeaderText(null);
+                alert.setContentText("Centro vaccinale registrato");
+                alert.showAndWait();
+            }catch (IOException e){
+                e.toString();
+            }
         }
     }
 
@@ -147,7 +200,7 @@ public class CentriVaccinali extends Application {
 
     }
 
-    public void opzioniLoggato(){
+    public void onCentriVaccinaliSelected(){
         try {
             FXMLLoader loader = new FXMLLoader();
             URL xmlUrl = getClass().getResource("opzioniLoggato.fxml");
@@ -171,6 +224,33 @@ public class CentriVaccinali extends Application {
         catch (IOException e){
             e.printStackTrace();
         }
+    }
+    public void onNuovoCentroSelected(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            URL xmlUrl = getClass().getResource("nuovoCentroVaccinale.fxml");
+            loader.setLocation(xmlUrl);
+
+            Parent root = loader.load();
+
+            scene = new Scene(root);
+
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Nuovo centro vaccinale");
+
+            InputStream icon = getClass().getResourceAsStream("fiorellino.png");
+            Image image = new Image(icon);
+
+            stage.getIcons().add(image);
+
+            stage.show();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+
+
     }
 
     public void registraVaccinato(){
@@ -201,23 +281,21 @@ public class CentriVaccinali extends Application {
             out.newLine();
             out.close();
             writer.close();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Successo");
+            alert.setHeaderText(null);
+            alert.setContentText("Paziente registrato a sistema");
+            alert.showAndWait();
         }catch (IOException e){
             e.toString();
         }
     }
 
-    public void onCentriVaccinaliSelected() throws Exception{
-        opzioniLoggato(); //TODO Cri:includere qui dentro la creazione di tutte le UI dei centri vaccinali.
-        //Stage stage=(Stage)btn_cittadini.getScene().getWindow();
-        //stage.close();
-    }
 
     public void onCittadiniSelected(){
         cittadini=new Cittadini();
         try {
             cittadini.loadUI();
-            Stage stage=(Stage)btn_cittadini.getScene().getWindow();
-            stage.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -334,6 +412,10 @@ public class CentriVaccinali extends Application {
         vaccino_somministrato.setItems(vaccino_somministrato_items);
     }
 
+    public void qualificatore_setter(){
+        qualificatore.setItems(qualificatore_items);
+    }
+
     public void centro_vaccinale_setter(){
         String[] parts;
         String nome_centro_vaccinale="";
@@ -353,6 +435,10 @@ public class CentriVaccinali extends Application {
         }
     }
 
+    public void annulla_button(){
+        Stage stage = (Stage)annulla.getScene().getWindow();
+        stage.close();
+    }
 
 
 
@@ -366,5 +452,6 @@ public class CentriVaccinali extends Application {
          Application.launch();
 
     }
+
 
 }
