@@ -23,17 +23,17 @@ import java.util.Scanner;
 
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
 public class CentriVaccinaliUI{
+    public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
     private Scene scene;
     private ObservableList<String> vaccino_somministrato_items = FXCollections.observableArrayList("Pfizer","AstraZeneca","Moderna","J&J");
     private ObservableList<String> centro_vaccinale_items = FXCollections.observableArrayList();
-    public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
 
     @FXML
-    private javafx.scene.control.TextField nome_paziente;
+    private TextField nome_paziente;
     @FXML
-    private javafx.scene.control.TextField cognome_paziente;
+    private TextField cognome_paziente;
     @FXML
-    private javafx.scene.control.TextField cf_paziente;
+    private TextField cf_paziente;
     @FXML
     private TextField ID_vaccinazione;
     @FXML
@@ -139,7 +139,7 @@ public class CentriVaccinaliUI{
     public void login(){
         try {
             FXMLLoader loader = new FXMLLoader();
-            URL xmlUrl = getClass().getResource("loginMedico.fxml");
+
             loader.setLocation(xmlUrl);
 
             Parent root = loader.load();

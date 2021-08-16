@@ -1,7 +1,6 @@
 package centrivaccinali;
 
 import cittadini.Cittadini;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -134,7 +133,7 @@ public class CentriVaccinali extends Application {
     public void onCittadiniSelected(){
         cittadini=new Cittadini();
         try {
-            cittadini.loadUI();
+            cittadini.loadMainCittadiniUI();
             Stage stage=(Stage)btn_cittadini.getScene().getWindow();
             stage.close();
         } catch (Exception e) {
