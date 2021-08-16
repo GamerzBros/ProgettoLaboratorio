@@ -1,9 +1,6 @@
 package centrivaccinali;
 
 import cittadini.Cittadini;
-import cittadini.SingoloCittadino;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,8 +14,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.io.*;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
@@ -205,6 +200,7 @@ public class CentriVaccinali extends Application {
             e.printStackTrace();
         }
     }
+
     public void onNuovoCentroSelected(){
         try {
             FXMLLoader loader = new FXMLLoader();
