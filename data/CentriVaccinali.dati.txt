@@ -1,5 +1,1 @@
-Nome1;via;dio;12;Comune;varese;21055
-nome;via;nome;num;com;prov;cap
-nome;via;nome;num;com;prov;cap
-nome;via;nome;num;com;prov;cap
-nomenuovo;via;nuovo;nuovo;nuovo;nuovo;nuovo
+Nome1;test;test

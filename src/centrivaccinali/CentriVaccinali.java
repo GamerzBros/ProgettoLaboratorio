@@ -98,22 +98,37 @@ public class CentriVaccinali extends Application {
     }
 
 
-    public static void registraCentroVaccinale(SingoloCentroVaccinale centroVaccinale){ //metodo per registrare i centri
-        String nome = centroVaccinale.getNome();
-        String indirizzo = centroVaccinale.getIndirizzo();
-        String tipologia = centroVaccinale.getTipologia();
-        try{
-            File file = new File(PATH_TO_DATA+PREFIX+nome+SUFFIX);
-            FileWriter fw = new FileWriter(file);
-            FileWriter writer = new FileWriter("account.txt", true);
-            BufferedWriter out = new BufferedWriter(writer);
-            String fileInput = nome + ";" + tipologia + ";" + indirizzo;
-            out.write(fileInput);
-            out.newLine();
-            out.flush();
-            out.close();
-        }catch(IOException e){
-            System.out.println("\"File inesistente o non trovato\"");
+    public void registraCentroVaccinale(){
+        String nome = nome_centro.getText();
+        String qualif = qualificatore.getValue();
+        String via = nome_via.getText();
+        String civico = numero_civico.getText();
+        String com = comune.getText();
+        String prov = provincia.getText();
+        String Cap = cap.getText();
+        if(nome.equals("") || qualif==null || via.equals("")|| civico.equals("")|| com.equals("")|| prov.equals("")|| Cap.equals("")){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText(null);
+            alert.setContentText("Controllare i dati inseriti");
+            alert.showAndWait();
+        }else{
+            try{
+                File file = new File(PATH_TO_CENTRIVACCINALI_DATI);
+                BufferedWriter out = new BufferedWriter(new FileWriter(file,true));
+                String output = nome+";"+qualif+";"+via+";"+civico+";"+com+";"+prov+";"+Cap;
+                out.write(output);
+                out.newLine();
+                out.flush();
+                out.close();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Successo");
+                alert.setHeaderText(null);
+                alert.setContentText("Centro vaccinale registrato");
+                alert.showAndWait();
+            }catch (IOException e){
+                e.toString();
+            }
         }
     }
 
@@ -275,7 +290,7 @@ public class CentriVaccinali extends Application {
 
         /*Hashing della password per renderla one-way
         MessageDigest messageDigest=MessageDigest.getInstance("SHA-256");
-        pwd=new String(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8)));*/ //TODO controlalre che questo controllore sia giusto. sul web dicono che non funzioni correttamente
+        pwd=new String(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8)));*/ //TODO controllare che questo controllore sia giusto. sul web dicono che non funzioni correttamente
 
         try{
             MessageDigest messageDigest=MessageDigest.getInstance("SHA-256");
