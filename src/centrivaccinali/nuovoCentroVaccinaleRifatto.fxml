@@ -27,7 +27,6 @@
          </fill></Rectangle>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="660.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
       <TextField fx:id="nome_paziente" layoutX="50.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
-      <TextField fx:id="cf_paziente" layoutX="50.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
       <TextField fx:id="ID_vaccinazione" layoutX="324.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
       <Label layoutX="81.0" layoutY="150.0" prefHeight="22.0" prefWidth="119.0" text="Nome Centro">
          <font>
@@ -39,12 +38,12 @@
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="350.0" layoutY="265.0" prefHeight="22.0" prefWidth="128.0" text="Numero Civico">
+      <Label layoutX="331.0" layoutY="495.0" prefHeight="22.0" prefWidth="128.0" text="Numero Civico">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="81.0" layoutY="265.0" prefHeight="22.0" prefWidth="119.0" text="Via">
+      <Label layoutX="81.0" layoutY="495.0" prefHeight="22.0" prefWidth="119.0" text="Via">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
@@ -59,7 +58,7 @@
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="81.0" layoutY="495.0" prefHeight="22.0" prefWidth="152.0" text="CAP">
+      <Label layoutX="347.0" layoutY="265.0" prefHeight="22.0" prefWidth="152.0" text="CAP">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
@@ -77,5 +76,11 @@
       <TextField fx:id="cf_paziente11" layoutX="324.0" layoutY="441.0" prefHeight="25.0" prefWidth="180.0" />
       <TextField fx:id="cf_paziente12" layoutX="50.0" layoutY="537.0" prefHeight="25.0" prefWidth="180.0" />
       <ChoiceBox layoutX="325.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
+      <Label layoutX="78.0" layoutY="265.0" prefHeight="22.0" prefWidth="152.0" text="Tipo Di Centro">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Label>
+      <ChoiceBox layoutX="51.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
    </children>
 </AnchorPane>
