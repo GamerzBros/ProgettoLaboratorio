@@ -1,1 +1,2 @@
-Nome1;prova;prova
+nome;via;nome3;12;comune;va;21055;tipologia
+nome2;v.le;nome;12;dio;va;21055;ospedaliero

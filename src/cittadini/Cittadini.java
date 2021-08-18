@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.net.URL;
 import java.util.List;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -24,11 +25,15 @@ import java.util.Vector;
 public class Cittadini implements EventHandler<ActionEvent> {
     public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
     public static final String PATH_TO_EVENTI_AVVERSI="account.txt"; //TODO Sistemare il path qui
+    public static final String PATH_TO_CENTRIVACCINALI="data/CentriVaccinali.dati.txt";
+
     private boolean isLogged=false;
     private int currentCentreID;
     private Vector<SingoloCentroVaccinale> centriVaccinaliList=new Vector<>();
     @FXML
     private ScrollPane scrollPane_CentriVaccinali;
+    @FXML
+    private TextField nome_ricerca_centro;
 
 
     public void loadMainCittadiniUI() throws Exception {
@@ -51,6 +56,8 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
         stage.show();
     }
+
+
 
     private void creaVbox(List<SingoloCentroVaccinale> centriVaccinaliMostrati){
         VBox scrollPaneContent=new VBox();
@@ -122,9 +129,15 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
             while ((line = bufferedReader.readLine()) != null) {
                 StringTokenizer st = new StringTokenizer(line, ";");
-                if (st.countTokens() == 3) {
+                if (st.countTokens() == 8) {
                     String nome = st.nextToken();
-                    String indirizzo = st.nextToken();
+                    String via = st.nextToken();
+                    String nome1 = st.nextToken();
+                    String num_civico = st.nextToken();
+                    String comune = st.nextToken();
+                    String provincia = st.nextToken();
+                    String cap = st.nextToken();
+                    String indirizzo = via+" "+" "+nome1+" "+num_civico+" "+comune+" "+provincia+" "+cap;
                     String tipologia = st.nextToken();
 
                     vector.add(new SingoloCentroVaccinale(nome, indirizzo, tipologia));
@@ -333,6 +346,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
         }
 
     }
+
 
 
     //TODO Marsio:creare registrazione e login cittadino

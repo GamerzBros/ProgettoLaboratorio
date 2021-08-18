@@ -5,7 +5,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.CentriVaccinali">
    <children>
-      <Label layoutX="27.0" layoutY="34.0" text="Nome " />
+      <Label layoutX="33.0" layoutY="35.0" text="Nome " />
       <TextField fx:id="nome_centro" layoutX="27.0" layoutY="66.0" />
       <Button fx:id="registra_centro_vaccinale" layoutX="509.0" layoutY="346.0" mnemonicParsing="false" onAction="#registraCentroVaccinale" text="Registra" />
       <ChoiceBox fx:id="qualificatore" layoutX="275.0" layoutY="66.0" onMousePressed="#qualificatore_setter" prefHeight="25.0" prefWidth="42.0" />
@@ -21,5 +21,7 @@
       <Label layoutX="413.0" layoutY="105.0" text="Provincia (sigla)" />
       <Label layoutX="351.0" layoutY="165.0" text="CAP" />
       <Button fx:id="annulla" layoutX="435.0" layoutY="346.0" mnemonicParsing="false" onAction="#annulla_button" text="Annulla" />
+      <ChoiceBox fx:id="tipologia" layoutX="275.0" layoutY="231.0" onMousePressed="#tipologia_setter" prefHeight="25.0" prefWidth="59.0" />
+      <Label layoutX="282.0" layoutY="205.0" text="Tipologia" />
    </children>
 </AnchorPane>

@@ -31,6 +31,7 @@ public class CentriVaccinali extends Application {
     private ObservableList<String> vaccino_somministrato_items = FXCollections.observableArrayList("Pfizer","AstraZeneca","Moderna","J&J");
     private ObservableList<String> centro_vaccinale_items = FXCollections.observableArrayList();
     private ObservableList<String> qualificatore_items = FXCollections.observableArrayList("via","v.le","pzza");
+    private ObservableList<String>tipologia_items = FXCollections.observableArrayList("ospedaliero","aziendale","hub");
     public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
     private Scene scene;
     Cittadini cittadini;
@@ -71,6 +72,8 @@ public class CentriVaccinali extends Application {
     @FXML
     private ChoiceBox<String> qualificatore;
     @FXML
+    private ChoiceBox<String> tipologia;
+    @FXML
     private Button annulla;
 
 
@@ -106,7 +109,8 @@ public class CentriVaccinali extends Application {
         String com = comune.getText();
         String prov = provincia.getText();
         String Cap = cap.getText();
-        if(nome.equals("") || qualif==null || via.equals("")|| civico.equals("")|| com.equals("")|| prov.equals("")|| Cap.equals("")){
+        String tipolog = tipologia.getValue();
+        if(nome.equals("") || qualif==null || via.equals("") || civico.equals("") || com.equals("") || prov.equals("") || Cap.equals("") || tipolog==null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setHeaderText(null);
@@ -116,7 +120,7 @@ public class CentriVaccinali extends Application {
             try{
                 File file = new File(PATH_TO_CENTRIVACCINALI_DATI);
                 BufferedWriter out = new BufferedWriter(new FileWriter(file,true));
-                String output = nome+";"+qualif+";"+via+";"+civico+";"+com+";"+prov+";"+Cap;
+                String output = nome+";"+qualif+";"+via+";"+civico+";"+com+";"+prov+";"+Cap+";"+tipolog;
                 out.write(output);
                 out.newLine();
                 out.flush();
@@ -154,15 +158,6 @@ public class CentriVaccinali extends Application {
             }
             reader.close();
 
-        /*parts = line.split(";");
-        if(parts[0].contains(nomeCentroVaccinale)){
-            System.out.println("Centro trovato");
-        }else{
-            System.out.println("Il centro potrebbe non esistere");
-        }
-        reader.close();
-
-         */
         }catch (FileNotFoundException fe) {
             fe.printStackTrace();
         }
@@ -398,6 +393,10 @@ public class CentriVaccinali extends Application {
 
     public void qualificatore_setter(){
         qualificatore.setItems(qualificatore_items);
+    }
+
+    public void tipologia_setter(){
+        tipologia.setItems(tipologia_items);
     }
 
     public void centro_vaccinale_setter(){
