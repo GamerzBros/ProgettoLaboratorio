@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.CentriVaccinali">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="700.0" stroke="BLACK" strokeType="INSIDE" width="550.0">
+         <fill>
+            <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.09803921729326248" green="0.4901960790157318" blue="0.7882353067398071" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill></Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="660.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
+      <TextField fx:id="nome_paziente" layoutX="50.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
+      <TextField fx:id="ID_vaccinazione" layoutX="324.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
+      <Label layoutX="81.0" layoutY="150.0" prefHeight="22.0" prefWidth="119.0" text="Nome Centro">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="350.0" layoutY="150.0" prefHeight="22.0" prefWidth="152.0" text="Qualificatore">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="331.0" layoutY="495.0" prefHeight="22.0" prefWidth="128.0" text="Numero Civico">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="81.0" layoutY="495.0" prefHeight="22.0" prefWidth="119.0" text="Via">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="81.0" layoutY="380.0" prefHeight="22.0" prefWidth="180.0" text="Comune">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="350.0" layoutY="380.0" prefHeight="22.0" prefWidth="146.0" text="Provincia">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="347.0" layoutY="265.0" prefHeight="22.0" prefWidth="152.0" text="CAP">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="nuovoPaziente_confirm" layoutX="395.0" layoutY="605.0" mnemonicParsing="false" onAction="#registraVaccinato" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Registra">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font></Button>
+      <Button fx:id="annulla" layoutX="270.0" layoutY="605.0" mnemonicParsing="false" onAction="#annulla_button" prefHeight="42.0" prefWidth="109.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Annulla">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Button>
+      <TextField fx:id="cf_paziente1" layoutX="50.0" layoutY="441.0" prefHeight="25.0" prefWidth="180.0" />
+      <TextField fx:id="cf_paziente11" layoutX="324.0" layoutY="441.0" prefHeight="25.0" prefWidth="180.0" />
+      <TextField fx:id="cf_paziente12" layoutX="50.0" layoutY="537.0" prefHeight="25.0" prefWidth="180.0" />
+      <ChoiceBox layoutX="325.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
+      <Label layoutX="78.0" layoutY="265.0" prefHeight="22.0" prefWidth="152.0" text="Tipo Di Centro">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Label>
+      <ChoiceBox layoutX="51.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
+   </children>
+</AnchorPane>
