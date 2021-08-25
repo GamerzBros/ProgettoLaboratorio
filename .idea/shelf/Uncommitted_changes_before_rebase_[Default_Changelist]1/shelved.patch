@@ -1,0 +1,325 @@
+Index: src/centrivaccinali/CentriVaccinali.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package centrivaccinali;\r\n\r\nimport cittadini.Cittadini;\r\nimport javafx.event.ActionEvent;\r\nimport javafx.fxml.FXML;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.Scene;\r\nimport javafx.scene.control.*;\r\nimport javafx.scene.image.Image;\r\nimport javafx.stage.Stage;\r\nimport javafx.application.Application;\r\nimport java.nio.charset.StandardCharsets;\r\nimport java.security.MessageDigest;\r\nimport java.io.*;\r\nimport java.net.URL;\r\nimport java.util.Scanner;\r\n\r\n//TODO METTERE NOME COGNOME MATRICOLA SEDE\r\npublic class CentriVaccinali extends Application {\r\n    public static final String PATH_TO_CENTRIVACCINALI=\"data/CentriVaccinali.dati.txt\";\r\n    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI=\"data/Cittadini_Registrati.dati.txt\";\r\n    public static final String PATH_TO_DATA=\"data/\";\r\n    public static final String PREFIX = \"Vaccinati_\";\r\n    public static final String SUFFIX = \".dati.txt\";\r\n    CentriVaccinaliUI cUI = new CentriVaccinaliUI();\r\n    Cittadini cittadini;\r\n    @FXML\r\n    private TextField user_txtfield;\r\n    @FXML\r\n    private PasswordField user_password;\r\n    @FXML\r\n    private Button btn_cittadini;\r\n    @FXML\r\n    private Button btn_centriVaccinali;\r\n\r\n\r\n\r\n    @Override\r\n    public void start(Stage stage) throws Exception {\r\n        FXMLLoader loader = new FXMLLoader();\r\n        URL xmlUrl = getClass().getResource(\"SelectionUI.fxml\");\r\n        loader.setLocation(xmlUrl);\r\n\r\n        Parent root = loader.load();\r\n\r\n        Scene scene=new Scene(root);\r\n\r\n\r\n        stage.setScene(scene);\r\n        stage.setTitle(\"Pagina iniziale\");\r\n\r\n        InputStream icon = getClass().getResourceAsStream(\"fiorellino.png\");\r\n        Image image = new Image(icon);\r\n\r\n        stage.getIcons().add(image);\r\n        stage.show();\r\n    }\r\n\r\n\r\n    public static void registraCentroVaccinale(SingoloCentroVaccinale centroVaccinale){ //metodo per registrare i centri\r\n        String nome = centroVaccinale.getNome();\r\n        String indirizzo = centroVaccinale.getIndirizzo();\r\n        String tipologia = centroVaccinale.getTipologia();\r\n        try{\r\n            File file = new File(PATH_TO_DATA+PREFIX+nome+SUFFIX);\r\n            FileWriter fw = new FileWriter(file);\r\n            FileWriter writer = new FileWriter(\"account.txt\", true);\r\n            BufferedWriter out = new BufferedWriter(writer);\r\n            String fileInput = nome + \";\" + tipologia + \";\" + indirizzo;\r\n            out.write(fileInput);\r\n            out.newLine();\r\n            out.flush();\r\n            out.close();\r\n        }catch(IOException e){\r\n            System.out.println(\"\\\"File inesistente o non trovato\\\"\");\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void stop() throws Exception {\r\n        super.stop();\r\n    }\r\n\r\n    public void cercaCentroVaccinale(String nomeCentroVaccinale)throws FileNotFoundException{ //Ricerca centro per nome, ogni centro che contiene quella \"parte\" di nome, viene visualizzato\r\n        try{\r\n            File file = new File(PATH_TO_CENTRIVACCINALI);\r\n            Scanner reader = new Scanner(file);\r\n            String[] parts;\r\n            while(reader.hasNext()){\r\n                String line = reader.nextLine();\r\n                parts = line.split(\";\");\r\n                if(parts[0].contains(nomeCentroVaccinale)){\r\n                    System.out.println(\"Centri trovati:\"+parts[0]);\r\n                }else{\r\n                    System.out.println(\"Il centro potrebbe non esistere\");\r\n                }\r\n            }\r\n            reader.close();\r\n\r\n        /*parts = line.split(\";\");\r\n        if(parts[0].contains(nomeCentroVaccinale)){\r\n            System.out.println(\"Centro trovato\");\r\n        }else{\r\n            System.out.println(\"Il centro potrebbe non esistere\");\r\n        }\r\n        reader.close();\r\n\r\n         */\r\n        }catch (FileNotFoundException fe) {\r\n            fe.printStackTrace();\r\n        }\r\n    }\r\n\r\n    public void cercaCentroVaccinale(String comune, String tipologia) throws FileNotFoundException{  //TODO rivedere i tipi dei parametri e try catch\r\n\r\n    }\r\n\r\n    public void visualizzaInfoCentroVaccinale(SingoloCentroVaccinale centroVaccinale){\r\n        System.out.println(centroVaccinale.toString());\r\n\r\n    }\r\n\r\n    public void inserisciEventiAvversi(Object eventoAvverso){  //TODO modificare i parametri\r\n\r\n    }\r\n\r\n    public void onCentriVaccinaliSelected() throws Exception{\r\n        cUI.opzioniLoggato(); //TODO Cri:includere qui dentro la creazione di tutte le UI dei centri vaccinali.\r\n        Stage stage=(Stage)btn_cittadini.getScene().getWindow();\r\n        stage.close();\r\n    }\r\n\r\n    public void onCittadiniSelected(){\r\n        cittadini=new Cittadini();\r\n        try {\r\n            cittadini.loadUI();\r\n            Stage stage=(Stage)btn_cittadini.getScene().getWindow();\r\n            stage.close();\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n\r\n    public void onRegisterClicked() throws Exception{ //TODO FAR ANDARE A CAPO QUANDO SCRIVE\r\n        String pwd = user_password.getText();\r\n        String user = user_txtfield.getText();\r\n\r\n        /*Hashing della password per renderla one-way\r\n        MessageDigest messageDigest=MessageDigest.getInstance(\"SHA-256\");\r\n        pwd=new String(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8)));*/ //TODO controlalre che questo controllore sia giusto. sul web dicono che non funzioni correttamente\r\n\r\n        try{\r\n            MessageDigest messageDigest=MessageDigest.getInstance(\"SHA-256\");\r\n            byte[] hash = messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8));\r\n            pwd = toHexString(hash);\r\n            System.out.println(pwd);\r\n        }catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n\r\n        FileWriter writer = new FileWriter(PATH_TO_CITTADINI_REGISTRATI_DATI,true);\r\n        BufferedWriter out = new BufferedWriter(writer);\r\n        String scrivi = user+\";\"+pwd;\r\n        out.write(scrivi);\r\n        out.newLine();\r\n        out.close();\r\n    }\r\n\r\n    private String toHexString(byte[] array) {\r\n        StringBuilder sb = new StringBuilder(array.length * 2);\r\n\r\n        for (byte b : array){\r\n            int value = 0xFF & b;\r\n            String toAppend = Integer.toHexString(value);\r\n\r\n            sb.append(toAppend);\r\n        }\r\n        sb.setLength(sb.length()-1);\r\n        return sb.toString();\r\n    }\r\n\r\n    public void onLoginClicked() {\r\n        String user = user_txtfield.getText();\r\n        String pwd = user_password.getText();\r\n        String user_temp; //questi temp sono i \"candidati\" user e psw presi dal reader dal file\r\n        String pwd_temp;\r\n        String[] parts;//contenitore per il metodo split\r\n\r\n        try {\r\n            if (!user.equals(\"\") && !pwd.equals(\"\")) {\r\n                File file = new File(PATH_TO_CITTADINI_REGISTRATI_DATI);\r\n                Scanner reader = new Scanner(file);\r\n                while (reader.hasNextLine()) {\r\n                    String line = reader.nextLine();\r\n                    parts = line.split(\";\");\r\n                    user_temp = parts[0];\r\n                    pwd_temp = parts[1];\r\n\r\n                    MessageDigest messageDigest = MessageDigest.getInstance(\"SHA-256\");\r\n                    pwd_temp = new String(messageDigest.digest(pwd_temp.getBytes(StandardCharsets.UTF_8))); //TODO Rivedere controllore\r\n\r\n                    if (user_temp.equals(user) && pwd_temp.equals(pwd)) {\r\n                        System.out.println(\"LOGGATO\");  //in qualche modo qui caricherà la nuova interface, vai pole divertiti\r\n                    } else {\r\n                        System.out.println(\"User inesistente, premere sul tasto 'register'\");//popup magari (?)\r\n                        /*\r\n                        JOptionPane.showMessageDialog(null,\r\n                            \"User inesistente, premere sul tasto 'register'\",\r\n                            JOptionPane.ERROR_MESSAGE);                           popup?\r\n                        */\r\n                    }\r\n                }\r\n            } else {\r\n                System.out.println(\"Inserire dei dati\");\r\n            }\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n\r\n\r\n\r\n    public void onNewVaccinateClicked(){\r\n        cUI.onNewVaccinateClicked();\r\n\r\n    }\r\n\r\n\r\n\r\n    public static void main(String[] args) throws Exception {\r\n         Application.launch();\r\n\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/centrivaccinali/CentriVaccinali.java b/src/centrivaccinali/CentriVaccinali.java
+--- a/src/centrivaccinali/CentriVaccinali.java	(revision c3d27c69871d259e0540b61f601b39852d2c06be)
++++ b/src/centrivaccinali/CentriVaccinali.java	(date 1629125621576)
+@@ -1,6 +1,9 @@
+ package centrivaccinali;
+ 
+ import cittadini.Cittadini;
++import cittadini.SingoloCittadino;
++import javafx.collections.FXCollections;
++import javafx.collections.ObservableList;
+ import javafx.event.ActionEvent;
+ import javafx.fxml.FXML;
+ import javafx.fxml.FXMLLoader;
+@@ -14,6 +17,8 @@
+ import java.security.MessageDigest;
+ import java.io.*;
+ import java.net.URL;
++import java.time.LocalDate;
++import java.time.format.DateTimeFormatter;
+ import java.util.Scanner;
+ 
+ //TODO METTERE NOME COGNOME MATRICOLA SEDE
+@@ -23,7 +28,11 @@
+     public static final String PATH_TO_DATA="data/";
+     public static final String PREFIX = "Vaccinati_";
+     public static final String SUFFIX = ".dati.txt";
+-    CentriVaccinaliUI cUI = new CentriVaccinaliUI();
++    private ObservableList<String> vaccino_somministrato_items = FXCollections.observableArrayList("Pfizer","AstraZeneca","Moderna","J&J");
++    private ObservableList<String> centro_vaccinale_items = FXCollections.observableArrayList();
++    private ObservableList<String> qualificatore_items = FXCollections.observableArrayList("via","v.le","pzza");
++    public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
++    private Scene scene;
+     Cittadini cittadini;
+     @FXML
+     private TextField user_txtfield;
+@@ -33,6 +42,37 @@
+     private Button btn_cittadini;
+     @FXML
+     private Button btn_centriVaccinali;
++    @FXML
++    private javafx.scene.control.TextField nome_paziente;
++    @FXML
++    private javafx.scene.control.TextField cognome_paziente;
++    @FXML
++    private javafx.scene.control.TextField cf_paziente;
++    @FXML
++    private TextField ID_vaccinazione;
++    @FXML
++    private ChoiceBox<String> vaccino_somministrato;
++    @FXML
++    private DatePicker data_vaccinazione;
++    @FXML
++    private ChoiceBox<String> centro_vaccinale;
++    @FXML
++    private TextField nome_centro;
++    @FXML
++    private TextField nome_via;
++    @FXML
++    private TextField numero_civico;
++    @FXML
++    private TextField comune;
++    @FXML
++    private TextField provincia;
++    @FXML
++    private TextField cap;
++    @FXML
++    private ChoiceBox<String> qualificatore;
++    @FXML
++    private Button annulla;
++
+ 
+ 
+ 
+@@ -58,22 +98,37 @@
+     }
+ 
+ 
+-    public static void registraCentroVaccinale(SingoloCentroVaccinale centroVaccinale){ //metodo per registrare i centri
+-        String nome = centroVaccinale.getNome();
+-        String indirizzo = centroVaccinale.getIndirizzo();
+-        String tipologia = centroVaccinale.getTipologia();
+-        try{
+-            File file = new File(PATH_TO_DATA+PREFIX+nome+SUFFIX);
+-            FileWriter fw = new FileWriter(file);
+-            FileWriter writer = new FileWriter("account.txt", true);
+-            BufferedWriter out = new BufferedWriter(writer);
+-            String fileInput = nome + ";" + tipologia + ";" + indirizzo;
+-            out.write(fileInput);
+-            out.newLine();
+-            out.flush();
+-            out.close();
+-        }catch(IOException e){
+-            System.out.println("\"File inesistente o non trovato\"");
++    public void registraCentroVaccinale(){
++        String nome = nome_centro.getText();
++        String qualif = qualificatore.getValue();
++        String via = nome_via.getText();
++        String civico = numero_civico.getText();
++        String com = comune.getText();
++        String prov = provincia.getText();
++        String Cap = cap.getText();
++        if(nome.equals("") || qualif==null || via.equals("")|| civico.equals("")|| com.equals("")|| prov.equals("")|| Cap.equals("")){
++            Alert alert = new Alert(Alert.AlertType.ERROR);
++            alert.setTitle("Errore");
++            alert.setHeaderText(null);
++            alert.setContentText("Controllare i dati inseriti");
++            alert.showAndWait();
++        }else{
++            try{
++                File file = new File(PATH_TO_CENTRIVACCINALI_DATI);
++                BufferedWriter out = new BufferedWriter(new FileWriter(file,true));
++                String output = nome+";"+qualif+";"+via+";"+civico+";"+com+";"+prov+";"+Cap;
++                out.write(output);
++                out.newLine();
++                out.flush();
++                out.close();
++                Alert alert = new Alert(Alert.AlertType.INFORMATION);
++                alert.setTitle("Successo");
++                alert.setHeaderText(null);
++                alert.setContentText("Centro vaccinale registrato");
++                alert.showAndWait();
++            }catch (IOException e){
++                e.toString();
++            }
+         }
+     }
+ 
+@@ -125,16 +180,102 @@
+ 
+     }
+ 
+-    public void onCentriVaccinaliSelected() throws Exception{
+-        cUI.opzioniLoggato(); //TODO Cri:includere qui dentro la creazione di tutte le UI dei centri vaccinali.
+-        Stage stage=(Stage)btn_cittadini.getScene().getWindow();
+-        stage.close();
++    public void onCentriVaccinaliSelected(){
++        try {
++            FXMLLoader loader = new FXMLLoader();
++            URL xmlUrl = getClass().getResource("opzioniLoggato.fxml");
++            loader.setLocation(xmlUrl);
++
++            Parent root = loader.load();
++
++            scene = new Scene(root);
++
++            Stage stage = new Stage();
++            stage.setScene(scene);
++            stage.setTitle("opzioniLoggato");
++
++            InputStream icon = getClass().getResourceAsStream("fiorellino.png");
++            Image image = new Image(icon);
++
++            stage.getIcons().add(image);
++
++            stage.show();
++        }
++        catch (IOException e){
++            e.printStackTrace();
++        }
+     }
++
++    public void onNuovoCentroSelected(){
++        try {
++            FXMLLoader loader = new FXMLLoader();
++            URL xmlUrl = getClass().getResource("nuovoCentroVaccinale.fxml");
++            loader.setLocation(xmlUrl);
++
++            Parent root = loader.load();
++
++            scene = new Scene(root);
++
++            Stage stage = new Stage();
++            stage.setScene(scene);
++            stage.setTitle("Nuovo centro vaccinale");
++
++            InputStream icon = getClass().getResourceAsStream("fiorellino.png");
++            Image image = new Image(icon);
++
++            stage.getIcons().add(image);
++
++            stage.show();
++        }
++        catch (IOException e){
++            e.printStackTrace();
++        }
++
++    }
++
++    public void registraVaccinato(){
++        //TODO chiamare questo metodo dopo registrazione (pole deve fare la sua parte)
++        String nome = nome_paziente.getText();
++        String cognome = cognome_paziente.getText();
++        String codice_fiscale =cf_paziente.getText();
++        String tipoVaccino = vaccino_somministrato.getValue();
++        String centroVaccinale = centro_vaccinale.getValue();
++        String id_vaccino = ID_vaccinazione.getText();
++        LocalDate dataVaccino = data_vaccinazione.getValue();
++        String dataVaccinazione = dataVaccino.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
++
++
++        SingoloCittadino cittadino = new SingoloCittadino(nome,cognome,codice_fiscale);
++        cittadino.setCentroVaccinale(centroVaccinale);
++        cittadino.setIdVaccino(Integer.parseInt(id_vaccino));
++
++        int idVaccino = cittadino.getIdVaccino();
++
++        String output = nome+";"+cognome+";"+codice_fiscale+";"+tipoVaccino+";"+idVaccino+";"+dataVaccinazione;
++        String file_ID = "data/"+"Vaccinati_"+centroVaccinale+".dati.txt";
++        try{
++            FileWriter writer = new FileWriter(file_ID,true);
++            BufferedWriter out = new BufferedWriter(writer);
++            out.write(output);
++            out.flush();
++            out.newLine();
++            out.close();
++            writer.close();
++            Alert alert = new Alert(Alert.AlertType.INFORMATION);
++            alert.setTitle("Successo");
++            alert.setHeaderText(null);
++            alert.setContentText("Paziente registrato a sistema");
++            alert.showAndWait();
++        }catch (IOException e){
++            e.toString();
++        }
++    }
++
+ 
+     public void onCittadiniSelected(){
+         cittadini=new Cittadini();
+         try {
+-            cittadini.loadUI();
++            cittadini.loadMainCittadiniUI();
+             Stage stage=(Stage)btn_cittadini.getScene().getWindow();
+             stage.close();
+         } catch (Exception e) {
+@@ -149,7 +290,7 @@
+ 
+         /*Hashing della password per renderla one-way
+         MessageDigest messageDigest=MessageDigest.getInstance("SHA-256");
+-        pwd=new String(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8)));*/ //TODO controlalre che questo controllore sia giusto. sul web dicono che non funzioni correttamente
++        pwd=new String(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8)));*/ //TODO controllare che questo controllore sia giusto. sul web dicono che non funzioni correttamente
+ 
+         try{
+             MessageDigest messageDigest=MessageDigest.getInstance("SHA-256");
+@@ -220,12 +361,71 @@
+         }
+     }
+ 
++    public void onNewVaccinate(){
++        try {
++            FXMLLoader loader = new FXMLLoader();
++            URL xmlUrl = getClass().getResource("nuovoPaziente.fxml");
++            loader.setLocation(xmlUrl);
++
++            Parent root = loader.load();
++
++
++
++            scene = new Scene(root);
++
++            Stage stage = new Stage();
++            stage.setScene(scene);
++            stage.setTitle("Nuovo Paziente");
++
++
++
++            InputStream icon = getClass().getResourceAsStream("fiorellino.png");
++            Image image = new Image(icon);
++            stage.getIcons().add(image);
++            stage.show();
++
++        }
++        catch (IOException e){
++            e.printStackTrace();
++        }
++    }
++
++    public void vaccino_somministrato_setter(){
++        vaccino_somministrato.setItems(vaccino_somministrato_items);
++    }
++
++    public void qualificatore_setter(){
++        qualificatore.setItems(qualificatore_items);
++    }
++
++    public void centro_vaccinale_setter(){
++        String[] parts;
++        String nome_centro_vaccinale="";
++        try{
++            File file = new File(PATH_TO_CENTRIVACCINALI_DATI);
++            Scanner reader = new Scanner(file);
++            while (reader.hasNextLine()){
++                String line = reader.nextLine();
++                parts = line.split(";");
++                nome_centro_vaccinale = parts[0];
++                if(!centro_vaccinale_items.contains(nome_centro_vaccinale))
++                    centro_vaccinale_items.add(nome_centro_vaccinale);
++            }
++            centro_vaccinale.setItems(centro_vaccinale_items);
++        }catch (IOException e){
++            e.printStackTrace();
++        }
++    }
++
++    public void annulla_button(){
++        Stage stage = (Stage)annulla.getScene().getWindow();
++        stage.close();
++    }
+ 
+ 
+ 
+     public void onNewVaccinateClicked(){
+-        cUI.onNewVaccinateClicked();
+-
++        onNewVaccinate();
+     }
+ 
+ 

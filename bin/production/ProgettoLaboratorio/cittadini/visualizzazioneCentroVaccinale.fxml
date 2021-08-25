@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
+   <children>
+      <Label fx:id="lblEffect1" layoutX="63.0" layoutY="68.0" prefHeight="38.0" prefWidth="103.0" style="-fx-border-color: black;" text="Mal di testa" />
+      <Label fx:id="lblEffect2" layoutX="63.0" layoutY="118.0" prefHeight="38.0" prefWidth="103.0" style="-fx-border-color: black;" text="Febbre" />
+      <Label fx:id="lblEffect3" layoutX="63.0" layoutY="169.0" prefHeight="38.0" prefWidth="103.0" style="-fx-border-color: black;" text="Dolori muscolari o articolari" />
+      <Label fx:id="lblEffect4" layoutX="63.0" layoutY="221.0" prefHeight="38.0" prefWidth="103.0" style="-fx-border-color: black;" text="Linfoadenopatia" />
+      <Label fx:id="lblEffect5" layoutX="63.0" layoutY="271.0" prefHeight="38.0" prefWidth="103.0" style="-fx-border-color: black;" text="Tachicardia" />
+      <Label fx:id="lblEffect6" layoutX="63.0" layoutY="321.0" prefHeight="38.0" prefWidth="103.0" style="-fx-border-color: black;" text="Crisi ipertensiva" />
+      <Label fx:id="lbl_effect1" alignment="CENTER" layoutX="197.0" layoutY="68.0" prefHeight="38.0" prefWidth="58.0" style="-fx-border-color: black;" text="0" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label fx:id="lbl_effect2" alignment="CENTER" layoutX="197.0" layoutY="118.0" prefHeight="38.0" prefWidth="58.0" style="-fx-border-color: black;" text="0">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label fx:id="lbl_effect3" alignment="CENTER" layoutX="197.0" layoutY="169.0" prefHeight="38.0" prefWidth="58.0" style="-fx-border-color: black;" text="0">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label fx:id="lbl_effect4" alignment="CENTER" layoutX="197.0" layoutY="221.0" prefHeight="38.0" prefWidth="58.0" style="-fx-border-color: black;" text="0">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label fx:id="lbl_effect5" alignment="CENTER" layoutX="197.0" layoutY="271.0" prefHeight="38.0" prefWidth="58.0" style="-fx-border-color: black;" text="0">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label fx:id="lbl_effect6" alignment="CENTER" layoutX="197.0" layoutY="321.0" prefHeight="38.0" prefWidth="58.0" style="-fx-border-color: black;" text="0">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Button layoutX="410.0" layoutY="14.0" mnemonicParsing="false" onAction="#checkLogin" prefHeight="32.0" prefWidth="162.0" text="Inserisci Evento Avverso" />
+      <Label fx:id="lbl_highlitedCentreName" layoutX="14.0" layoutY="14.0" prefHeight="32.0" prefWidth="103.0" style="-fx-border-color: black;" />
+      <Label fx:id="lbl_highlitedCentreAddress" layoutX="122.0" layoutY="14.0" prefHeight="32.0" prefWidth="135.0" style="-fx-border-color: black;" />
+      <Label fx:id="lbl_highlitedCentreType" layoutX="272.0" layoutY="14.0" prefHeight="32.0" prefWidth="84.0" style="-fx-border-color: black;" />
+   </children>
+</AnchorPane>
