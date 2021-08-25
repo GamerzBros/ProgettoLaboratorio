@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
     <children>
       <Pane prefHeight="42.0" prefWidth="600.0" style="-fx-background-color: #0f62fe;">
          <children>
@@ -14,7 +14,7 @@
                </font></Label>
          </children></Pane>
         <ScrollPane fx:id="scrollPane_CentriVaccinali" layoutX="13.0" layoutY="88.0" prefHeight="303.0" prefWidth="573.0" />
-        <TextField layoutX="13.0" layoutY="50.0" prefHeight="30.0" prefWidth="490.0" />
-        <Button layoutX="511.0" layoutY="50.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" text="Cerca" />
+        <TextField fx:id="txt_search" layoutX="13.0" layoutY="50.0" prefHeight="30.0" prefWidth="490.0" />
+        <Button fx:id="btn_search" layoutX="511.0" layoutY="50.0" mnemonicParsing="false" onAction="#findCenter" prefHeight="30.0" prefWidth="75.0" text="Cerca" />
     </children>
 </AnchorPane>

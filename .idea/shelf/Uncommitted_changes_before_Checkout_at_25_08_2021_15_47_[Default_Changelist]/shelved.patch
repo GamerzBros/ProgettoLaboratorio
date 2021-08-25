@@ -1,0 +1,418 @@
+Index: src/cittadini/Cittadini.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package cittadini;\r\n\r\nimport centrivaccinali.CentriVaccinali;\r\nimport centrivaccinali.SingoloCentroVaccinale;\r\nimport javafx.event.ActionEvent;\r\nimport javafx.event.EventHandler;\r\nimport javafx.fxml.FXML;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.Scene;\r\nimport javafx.scene.control.*;\r\nimport javafx.scene.layout.Pane;\r\nimport javafx.scene.layout.VBox;\r\nimport javafx.scene.text.Font;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.io.*;\r\nimport java.net.URL;\r\nimport java.nio.charset.StandardCharsets;\r\nimport java.security.MessageDigest;\r\nimport java.util.List;\r\nimport java.util.Scanner;\r\nimport java.util.StringTokenizer;\r\nimport java.util.Vector;\r\n\r\n//TODO METTERE NOME COGNOME MATRICOLA SEDE\r\npublic class Cittadini implements EventHandler<ActionEvent> {\r\n    private SingoloCittadino cittadinoLoggato;\r\n    @FXML\r\n    private ScrollPane scrollPane_CentriVaccinali;\r\n    @FXML\r\n    private TextField user_txtfield;\r\n    @FXML\r\n    private PasswordField pass_userPswd;\r\n    @FXML\r\n    private TextField txt_user;\r\n    @FXML\r\n    private PasswordField pass_user;\r\n    @FXML\r\n    private TextField txt_search;\r\n    @FXML\r\n    private Button btn_search;\r\n    private Vector<SingoloCentroVaccinale> centriVaccinaliList = new Vector<>();\r\n    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = \"data/Cittadini_Registrati.dati.txt\";\r\n    private boolean isLogged = false;\r\n\r\n\r\n    public void loadUI() throws Exception {\r\n        FXMLLoader fxmlLoader = new FXMLLoader();\r\n        URL url = getClass().getResource(\"mainCittadini.fxml\");\r\n        fxmlLoader.setLocation(url);\r\n        Parent root = fxmlLoader.load();\r\n\r\n        Scene scene = new Scene(root);\r\n\r\n        Stage stage = new Stage();\r\n        stage.setScene(scene);\r\n        stage.setTitle(\"Portale Cittadini\");\r\n\r\n        scrollPane_CentriVaccinali = (ScrollPane) scene.lookup(\"#scrollPane_CentriVaccinali\");\r\n\r\n        /*if(btn_search.isPressed()){\r\n            centriVaccinaliList = findCenter();\r\n        }else{*/\r\n        centriVaccinaliList = Cittadini.getCentriVaccinaliFromFile();\r\n        //}\r\n\r\n        creaVbox(centriVaccinaliList);\r\n\r\n        stage.show();\r\n    }\r\n\r\n    private void creaVbox(List<SingoloCentroVaccinale> centriVaccinaliMostrati) {\r\n        VBox scrollPaneContent = new VBox();\r\n        scrollPaneContent.setMinWidth(scrollPane_CentriVaccinali.getPrefWidth() - 2);\r\n\r\n        scrollPane_CentriVaccinali.setContent(scrollPaneContent);\r\n\r\n        //scrollPaneContent.getChildren().add();\r\n\r\n        for (int i = 0; i < centriVaccinaliMostrati.size(); i++) {\r\n            Pane panel = new Pane();\r\n            panel.setMinHeight(30);\r\n            SingoloCentroVaccinale currentCentro = centriVaccinaliMostrati.get(i);\r\n\r\n            panel.setStyle(\"-fx-background-color: #FFFFFF\");\r\n            Label lblName = new Label(currentCentro.getNome());\r\n            Label lblAddress = new Label(currentCentro.getIndirizzo());\r\n            Label lblType = new Label(currentCentro.getTipologia());\r\n            Button btnGoTo = new Button(\">\");\r\n\r\n            lblName.setLayoutX(6);\r\n            lblName.setMinHeight(30);\r\n            lblName.setFont(new Font(\"Arial\", 19));\r\n\r\n            lblAddress.setLayoutX(175);\r\n            lblAddress.setMinHeight(30);\r\n            lblAddress.setFont(new Font(\"Arial\", 19));\r\n\r\n            lblType.setLayoutX(420);\r\n            lblType.setMinHeight(30);\r\n            lblType.setFont(new Font(\"Arial\", 19));\r\n\r\n            btnGoTo.setLayoutX(520);\r\n            btnGoTo.setFont(new Font(\"Arial\", 19));\r\n            btnGoTo.setStyle(\"-fx-background-radius: 5em;\" + \"-fx-min-width: 1px;\" + \"-fx-background-color: #FFFFFF;\" + \"-fx-border-radius: 5em;\" + \"-fx-border-color: #000000;\");\r\n            btnGoTo.setId(String.valueOf(i));\r\n            btnGoTo.setOnAction(this);\r\n\r\n\r\n            panel.getChildren().add(lblName);\r\n            panel.getChildren().add(lblAddress);\r\n            panel.getChildren().add(lblType);\r\n            panel.getChildren().add(btnGoTo);\r\n\r\n\r\n            scrollPaneContent.getChildren().add(panel);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void handle(ActionEvent actionEvent) {\r\n        Button source = (Button) actionEvent.getSource();\r\n        int buttonID = Integer.parseInt(source.getId());\r\n        //TODO David: far partire il metodo che carica la ui del centro vaccinale (in base all'id)\r\n    }\r\n\r\n    /*public static void registerEventiAvversi()throws Exception {\r\n        String evento1 = box1.getSelectedItem().toString(); //evento1 = Mal di testa\r\n        String evento2 = box2.getSelectedItem().toString(); //evento2 = Febbre\r\n        String evento3 = box3.getSelectedItem().toString(); //evento3 = Dolori muscolari o articolari\r\n        String evento4 = box4.getSelectedItem().toString(); //evento4 = Linfoadenopatia\r\n        String evento5 = box5.getSelectedItem().toString(); //evento5 = Tachicardia\r\n        String evento6 = box6.getSelectedItem().toString(); //evento6 = Crisi ipertensiva\r\n        FileWriter writer = new FileWriter(\"account.txt\", true);\r\n        BufferedWriter out = new BufferedWriter(writer);\r\n        String fileInput =  \"Mal di Testa:\" + evento1 + \";\" + \"Febbre:\" + evento2 + \";\" + \"Dolori muscolari o articolari:\" + evento3 + \";\" + \"Linfoadenopatia:\" + evento4 + \";\" + \"Tachicardia:\" + evento5 + \";\" + \"Crisi ipertensiva:\" + evento6 + \";\";\r\n        out.write(fileInput);\r\n        out.newLine();\r\n        out.flush();\r\n        out.close();\r\n    }*/\r\n\r\n    public static Vector<SingoloCentroVaccinale> getCentriVaccinaliFromFile() {\r\n        Vector<SingoloCentroVaccinale> vector = new Vector<>();\r\n\r\n        try {\r\n            FileReader fileReader = new FileReader(CentriVaccinali.PATH_TO_CENTRIVACCINALI);\r\n            BufferedReader bufferedReader = new BufferedReader(fileReader);\r\n\r\n            String line = null;\r\n\r\n            while ((line = bufferedReader.readLine()) != null) {\r\n                StringTokenizer st = new StringTokenizer(line, \";\");\r\n                if (st.countTokens() == 3) {\r\n                    String nome = st.nextToken();\r\n                    String indirizzo = st.nextToken();\r\n                    String tipologia = st.nextToken();\r\n\r\n                    vector.add(new SingoloCentroVaccinale(nome, indirizzo, tipologia));\r\n                }\r\n            }\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n\r\n        return vector;\r\n\r\n    }\r\n\r\n\r\n    //TODO Marsio:creare registrazione e login cittadino\r\n    public void registraCittadino() throws Exception {\r\n        String pwd = pass_user.getText();\r\n        String user = txt_user.getText();\r\n\r\n        /*Hashing della password per renderla one-way\r\n        MessageDigest messageDigest=MessageDigest.getInstance(\"SHA-256\");\r\n        pwd=new String(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8)));*/ //TODO controlalre che questo controllore sia giusto. sul web dicono che non funzioni correttamente\r\n\r\n        try {\r\n            MessageDigest messageDigest = MessageDigest.getInstance(\"SHA-256\");\r\n            byte[] hash = messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8));\r\n            pwd = toHexString(hash);\r\n            System.out.println(pwd);\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n\r\n        FileWriter writer = new FileWriter(PATH_TO_CITTADINI_REGISTRATI_DATI, true);\r\n        BufferedWriter out = new BufferedWriter(writer);\r\n        String scrivi = user + \";\" + pwd;\r\n        out.write(scrivi);\r\n        out.newLine();\r\n        out.close();\r\n    }\r\n\r\n    public void loggaCittadini() {\r\n        String user = user_txtfield.getText();\r\n        String pwd = pass_userPswd.getText();\r\n        String user_temp;\r\n        String pwd_temp;\r\n        String[] parts;\r\n\r\n        try {\r\n            if (!user.equals(\"\") && !pwd.equals(\"\")) {\r\n                File file = new File(PATH_TO_CITTADINI_REGISTRATI_DATI);\r\n                Scanner reader = new Scanner(file);\r\n                while (reader.hasNextLine()) {\r\n                    String line = reader.nextLine();\r\n                    parts = line.split(\";\");\r\n                    user_temp = parts[0];\r\n                    pwd_temp = parts[1];\r\n\r\n                    MessageDigest messageDigest = MessageDigest.getInstance(\"SHA-256\");\r\n                    pwd_temp = new String(messageDigest.digest(pwd_temp.getBytes(StandardCharsets.UTF_8)));\r\n\r\n                    if (user_temp.equals(user) && pwd_temp.equals(pwd)) {\r\n                        System.out.println(\"LOGGATO\");\r\n                        isLogged = true;\r\n                    } else {\r\n                        System.out.println(\"User inesistente, premere sul tasto 'register'\");\r\n                    }\r\n                }\r\n            } else {\r\n                System.out.println(\"Inserire dei dati\");\r\n            }\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    private String toHexString(byte[] array) {\r\n        StringBuilder sb = new StringBuilder(array.length * 2);\r\n\r\n        for (byte b : array) {\r\n            int value = 0xFF & b;\r\n            String toAppend = Integer.toHexString(value);\r\n\r\n            sb.append(toAppend);\r\n        }\r\n        sb.setLength(sb.length() - 1);\r\n        return sb.toString();\r\n    }\r\n\r\n    //TODO: Marsio: implementare ricerca centro vaccinale\r\n\r\n\r\n    public Vector<SingoloCentroVaccinale> findCenter() {\r\n\r\n        Vector<SingoloCentroVaccinale> vector_search = new Vector<>();\r\n        String search = txt_search.getText();\r\n        try {\r\n            FileReader fileReader = new FileReader(CentriVaccinali.PATH_TO_CENTRIVACCINALI);\r\n            BufferedReader bufferedReader = new BufferedReader(fileReader);\r\n\r\n            String line = null;\r\n\r\n            while ((line = bufferedReader.readLine()) != null) {\r\n                StringTokenizer st = new StringTokenizer(line, \";\");\r\n                if (st.countTokens() == 3) {\r\n                    String nome = st.nextToken();\r\n                    String indirizzo = st.nextToken();\r\n                    String tipologia = st.nextToken();\r\n\r\n                    if (nome.contains(search) || indirizzo.contains(search) || tipologia.contains(search))\r\n                        vector_search.add(new SingoloCentroVaccinale(nome, indirizzo, tipologia));\r\n                        System.out.println(vector_search);\r\n                }\r\n            }\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n\r\n        return vector_search;\r\n    }\r\n\r\n\r\n}\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/cittadini/Cittadini.java b/src/cittadini/Cittadini.java
+--- a/src/cittadini/Cittadini.java	
++++ b/src/cittadini/Cittadini.java	
+@@ -25,85 +25,84 @@
+ 
+ //TODO METTERE NOME COGNOME MATRICOLA SEDE
+ public class Cittadini implements EventHandler<ActionEvent> {
+-    private SingoloCittadino cittadinoLoggato;
++    public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
++    public static final String PATH_TO_EVENTI_AVVERSI="account.txt"; //TODO Sistemare il path qui
++    public static final String PATH_TO_CENTRIVACCINALI="data/CentriVaccinali.dati.txt";
++    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI="data/Cittadini_Registrati.dati.txt";
++
++    private boolean isLogged=false;
++    private int currentCentreID;
++    private Vector<SingoloCentroVaccinale> centriVaccinaliList=new Vector<>();
+     @FXML
+     private ScrollPane scrollPane_CentriVaccinali;
+     @FXML
+-    private TextField user_txtfield;
++    private TextField nome_ricerca_centro;
+     @FXML
+-    private PasswordField pass_userPswd;
++    private TextField txt_search;
+     @FXML
+     private TextField txt_user;
+     @FXML
+     private PasswordField pass_user;
+     @FXML
+-    private TextField txt_search;
++    private TextField user_txtfield;
+     @FXML
+-    private Button btn_search;
+-    private Vector<SingoloCentroVaccinale> centriVaccinaliList = new Vector<>();
+-    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
+-    private boolean isLogged = false;
++    private PasswordField pass_userPswd;
+ 
+-
+-    public void loadUI() throws Exception {
+-        FXMLLoader fxmlLoader = new FXMLLoader();
+-        URL url = getClass().getResource("mainCittadini.fxml");
++    public void loadMainCittadiniUI() throws Exception {
++        FXMLLoader fxmlLoader=new FXMLLoader();
++        URL url=getClass().getResource("mainCittadini.fxml");
+         fxmlLoader.setLocation(url);
+-        Parent root = fxmlLoader.load();
++        Parent root=fxmlLoader.load();
+ 
+-        Scene scene = new Scene(root);
++        Scene scene=new Scene(root);
+ 
+-        Stage stage = new Stage();
++        Stage stage=new Stage();
+         stage.setScene(scene);
+         stage.setTitle("Portale Cittadini");
+ 
+-        scrollPane_CentriVaccinali = (ScrollPane) scene.lookup("#scrollPane_CentriVaccinali");
++        scrollPane_CentriVaccinali=(ScrollPane) scene.lookup("#scrollPane_CentriVaccinali");
+ 
+-        /*if(btn_search.isPressed()){
+-            centriVaccinaliList = findCenter();
+-        }else{*/
+-        centriVaccinaliList = Cittadini.getCentriVaccinaliFromFile();
+-        //}
++        centriVaccinaliList=Cittadini.getCentriVaccinaliFromFile();
+ 
+         creaVbox(centriVaccinaliList);
+ 
+         stage.show();
+     }
+ 
+-    private void creaVbox(List<SingoloCentroVaccinale> centriVaccinaliMostrati) {
+-        VBox scrollPaneContent = new VBox();
+-        scrollPaneContent.setMinWidth(scrollPane_CentriVaccinali.getPrefWidth() - 2);
++
++
++    private void creaVbox(List<SingoloCentroVaccinale> centriVaccinaliMostrati){
++        VBox scrollPaneContent=new VBox();
++        scrollPaneContent.setMinWidth(scrollPane_CentriVaccinali.getPrefWidth()-2);
+ 
+         scrollPane_CentriVaccinali.setContent(scrollPaneContent);
+ 
+-        //scrollPaneContent.getChildren().add();
+-
+-        for (int i = 0; i < centriVaccinaliMostrati.size(); i++) {
+-            Pane panel = new Pane();
++        for (int i=0;i<centriVaccinaliMostrati.size();i++){
++            Pane panel=new Pane();
+             panel.setMinHeight(30);
+-            SingoloCentroVaccinale currentCentro = centriVaccinaliMostrati.get(i);
++            SingoloCentroVaccinale currentCentro=centriVaccinaliMostrati.get(i);
+ 
+             panel.setStyle("-fx-background-color: #FFFFFF");
+-            Label lblName = new Label(currentCentro.getNome());
+-            Label lblAddress = new Label(currentCentro.getIndirizzo());
+-            Label lblType = new Label(currentCentro.getTipologia());
+-            Button btnGoTo = new Button(">");
++            Label lblName=new Label(currentCentro.getNome());
++            Label lblAddress=new Label(currentCentro.getIndirizzo());
++            Label lblType=new Label(currentCentro.getTipologia());
++            Button btnGoTo=new Button(">");
+ 
+             lblName.setLayoutX(6);
+             lblName.setMinHeight(30);
+-            lblName.setFont(new Font("Arial", 19));
++            lblName.setFont(new Font("Arial",19));
+ 
+             lblAddress.setLayoutX(175);
+             lblAddress.setMinHeight(30);
+-            lblAddress.setFont(new Font("Arial", 19));
++            lblAddress.setFont(new Font("Arial",19));
+ 
+             lblType.setLayoutX(420);
+             lblType.setMinHeight(30);
+-            lblType.setFont(new Font("Arial", 19));
++            lblType.setFont(new Font("Arial",19));
+ 
+             btnGoTo.setLayoutX(520);
+-            btnGoTo.setFont(new Font("Arial", 19));
+-            btnGoTo.setStyle("-fx-background-radius: 5em;" + "-fx-min-width: 1px;" + "-fx-background-color: #FFFFFF;" + "-fx-border-radius: 5em;" + "-fx-border-color: #000000;");
++            btnGoTo.setFont(new Font("Arial",19));
++            btnGoTo.setStyle( "-fx-background-radius: 5em;" + "-fx-min-width: 1px;" + "-fx-background-color: #FFFFFF;" + "-fx-border-radius: 5em;" + "-fx-border-color: #000000;");
+             btnGoTo.setId(String.valueOf(i));
+             btnGoTo.setOnAction(this);
+ 
+@@ -121,25 +120,15 @@
+     @Override
+     public void handle(ActionEvent actionEvent) {
+         Button source = (Button) actionEvent.getSource();
+-        int buttonID = Integer.parseInt(source.getId());
+-        //TODO David: far partire il metodo che carica la ui del centro vaccinale (in base all'id)
+-    }
++        currentCentreID = Integer.parseInt(source.getId());
+ 
+-    /*public static void registerEventiAvversi()throws Exception {
+-        String evento1 = box1.getSelectedItem().toString(); //evento1 = Mal di testa
+-        String evento2 = box2.getSelectedItem().toString(); //evento2 = Febbre
+-        String evento3 = box3.getSelectedItem().toString(); //evento3 = Dolori muscolari o articolari
+-        String evento4 = box4.getSelectedItem().toString(); //evento4 = Linfoadenopatia
+-        String evento5 = box5.getSelectedItem().toString(); //evento5 = Tachicardia
+-        String evento6 = box6.getSelectedItem().toString(); //evento6 = Crisi ipertensiva
+-        FileWriter writer = new FileWriter("account.txt", true);
+-        BufferedWriter out = new BufferedWriter(writer);
+-        String fileInput =  "Mal di Testa:" + evento1 + ";" + "Febbre:" + evento2 + ";" + "Dolori muscolari o articolari:" + evento3 + ";" + "Linfoadenopatia:" + evento4 + ";" + "Tachicardia:" + evento5 + ";" + "Crisi ipertensiva:" + evento6 + ";";
+-        out.write(fileInput);
+-        out.newLine();
+-        out.flush();
+-        out.close();
+-    }*/
++        try {
++            loadVisualizzatoreCentroVaccinale(currentCentreID);
++        }
++        catch (IOException e){
++            e.printStackTrace();
++        }
++    }
+ 
+     public static Vector<SingoloCentroVaccinale> getCentriVaccinaliFromFile() {
+         Vector<SingoloCentroVaccinale> vector = new Vector<>();
+@@ -152,9 +141,15 @@
+ 
+             while ((line = bufferedReader.readLine()) != null) {
+                 StringTokenizer st = new StringTokenizer(line, ";");
+-                if (st.countTokens() == 3) {
++                if (st.countTokens() == 8) {
+                     String nome = st.nextToken();
+-                    String indirizzo = st.nextToken();
++                    String via = st.nextToken();
++                    String nome1 = st.nextToken();
++                    String num_civico = st.nextToken();
++                    String comune = st.nextToken();
++                    String provincia = st.nextToken();
++                    String cap = st.nextToken();
++                    String indirizzo = via+" "+" "+nome1+" "+num_civico+" "+comune+" "+provincia+" "+cap;
+                     String tipologia = st.nextToken();
+ 
+                     vector.add(new SingoloCentroVaccinale(nome, indirizzo, tipologia));
+@@ -168,16 +163,209 @@
+ 
+     }
+ 
++    public void loadVisualizzatoreCentroVaccinale(int idCentro) throws IOException {
++        FXMLLoader loader=new FXMLLoader();
++        URL url=getClass().getResource("visualizzazioneCentroVaccinale.fxml");
++        loader.setLocation(url);
++        Parent root=loader.load();
++
++        Scene newScene=new Scene(root);
++
++        Stage currentStage=(Stage)scrollPane_CentriVaccinali.getScene().getWindow();
++        currentStage.setScene(newScene);
++
++        Label lbl_centreName=(Label)newScene.lookup("#lbl_highlitedCentreName");
++        Label lbl_centreAddress=(Label)newScene.lookup("#lbl_highlitedCentreAddress");
++        Label lbl_centreType=(Label)newScene.lookup("#lbl_highlitedCentreType");
++
++        loadCentreInfo(idCentro,lbl_centreName,lbl_centreAddress,lbl_centreType);
++
++        currentStage.show();
++    }
++
++    public void loadCentreInfo(int idCentro, Label lbl_centreName,Label lbl_centreAddress,Label lbl_centreType){
++        try {
++            FileReader fileReader=new FileReader(PATH_TO_CENTRIVACCINALI_DATI);
++            BufferedReader reader=new BufferedReader(fileReader);
++
++            String data=reader.readLine();
++            int i=0;
++            while(i!=idCentro) {
++                data=reader.readLine();
++                i++;
++            }
++
++            StringTokenizer stringTokenizer=new StringTokenizer(data,";");
++            String name=stringTokenizer.nextToken();
++            String address=stringTokenizer.nextToken();
++            String type=stringTokenizer.nextToken();
++
++
++            lbl_centreName.setText(name);
++            lbl_centreAddress.setText(address);
++            lbl_centreType.setText(type);
++
++
++            String events=leggiEventiAvversi(idCentro);
++
++            if(events!=null){
++                Scene currentScene=lbl_centreName.getScene();
++
++                Spinner spn_headache=(Spinner) currentScene.lookup("#spn_headache");
++                Spinner spn_fever=(Spinner) currentScene.lookup("#spn_fever");
++                Spinner spn_hurt=(Spinner) currentScene.lookup("#spn_hurt");
++                Spinner spn_linf=(Spinner) currentScene.lookup("#spn_linf");
++                Spinner spn_tac=(Spinner) currentScene.lookup("#spn_tac");
++                Spinner spn_crs=(Spinner) currentScene.lookup("#spn_crs");
++                TextField txt_other1=(TextField)currentScene.lookup("#txt_other1");
++                Spinner spn_other1=(Spinner)currentScene.lookup("#spn_other1");
++                TextField txt_other2=(TextField)currentScene.lookup("#txt_other2");
++                Spinner spn_other2=(Spinner)currentScene.lookup("#spn_other2");
++
++                StringTokenizer eventTokens=new StringTokenizer(events,";");
++
++
++                spn_headache.setPromptText(eventTokens.nextToken());//evento1 = Mal di testa
++                spn_fever.setPromptText(eventTokens.nextToken()); //evento2 = Febbre
++                spn_hurt.setPromptText(eventTokens.nextToken()); //evento3 = Dolori muscolari o articolari
++                spn_linf.setPromptText(eventTokens.nextToken()); //evento4 = Linfoadenopatia
++                spn_tac.setPromptText(eventTokens.nextToken()); //evento5 = Tachicardia
++                spn_crs.setPromptText(eventTokens.nextToken());//evento6 = Crisi ipertensiva
++                txt_other1.setText(eventTokens.nextToken());
++                spn_other1.setPromptText(eventTokens.nextToken());
++                txt_other2.setText(eventTokens.nextToken());
++                spn_other2.setPromptText(eventTokens.nextToken());
++            }
++
++        }
++        catch (Exception e){
++            e.printStackTrace();
++        }
++
++    }
++
++    public void checkLogin(){
++        if(isLogged){
++            loadRegistraEventiAvversiUI();
++        }
++        else{
++            loadLoginUI();
++        }
++    }
++
++    public void loadRegistraEventiAvversiUI(){
++        try {
++            FXMLLoader loader=new FXMLLoader();
++            URL url=getClass().getResource("registraEventiAvversi.fxml");
++            loader.setLocation(url);
++            Parent root=loader.load();
++
++            Scene scene=new Scene(root);
++            Stage stage=new Stage();
++            stage.setScene(scene);
++
++            stage.show();
++        }
++        catch (Exception e){
++            e.printStackTrace();
++        }
++    }
++
++
++    public void registerEventiAvversi(ActionEvent actionEvent) throws Exception {
++        Scene currentScene=((Button)actionEvent.getSource()).getScene();
++
++        Spinner spn_headache=(Spinner) currentScene.lookup("#spn_headache");
++        Spinner spn_fever=(Spinner) currentScene.lookup("#spn_fever");
++        Spinner spn_hurt=(Spinner) currentScene.lookup("#spn_hurt");
++        Spinner spn_linf=(Spinner) currentScene.lookup("#spn_linf");
++        Spinner spn_tac=(Spinner) currentScene.lookup("#spn_tac");
++        Spinner spn_crs=(Spinner) currentScene.lookup("#spn_crs");
++        TextField txt_other1=(TextField)currentScene.lookup("#txt_other1");
++        Spinner spn_other1=(Spinner)currentScene.lookup("#spn_other1");
++        TextField txt_other2=(TextField)currentScene.lookup("#txt_other2");
++        Spinner spn_other2=(Spinner)currentScene.lookup("#spn_other2");
++
++
++        String evento1 = spn_headache.getPromptText();//evento1 = Mal di testa
++        String evento2 = spn_fever.getPromptText(); //evento2 = Febbre
++        String evento3 = spn_hurt.getPromptText(); //evento3 = Dolori muscolari o articolari
++        String evento4 = spn_linf.getPromptText(); //evento4 = Linfoadenopatia
++        String evento5 = spn_tac.getPromptText(); //evento5 = Tachicardia
++        String evento6 = spn_crs.getPromptText();//evento6 = Crisi ipertensiva
++        String otherEvent1=txt_other1.getText();
++        String otherEvent1Value=spn_other1.getPromptText();
++        String otherEvent2=txt_other2.getText();
++        String otherEvent2Value=spn_other2.getPromptText();
++
++        FileWriter writer = new FileWriter(PATH_TO_EVENTI_AVVERSI, true);
++        BufferedWriter out = new BufferedWriter(writer);
++        //String fileInput =  "Mal di Testa:" + evento1 + ";" + "Febbre:" + evento2 + ";" + "Dolori muscolari o articolari:" + evento3 + ";" + "Linfoadenopatia:" + evento4 + ";" + "Tachicardia:" + evento5 + ";" + "Crisi ipertensiva:" + evento6 + ";";
++        String fileInput =currentCentreID + ";"+  evento1 + ";" + evento2 + ";" + evento3 + ";" + evento4 + ";" + evento5 + ";" + evento6+";"+otherEvent1+";"+otherEvent1Value+";"+otherEvent2+";"+otherEvent2Value;
++        out.write(fileInput);
++        out.newLine();
++        out.flush();
++        out.close();
++
++        Stage stage=(Stage)spn_headache.getScene().getWindow();
++        stage.close();
++    }
++
++    
++    public String leggiEventiAvversi(int idCentro) throws Exception{
++        Vector<SingoloCentroVaccinale> centreList=getCentriVaccinaliFromFile();
++
++        SingoloCentroVaccinale centroVaccinale=centreList.get(idCentro);
++
++        try{
++            FileReader fileReader=new FileReader(PATH_TO_EVENTI_AVVERSI);
++            BufferedReader reader=new BufferedReader(fileReader);
++
++            int index=0;
++
++            String events=reader.readLine();
++
++            while (index!=idCentro){
++                events=reader.readLine();
++                index++;
++            }
++
++           return events;
++
++        }
++        catch (IOException e){
++            e.printStackTrace();
++        }
++
++        return null;
++
++    }
++
++    public void loadLoginUI(){
++        try {
++            FXMLLoader loader = new FXMLLoader();
++            URL url = getClass().getResource("loginCittadino.fxml");
++            loader.setLocation(url);
++            Parent root = loader.load();
++
++            Scene scene = new Scene(root);
++            Stage stage = new Stage();
++            stage.setScene(scene);
++            stage.show();
++        }
++        catch (Exception e){
++            e.printStackTrace();
++        }
++
++    }
++
++
+ 
+     //TODO Marsio:creare registrazione e login cittadino
+     public void registraCittadino() throws Exception {
+         String pwd = pass_user.getText();
+         String user = txt_user.getText();
+ 
+-        /*Hashing della password per renderla one-way
+-        MessageDigest messageDigest=MessageDigest.getInstance("SHA-256");
+-        pwd=new String(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8)));*/ //TODO controlalre che questo controllore sia giusto. sul web dicono che non funzioni correttamente
+-
+         try {
+             MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+             byte[] hash = messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8));
+@@ -265,7 +453,7 @@
+ 
+                     if (nome.contains(search) || indirizzo.contains(search) || tipologia.contains(search))
+                         vector_search.add(new SingoloCentroVaccinale(nome, indirizzo, tipologia));
+-                        System.out.println(vector_search);
++                    System.out.println(vector_search);
+                 }
+             }
+         } catch (IOException e) {
+@@ -275,7 +463,4 @@
+         return vector_search;
+     }
+ 
+-
+-}
+-
+-
++}
+\ No newline at end of file
