@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
+   <children>
+      <TextField fx:id="txt_user" layoutX="159.0" layoutY="122.0" />
+      <PasswordField fx:id="pass_user" layoutX="159.0" layoutY="168.0" />
+      <Button layoutX="159.0" layoutY="237.0" mnemonicParsing="false" onAction="#registraCittadino" prefHeight="25.0" prefWidth="149.0" text="Registrati" />
+   </children>
+</AnchorPane>
