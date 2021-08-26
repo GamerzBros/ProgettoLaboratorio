@@ -26,8 +26,8 @@ import java.util.Vector;
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
 public class Cittadini implements EventHandler<ActionEvent> {
     public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
-    public static final String PATH_TO_EVENTI_AVVERSI="account.txt"; //TODO Sistemare il path qui
-    public static final String PATH_TO_CENTRIVACCINALI="data/CentriVaccinali.dati.txt";
+    public static final String PRE_PATH_TO_EVENTI_AVVERSI="data/Vaccinati_";
+    public static final String AFTER_PATH_TO_EVENTI_AVVERSI=".dati.txt";
     public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
 
     private boolean isLogged=false;
@@ -35,8 +35,9 @@ public class Cittadini implements EventHandler<ActionEvent> {
     private Vector<SingoloCentroVaccinale> centriVaccinaliList=new Vector<>();
     @FXML
     private ScrollPane scrollPane_CentriVaccinali;
+    //TODO pole diminuire le variabili
     @FXML
-    private TextField nome_ricerca_centro;
+    private TextField txt_searchCenter;
     @FXML
     private Button btn_search;
     @FXML
@@ -47,8 +48,6 @@ public class Cittadini implements EventHandler<ActionEvent> {
     private TextField txt_user;
     @FXML
     private PasswordField pass_user;
-    @FXML
-    private TextField txt_search;
 
 
     public void loadMainCittadiniUI() throws Exception {
@@ -137,7 +136,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
         Vector<SingoloCentroVaccinale> vector = new Vector<>();
 
         try {
-            FileReader fileReader = new FileReader(CentriVaccinali.PATH_TO_CENTRIVACCINALI);
+            FileReader fileReader = new FileReader(PATH_TO_CENTRIVACCINALI_DATI);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             String line = null;
@@ -302,7 +301,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
         String otherEvent2=txt_other2.getText();
         String otherEvent2Value=spn_other2.getPromptText();
 
-        FileWriter writer = new FileWriter(PATH_TO_EVENTI_AVVERSI, true);
+        FileWriter writer = new FileWriter(PRE_PATH_TO_EVENTI_AVVERSI+centriVaccinaliList.get(currentCentreID).getNome()+AFTER_PATH_TO_EVENTI_AVVERSI, true);
         BufferedWriter out = new BufferedWriter(writer);
         //String fileInput =  "Mal di Testa:" + evento1 + ";" + "Febbre:" + evento2 + ";" + "Dolori muscolari o articolari:" + evento3 + ";" + "Linfoadenopatia:" + evento4 + ";" + "Tachicardia:" + evento5 + ";" + "Crisi ipertensiva:" + evento6 + ";";
         String fileInput =currentCentreID + ";"+  evento1 + ";" + evento2 + ";" + evento3 + ";" + evento4 + ";" + evento5 + ";" + evento6+";"+otherEvent1+";"+otherEvent1Value+";"+otherEvent2+";"+otherEvent2Value;
@@ -317,12 +316,11 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
 
     public String leggiEventiAvversi(int idCentro) throws Exception{
-        Vector<SingoloCentroVaccinale> centreList=getCentriVaccinaliFromFile();
 
-        SingoloCentroVaccinale centroVaccinale=centreList.get(idCentro);
+        SingoloCentroVaccinale centroVaccinale=centriVaccinaliList.get(currentCentreID);
 
         try{
-            FileReader fileReader=new FileReader(PATH_TO_EVENTI_AVVERSI);
+            FileReader fileReader=new FileReader(PRE_PATH_TO_EVENTI_AVVERSI+centroVaccinale.getNome()+AFTER_PATH_TO_EVENTI_AVVERSI);
             BufferedReader reader=new BufferedReader(fileReader);
 
             int index=0;
@@ -363,9 +361,25 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
     }
 
+    public void loadRegisterCitizenUI(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            URL url = getClass().getResource("registraCittadino.fxml");
+            loader.setLocation(url);
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
 
 
-    //TODO Marsio:creare registrazione e login cittadino
     public void registraCittadino() throws Exception {
         String pwd = pass_user.getText();
         String user = txt_user.getText();
@@ -438,33 +452,23 @@ public class Cittadini implements EventHandler<ActionEvent> {
     //TODO: Marsio: implementare ricerca centro vaccinale
 
 
-    public Vector<SingoloCentroVaccinale> findCenter() {
+    public void findCenter(ActionEvent event) {
+        centriVaccinaliList=getCentriVaccinaliFromFile();
 
         Vector<SingoloCentroVaccinale> vector_search = new Vector<>();
-        String search = txt_search.getText();
-        try {
-            FileReader fileReader = new FileReader(CentriVaccinali.PATH_TO_CENTRIVACCINALI);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String search = ((TextField)((Button)event.getSource()).getScene().lookup("#txt_searchCenter")).getText().toLowerCase();
 
-            String line = null;
-
-            while ((line = bufferedReader.readLine()) != null) {
-                StringTokenizer st = new StringTokenizer(line, ";");
-                if (st.countTokens() == 3) {
-                    String nome = st.nextToken();
-                    String indirizzo = st.nextToken();
-                    String tipologia = st.nextToken();
-
-                    if (nome.contains(search) || indirizzo.contains(search) || tipologia.contains(search))
-                        vector_search.add(new SingoloCentroVaccinale(nome, indirizzo, tipologia));
-                        System.out.println(vector_search);
-                }
+        for(int index=0;index<centriVaccinaliList.size();index++){
+            SingoloCentroVaccinale tempCentre=centriVaccinaliList.get(index);
+            String nome=tempCentre.getNome().toLowerCase();
+            String indirizzo=tempCentre.getIndirizzo().toLowerCase();
+            String tipologia=tempCentre.getTipologia().toLowerCase();
+            //TODO aggiungere ricerche personalizzate
+            if (nome.contains(search) || indirizzo.contains(search) || tipologia.contains(search)) {
+                vector_search.add(new SingoloCentroVaccinale(nome, indirizzo, tipologia));
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
-        return vector_search;
+        creaVbox(vector_search);
     }
 
 }

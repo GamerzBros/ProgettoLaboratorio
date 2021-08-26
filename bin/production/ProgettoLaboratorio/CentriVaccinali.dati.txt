@@ -1,2 +1,1 @@
-nome;via;nome3;12;comune;va;21055;tipologia
-nome2;v.le;nome;12;dio;va;21055;ospedaliero
+Abdul;pzza;kennedy;29;Varese;VA;20020;aziendale

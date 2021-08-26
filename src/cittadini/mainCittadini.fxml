@@ -26,7 +26,7 @@
          </fill></Rectangle>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="660.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
         <ScrollPane fx:id="scrollPane_CentriVaccinali" layoutX="35.0" layoutY="125.0" prefHeight="544.0" prefWidth="481.0" style="-fx-background-color: #197dc9; -fx-border-width: 4;" />
-        <TextField fx:id="nome_ricerca_centro" layoutX="32.0" layoutY="65.0" prefHeight="42.0" prefWidth="394.0" />
-        <Button layoutX="436.0" layoutY="69.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="79.0" style="-fx-border-color: #197dc9; -fx-border-width: 4;" text="Cerca" onAction="#cercaCentroVaccinale"/>
+        <TextField fx:id="txt_searchCenter" layoutX="32.0" layoutY="65.0" prefHeight="42.0" prefWidth="394.0" />
+        <Button layoutX="436.0" layoutY="69.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="79.0" style="-fx-border-color: #197dc9; -fx-border-width: 4;" text="Cerca" onAction="#findCenter" />
     </children>
 </AnchorPane>

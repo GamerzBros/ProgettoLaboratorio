@@ -116,7 +116,8 @@ public class CentriVaccinali extends Application {
             alert.setHeaderText(null);
             alert.setContentText("Controllare i dati inseriti");
             alert.showAndWait();
-        }else{
+        }
+        else{
             try{
                 File file = new File(PATH_TO_CENTRIVACCINALI_DATI);
                 BufferedWriter out = new BufferedWriter(new FileWriter(file,true));
@@ -130,6 +131,12 @@ public class CentriVaccinali extends Application {
                 alert.setHeaderText(null);
                 alert.setContentText("Centro vaccinale registrato");
                 alert.showAndWait();
+
+                String file_ID = "data/"+"Vaccinati_"+nome+".dati.txt";
+                File fileVaccinati=new File(file_ID);
+                if (!fileVaccinati.exists()){
+                    fileVaccinati.createNewFile();
+                }
             }catch (IOException e){
                 e.toString();
             }
@@ -205,7 +212,8 @@ public class CentriVaccinali extends Application {
     public void onNuovoCentroSelected(){
         try {
             FXMLLoader loader = new FXMLLoader();
-            URL xmlUrl = getClass().getResource("nuovoCentroVaccinaleRifatto.fxml");
+            //URL xmlUrl = getClass().getResource("nuovoCentroVaccinaleRifatto.fxml");
+            URL xmlUrl = getClass().getResource("nuovoCentroVaccinale.fxml");
             loader.setLocation(xmlUrl);
 
             Parent root = loader.load();
