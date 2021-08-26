@@ -28,6 +28,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
     public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
     public static final String PATH_TO_EVENTI_AVVERSI="account.txt"; //TODO Sistemare il path qui
     public static final String PATH_TO_CENTRIVACCINALI="data/CentriVaccinali.dati.txt";
+    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
 
     private boolean isLogged=false;
     private int currentCentreID;
@@ -48,12 +49,6 @@ public class Cittadini implements EventHandler<ActionEvent> {
     private PasswordField pass_user;
     @FXML
     private TextField txt_search;
-    @FXML
-    private Button btn_search;
-    @FXML
-    private Vector<SingoloCentroVaccinale> centriVaccinaliList = new Vector<>();
-    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
-    private boolean isLogged = false;
 
 
     public void loadMainCittadiniUI() throws Exception {

@@ -272,7 +272,7 @@ public class CentriVaccinali extends Application {
     public void onCittadiniSelected(){
         cittadini=new Cittadini();
         try {
-            cittadini.loadUI();
+            cittadini.loadMainCittadiniUI();
             Stage stage=(Stage)btn_cittadini.getScene().getWindow();
             stage.close();
         } catch (Exception e) {
