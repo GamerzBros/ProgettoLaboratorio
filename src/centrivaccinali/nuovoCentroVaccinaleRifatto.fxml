@@ -26,8 +26,8 @@
             </RadialGradient>
          </fill></Rectangle>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="660.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
-      <TextField fx:id="nome_paziente" layoutX="50.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
-      <TextField fx:id="ID_vaccinazione" layoutX="324.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
+      <TextField fx:id="nome_centro" layoutX="50.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
+      <TextField fx:id="cap" layoutX="324.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
       <Label layoutX="81.0" layoutY="150.0" prefHeight="22.0" prefWidth="119.0" text="Nome Centro">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
@@ -63,7 +63,7 @@
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="nuovoPaziente_confirm" layoutX="395.0" layoutY="605.0" mnemonicParsing="false" onAction="#registraVaccinato" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Registra">
+      <Button fx:id="nuovoPaziente_confirm" layoutX="395.0" layoutY="605.0" mnemonicParsing="false" onAction="#registraCentroVaccinale" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Registra">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font></Button>
@@ -72,15 +72,16 @@
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Button>
-      <TextField fx:id="cf_paziente1" layoutX="50.0" layoutY="441.0" prefHeight="25.0" prefWidth="180.0" />
-      <TextField fx:id="cf_paziente11" layoutX="324.0" layoutY="441.0" prefHeight="25.0" prefWidth="180.0" />
-      <TextField fx:id="cf_paziente12" layoutX="50.0" layoutY="537.0" prefHeight="25.0" prefWidth="180.0" />
-      <ChoiceBox layoutX="325.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
+      <TextField fx:id="comune" layoutX="50.0" layoutY="441.0" prefHeight="25.0" prefWidth="180.0" />
+      <TextField fx:id="provincia" layoutX="324.0" layoutY="441.0" prefHeight="25.0" prefWidth="180.0" />
+      <TextField fx:id="nome_via" layoutX="50.0" layoutY="537.0" prefHeight="25.0" prefWidth="180.0" />
+      <ChoiceBox fx:id="qualificatore" layoutX="325.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
       <Label layoutX="78.0" layoutY="265.0" prefHeight="22.0" prefWidth="152.0" text="Tipo Di Centro">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Label>
-      <ChoiceBox layoutX="51.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
+      <ChoiceBox fx:id="tipologia" layoutX="51.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
+      <TextField fx:id="numero_civico" layoutX="325.0" layoutY="537.0" prefHeight="25.0" prefWidth="180.0" />
    </children>
 </AnchorPane>
