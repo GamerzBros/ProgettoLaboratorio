@@ -2,11 +2,45 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
+<AnchorPane prefHeight="700.0" prefWidth="544.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
    <children>
-      <TextField fx:id="txt_userRegister" layoutX="159.0" layoutY="122.0" />
-      <PasswordField fx:id="pswd_register" layoutX="159.0" layoutY="168.0" />
-      <Button layoutX="159.0" layoutY="237.0" mnemonicParsing="false" onAction="#registraCittadino" prefHeight="25.0" prefWidth="149.0" text="Registrati" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="700.0" stroke="BLACK" strokeType="INSIDE" width="550.0">
+         <fill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.09803921729326248" green="0.4901960790157318" blue="0.7882353067398071" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill></Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="660.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
+      <TextField fx:id="txt_user" layoutX="205.0" layoutY="220.0" prefHeight="33.0" prefWidth="149.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #FFFFF;" />
+      <PasswordField fx:id="pass_user" layoutX="205.0" layoutY="330.0" prefHeight="25.0" prefWidth="149.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #FFFFF;" />
+      <Button layoutX="205.0" layoutY="418.0" mnemonicParsing="false" onAction="#registraCittadino" prefHeight="49.0" prefWidth="149.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #FFFFFF;" text="Registrati">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font></Button>
+      <Label layoutX="231.0" layoutY="170.0" text="Usernarme:">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="237.0" layoutY="280.0" text="Password:">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

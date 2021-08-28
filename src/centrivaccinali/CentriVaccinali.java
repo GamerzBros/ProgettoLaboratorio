@@ -13,8 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.application.Application;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;

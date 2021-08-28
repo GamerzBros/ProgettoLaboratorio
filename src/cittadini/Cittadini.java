@@ -11,8 +11,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -25,16 +25,12 @@ public class Cittadini implements EventHandler<ActionEvent> {
     public static final String PRE_PATH_TO_EVENTI_AVVERSI="data/Vaccinati_";
     public static final String AFTER_PATH_TO_EVENTI_AVVERSI=".dati.txt";
     public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
-
+    //TODO mettere il delimitatore come attributo
     private boolean isLogged=false;
     private int currentCentreID;
     private Vector<SingoloCentroVaccinale> centriVaccinaliList=new Vector<>();
     @FXML
     private ScrollPane scrollPane_CentriVaccinali;
-    @FXML
-    private TextField txt_userRegister;
-    @FXML
-    private PasswordField pswd_register;
 
 
     public void loadMainCittadiniUI() throws Exception {
@@ -196,36 +192,56 @@ public class Cittadini implements EventHandler<ActionEvent> {
             lbl_centreType.setText(type);
 
 
-            String[] eventsArray=leggiEventiAvversi();
+            String[] eventLines=leggiEventiAvversi();
+            int firstEvent=0;
+            int secondEvent=0;
+            int thirdEvent=0;
+            int forthEvent=0;
+            int fifthEvent=0;
+            int sixthEvent=0;
+            String seventhEventDescription;
+            int seventhEvent=0;
 
-            if(eventsArray[0]!=null){
-                Scene currentScene=lbl_centreName.getScene();
+            for(i=0;i<eventLines.length;i++) {
+                StringTokenizer tokenizer=new StringTokenizer(eventLines[i],";");
 
-                Spinner spn_headache=(Spinner) currentScene.lookup("#spn_headache");
-                Spinner spn_fever=(Spinner) currentScene.lookup("#spn_fever");
-                Spinner spn_hurt=(Spinner) currentScene.lookup("#spn_hurt");
-                Spinner spn_linf=(Spinner) currentScene.lookup("#spn_linf");
-                Spinner spn_tac=(Spinner) currentScene.lookup("#spn_tac");
-                Spinner spn_crs=(Spinner) currentScene.lookup("#spn_crs");
-                TextField txt_other1=(TextField)currentScene.lookup("#txt_other1");
-                Spinner spn_other1=(Spinner)currentScene.lookup("#spn_other1");
-                TextField txt_other2=(TextField)currentScene.lookup("#txt_other2");
-                Spinner spn_other2=(Spinner)currentScene.lookup("#spn_other2");
+                firstEvent=firstEvent+(Integer.parseInt(tokenizer.nextToken()));
+                secondEvent=secondEvent+(Integer.parseInt(tokenizer.nextToken()));
+                thirdEvent=thirdEvent+(Integer.parseInt(tokenizer.nextToken()));
+                forthEvent=forthEvent+(Integer.parseInt(tokenizer.nextToken()));
+                fifthEvent=fifthEvent+(Integer.parseInt(tokenizer.nextToken()));
+                sixthEvent=sixthEvent+(Integer.parseInt(tokenizer.nextToken()));
 
-
-                spn_headache.setPromptText(eventsArray[0]);//evento1 = Mal di testa
-                spn_fever.setPromptText(eventsArray[1]); //evento2 = Febbre
-                spn_hurt.setPromptText(eventsArray[2]); //evento3 = Dolori muscolari o articolari
-                spn_linf.setPromptText(eventsArray[3]); //evento4 = Linfoadenopatia
-                spn_tac.setPromptText(eventsArray[4]); //evento5 = Tachicardia
-                spn_crs.setPromptText(eventsArray[5]);//evento6 = Crisi ipertensiva
-                if(eventsArray.length>6) {
-                    txt_other1.setText(eventsArray[6]);
-                    spn_other1.setPromptText(eventsArray[7]);
+                if(tokenizer.hasMoreTokens()){
+                    seventhEventDescription=tokenizer.nextToken();
+                    seventhEvent=seventhEvent+(Integer.parseInt(tokenizer.nextToken()));
                 }
-                if (eventsArray.length>8)
-                txt_other2.setText(eventsArray[8]);
-                spn_other2.setPromptText(eventsArray[9]);
+
+
+                String[] singleEvents=new String[8];
+
+                if (eventLines[0] != null) {
+                    Scene currentScene = lbl_centreName.getScene();
+
+                    Spinner spn_headache = (Spinner) currentScene.lookup("#spn_headache");
+                    Spinner spn_fever = (Spinner) currentScene.lookup("#spn_fever");
+                    Spinner spn_hurt = (Spinner) currentScene.lookup("#spn_hurt");
+                    Spinner spn_linf = (Spinner) currentScene.lookup("#spn_linf");
+                    Spinner spn_tac = (Spinner) currentScene.lookup("#spn_tac");
+                    Spinner spn_crs = (Spinner) currentScene.lookup("#spn_crs");
+                    TextField txt_other1 = (TextField) currentScene.lookup("#txt_other1");
+                    Spinner spn_other1 = (Spinner) currentScene.lookup("#spn_other1");
+
+                    spn_headache.setPromptText(String.valueOf(firstEvent));//evento1 = Mal di testa
+                    spn_fever.setPromptText(String.valueOf(secondEvent)); //evento2 = Febbre
+                    spn_hurt.setPromptText(String.valueOf(thirdEvent)); //evento3 = Dolori muscolari o articolari
+                    spn_linf.setPromptText(String.valueOf(forthEvent)); //evento4 = Linfoadenopatia
+                    spn_tac.setPromptText(String.valueOf(fifthEvent)); //evento5 = Tachicardia
+                    spn_crs.setPromptText(String.valueOf(sixthEvent));//evento6 = Crisi ipertensiva
+
+                    //TODO aggiungere gli eventi testuali nella nuopva grafica di tommy
+                    //TODO di classe: mettere che se due eventi sono identici, fa la media
+                }
             }
 
         }
@@ -274,8 +290,6 @@ public class Cittadini implements EventHandler<ActionEvent> {
         Spinner spn_crs=(Spinner) currentScene.lookup("#spn_crs");
         TextField txt_other1=(TextField)currentScene.lookup("#txt_other1");
         Spinner spn_other1=(Spinner)currentScene.lookup("#spn_other1");
-        TextField txt_other2=(TextField)currentScene.lookup("#txt_other2");
-        Spinner spn_other2=(Spinner)currentScene.lookup("#spn_other2");
 
 
         String evento1 = spn_headache.getPromptText();//evento1 = Mal di testa
@@ -284,15 +298,18 @@ public class Cittadini implements EventHandler<ActionEvent> {
         String evento4 = spn_linf.getPromptText(); //evento4 = Linfoadenopatia
         String evento5 = spn_tac.getPromptText(); //evento5 = Tachicardia
         String evento6 = spn_crs.getPromptText();//evento6 = Crisi ipertensiva
-        String otherEvent1=txt_other1.getText();
-        String otherEvent1Value=spn_other1.getPromptText();
-        String otherEvent2=txt_other2.getText();
-        String otherEvent2Value=spn_other2.getPromptText();
+        String otherEvent=txt_other1.getText();
+        String otherEventValue=spn_other1.getPromptText();
 
         FileWriter writer = new FileWriter(PRE_PATH_TO_EVENTI_AVVERSI+centriVaccinaliList.get(currentCentreID).getNome()+AFTER_PATH_TO_EVENTI_AVVERSI, true);
         BufferedWriter out = new BufferedWriter(writer);
         //String fileInput =  "Mal di Testa:" + evento1 + ";" + "Febbre:" + evento2 + ";" + "Dolori muscolari o articolari:" + evento3 + ";" + "Linfoadenopatia:" + evento4 + ";" + "Tachicardia:" + evento5 + ";" + "Crisi ipertensiva:" + evento6 + ";";
-        String fileInput =currentCentreID + ";"+  evento1 + ";" + evento2 + ";" + evento3 + ";" + evento4 + ";" + evento5 + ";" + evento6+";"+otherEvent1+";"+otherEvent1Value+";"+otherEvent2+";"+otherEvent2Value;
+
+        String fileInput =currentCentreID + ";"+  evento1 + ";" + evento2 + ";" + evento3 + ";" + evento4 + ";" + evento5 + ";" + evento6;
+        if(otherEvent.compareTo("")!=0){
+            fileInput+=";"+otherEvent+";"+otherEventValue;
+        }
+
         out.write(fileInput);
         out.newLine();
         out.flush();
@@ -313,19 +330,15 @@ public class Cittadini implements EventHandler<ActionEvent> {
             BufferedReader reader=new BufferedReader(fileReader);
 
             String line=reader.readLine();
-            String events=null;
 
-            String[] eventsArray=new String[8];
+            String[] eventLines=new String[8];
+            int arrayIndex=0;
             while (line!=null){
-                events+=line;
-                StringTokenizer eventTokens=new StringTokenizer(events,";");
-                for(int i=0;i<eventTokens.countTokens();i++){
-                    eventsArray[i]=eventTokens.nextToken();
-                }
+                eventLines[arrayIndex]=line;
                 line=reader.readLine();
             }
 
-           return eventsArray;
+           return eventLines;
 
         }
         catch (IOException e){
@@ -373,9 +386,10 @@ public class Cittadini implements EventHandler<ActionEvent> {
     }
 
 
-    public void registraCittadino() throws Exception {
-        String pwd = pswd_register.getText();
-        String user = txt_userRegister.getText();
+    public void registraCittadino(ActionEvent event) throws Exception {
+        Scene currentScene=((Button)event.getSource()).getScene();
+        String pwd = ((PasswordField)currentScene.lookup("#pswd_register")).getText();
+        String user = ((TextField)currentScene.lookup("#txt_userRegister")).getText();
 
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
@@ -396,8 +410,8 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
     public void loggaCittadini(ActionEvent event) {
         Scene currentScene=((Button)event.getSource()).getScene();
-        String user = ((TextField)currentScene.lookup("#txt_userRegister")).getText();
-        String pwd = ((TextField)currentScene.lookup("#pswd_register")).getText();
+        String user = ((TextField)currentScene.lookup("#txt_userLogin")).getText();
+        String pwd = ((TextField)currentScene.lookup("#pswd_login")).getText();
         String user_temp;
         String pwd_temp;
         String[] parts;

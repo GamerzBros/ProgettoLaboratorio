@@ -34,8 +34,8 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <PasswordField fx:id="pass_userPswd" layoutX="26.0" layoutY="138.0" />
-            <TextField fx:id="user_txtfield" layoutX="26.0" layoutY="59.0" />
+            <PasswordField fx:id="pswd_login" layoutX="26.0" layoutY="138.0" />
+            <TextField fx:id="txt_userLogin" layoutX="26.0" layoutY="59.0" />
             <Label layoutX="40.0" layoutY="24.0" prefHeight="35.0" prefWidth="121.0" text="Username:">
                <font>
                   <Font size="24.0" />
