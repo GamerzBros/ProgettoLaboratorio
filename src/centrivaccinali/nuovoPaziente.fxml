@@ -26,7 +26,7 @@
             </RadialGradient>
          </fill></Rectangle>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="660.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
-      <ChoiceBox fx:id="vaccino_somministrato" layoutX="50.0" layoutY="425.0" onMousePressed="#vaccino_somministrato_setter" prefWidth="180.0" />
+      <ChoiceBox fx:id="choiceBox_vaccinoSomministrato" layoutX="50.0" layoutY="425.0" onMousePressed="#vaccino_somministrato_setter" prefWidth="180.0" />
       <TextField fx:id="nome_paziente" layoutX="50.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
       <TextField fx:id="cognome_paziente" layoutX="324.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
       <TextField fx:id="cf_paziente" layoutX="50.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
@@ -76,6 +76,6 @@
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Button>
-      <DatePicker fx:id="data_vaccinazione" layoutX="317.0" layoutY="425.0" />
+      <DatePicker fx:id="datePicker_datavaccinazione" layoutX="317.0" layoutY="425.0" />
    </children>
 </AnchorPane>

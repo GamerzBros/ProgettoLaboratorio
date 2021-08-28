@@ -1,5 +1,6 @@
 package cittadini;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
@@ -7,7 +8,7 @@ public class SingoloCittadino {
     private String nome;
     private String cognome;
     private String codice_fiscale;
-    private Date dataVaccinazione;
+    private LocalDate dataVaccinazione;
     private String tipoVaccino; //TODO creare un enum per il tipo di vaccino (Pfizer, AstraZeneca, Moderna, J&J)
     private int idVaccino; //16 bit
     private String centroVaccinale;
@@ -18,6 +19,17 @@ public class SingoloCittadino {
         this.cognome=cognome;
         this.codice_fiscale=codice_fiscale;
     }
+
+    public SingoloCittadino(String nome, String cognome, String codice_fiscale, LocalDate dataVaccinazione, String tipoVaccino, int idVaccino, String centroVaccinale) {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.codice_fiscale = codice_fiscale;
+        this.dataVaccinazione = dataVaccinazione;
+        this.tipoVaccino = tipoVaccino;
+        this.idVaccino = idVaccino;
+        this.centroVaccinale = centroVaccinale;
+    }
+
     public int getIdVaccino() {
         return idVaccino;
     }
@@ -26,11 +38,11 @@ public class SingoloCittadino {
         this.idVaccino = idVaccino;
     }
 
-    public Date getDataVaccinazione() {
+    public LocalDate getDataVaccinazione() {
         return dataVaccinazione;
     }
 
-    public void setDataVaccinazione(Date dataVaccinazione) {
+    public void setDataVaccinazione(LocalDate dataVaccinazione) {
         this.dataVaccinazione = dataVaccinazione;
     }
 

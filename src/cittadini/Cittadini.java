@@ -1,6 +1,5 @@
 package cittadini;
 
-import centrivaccinali.CentriVaccinali;
 import centrivaccinali.SingoloCentroVaccinale;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,10 +17,7 @@ import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.util.List;
-import java.util.Scanner;
-import java.util.StringTokenizer;
-import java.util.Vector;
+import java.util.*;
 
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
 public class Cittadini implements EventHandler<ActionEvent> {
@@ -35,19 +31,10 @@ public class Cittadini implements EventHandler<ActionEvent> {
     private Vector<SingoloCentroVaccinale> centriVaccinaliList=new Vector<>();
     @FXML
     private ScrollPane scrollPane_CentriVaccinali;
-    //TODO pole diminuire le variabili
     @FXML
-    private TextField txt_searchCenter;
+    private TextField txt_userRegister;
     @FXML
-    private Button btn_search;
-    @FXML
-    private TextField user_txtfield;
-    @FXML
-    private PasswordField pass_userPswd;
-    @FXML
-    private TextField txt_user;
-    @FXML
-    private PasswordField pass_user;
+    private PasswordField pswd_register;
 
 
     public void loadMainCittadiniUI() throws Exception {
@@ -209,9 +196,9 @@ public class Cittadini implements EventHandler<ActionEvent> {
             lbl_centreType.setText(type);
 
 
-            String events=leggiEventiAvversi(idCentro);
+            String[] eventsArray=leggiEventiAvversi();
 
-            if(events!=null){
+            if(eventsArray[0]!=null){
                 Scene currentScene=lbl_centreName.getScene();
 
                 Spinner spn_headache=(Spinner) currentScene.lookup("#spn_headache");
@@ -225,19 +212,20 @@ public class Cittadini implements EventHandler<ActionEvent> {
                 TextField txt_other2=(TextField)currentScene.lookup("#txt_other2");
                 Spinner spn_other2=(Spinner)currentScene.lookup("#spn_other2");
 
-                StringTokenizer eventTokens=new StringTokenizer(events,";");
 
-
-                spn_headache.setPromptText(eventTokens.nextToken());//evento1 = Mal di testa
-                spn_fever.setPromptText(eventTokens.nextToken()); //evento2 = Febbre
-                spn_hurt.setPromptText(eventTokens.nextToken()); //evento3 = Dolori muscolari o articolari
-                spn_linf.setPromptText(eventTokens.nextToken()); //evento4 = Linfoadenopatia
-                spn_tac.setPromptText(eventTokens.nextToken()); //evento5 = Tachicardia
-                spn_crs.setPromptText(eventTokens.nextToken());//evento6 = Crisi ipertensiva
-                txt_other1.setText(eventTokens.nextToken());
-                spn_other1.setPromptText(eventTokens.nextToken());
-                txt_other2.setText(eventTokens.nextToken());
-                spn_other2.setPromptText(eventTokens.nextToken());
+                spn_headache.setPromptText(eventsArray[0]);//evento1 = Mal di testa
+                spn_fever.setPromptText(eventsArray[1]); //evento2 = Febbre
+                spn_hurt.setPromptText(eventsArray[2]); //evento3 = Dolori muscolari o articolari
+                spn_linf.setPromptText(eventsArray[3]); //evento4 = Linfoadenopatia
+                spn_tac.setPromptText(eventsArray[4]); //evento5 = Tachicardia
+                spn_crs.setPromptText(eventsArray[5]);//evento6 = Crisi ipertensiva
+                if(eventsArray.length>6) {
+                    txt_other1.setText(eventsArray[6]);
+                    spn_other1.setPromptText(eventsArray[7]);
+                }
+                if (eventsArray.length>8)
+                txt_other2.setText(eventsArray[8]);
+                spn_other2.setPromptText(eventsArray[9]);
             }
 
         }
@@ -315,7 +303,8 @@ public class Cittadini implements EventHandler<ActionEvent> {
     }
 
 
-    public String leggiEventiAvversi(int idCentro) throws Exception{
+    public String[] leggiEventiAvversi() throws Exception{
+        centriVaccinaliList=getCentriVaccinaliFromFile();
 
         SingoloCentroVaccinale centroVaccinale=centriVaccinaliList.get(currentCentreID);
 
@@ -323,16 +312,20 @@ public class Cittadini implements EventHandler<ActionEvent> {
             FileReader fileReader=new FileReader(PRE_PATH_TO_EVENTI_AVVERSI+centroVaccinale.getNome()+AFTER_PATH_TO_EVENTI_AVVERSI);
             BufferedReader reader=new BufferedReader(fileReader);
 
-            int index=0;
+            String line=reader.readLine();
+            String events=null;
 
-            String events=reader.readLine();
-
-            while (index!=idCentro){
-                events=reader.readLine();
-                index++;
+            String[] eventsArray=new String[8];
+            while (line!=null){
+                events+=line;
+                StringTokenizer eventTokens=new StringTokenizer(events,";");
+                for(int i=0;i<eventTokens.countTokens();i++){
+                    eventsArray[i]=eventTokens.nextToken();
+                }
+                line=reader.readLine();
             }
 
-           return events;
+           return eventsArray;
 
         }
         catch (IOException e){
@@ -381,8 +374,8 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
 
     public void registraCittadino() throws Exception {
-        String pwd = pass_user.getText();
-        String user = txt_user.getText();
+        String pwd = pswd_register.getText();
+        String user = txt_userRegister.getText();
 
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
@@ -401,30 +394,44 @@ public class Cittadini implements EventHandler<ActionEvent> {
         out.close();
     }
 
-    public void loggaCittadini() {
-        String user = user_txtfield.getText();
-        String pwd = pass_userPswd.getText();
+    public void loggaCittadini(ActionEvent event) {
+        Scene currentScene=((Button)event.getSource()).getScene();
+        String user = ((TextField)currentScene.lookup("#txt_userRegister")).getText();
+        String pwd = ((TextField)currentScene.lookup("#pswd_register")).getText();
         String user_temp;
         String pwd_temp;
         String[] parts;
 
         try {
             if (!user.equals("") && !pwd.equals("")) {
-                File file = new File(PATH_TO_CITTADINI_REGISTRATI_DATI);
-                Scanner reader = new Scanner(file);
-                while (reader.hasNextLine()) {
-                    String line = reader.nextLine();
+                FileReader fileReader=new FileReader(PATH_TO_CITTADINI_REGISTRATI_DATI);
+                BufferedReader reader=new BufferedReader(fileReader);
+                String line;
+
+                while ((line=reader.readLine())!=null) {
                     parts = line.split(";");
                     user_temp = parts[0];
                     pwd_temp = parts[1];
 
-                    MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-                    pwd_temp = new String(messageDigest.digest(pwd_temp.getBytes(StandardCharsets.UTF_8)));
+                    if (user_temp.equals(user)) {
+                        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+                        pwd = toHexString(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8)));
+                        System.out.println(pwd);
+                        if(pwd_temp.equals(pwd)) {
+                            System.out.println("LOGGATO");
+                            isLogged = true;
 
-                    if (user_temp.equals(user) && pwd_temp.equals(pwd)) {
-                        System.out.println("LOGGATO");
-                        isLogged = true;
-                    } else {
+                            Stage currentStage=(Stage) ((Button)event.getSource()).getScene().getWindow();
+                            currentStage.close();
+                            loadRegistraEventiAvversiUI();
+                        }
+                    }
+                    else {
+                        //TODO mettere gli alert
+                        Alert noUserAlert=new Alert(Alert.AlertType.WARNING);
+                        noUserAlert.setTitle("Errore di login");
+                        noUserAlert.setContentText("Utente non trovato!");
+                        noUserAlert.show();
                         System.out.println("User inesistente, premere sul tasto 'register'");
                     }
                 }
