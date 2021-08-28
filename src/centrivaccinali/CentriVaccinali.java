@@ -213,7 +213,7 @@ public class CentriVaccinali extends Application {
         try {
             FXMLLoader loader = new FXMLLoader();
             //URL xmlUrl = getClass().getResource("nuovoCentroVaccinaleRifatto.fxml");
-            URL xmlUrl = getClass().getResource("nuovoCentroVaccinale.fxml");
+            URL xmlUrl = getClass().getResource("nuovoCentroVaccinaleRifatto.fxml");
             loader.setLocation(xmlUrl);
 
             Parent root = loader.load();
