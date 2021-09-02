@@ -1,0 +1,4 @@
+V;David;Poletti;PLTDVD01L05E514M;Pfizer;0000000000000000;set-02-2021;Abdul
+E;Abdul;PLTDVD01L05E514M;0;0;0;0;0;0;Cacca mollissima;1
+V;andrea;belfiore;bel;Moderna;0000000000000002;set-02-2021;Abdul
+E;Abdul;bel;5;0;2;1;3;4

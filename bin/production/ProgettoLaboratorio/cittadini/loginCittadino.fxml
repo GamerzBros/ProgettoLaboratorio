@@ -43,7 +43,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <Button layoutX="230.0" layoutY="480.0" mnemonicParsing="false" onAction="#loggaCittadini" text="Login">
+      <Button fx:id="login_button" layoutX="230.0" layoutY="480.0" mnemonicParsing="false" onAction="#loggaCittadini" text="Login">
          <font>
             <Font size="24.0" />
          </font></Button>

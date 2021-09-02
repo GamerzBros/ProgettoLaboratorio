@@ -26,11 +26,10 @@
             </RadialGradient>
          </fill></Rectangle>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="660.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
-      <ChoiceBox fx:id="choiceBox_vaccinoSomministrato" layoutX="50.0" layoutY="425.0" onMousePressed="#vaccino_somministrato_setter" prefWidth="180.0" />
-      <TextField fx:id="nome_paziente" layoutX="50.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
-      <TextField fx:id="cognome_paziente" layoutX="324.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
-      <TextField fx:id="cf_paziente" layoutX="50.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
-      <TextField fx:id="ID_vaccinazione" layoutX="324.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
+      <ChoiceBox fx:id="cbx_vaccinoSomministrato" layoutX="324.0" layoutY="310.0" prefWidth="180.0" />
+      <TextField fx:id="txt_nomePaziente" layoutX="50.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
+      <TextField fx:id="txt_cognomePaziente" layoutX="324.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
+      <TextField fx:id="txt_cfPaziente" layoutX="50.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
       <Label layoutX="81.0" layoutY="150.0" prefHeight="22.0" prefWidth="119.0" text="Nome Paziente">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
@@ -41,17 +40,12 @@
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="350.0" layoutY="265.0" prefHeight="22.0" prefWidth="128.0" text="ID Vaccinazione">
-         <font>
-            <Font name="Franklin Gothic Medium" size="18.0" />
-         </font>
-      </Label>
       <Label layoutX="81.0" layoutY="265.0" prefHeight="22.0" prefWidth="119.0" text="Codice Fiscale">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="50.0" layoutY="380.0" prefHeight="22.0" prefWidth="180.0" text="Vaccino Somministrato">
+      <Label layoutX="324.0" layoutY="265.0" prefHeight="22.0" prefWidth="180.0" text="Vaccino Somministrato">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
@@ -61,8 +55,8 @@
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="centro_vaccinale" layoutX="50.0" layoutY="540.0" onMousePressed="#centro_vaccinale_setter" prefHeight="25.0" prefWidth="282.0" />
-      <Label layoutX="124.0" layoutY="495.0" prefHeight="22.0" prefWidth="152.0" text="Centro Vaccinale">
+      <ChoiceBox fx:id="cbx_centroVaccinale" layoutX="51.0" layoutY="426.0" prefHeight="25.0" prefWidth="180.0" />
+      <Label layoutX="65.0" layoutY="380.0" prefHeight="22.0" prefWidth="152.0" text="Centro Vaccinale">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
@@ -76,6 +70,6 @@
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Button>
-      <DatePicker fx:id="datePicker_datavaccinazione" layoutX="317.0" layoutY="425.0" />
+      <DatePicker fx:id="datePicker_datavaccinazione" layoutX="327.0" layoutY="426.0" />
    </children>
 </AnchorPane>

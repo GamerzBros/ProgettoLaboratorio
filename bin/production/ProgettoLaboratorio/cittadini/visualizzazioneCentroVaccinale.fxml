@@ -6,9 +6,9 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="521.0" prefWidth="651.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
+<AnchorPane prefHeight="521.0" prefWidth="587.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="520.0" stroke="BLACK" strokeType="INSIDE" width="660.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="686.0" stroke="BLACK" strokeType="INSIDE" width="931.0">
          <fill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                <stops>
@@ -25,67 +25,77 @@
                </stops>
             </RadialGradient>
          </fill></Rectangle>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="480.0" layoutX="20.0" layoutY="21.0" stroke="BLACK" strokeType="INSIDE" width="620.0" />
-      <Label fx:id="lblEffect1" layoutX="180.0" layoutY="106.0" prefHeight="38.0" prefWidth="103.0" text="Mal di testa">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="642.0" layoutX="20.0" layoutY="21.0" stroke="BLACK" strokeType="INSIDE" width="888.0" />
+      <Label fx:id="lbl_headache" layoutX="49.0" layoutY="106.0" prefHeight="38.0" prefWidth="103.0" text="Mal di testa">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font></Label>
-      <Label fx:id="lblEffect2" layoutX="180.0" layoutY="169.0" prefHeight="38.0" prefWidth="103.0" text="Febbre">
+      <Label fx:id="lbl_fever" layoutX="49.0" layoutY="158.0" prefHeight="38.0" prefWidth="103.0" text="Febbre">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font></Label>
-      <Label fx:id="lblEffect3" layoutX="180.0" layoutY="233.0" prefHeight="38.0" prefWidth="233.0" text="Dolori muscolari o articolari">
+      <Label fx:id="lbl_hurt" layoutX="49.0" layoutY="212.0" prefHeight="38.0" prefWidth="233.0" text="Dolori muscolari o articolari">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font></Label>
-      <Label fx:id="lblEffect4" layoutX="180.0" layoutY="290.0" prefHeight="38.0" prefWidth="152.0" text="Linfoadenopatia">
+      <Label fx:id="lbl_linf" layoutX="49.0" layoutY="265.0" prefHeight="38.0" prefWidth="152.0" text="Linfoadenopatia">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font></Label>
-      <Label fx:id="lblEffect5" layoutX="180.0" layoutY="350.0" prefHeight="38.0" prefWidth="103.0" text="Tachicardia">
+      <Label fx:id="lbl_tac" layoutX="49.0" layoutY="318.0" prefHeight="38.0" prefWidth="103.0" text="Tachicardia">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font></Label>
-      <Label fx:id="lblEffect6" layoutX="180.0" layoutY="409.0" prefHeight="38.0" prefWidth="152.0" text="Crisi ipertensiva">
+      <Label fx:id="lbl_crs" layoutX="49.0" layoutY="371.0" prefHeight="38.0" prefWidth="152.0" text="Crisi ipertensiva">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font></Label>
-      <Label fx:id="lbl_effect1" alignment="CENTER" layoutX="456.0" layoutY="106.0" prefHeight="38.0" prefWidth="58.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #b6dfff;" text="0" textAlignment="CENTER">
+      <Label fx:id="lbl_effect1" alignment="CENTER" layoutX="819.0" layoutY="114.0" prefHeight="38.0" prefWidth="58.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #b6dfff;" text="0" textAlignment="CENTER">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font></Label>
-      <Label fx:id="lbl_effect2" alignment="CENTER" layoutX="456.0" layoutY="169.0" prefHeight="38.0" prefWidth="58.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #b6dfff;" text="0">
+      <Label fx:id="lbl_effect2" alignment="CENTER" layoutX="819.0" layoutY="166.0" prefHeight="38.0" prefWidth="58.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #b6dfff;" text="0">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font></Label>
-      <Label fx:id="lbl_effect3" alignment="CENTER" layoutX="456.0" layoutY="233.0" prefHeight="38.0" prefWidth="58.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #b6dfff;" text="0">
+      <Label fx:id="lbl_effect3" alignment="CENTER" layoutX="819.0" layoutY="220.0" prefHeight="38.0" prefWidth="58.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #b6dfff;" text="0">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font></Label>
-      <Label fx:id="lbl_effect4" alignment="CENTER" layoutX="456.0" layoutY="290.0" prefHeight="38.0" prefWidth="58.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #b6dfff;" text="0">
+      <Label fx:id="lbl_effect4" alignment="CENTER" layoutX="819.0" layoutY="273.0" prefHeight="38.0" prefWidth="58.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #b6dfff;" text="0">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font></Label>
-      <Label fx:id="lbl_effect5" alignment="CENTER" layoutX="456.0" layoutY="350.0" prefHeight="38.0" prefWidth="58.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #b6dfff;" text="0">
+      <Label fx:id="lbl_effect5" alignment="CENTER" layoutX="819.0" layoutY="326.0" prefHeight="38.0" prefWidth="58.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #b6dfff;" text="0">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font></Label>
-      <Label fx:id="lbl_effect6" alignment="CENTER" layoutX="456.0" layoutY="409.0" prefHeight="38.0" prefWidth="58.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #b6dfff;" text="0">
+      <Button fx:id="btn_addEvent" layoutX="738.0" layoutY="54.0" mnemonicParsing="false" onAction="#checkLogin" prefHeight="32.0" prefWidth="162.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #b6dfff;" text="Inserisci Evento Avverso" />
+      <ScrollPane fx:id="scrollPane_otherEvents" layoutX="49.0" layoutY="474.0" prefHeight="173.0" prefWidth="835.0" />
+      <Label layoutX="49.0" layoutY="433.0" prefHeight="33.0" prefWidth="216.0" text="Altri eventi">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
-         </font></Label>
-      <Button layoutX="456.0" layoutY="55.0" mnemonicParsing="false" onAction="#checkLogin" prefHeight="32.0" prefWidth="162.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #b6dfff;" text="Inserisci Evento Avverso" />
-      <Label fx:id="lbl_highlitedCentreName" layoutX="84.0" layoutY="55.0" prefHeight="32.0" prefWidth="103.0">
+         </font>
+      </Label>
+      <Label fx:id="lbl_effect6" alignment="CENTER" layoutX="819.0" layoutY="379.0" prefHeight="38.0" prefWidth="58.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #b6dfff;" text="0">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
-         </font></Label>
-      <Label fx:id="lbl_highlitedCentreAddress" layoutX="204.0" layoutY="55.0" prefHeight="32.0" prefWidth="135.0">
+         </font>
+      </Label>
+      <Label fx:id="lbl_highlitedCenterName" layoutX="49.0" layoutY="54.0" prefHeight="33.0" prefWidth="162.0">
          <font>
-            <Font name="Franklin Gothic Medium" size="18.0" />
-         </font></Label>
-      <Label fx:id="lbl_highlitedCentreType" layoutX="358.0" layoutY="56.0" prefHeight="32.0" prefWidth="84.0">
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl_highlitedCenterAddress" layoutX="228.0" layoutY="54.0" prefHeight="33.0" prefWidth="353.0">
          <font>
-            <Font name="Franklin Gothic Medium" size="18.0" />
-         </font></Label>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl_highlitedCenterType" layoutX="585.0" layoutY="54.0" prefHeight="33.0" prefWidth="144.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

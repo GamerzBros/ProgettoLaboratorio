@@ -17,7 +17,7 @@ import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 //TODO METTERE NOME COGNOME MATRICOLA SEDE
 //Cristian Arcadi 745389 Varese
@@ -26,36 +26,15 @@ import java.util.Scanner;
 //Tommaso Morosi  Varese
 public class CentriVaccinali extends Application {
     public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
+    public static final String PRE_PATH_TO_EVENTI_AVVERSI="data/Vaccinati_";
+    public static final String AFTER_PATH_TO_EVENTI_AVVERSI=".dati.txt";
+    public static final String LINE_TYPE_PERSON ="V";
+    public static final String LINE_TYPE_EVENT ="E";
     private ObservableList<String> vaccino_somministrato_items = FXCollections.observableArrayList("Pfizer","AstraZeneca","Moderna","J&J");
     private ObservableList<String> centro_vaccinale_items = FXCollections.observableArrayList();
-    private ObservableList<String> qualificatore_items = FXCollections.observableArrayList("via","v.le","pzza");
-    private ObservableList<String>tipologia_items = FXCollections.observableArrayList("ospedaliero","aziendale","hub");
-    private Scene scene;
+    private ObservableList<String> qualificatore_items = FXCollections.observableArrayList("Via","V.le","Piazza");
+    private ObservableList<String>tipologia_items = FXCollections.observableArrayList("Ospedaliero","Aziendale","Hub");
     private Cittadini portaleCittadini;
-    @FXML
-    private ChoiceBox<String> choiceBox_vaccinoSomministrato;
-    @FXML
-    private DatePicker datePicker_datavaccinazione;
-    @FXML
-    private ChoiceBox<String> centro_vaccinale;
-    @FXML
-    private TextField nome_centro;
-    @FXML
-    private TextField nome_via;
-    @FXML
-    private TextField numero_civico;
-    @FXML
-    private TextField comune;
-    @FXML
-    private TextField provincia;
-    @FXML
-    private TextField cap;
-    @FXML
-    private ChoiceBox<String> qualificatore;
-    @FXML
-    private ChoiceBox<String> tipologia;
-    @FXML
-    private Button annulla;
 
 
 
@@ -82,15 +61,17 @@ public class CentriVaccinali extends Application {
     }
 
 
-    public void registraCentroVaccinale(){
-        String nome = nome_centro.getText();
-        String qualif = qualificatore.getValue();
-        String via = nome_via.getText();
-        String civico = numero_civico.getText();
-        String com = comune.getText();
-        String prov = provincia.getText();
-        String Cap = cap.getText();
-        String tipolog = tipologia.getValue();
+    public void registraCentroVaccinale(ActionEvent event){
+        Scene currentScene=((Button)event.getSource()).getScene();
+        String nome = ((TextField)currentScene.lookup("#txt_nomeCentro")).getText();
+        String qualif = ((ChoiceBox<String>)currentScene.lookup("#cbx_qualificatore")).getValue();
+        String via = ((TextField)currentScene.lookup("#txt_via")).getText();
+        String civico = ((TextField)currentScene.lookup("#txt_numeroCivico")).getText();
+        String com = ((TextField)currentScene.lookup("#txt_comune")).getText();
+        String prov = ((TextField)currentScene.lookup("#txt_provincia")).getText();
+        String Cap = ((TextField)currentScene.lookup("#txt_cap")).getText();
+        String tipolog = ((ChoiceBox<String>)currentScene.lookup("#cbx_tipologia")).getValue();
+
         if(nome.equals("") || qualif==null || via.equals("") || civico.equals("") || com.equals("") || prov.equals("") || Cap.equals("") || tipolog==null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
@@ -159,7 +140,7 @@ public class CentriVaccinali extends Application {
 
             Parent root = loader.load();
 
-            scene = new Scene(root);
+            Scene scene = new Scene(root);
 
             Stage stage = new Stage();
             stage.setScene(scene);
@@ -180,17 +161,22 @@ public class CentriVaccinali extends Application {
     public void onNuovoCentroSelected(){
         try {
             FXMLLoader loader = new FXMLLoader();
-            //URL xmlUrl = getClass().getResource("nuovoCentroVaccinaleRifatto.fxml");
-            URL xmlUrl = getClass().getResource("nuovoCentroVaccinaleRifatto.fxml");
+            //URL xmlUrl = getClass().getResource("nuovoCentroVaccinale.fxml");
+            URL xmlUrl = getClass().getResource("nuovoCentroVaccinale.fxml");
             loader.setLocation(xmlUrl);
 
             Parent root = loader.load();
 
-            scene = new Scene(root);
+            Scene scene = new Scene(root);
 
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Nuovo centro vaccinale");
+
+            ChoiceBox<String> choiceBox_qualificatore=((ChoiceBox<String>)scene.lookup("#cbx_qualificatore"));
+            choiceBox_qualificatore.setItems(qualificatore_items);
+            ChoiceBox<String> choiceBox_tipologiaCentro=((ChoiceBox<String>)scene.lookup("#cbx_tipologia"));
+            choiceBox_tipologiaCentro.setItems(tipologia_items);
 
             InputStream icon = getClass().getResourceAsStream("fiorellino.png");
             Image image = new Image(icon);
@@ -208,24 +194,54 @@ public class CentriVaccinali extends Application {
 
     public void registraVaccinato(ActionEvent event){
         Scene currentScene=((Button)event.getSource()).getScene();
-        String nome = ((TextField)currentScene.lookup("#txt_nomePaziente")).getText();
-        String cognome = ((TextField)currentScene.lookup("#txt_cognomePaziente")).getText();
+        String name = ((TextField)currentScene.lookup("#txt_nomePaziente")).getText();
+        String surname = ((TextField)currentScene.lookup("#txt_cognomePaziente")).getText();
         String codice_fiscale =((TextField)currentScene.lookup("#txt_cfPaziente")).getText();
-        String tipoVaccino = ((ChoiceBox<String>)currentScene.lookup("#choiceBox_vaccinoSomministrato")).getValue();
-        String centroVaccinale = centro_vaccinale.getValue();
+        String vaccineType = ((ChoiceBox<String>)currentScene.lookup("#cbx_vaccinoSomministrato")).getValue();
+        LocalDate vaccinationDate = ((DatePicker)currentScene.lookup("#datePicker_datavaccinazione")).getValue();
+        String centroVaccinale=((ChoiceBox<String>)currentScene.lookup("#cbx_centroVaccinale")).getValue();
+        String dataVaccinazione = vaccinationDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
         String idVaccinazione=null;
-        LocalDate dataVaccino = datePicker_datavaccinazione.getValue();
-        String dataVaccinazione = dataVaccino.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
 
 
-        //TODO Calcolare l'ID vaccinazione
-        //TODO vedere se questo singolo Cittadini serve comunque
-        SingoloCittadino cittadino = new SingoloCittadino(nome,cognome,codice_fiscale,dataVaccino,tipoVaccino,Integer.parseInt(idVaccinazione),centroVaccinale);
+        try {
+            //L'id vaccinazione è diviso nel seguente modo:i primi 6 bit sono composti dal numero riga del centro vaccinale. I restanti 10 sono composti dal numero riga vaccinato.
+            FileReader fileReader=new FileReader(PATH_TO_CENTRIVACCINALI_DATI);
+            BufferedReader reader=new BufferedReader(fileReader);
 
-        String output = nome+";"+cognome+";"+codice_fiscale+";"+tipoVaccino+";"+idVaccinazione+";"+dataVaccinazione+";"+centroVaccinale;
-        String file_ID = "data/"+"Vaccinati_"+centroVaccinale+".dati.txt";
-        try{
-            FileWriter writer = new FileWriter(file_ID,true);
+            String line;
+            int index=0;
+
+            while ((line=reader.readLine())!=null&&(!line.contains(centroVaccinale))){
+                index++;
+            }
+
+            String centerIndex=String.valueOf(index);
+            while (centerIndex.length()<6){
+                centerIndex="0"+centerIndex;
+            }
+
+            fileReader = new FileReader(PRE_PATH_TO_EVENTI_AVVERSI + centroVaccinale + AFTER_PATH_TO_EVENTI_AVVERSI);
+            reader=new BufferedReader(fileReader);
+
+            index=0;
+            while ((line=reader.readLine())!=null){
+                index++;
+            }
+
+            String patientIndex=String.valueOf(index);
+            while (patientIndex.length()<10){
+                patientIndex="0"+patientIndex;
+            }
+
+            idVaccinazione=centerIndex+patientIndex;
+            System.out.println(idVaccinazione);
+
+            //TODO vedere se questo singolo Cittadini serve comunque
+            SingoloCittadino cittadino = new SingoloCittadino(name, surname, codice_fiscale, vaccinationDate, vaccineType, Integer.parseInt(idVaccinazione), centroVaccinale);
+
+            String output = LINE_TYPE_PERSON +";"+name + ";" + surname + ";" + codice_fiscale + ";" + vaccineType + ";" + idVaccinazione + ";" + dataVaccinazione + ";" + centroVaccinale;
+            FileWriter writer = new FileWriter(PRE_PATH_TO_EVENTI_AVVERSI + centroVaccinale + AFTER_PATH_TO_EVENTI_AVVERSI, true);
             BufferedWriter out = new BufferedWriter(writer);
             out.write(output);
             out.flush();
@@ -237,6 +253,7 @@ public class CentriVaccinali extends Application {
             alert.setHeaderText(null);
             alert.setContentText("Paziente registrato a sistema");
             alert.showAndWait();
+
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -264,12 +281,28 @@ public class CentriVaccinali extends Application {
 
 
 
-            scene = new Scene(root);
+            Scene scene = new Scene(root);
 
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Nuovo Paziente");
 
+
+            FileReader fileReader=new FileReader(PATH_TO_CENTRIVACCINALI_DATI);
+            BufferedReader reader=new BufferedReader(fileReader);
+
+            ChoiceBox<String>choiceBox_vaccinoSomministrato=((ChoiceBox<String>)scene.lookup("#cbx_vaccinoSomministrato"));
+            choiceBox_vaccinoSomministrato.setItems(vaccino_somministrato_items);
+
+            ChoiceBox<String> choiceBox=((ChoiceBox<String>)scene.lookup("#cbx_centroVaccinale"));
+
+            String line;
+
+            while ((line=reader.readLine())!=null){
+                StringTokenizer tokenizer=new StringTokenizer(line,";");
+                centro_vaccinale_items.add(tokenizer.nextToken());
+            }
+            choiceBox.setItems(centro_vaccinale_items);
 
 
             InputStream icon = getClass().getResourceAsStream("fiorellino.png");
@@ -283,40 +316,9 @@ public class CentriVaccinali extends Application {
         }
     }
 
-    public void vaccino_somministrato_setter(){
-        choiceBox_vaccinoSomministrato.setItems(vaccino_somministrato_items);
-    }
-
-    public void qualificatore_setter(){
-        qualificatore.setItems(qualificatore_items);
-    }
-
-    public void tipologia_setter(){
-        tipologia.setItems(tipologia_items);
-    }
-
-    public void centro_vaccinale_setter(){
-        String[] parts;
-        String nome_centro_vaccinale="";
-        try{
-            File file = new File(PATH_TO_CENTRIVACCINALI_DATI);
-            Scanner reader = new Scanner(file);
-            while (reader.hasNextLine()){
-                String line = reader.nextLine();
-                parts = line.split(";");
-                nome_centro_vaccinale = parts[0];
-                if(!centro_vaccinale_items.contains(nome_centro_vaccinale))
-                    centro_vaccinale_items.add(nome_centro_vaccinale);
-            }
-            centro_vaccinale.setItems(centro_vaccinale_items);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    public void annulla_button(){
-        Stage stage = (Stage)annulla.getScene().getWindow();
-        stage.close();
+    public void annulla_button(ActionEvent event){
+        Stage currentStage = (Stage)(((Button)event.getSource()).getScene()).getWindow();
+        currentStage.close();
     }
 
 
