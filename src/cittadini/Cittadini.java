@@ -20,7 +20,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-//TODO METTERE NOME COGNOME MATRICOLA SEDE
+/*Cristian Arcadi 745389 Varese
+  David Poletti 746597 Varese
+  Eros Marsichina 745299 Varese
+  Tommaso Morosi 741227 Varese*/
 public class Cittadini implements EventHandler<ActionEvent> {
     public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
     public static final String PRE_PATH_TO_EVENTI_AVVERSI="data/Vaccinati_";
@@ -37,29 +40,40 @@ public class Cittadini implements EventHandler<ActionEvent> {
     private ScrollPane scrollPane_CentriVaccinali;
 
 
-    public void loadMainCittadiniUI() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        URL url = getClass().getResource("mainCittadini.fxml");
-        fxmlLoader.setLocation(url);
-        Parent root=fxmlLoader.load();
+    /**
+     * Carica la UI principale del portale dei cittadini. Questa UI Consente di scegliere il centro vaccinale presso cui consultare/inserire i dati. Viene chiamato dalla classe CentriVaccinali nel metodo onCittadiniSelected(ActionEvent event).
+     */
+    public void loadMainCittadiniUI(){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            URL url = getClass().getResource("mainCittadini.fxml");
+            fxmlLoader.setLocation(url);
+            Parent root = fxmlLoader.load();
 
-        Scene scene=new Scene(root);
+            Scene scene = new Scene(root);
 
-        Stage stage=new Stage();
-        stage.setScene(scene);
-        stage.setTitle("Portale Cittadini");
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Portale Cittadini");
 
-        scrollPane_CentriVaccinali=(ScrollPane) scene.lookup("#scrollPane_CentriVaccinali");
+            scrollPane_CentriVaccinali = (ScrollPane) scene.lookup("#scrollPane_CentriVaccinali");
 
-        centriVaccinaliList=Cittadini.getCentriVaccinaliFromFile();
+            centriVaccinaliList = Cittadini.getCentriVaccinaliFromFile();
 
-        creaVbox(centriVaccinaliList);
+            creaVbox(centriVaccinaliList);
 
-        stage.show();
+            stage.show();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
 
-
+    /**
+     * Crea il vbox e i necessari componenti grafici contenenti le informazioni sui centri vaccinali consultabili.
+     * @param centriVaccinaliMostrati Lista contenente i centri vaccinale da inserire dentro il vbox (quindi dentro la UI).
+     */
     private void creaVbox(List<SingoloCentroVaccinale> centriVaccinaliMostrati){
         VBox scrollPaneContent=new VBox();
         scrollPaneContent.setMinWidth(scrollPane_CentriVaccinali.getPrefWidth()-2);
@@ -85,11 +99,11 @@ public class Cittadini implements EventHandler<ActionEvent> {
             lblAddress.setMinHeight(30);
             lblAddress.setFont(new Font("Arial",19));
 
-            lblType.setLayoutX(420);
+            lblType.setLayoutX(575);
             lblType.setMinHeight(30);
             lblType.setFont(new Font("Arial",19));
 
-            btnGoTo.setLayoutX(520);
+            btnGoTo.setLayoutX(725);
             btnGoTo.setFont(new Font("Arial",19));
             btnGoTo.setStyle( "-fx-background-radius: 5em;" + "-fx-min-width: 1px;" + "-fx-background-color: #FFFFFF;" + "-fx-border-radius: 5em;" + "-fx-border-color: #000000;");
             btnGoTo.setId(String.valueOf(i));
@@ -106,6 +120,10 @@ public class Cittadini implements EventHandler<ActionEvent> {
         }
     }
 
+    /**
+     * Porta il cittadino alla UI del centro vaccinale sul quale ha cliccato.
+     * @param actionEvent L'evento che richiama il metodo. Necessario ad ottenere il bottone sorgente dell'evento dal quale è possibile ottenere l'id del centro selezionato.
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         Button source = (Button) actionEvent.getSource();
@@ -119,6 +137,10 @@ public class Cittadini implements EventHandler<ActionEvent> {
         }
     }
 
+    /**
+     * Legge i centri vaccinali presenti nel file e li restituisce sotto firma di lista.
+     * @return Il vettore contente i centri vaccinali presenti nel file.
+     */
     public static Vector<SingoloCentroVaccinale> getCentriVaccinaliFromFile() {
         Vector<SingoloCentroVaccinale> vector = new Vector<>();
 
@@ -152,7 +174,11 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
     }
 
-
+    /**
+     * Crea la UI che mostra i dati relativi al centro vaccinale selezionato. Viene richiamato quando l'utente seleziona un centro vaccinale.
+     * @param idCentro L'ID contenete il numero della riga del centro vaccinale selezionato nel file
+     * @throws IOException
+     */
     public void loadVisualizzatoreCentroVaccinale(int idCentro) throws IOException {
         FXMLLoader loader=new FXMLLoader();
         URL url=getClass().getResource("visualizzazioneCentroVaccinale.fxml");
@@ -177,6 +203,13 @@ public class Cittadini implements EventHandler<ActionEvent> {
         currentStage.show();
     }
 
+    /**
+     *
+     * @param idCentro L'ID contenete il numero della riga del centro vaccinale selezionato nel file
+     * @param lbl_centreName L'ettichetta contenete il nome del centro selezionato
+     * @param lbl_centreAddress L'ettichetta contenete l'indirizzo del centro selezionato
+     * @param lbl_centreType L'ettichetta contenete la tipologia del vaccina somministrato presso il centro selezione
+     */
     public void loadCentreInfo(int idCentro, Label lbl_centreName,Label lbl_centreAddress,Label lbl_centreType){
         try {
             FileReader fileReader=new FileReader(PATH_TO_CENTRIVACCINALI_DATI);
@@ -276,6 +309,10 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
     }
 
+    /**
+     * Controlla che l'utente sia loggato quando prova ad inserire nuovi eventi avversi.
+     * @param event L'evento che richiama il metodo. Necessario per ottenere la scena attuale da cui prendere il nome del centro vaccinale selezionato e, se presente, l'utente attuale.
+     */
     public void checkLogin(ActionEvent event){
         String[] userData=(String[]) ((Button)event.getSource()).getScene().getUserData();
         currentCenter=userData[0];
@@ -289,6 +326,9 @@ public class Cittadini implements EventHandler<ActionEvent> {
         }
     }
 
+    /**
+     * Crea la UI che permette ad un utente di inserire eventi avversi.
+     */
     public void loadRegistraEventiAvversiUI(){
         try {
 
@@ -314,6 +354,11 @@ public class Cittadini implements EventHandler<ActionEvent> {
     }
 
 
+    /**
+     * Registra sul file di testo relativo al centro vaccinale selezionato, gli eventi avversi inseriti dall'utente.
+     * @param actionEvent L'evento che richiama il metodo. Necessario ad ottenere la scena attuale da cui prendere i dati inseriti dall'utente.
+     * @throws Exception
+     */
     public void registerEventiAvversi(ActionEvent actionEvent) throws Exception {
         Scene currentScene=((Button)actionEvent.getSource()).getScene();
 
@@ -389,6 +434,12 @@ public class Cittadini implements EventHandler<ActionEvent> {
     }
 
 
+    /**
+     * Legge il file di testo, relativo al centro vaccinale selezionato, contente gli eventi avversi e gli utenti vaccinati.
+     * @param currentCentreID L'ID contenete il numero della riga del centro vaccinale selezionato nel file
+     * @return Una lista di stringhe contente tutte le righe del file con eventi avversi relativi al centro vaccinale selezionato.
+     * @throws Exception
+     */
     public Vector<String> leggiEventiAvversi(int currentCentreID) throws Exception{
         centriVaccinaliList=getCentriVaccinaliFromFile();
 
@@ -420,6 +471,9 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
     }
 
+    /**
+     * Carica la UI che permette ad un utente di effettuare il login, o in alternativa, di caricare la UI necessaria alla registrazione.
+     */
     public void loadLoginUI(){
         System.out.println(currentCenter);
         try {
@@ -442,6 +496,9 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
     }
 
+    /**
+     * Carica la UI necessaria ad effettuare la registrazione di un utente.
+     */
     public void loadRegisterCitizenUI(){
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -464,7 +521,11 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
     }
 
-
+    /**
+     * Registra un cittadino nel file di testo contente tutti i cittadini registrati.
+     * @param event L'evento che richiama il metodo. Necessario ad ottenere la scena attuale per prendere le informazioni inserite dall'utente.
+     * @throws Exception
+     */
     public void registraCittadino(ActionEvent event) throws Exception {
         Scene currentScene=((Button)event.getSource()).getScene();
 
@@ -515,6 +576,10 @@ public class Cittadini implements EventHandler<ActionEvent> {
         }
     }
 
+    /**
+     * Effettua il login dell'utente.
+     * @param event L'evento che richiama il metodo. Necessario per ottere la scena da cui prendere i dati inseriti dall'utente.
+     */
     public void loggaCittadini(ActionEvent event) {
         Scene currentScene=((Button)event.getSource()).getScene();
         String user = ((TextField)currentScene.lookup("#txt_userLogin")).getText();
@@ -574,6 +639,11 @@ public class Cittadini implements EventHandler<ActionEvent> {
         }
     }
 
+    /**
+     * Converte un array di byte in una stringa. Viene utilizzato dopo aver effettuato l'hashing di una stringa, per ricomporre quest'ultima.
+     * @param array L'array contenente i byte di risultato dell'hashing.
+     * @return La stringa ottenuta come risultato dalla funzione di hash.
+     */
     private String toHexString(byte[] array) {
         StringBuilder sb = new StringBuilder(array.length * 2);
 
@@ -590,6 +660,10 @@ public class Cittadini implements EventHandler<ActionEvent> {
     //TODO: Marsio: implementare ricerca centro vaccinale
 
 
+    /**
+     * Effettua la ricerca di un centro vaccinale nel file di testo. Richiama poi il metodo per aggiornare la UI mostrando solo i centri vaccinali che corrispondono ai parametri della ricerca.
+     * @param event L'evento che richiama il metodo. Necessario per ottenere la scena attuale da cui prendere i parametri di ricerca.
+     */
     public void findCenter(ActionEvent event) {
         centriVaccinaliList=getCentriVaccinaliFromFile();
 
@@ -621,6 +695,10 @@ public class Cittadini implements EventHandler<ActionEvent> {
         creaVbox(vector_search);
     }
 
+    /**
+     * Chiude la finestra (stage) attuale. Il metodo viene usato per tutte le UI, relative al package, che contengono il tasto "annulla".
+     * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage da chiudere.
+     */
     public void onAnnullaButtonClicked(ActionEvent event){
         Scene currentScene=((Button) event.getSource()).getScene();
         Stage currentStage=(Stage)currentScene.getWindow();

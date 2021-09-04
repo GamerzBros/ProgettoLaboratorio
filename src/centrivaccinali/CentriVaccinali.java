@@ -19,11 +19,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.StringTokenizer;
 
-//TODO METTERE NOME COGNOME MATRICOLA SEDE
-//Cristian Arcadi 745389 Varese
-//David Poletti 746597 Varese
-//Eros Marsichina 745299 Varese
-//Tommaso Morosi  Varese
+/*Cristian Arcadi 745389 Varese
+  David Poletti 746597 Varese
+  Eros Marsichina 745299 Varese
+  Tommaso Morosi 741227 Varese*/
 public class CentriVaccinali extends Application {
     public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
     public static final String PRE_PATH_TO_EVENTI_AVVERSI="data/Vaccinati_";
@@ -37,8 +36,11 @@ public class CentriVaccinali extends Application {
     private Cittadini portaleCittadini;
 
 
-
-
+    /**
+     * Crea la UI principale che permette di scegliere il portale. Metodo che viene eseguito subito dopo la creazione della classe.
+     * @param stage Lo stage che conterrà la scena. Uno stage è una finestra, mentre una scena è tutto ciò contenuto in uno stage.
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
@@ -60,7 +62,10 @@ public class CentriVaccinali extends Application {
         stage.show();
     }
 
-
+    /**
+     * Registra un centro vaccinale prendendo i dati dalla UI.
+     * @param event L'evento che richiamerà il metodo attuale. Necessario per prendere il bottone sorgente dell'evento, e da quest'ultimo ottenere la scena. Dalla scena è possibile ottenere tutti componenti grafici con le informazioni necessarie alla registrazione.
+     */
     public void registraCentroVaccinale(ActionEvent event){
         Scene currentScene=((Button)event.getSource()).getScene();
         String nome = ((TextField)currentScene.lookup("#txt_nomeCentro")).getText();
@@ -106,32 +111,33 @@ public class CentriVaccinali extends Application {
     }
 
 
+    /**
+     * Termina ogni processo aperto dal programma. Viene eseguito automaticamente qualora ogni finestra del programma venga chiusa.
+     * @throws Exception
+     */
     @Override
     public void stop() throws Exception {
         super.stop();
     }
 
-    /*public void cercaCentroVaccinale(String nomeCentroVaccinale)throws FileNotFoundException{ //Ricerca centro per nome, ogni centro che contiene quella "parte" di nome, viene visualizzato
-        try{
-            File file = new File(PATH_TO_CENTRIVACCINALI);
-            Scanner reader = new Scanner(file);
-            String[] parts;
-            while(reader.hasNext()){
-                String line = reader.nextLine();
-                parts = line.split(";");
-                if(parts[0].contains(nomeCentroVaccinale)){
-                    System.out.println("Centri trovati:"+parts[0]);
-                }else{
-                    System.out.println("Il centro potrebbe non esistere");
-                }
-            }
-            reader.close();
-
-        }catch (FileNotFoundException fe) {
-            fe.printStackTrace();
+    /**
+     * Crea la UI del portale Cittadini. Viene richiamato una volta che viene selezionato il portale Cittadini dalla UI principale.
+     * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage da chiudere.
+     */
+    public void onCittadiniSelected(ActionEvent event){
+        portaleCittadini =new Cittadini();
+        try {
+            portaleCittadini.loadMainCittadiniUI();
+            Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
+            stage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    }*/
+    }
 
+    /**
+     * Crea la UI del portale Centri Vaccinali. Viene richiamato una volta che viene selezionato il portale Centri Vaccinale dalla UI principale.
+     */
     public void onCentriVaccinaliSelected(){
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -158,6 +164,9 @@ public class CentriVaccinali extends Application {
         }
     }
 
+    /**
+     * Crea la UI per inserire un nuovo centro vaccinale. Viene richiamato quando l'operatore selezione il pulsante per inserire un nuovo centro.
+     */
     public void onNuovoCentroSelected(){
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -192,6 +201,58 @@ public class CentriVaccinali extends Application {
 
     }
 
+    /**
+     * Crea la UI per inserire un nuovo centro vaccinale. Viene richiamato quando l'operatore selezione il pulsante per inserire un nuovo centro.
+     */
+    public void onNewVaccinate(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            URL xmlUrl = getClass().getResource("nuovoPaziente.fxml");
+            loader.setLocation(xmlUrl);
+
+            Parent root = loader.load();
+
+
+
+            Scene scene = new Scene(root);
+
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Nuovo Paziente");
+
+
+            FileReader fileReader=new FileReader(PATH_TO_CENTRIVACCINALI_DATI);
+            BufferedReader reader=new BufferedReader(fileReader);
+
+            ChoiceBox<String>choiceBox_vaccinoSomministrato=((ChoiceBox<String>)scene.lookup("#cbx_vaccinoSomministrato"));
+            choiceBox_vaccinoSomministrato.setItems(vaccino_somministrato_items);
+
+            ChoiceBox<String> choiceBox=((ChoiceBox<String>)scene.lookup("#cbx_centroVaccinale"));
+
+            String line;
+
+            while ((line=reader.readLine())!=null){
+                StringTokenizer tokenizer=new StringTokenizer(line,";");
+                centro_vaccinale_items.add(tokenizer.nextToken());
+            }
+            choiceBox.setItems(centro_vaccinale_items);
+
+
+            InputStream icon = getClass().getResourceAsStream("fiorellino.png");
+            Image image = new Image(icon);
+            stage.getIcons().add(image);
+            stage.show();
+
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Registra un paziente vaccinato nel file di testo relativo al centro vaccinale.
+     * @param event L'evento che richiama il metodo. Necessario per ottenere la scena attuale da cui ottenere i valori da inserire nel file.
+     */
     public void registraVaccinato(ActionEvent event){
         Scene currentScene=((Button)event.getSource()).getScene();
         String name = ((TextField)currentScene.lookup("#txt_nomePaziente")).getText();
@@ -260,75 +321,21 @@ public class CentriVaccinali extends Application {
     }
 
 
-    public void onCittadiniSelected(ActionEvent event){
-        portaleCittadini =new Cittadini();
-        try {
-            portaleCittadini.loadMainCittadiniUI();
-            Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
-            stage.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void onNewVaccinate(){
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            URL xmlUrl = getClass().getResource("nuovoPaziente.fxml");
-            loader.setLocation(xmlUrl);
-
-            Parent root = loader.load();
-
-
-
-            Scene scene = new Scene(root);
-
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("Nuovo Paziente");
-
-
-            FileReader fileReader=new FileReader(PATH_TO_CENTRIVACCINALI_DATI);
-            BufferedReader reader=new BufferedReader(fileReader);
-
-            ChoiceBox<String>choiceBox_vaccinoSomministrato=((ChoiceBox<String>)scene.lookup("#cbx_vaccinoSomministrato"));
-            choiceBox_vaccinoSomministrato.setItems(vaccino_somministrato_items);
-
-            ChoiceBox<String> choiceBox=((ChoiceBox<String>)scene.lookup("#cbx_centroVaccinale"));
-
-            String line;
-
-            while ((line=reader.readLine())!=null){
-                StringTokenizer tokenizer=new StringTokenizer(line,";");
-                centro_vaccinale_items.add(tokenizer.nextToken());
-            }
-            choiceBox.setItems(centro_vaccinale_items);
-
-
-            InputStream icon = getClass().getResourceAsStream("fiorellino.png");
-            Image image = new Image(icon);
-            stage.getIcons().add(image);
-            stage.show();
-
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
+    /**
+     * Chiude la finestra (stage) attuale. Il metodo viene usato per tutte le UI, relative al package, che contengono il tasto "annulla".
+     * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage da chiudere.
+     */
     public void annulla_button(ActionEvent event){
         Stage currentStage = (Stage)(((Button)event.getSource()).getScene()).getWindow();
         currentStage.close();
     }
 
 
-
-    public void onNewVaccinateClicked(){
-        onNewVaccinate();
-    }
-
-
-
+    /**
+     * Contiene il codice di avvio del programma.
+     * @param args Gli argomenti di lancio passati via console al programma.
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
          Application.launch();
 
