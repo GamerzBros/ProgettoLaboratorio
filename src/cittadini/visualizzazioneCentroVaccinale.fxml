@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="521.0" prefWidth="587.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="686.0" stroke="BLACK" strokeType="INSIDE" width="931.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="730.0" stroke="BLACK" strokeType="INSIDE" width="930.0">
          <fill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                <stops>
@@ -25,7 +25,7 @@
                </stops>
             </RadialGradient>
          </fill></Rectangle>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="642.0" layoutX="20.0" layoutY="21.0" stroke="BLACK" strokeType="INSIDE" width="888.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="690.0" layoutX="20.0" layoutY="21.0" stroke="BLACK" strokeType="INSIDE" width="888.0" />
       <Label fx:id="lbl_headache" layoutX="49.0" layoutY="106.0" prefHeight="38.0" prefWidth="103.0" text="Mal di testa">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
@@ -97,5 +97,6 @@
             <Font size="16.0" />
          </font>
       </Label>
+      <Button layoutX="781.0" layoutY="664.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-radius: 0;" text="Torna indietro" />
    </children>
 </AnchorPane>
