@@ -23,10 +23,12 @@ import java.util.StringTokenizer;
   David Poletti 746597 Varese
   Eros Marsichina 745299 Varese
   Tommaso Morosi 741227 Varese*/
+
 public class CentriVaccinali extends Application {
-    public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
-    public static final String PRE_PATH_TO_EVENTI_AVVERSI="data/Vaccinati_";
+    public static final String PATH_TO_CENTRIVACCINALI_DATI = "../data/CentriVaccinali.dati.txt";
+    public static final String PRE_PATH_TO_EVENTI_AVVERSI="../data/Vaccinati_";
     public static final String AFTER_PATH_TO_EVENTI_AVVERSI=".dati.txt";
+    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "../data/Cittadini_Registrati.dati.txt";
     public static final String LINE_TYPE_PERSON ="V";
     public static final String LINE_TYPE_EVENT ="E";
     private ObservableList<String> vaccino_somministrato_items = FXCollections.observableArrayList("Pfizer","AstraZeneca","Moderna","J&J");
@@ -34,7 +36,6 @@ public class CentriVaccinali extends Application {
     private ObservableList<String> qualificatore_items = FXCollections.observableArrayList("Via","V.le","Piazza");
     private ObservableList<String>tipologia_items = FXCollections.observableArrayList("Ospedaliero","Aziendale","Hub");
     private Cittadini portaleCittadini;
-
 
     /**
      * Crea la UI principale che permette di scegliere il portale. Metodo che viene eseguito subito dopo la creazione della classe.
@@ -338,7 +339,6 @@ public class CentriVaccinali extends Application {
      */
     public static void main(String[] args) throws Exception {
          Application.launch();
-
     }
 
 }
