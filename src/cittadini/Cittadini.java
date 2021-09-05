@@ -329,10 +329,6 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
             }
 
-            //TODO aggiungere gli eventi testuali nella nuova grafica di tommy
-            //TODO di classe: mettere che se due eventi sono identici, fa la media
-
-
         }
         catch (Exception e){
             e.printStackTrace();
@@ -345,7 +341,8 @@ public class Cittadini implements EventHandler<ActionEvent> {
      * @param event L'evento che richiama il metodo. Necessario per ottenere la scena attuale da cui prendere il nome del centro vaccinale selezionato e, se presente, l'utente attuale.
      */
     public void checkLogin(ActionEvent event){
-        String[] userData=(String[]) ((Button)event.getSource()).getScene().getUserData();
+        Scene mainScene=((Button)event.getSource()).getScene();
+        String[] userData=(String[]) mainScene.getUserData();
         currentCenter=userData[0];
 
         if(userData.length>1){
@@ -353,7 +350,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
             loadRegistraEventiAvversiUI();
         }
         else{
-            loadLoginUI();
+            loadLoginUI(mainScene);
         }
     }
 
@@ -505,8 +502,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
     /**
      * Carica la UI che permette ad un utente di effettuare il login, o in alternativa, di caricare la UI necessaria alla registrazione.
      */
-    public void loadLoginUI(){
-        System.out.println(currentCenter);
+    public void loadLoginUI(Scene mainScene){
         try {
             FXMLLoader loader = new FXMLLoader();
             URL url = getClass().getResource("loginCittadino.fxml");
@@ -517,7 +513,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
             Stage stage = new Stage();
             stage.setScene(scene);
 
-            scene.setUserData(currentCenter);
+            scene.setUserData(mainScene);
 
             stage.show();
         }
@@ -529,9 +525,12 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
     /**
      * Carica la UI necessaria ad effettuare la registrazione di un utente.
+     * @param event L'evento che richiama il metodo. Necessario per ottenere il centro vaccinale attuale
      */
-    public void loadRegisterCitizenUI(){
+    public void loadRegisterCitizenUI(ActionEvent event){
         try {
+            Scene mainScene=(Scene) ((Button)event.getSource()).getScene().getUserData();
+
             FXMLLoader loader = new FXMLLoader();
             URL url = getClass().getResource("nuovoCittadino.fxml");
             loader.setLocation(url);
@@ -541,7 +540,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
             Stage stage = new Stage();
             stage.setScene(scene);
 
-            scene.setUserData(currentCenter);
+            scene.setUserData(mainScene);
 
             stage.show();
 
@@ -582,9 +581,17 @@ public class Cittadini implements EventHandler<ActionEvent> {
                 out.newLine();
                 out.close();
 
-                currentCenter=(String)currentScene.getUserData();
+                Scene mainScene=(Scene)currentScene.getUserData();
+                String[] userData=(String[])mainScene.getUserData();
+                currentCenter=userData[0];
 
                 currentUser=userCF;
+
+
+                userData[1]=currentUser;
+
+                mainScene.setUserData(userData);
+
 
                 ((Stage)currentScene.getWindow()).close();
 
@@ -641,7 +648,10 @@ public class Cittadini implements EventHandler<ActionEvent> {
                             isLogged = true;
                             currentUser=parts[4]; //CF dell'utente
 
-                            currentCenter=(String)currentScene.getUserData();
+                            Scene mainScene=(Scene)currentScene.getUserData();
+                            String[] userData=(String[])mainScene.getUserData();
+                            userData[1]=currentUser;
+                            mainScene.setUserData(userData);
 
                             Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
                             currentStage.close();
@@ -662,7 +672,10 @@ public class Cittadini implements EventHandler<ActionEvent> {
                     noUserAlert.show();
                 }
             } else {
-                //TODO mettere gli alert
+                Alert alertNoData=new Alert(Alert.AlertType.WARNING);
+                alertNoData.setTitle("Inserisci dei dati");
+                alertNoData.setContentText("Non hai inserito i dati");
+                alertNoData.showAndWait();
                 System.out.println("Inserire dei dati");
             }
         } catch (Exception e) {
@@ -687,9 +700,6 @@ public class Cittadini implements EventHandler<ActionEvent> {
         sb.setLength(sb.length() - 1);
         return sb.toString();
     }
-
-    //TODO: Marsio: implementare ricerca centro vaccinale
-
 
     /**
      * Effettua la ricerca di un centro vaccinale nel file di testo. Richiama poi il metodo per aggiornare la UI mostrando solo i centri vaccinali che corrispondono ai parametri della ricerca.
