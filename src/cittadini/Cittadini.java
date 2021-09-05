@@ -223,7 +223,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
             loadCentreInfo(idCentro, lbl_centreName, lbl_centreAddress, lbl_centreType);
 
-            String[] userData = new String[1];
+            String[] userData = new String[2];
             userData[0] = currentCenter;
             newScene.setUserData(userData);
 
@@ -526,7 +526,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
     /**
      * Carica la UI necessaria ad effettuare la registrazione di un utente.
-     * @param event L'evento che richiama il metodo. Necessario per ottenere il centro vaccinale attuale
+     * @param event L'evento che richiama il metodo. Necessario per chiudere la UI di login
      */
     public void loadRegisterCitizenUI(ActionEvent event){
         try {
@@ -544,6 +544,9 @@ public class Cittadini implements EventHandler<ActionEvent> {
             scene.setUserData(mainScene);
 
             stage.show();
+
+            Scene loginScene=((Button)event.getSource()).getScene();
+            ((Stage)loginScene.getWindow()).close();
 
         }
         catch (Exception e){

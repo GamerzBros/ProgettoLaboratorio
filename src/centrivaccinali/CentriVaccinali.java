@@ -139,6 +139,9 @@ public class CentriVaccinali extends Application {
                 if (!fileVaccinati.exists()){
                     fileVaccinati.createNewFile();
                 }
+
+                ((Stage)currentScene.getWindow()).close();
+
             }catch (IOException e){
                 e.toString();
             }
