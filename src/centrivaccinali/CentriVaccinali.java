@@ -26,16 +26,49 @@ import java.util.StringTokenizer;
  * Contiene tutte le UI e i metodi del portale CentriVaccinali. Contiene inoltre la UI che permette di seleziona il portale con cui interagire.
  */
 public class CentriVaccinali extends Application {
+    /**
+     * Percorso per il file contente le informazioni dei centri vaccinali registrati
+     */
     public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
+    /**
+     * Parte iniziale percorso per il file del centro vaccinale selezionato
+     */
     public static final String PRE_PATH_TO_EVENTI_AVVERSI="data/Vaccinati_";
+    /**
+     * Parte finale del percorso del centro vaccinale selezionato
+     */
     public static final String AFTER_PATH_TO_EVENTI_AVVERSI=".dati.txt";
+    /**
+     * Percorso per il file contenente i dati dei cittadini registrati
+     */
     public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
+    /**
+     * Tipo di linea del file contente le informazioni relative al vaccinato
+     */
     public static final String LINE_TYPE_PERSON ="V";
+    /**
+     * Tipo di linea del file contente le informazioni relative agli eventi avversi
+     */
     public static final String LINE_TYPE_EVENT ="E";
+    /**
+     * Lista contente i tipi di vaccini
+     */
     private ObservableList<String> vaccino_somministrato_items = FXCollections.observableArrayList("Pfizer","AstraZeneca","Moderna","J&J");
+    /**
+     * Lista contenente i centri vaccinali presenti nel file
+     */
     private ObservableList<String> centro_vaccinale_items = FXCollections.observableArrayList();
+    /**
+     * Lista contente le tipologie di indirizzo
+     */
     private ObservableList<String> qualificatore_items = FXCollections.observableArrayList("Via","V.le","Piazza");
+    /**
+     * Lista contenete le tipologie di centro vaccinali
+     */
     private ObservableList<String>tipologia_items = FXCollections.observableArrayList("Ospedaliero","Aziendale","Hub");
+    /**
+     * Reference al portale cittadini
+     */
     private Cittadini portaleCittadini;
 
     /**
@@ -337,7 +370,7 @@ public class CentriVaccinali extends Application {
     /**
      * Contiene il codice di avvio del programma.
      * @param args Gli argomenti di lancio passati via console al programma.
-     * @throws Exception
+     * @throws Exception L'eccezione del metodo main
      */
     public static void main(String[] args) throws Exception {
          Application.launch();
