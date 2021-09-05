@@ -11,8 +11,17 @@ import java.util.Date;
  * Classe container. Contiene le informazioni principali di un centro vaccinale.
  */
 public class SingoloCentroVaccinale {
+    /**
+     * Nome del centro vaccinale
+     */
     private String nome;
+    /**
+     * Indirizzo del centro vaccinale
+     */
     private String indirizzo;
+    /**
+     * Tipologia del centro vaccinale
+     */
     private String tipologia;
 
     /**

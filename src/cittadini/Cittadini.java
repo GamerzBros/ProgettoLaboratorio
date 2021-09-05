@@ -29,16 +29,45 @@ import java.util.*;
  * Contiene tutte le UI e i metodi del portale Cittadini
  */
 public class Cittadini implements EventHandler<ActionEvent> {
+    /**
+     * Percorso per il file contente le informazioni dei centri vaccinali registrati
+     */
     public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
+    /**
+     * Parte iniziale percorso per il file del centro vaccinale selezionato
+     */
     public static final String PRE_PATH_TO_EVENTI_AVVERSI="data/Vaccinati_";
+    /**
+     * Parte finale del percorso del centro vaccinale selezionato
+     */
     public static final String AFTER_PATH_TO_EVENTI_AVVERSI=".dati.txt";
+    /**
+     * Percorso per il file contenente i dati dei cittadini registrati
+     */
     public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
+    /**
+     * Tipo di linea del file contente le informazioni relative al vaccinato
+     */
     public static final String LINE_TYPE_PERSON ="V";
+    /**
+     * Tipo di linea del file contente le informazioni relative agli eventi avversi
+     */
     public static final String LINE_TYPE_EVENT ="E";
-    private boolean isLogged=false;
+    /**
+     * Codice fiscale dell'utente attualmente loggato
+     */
     private String currentUser;
+    /**
+     * Centro vaccinale attualmente selezionato
+     */
     private String currentCenter;
+    /**
+     * Lista contente tutti i centri vaccinali presenti nel file. Popolata dal metodo getCentriVaccinaliFromFile()
+     */
     private Vector<SingoloCentroVaccinale> centriVaccinaliList=new Vector<>();
+    /**
+     * ScrollPane contenente tutti gli elementi per rappresentare visivamente i centri vaccinali
+     */
     @FXML
     private ScrollPane scrollPane_CentriVaccinali;
 
@@ -594,6 +623,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
             if (!user.equals("") && !pwd.equals("")) {
                 FileReader fileReader=new FileReader(PATH_TO_CITTADINI_REGISTRATI_DATI);
                 BufferedReader reader=new BufferedReader(fileReader);
+                boolean isLogged=false;
                 String line;
 
                 while ((line=reader.readLine())!=null) {
