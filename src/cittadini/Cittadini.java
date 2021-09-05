@@ -345,7 +345,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
         String[] userData=(String[]) mainScene.getUserData();
         currentCenter=userData[0];
 
-        if(userData.length>1){
+        if(userData[1]!=null){
             currentUser=userData[1];
             loadRegistraEventiAvversiUI();
         }
