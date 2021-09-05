@@ -97,6 +97,6 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Button layoutX="781.0" layoutY="664.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-radius: 0;" text="Torna indietro" />
+      <Button fx:id="btn_backToMainCittadini" layoutX="781.0" layoutY="664.0" mnemonicParsing="false" onAction="#onGoBackToMain" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-radius: 0;" text="Torna indietro" />
    </children>
 </AnchorPane>

@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="530.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
     <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="610.0" stroke="BLACK" strokeType="INSIDE" width="870.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="554.0" stroke="BLACK" strokeType="INSIDE" width="870.0">
          <fill>
             <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" radius="0.5">
                <stops>
@@ -24,7 +24,7 @@
                </stops>
             </RadialGradient>
          </fill></Rectangle>
-      <Rectangle arcWidth="5.0" fill="#91ceff" height="570.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="840.0" />
+      <Rectangle arcWidth="5.0" fill="#91ceff" height="514.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="840.0" />
         <ScrollPane fx:id="scrollPane_CentriVaccinali" layoutX="32.0" layoutY="117.0" prefHeight="395.0" prefWidth="771.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0;" />
         <TextField fx:id="txt_searchCenter" layoutX="35.0" layoutY="46.0" prefHeight="34.0" prefWidth="658.0" promptText=" Ricerca centro vaccinale" />
         <Button layoutX="703.0" layoutY="46.0" mnemonicParsing="false" onAction="#findCenter" prefHeight="34.0" prefWidth="103.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #FFFFFF; -fx-background-radius: 0;" text="Cerca" />
@@ -34,6 +34,5 @@
          </toggleGroup>
       </RadioButton>
       <RadioButton fx:id="radio_type" layoutX="99.0" layoutY="88.0" mnemonicParsing="false" text="Indirizzo/Tipologia" textFill="WHITE" toggleGroup="$searchType" />
-      <Button layoutX="703.0" layoutY="538.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Torna Indietro" />
     </children>
 </AnchorPane>

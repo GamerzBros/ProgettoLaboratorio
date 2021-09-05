@@ -1,11 +1,9 @@
 package centrivaccinali;
 
 import cittadini.Cittadini;
-import cittadini.SingoloCittadino;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,11 +22,14 @@ import java.util.StringTokenizer;
   Eros Marsichina 745299 Varese
   Tommaso Morosi 741227 Varese*/
 
+/**
+ * Contiene tutte le UI e i metodi del portale CentriVaccinali. Contiene inoltre la UI che permette di seleziona il portale con cui interagire.
+ */
 public class CentriVaccinali extends Application {
-    public static final String PATH_TO_CENTRIVACCINALI_DATI = "../data/CentriVaccinali.dati.txt";
-    public static final String PRE_PATH_TO_EVENTI_AVVERSI="../data/Vaccinati_";
+    public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
+    public static final String PRE_PATH_TO_EVENTI_AVVERSI="data/Vaccinati_";
     public static final String AFTER_PATH_TO_EVENTI_AVVERSI=".dati.txt";
-    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "../data/Cittadini_Registrati.dati.txt";
+    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
     public static final String LINE_TYPE_PERSON ="V";
     public static final String LINE_TYPE_EVENT ="E";
     private ObservableList<String> vaccino_somministrato_items = FXCollections.observableArrayList("Pfizer","AstraZeneca","Moderna","J&J");
@@ -40,7 +41,7 @@ public class CentriVaccinali extends Application {
     /**
      * Crea la UI principale che permette di scegliere il portale. Metodo che viene eseguito subito dopo la creazione della classe.
      * @param stage Lo stage che conterrà la scena. Uno stage è una finestra, mentre una scena è tutto ciò contenuto in uno stage.
-     * @throws Exception
+     * @throws Exception L'eccezione provocata dallo start del programma
      */
     @Override
     public void start(Stage stage) throws Exception {
@@ -114,7 +115,7 @@ public class CentriVaccinali extends Application {
 
     /**
      * Termina ogni processo aperto dal programma. Viene eseguito automaticamente qualora ogni finestra del programma venga chiusa.
-     * @throws Exception
+     * @throws Exception L'eccezione provocata dallo stop del programma.
      */
     @Override
     public void stop() throws Exception {
@@ -221,22 +222,26 @@ public class CentriVaccinali extends Application {
             stage.setScene(scene);
             stage.setTitle("Nuovo Paziente");
 
+            try {
+                FileReader fileReader = new FileReader(PATH_TO_CENTRIVACCINALI_DATI);
+                BufferedReader reader = new BufferedReader(fileReader);
 
-            FileReader fileReader=new FileReader(PATH_TO_CENTRIVACCINALI_DATI);
-            BufferedReader reader=new BufferedReader(fileReader);
+                ChoiceBox<String> choiceBox_vaccinoSomministrato = ((ChoiceBox<String>) scene.lookup("#cbx_vaccinoSomministrato"));
+                choiceBox_vaccinoSomministrato.setItems(vaccino_somministrato_items);
 
-            ChoiceBox<String>choiceBox_vaccinoSomministrato=((ChoiceBox<String>)scene.lookup("#cbx_vaccinoSomministrato"));
-            choiceBox_vaccinoSomministrato.setItems(vaccino_somministrato_items);
+                ChoiceBox<String> choiceBox = ((ChoiceBox<String>) scene.lookup("#cbx_centroVaccinale"));
 
-            ChoiceBox<String> choiceBox=((ChoiceBox<String>)scene.lookup("#cbx_centroVaccinale"));
+                String line;
 
-            String line;
-
-            while ((line=reader.readLine())!=null){
-                StringTokenizer tokenizer=new StringTokenizer(line,";");
-                centro_vaccinale_items.add(tokenizer.nextToken());
+                while ((line = reader.readLine()) != null) {
+                    StringTokenizer tokenizer = new StringTokenizer(line, ";");
+                    centro_vaccinale_items.add(tokenizer.nextToken());
+                }
+                choiceBox.setItems(centro_vaccinale_items);
             }
-            choiceBox.setItems(centro_vaccinale_items);
+            catch (IOException e){
+                e.printStackTrace();
+            }
 
 
             InputStream icon = getClass().getResourceAsStream("fiorellino.png");
@@ -298,9 +303,6 @@ public class CentriVaccinali extends Application {
 
             idVaccinazione=centerIndex+patientIndex;
             System.out.println(idVaccinazione);
-
-            //TODO vedere se questo singolo Cittadini serve comunque
-            SingoloCittadino cittadino = new SingoloCittadino(name, surname, codice_fiscale, vaccinationDate, vaccineType, Integer.parseInt(idVaccinazione), centroVaccinale);
 
             String output = LINE_TYPE_PERSON +";"+name + ";" + surname + ";" + codice_fiscale + ";" + vaccineType + ";" + idVaccinazione + ";" + dataVaccinazione + ";" + centroVaccinale;
             FileWriter writer = new FileWriter(PRE_PATH_TO_EVENTI_AVVERSI + centroVaccinale + AFTER_PATH_TO_EVENTI_AVVERSI, true);

@@ -24,15 +24,17 @@ import java.util.*;
   David Poletti 746597 Varese
   Eros Marsichina 745299 Varese
   Tommaso Morosi 741227 Varese*/
-//TODO mettere il logo del fiorellino in tutte le pagine della UI
+
+/**
+ * Contiene tutte le UI e i metodi del portale Cittadini
+ */
 public class Cittadini implements EventHandler<ActionEvent> {
-    public static final String PATH_TO_CENTRIVACCINALI_DATI = "../data/CentriVaccinali.dati.txt";
-    public static final String PRE_PATH_TO_EVENTI_AVVERSI="../data/Vaccinati_";
+    public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
+    public static final String PRE_PATH_TO_EVENTI_AVVERSI="data/Vaccinati_";
     public static final String AFTER_PATH_TO_EVENTI_AVVERSI=".dati.txt";
-    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "../data/Cittadini_Registrati.dati.txt";
+    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
     public static final String LINE_TYPE_PERSON ="V";
     public static final String LINE_TYPE_EVENT ="E";
-    //TODO mettere il delimitatore come attributo
     private boolean isLogged=false;
     private String currentUser;
     private String currentCenter;
@@ -702,6 +704,17 @@ public class Cittadini implements EventHandler<ActionEvent> {
         Scene currentScene=((Button) event.getSource()).getScene();
         Stage currentStage=(Stage)currentScene.getWindow();
         currentStage.close();
+    }
+
+    /**
+     * Torna alla finestra MainCittadini.fxml.
+     * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage da chiudere.
+     */
+    public void onGoBackToMain(ActionEvent event){
+        Stage currentStage = (Stage)((Scene)((Button)event.getSource()).getScene()).getWindow();
+        currentStage.close();
+
+        loadMainCittadiniUI();
     }
 
 }
