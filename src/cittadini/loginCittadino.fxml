@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="700.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
+<AnchorPane prefHeight="700.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="700.0" stroke="BLACK" strokeType="INSIDE" width="550.0">
          <fill>
@@ -36,7 +36,7 @@
             </Label>
             <PasswordField fx:id="pswd_login" layoutX="26.0" layoutY="138.0" />
             <TextField fx:id="txt_userLogin" layoutX="26.0" layoutY="59.0" />
-            <Label layoutX="40.0" layoutY="24.0" prefHeight="35.0" prefWidth="121.0" text="Username:">
+            <Label alignment="CENTER" layoutX="40.0" layoutY="24.0" prefHeight="35.0" prefWidth="121.0" text="Mail:" textAlignment="CENTER">
                <font>
                   <Font size="24.0" />
                </font>
@@ -52,7 +52,7 @@
             <Image url="@stickmanCittadino.png" />
          </image>
       </ImageView>
-      <Button fx:id="register_button" layoutX="236.0" layoutY="546.0" mnemonicParsing="false" style="-fx-background-color: #91ceff;" text="Registrati" textAlignment="CENTER" underline="true" onAction="#loadRegisterCitizenUI">
+      <Button fx:id="register_button" layoutX="236.0" layoutY="546.0" mnemonicParsing="false" onAction="#loadRegisterCitizenUI" style="-fx-background-color: #91ceff;" text="Registrati" textAlignment="CENTER" underline="true">
          <font>
             <Font size="14.0" />
          </font>
