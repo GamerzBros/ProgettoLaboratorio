@@ -269,64 +269,66 @@ public class Cittadini implements EventHandler<ActionEvent> {
             Vector<String> otherEventsText=new Vector<>();
             Vector<Integer> otherEventsValues=new Vector<>();
 
-            for(i=0;i<eventLines.size();i++) {
-                StringTokenizer tokenizer = new StringTokenizer(eventLines.get(i), ";");
-                tokenizer.nextToken();
-                tokenizer.nextToken();
-                tokenizer.nextToken();
+            if(eventLines!=null) {
+                for (i = 0; i < eventLines.size(); i++) {
+                    StringTokenizer tokenizer = new StringTokenizer(eventLines.get(i), ";");
+                    tokenizer.nextToken();
+                    tokenizer.nextToken();
+                    tokenizer.nextToken();
 
-                singleEvents[0] = singleEvents[0] + (Integer.parseInt(tokenizer.nextToken()));
-                singleEvents[1] = singleEvents[1] + (Integer.parseInt(tokenizer.nextToken()));
-                singleEvents[2] = singleEvents[2] + (Integer.parseInt(tokenizer.nextToken()));
-                singleEvents[3] = singleEvents[3] + (Integer.parseInt(tokenizer.nextToken()));
-                singleEvents[4] = singleEvents[4] + (Integer.parseInt(tokenizer.nextToken()));
-                singleEvents[5] = singleEvents[5] + (Integer.parseInt(tokenizer.nextToken()));
+                    singleEvents[0] = singleEvents[0] + (Integer.parseInt(tokenizer.nextToken()));
+                    singleEvents[1] = singleEvents[1] + (Integer.parseInt(tokenizer.nextToken()));
+                    singleEvents[2] = singleEvents[2] + (Integer.parseInt(tokenizer.nextToken()));
+                    singleEvents[3] = singleEvents[3] + (Integer.parseInt(tokenizer.nextToken()));
+                    singleEvents[4] = singleEvents[4] + (Integer.parseInt(tokenizer.nextToken()));
+                    singleEvents[5] = singleEvents[5] + (Integer.parseInt(tokenizer.nextToken()));
 
-                if (tokenizer.hasMoreTokens()) {
-                    otherEventsText.add(tokenizer.nextToken());
-                    otherEventsValues.add(Integer.parseInt(tokenizer.nextToken()));
+                    if (tokenizer.hasMoreTokens()) {
+                        otherEventsText.add(tokenizer.nextToken());
+                        otherEventsValues.add(Integer.parseInt(tokenizer.nextToken()));
+                    }
                 }
-            }
 
 
-            Scene currentScene = lbl_centreName.getScene();
+                Scene currentScene = lbl_centreName.getScene();
 
-            Label lbl_headacheEffect = (Label) currentScene.lookup("#lbl_effect1");
-            Label lbl_feverEffect = (Label) currentScene.lookup("#lbl_effect2");
-            Label lbl_hurtEffect = (Label) currentScene.lookup("#lbl_effect3");
-            Label lbl_linfEffect = (Label) currentScene.lookup("#lbl_effect4");
-            Label lbl_tacEffect = (Label) currentScene.lookup("#lbl_effect5");
-            Label lbl_crsEffect = (Label) currentScene.lookup("#lbl_effect6");
+                Label lbl_headacheEffect = (Label) currentScene.lookup("#lbl_effect1");
+                Label lbl_feverEffect = (Label) currentScene.lookup("#lbl_effect2");
+                Label lbl_hurtEffect = (Label) currentScene.lookup("#lbl_effect3");
+                Label lbl_linfEffect = (Label) currentScene.lookup("#lbl_effect4");
+                Label lbl_tacEffect = (Label) currentScene.lookup("#lbl_effect5");
+                Label lbl_crsEffect = (Label) currentScene.lookup("#lbl_effect6");
 
-            lbl_headacheEffect.setText(String.valueOf(singleEvents[0]));//evento1 = Mal di testa
-            lbl_feverEffect.setText(String.valueOf(singleEvents[1])); //evento2 = Febbre
-            lbl_hurtEffect.setText(String.valueOf(singleEvents[2])); //evento3 = Dolori muscolari o articolari
-            lbl_linfEffect.setText(String.valueOf(singleEvents[3])); //evento4 = Linfoadenopatia
-            lbl_tacEffect.setText(String.valueOf(singleEvents[4])); //evento5 = Tachicardia
-            lbl_crsEffect.setText(String.valueOf(singleEvents[5]));//evento6 = Crisi ipertensiva
+                lbl_headacheEffect.setText(String.valueOf(singleEvents[0]));//evento1 = Mal di testa
+                lbl_feverEffect.setText(String.valueOf(singleEvents[1])); //evento2 = Febbre
+                lbl_hurtEffect.setText(String.valueOf(singleEvents[2])); //evento3 = Dolori muscolari o articolari
+                lbl_linfEffect.setText(String.valueOf(singleEvents[3])); //evento4 = Linfoadenopatia
+                lbl_tacEffect.setText(String.valueOf(singleEvents[4])); //evento5 = Tachicardia
+                lbl_crsEffect.setText(String.valueOf(singleEvents[5]));//evento6 = Crisi ipertensiva
 
-            ScrollPane scrollPane_otherEvents=(ScrollPane) currentScene.lookup("#scrollPane_otherEvents");
-            VBox vbox=new VBox();
-            scrollPane_otherEvents.setContent(vbox);
+                ScrollPane scrollPane_otherEvents = (ScrollPane) currentScene.lookup("#scrollPane_otherEvents");
+                VBox vbox = new VBox();
+                scrollPane_otherEvents.setContent(vbox);
 
-            for(i=0;i<otherEventsText.size();i++) {
-                Pane vboxContent = new Pane();
+                for (i = 0; i < otherEventsText.size(); i++) {
+                    Pane vboxContent = new Pane();
 
-                Label lbl_otherEventText=new Label(otherEventsText.get(i));
-                lbl_otherEventText.setFont(Font.font("Franklin Gothic Medium",14));
-                lbl_otherEventText.setMinWidth(800);
-                lbl_otherEventText.setMinHeight(30);
+                    Label lbl_otherEventText = new Label(otherEventsText.get(i));
+                    lbl_otherEventText.setFont(Font.font("Franklin Gothic Medium", 14));
+                    lbl_otherEventText.setMinWidth(800);
+                    lbl_otherEventText.setMinHeight(30);
 
-                Label lbl_otherEventValue=new Label(String.valueOf(otherEventsValues.get(i)));
-                lbl_otherEventValue.setMinWidth(30);
-                lbl_otherEventValue.setMinHeight(30);
-                lbl_otherEventValue.setLayoutX(800);
+                    Label lbl_otherEventValue = new Label(String.valueOf(otherEventsValues.get(i)));
+                    lbl_otherEventValue.setMinWidth(30);
+                    lbl_otherEventValue.setMinHeight(30);
+                    lbl_otherEventValue.setLayoutX(800);
 
-                vboxContent.getChildren().add(lbl_otherEventText);
-                vboxContent.getChildren().add(lbl_otherEventValue);
+                    vboxContent.getChildren().add(lbl_otherEventText);
+                    vboxContent.getChildren().add(lbl_otherEventValue);
 
-                vbox.getChildren().add(vboxContent);
+                    vbox.getChildren().add(vboxContent);
 
+                }
             }
 
         }
@@ -344,6 +346,8 @@ public class Cittadini implements EventHandler<ActionEvent> {
         Scene mainScene=((Button)event.getSource()).getScene();
         String[] userData=(String[]) mainScene.getUserData();
         currentCenter=userData[0];
+
+        System.out.println(currentCenter);
 
         if(userData[1]!=null){
             currentUser=userData[1];
@@ -374,6 +378,8 @@ public class Cittadini implements EventHandler<ActionEvent> {
             userData[1]=currentUser;
             scene.setUserData(userData);
 
+            System.out.println(userData[0]);
+
             stage.show();
         }
         catch (Exception e){
@@ -393,6 +399,8 @@ public class Cittadini implements EventHandler<ActionEvent> {
             String[] userData = (String[]) currentScene.getUserData();
             currentCenter = userData[0];
             currentUser = userData[1];
+
+            System.out.println(currentCenter);
 
             Spinner<Integer> spn_headache = (Spinner<Integer>) currentScene.lookup("#spn_headache");
             Spinner<Integer> spn_fever = (Spinner<Integer>) currentScene.lookup("#spn_fever");
@@ -419,15 +427,22 @@ public class Cittadini implements EventHandler<ActionEvent> {
             boolean alreadyIn = false;
             String line;
 
-            while (!authorized && !alreadyIn && (line = in.readLine()) != null) {
+            while ((line = in.readLine()) != null) {
                 String[] data = line.split(";");
-                if (data[0].equals(LINE_TYPE_PERSON) && data[3].equals(currentUser)) {
+                if (data[0].equals(LINE_TYPE_PERSON) && data[3].equalsIgnoreCase(currentUser)) {
                     authorized = true;
-                } else if (data[0].equals(LINE_TYPE_EVENT) && data[3].equals(currentUser)) {
+                } else if (data[0].equals(LINE_TYPE_EVENT) && data[2].equalsIgnoreCase(currentUser)) {
                     alreadyIn = true;
                 }
             }
-            if (authorized) {
+
+            if (alreadyIn) {
+                Alert alertAlreadyIn = new Alert(Alert.AlertType.ERROR);
+                alertAlreadyIn.setTitle("Eventi già inseriti");
+                alertAlreadyIn.setContentText("L'utente ha già inserito una volta degli eventi avversi presso il centro attuale");
+                alertAlreadyIn.showAndWait();
+            }
+            else if (authorized) {
 
                 FileWriter writer = new FileWriter(PRE_PATH_TO_EVENTI_AVVERSI + currentCenter + AFTER_PATH_TO_EVENTI_AVVERSI, true);
                 BufferedWriter out = new BufferedWriter(writer);
@@ -442,11 +457,6 @@ public class Cittadini implements EventHandler<ActionEvent> {
                 out.newLine();
                 out.flush();
                 out.close();
-            } else if (alreadyIn) {
-                Alert alertAlreadyIn = new Alert(Alert.AlertType.ERROR);
-                alertAlreadyIn.setTitle("Eventi già inseriti");
-                alertAlreadyIn.setContentText("L'utente ha già inserito una volta degli eventi avversi presso il centro attuale");
-                alertAlreadyIn.showAndWait();
             } else {
                 Alert alertNoPermission = new Alert(Alert.AlertType.ERROR);
                 alertNoPermission.setTitle("Utente non autorizzato");
@@ -654,6 +664,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
                             Scene mainScene=(Scene)currentScene.getUserData();
                             String[] userData=(String[])mainScene.getUserData();
+                            currentCenter=userData[0];
                             userData[1]=currentUser;
                             mainScene.setUserData(userData);
 

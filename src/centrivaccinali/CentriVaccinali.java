@@ -134,7 +134,7 @@ public class CentriVaccinali extends Application {
                 alert.setContentText("Centro vaccinale registrato");
                 alert.showAndWait();
 
-                String file_ID = "data/"+"Vaccinati_"+nome+".dati.txt";
+                String file_ID = PRE_PATH_TO_EVENTI_AVVERSI+nome+AFTER_PATH_TO_EVENTI_AVVERSI;
                 File fileVaccinati=new File(file_ID);
                 if (!fileVaccinati.exists()){
                     fileVaccinati.createNewFile();
@@ -353,6 +353,8 @@ public class CentriVaccinali extends Application {
             alert.setHeaderText(null);
             alert.setContentText("Paziente registrato a sistema");
             alert.showAndWait();
+
+            ((Stage)currentScene.getWindow()).close();
 
         }catch (IOException e){
             e.printStackTrace();
