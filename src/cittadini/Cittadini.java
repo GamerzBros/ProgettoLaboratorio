@@ -464,9 +464,9 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
 
     /**
-     * Legge il file di testo, relativo al centro vaccinale selezionato, contente gli eventi avversi e gli utenti vaccinati.
+     * Legge il file di testo, relativo al centro vaccinale selezionato, contente gli eventi avversi e gli utenti vaccinati
      * @param currentCentreID L'ID contenete il numero della riga del centro vaccinale selezionato nel file
-     * @return Una lista di stringhe contente tutte le righe del file con eventi avversi relativi al centro vaccinale selezionato.
+     * @return Una lista di stringhe contente tutte le righe del file con eventi avversi relativi al centro vaccinale selezionato
      */
     public Vector<String> leggiEventiAvversi(int currentCentreID){
         centriVaccinaliList=getCentriVaccinaliFromFile();
@@ -500,7 +500,8 @@ public class Cittadini implements EventHandler<ActionEvent> {
     }
 
     /**
-     * Carica la UI che permette ad un utente di effettuare il login, o in alternativa, di caricare la UI necessaria alla registrazione.
+     * Carica la UI che permette ad un utente di effettuare il login, o in alternativa, di caricare la UI necessaria alla registrazione
+     * @param mainScene La scena da cui inserire e prendere il nome centro vaccinale e il codice fiscale del cittadino loggato
      */
     public void loadLoginUI(Scene mainScene){
         try {
@@ -615,7 +616,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
     /**
      * Effettua il login dell'utente.
-     * @param event L'evento che richiama il metodo. Necessario per ottere la scena da cui prendere i dati inseriti dall'utente.
+     * @param event L'evento che richiama il metodo. Necessario per ottenere la scena da cui prendere i dati inseriti dall'utente
      */
     public void loggaCittadini(ActionEvent event) {
         Scene currentScene=((Button)event.getSource()).getScene();
