@@ -206,7 +206,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
     }
 
     /**
-     *
+     * Carica le informazioni principali del centri vaccinale selezionato.
      * @param idCentro L'ID contenete il numero della riga del centro vaccinale selezionato nel file
      * @param lbl_centreName L'ettichetta contenete il nome del centro selezionato
      * @param lbl_centreAddress L'ettichetta contenete l'indirizzo del centro selezionato
@@ -226,7 +226,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
             StringTokenizer stringTokenizer=new StringTokenizer(data,";");
             String name=stringTokenizer.nextToken();
-            String address=stringTokenizer.nextToken();
+            String address=stringTokenizer.nextToken()+" "+stringTokenizer.nextToken()+", "+stringTokenizer.nextToken()+" "+stringTokenizer.nextToken()+" ("+stringTokenizer.nextToken()+") "+stringTokenizer.nextToken();
             String type=stringTokenizer.nextToken();
 
             lbl_centreName.setText(name);
