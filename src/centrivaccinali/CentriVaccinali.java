@@ -233,7 +233,7 @@ public class CentriVaccinali extends Application {
 
                 String line;
 
-                while ((line = reader.readLine()) != null) {
+                while ((line = reader.readLine()) != null&&line.compareTo("")!=0) {
                     StringTokenizer tokenizer = new StringTokenizer(line, ";");
                     centro_vaccinale_items.add(tokenizer.nextToken());
                 }
