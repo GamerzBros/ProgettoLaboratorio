@@ -140,6 +140,10 @@ public class Cittadini implements EventHandler<ActionEvent> {
             btnGoTo.setStyle( "-fx-background-radius: 5em;" + "-fx-min-width: 1px;" + "-fx-background-color: #FFFFFF;" + "-fx-border-radius: 5em;" + "-fx-border-color: #000000;");
             btnGoTo.setId(String.valueOf(i));
             btnGoTo.setOnAction(this);
+            //TODO Aggiungere l'animazione on click per la timeline
+            /*Timeline timeline=new Timeline();
+            timeline.getKeyFrames().add(new KeyFrame(Duration.millis(1000),new KeyValue(btnPane.prefWidthProperty(),width/3)));
+            timeline.play();*/
 
 
             panel.getChildren().add(lblName);

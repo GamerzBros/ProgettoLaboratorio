@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!--azzurro chiaro: #91ceff-->
+<!--blu: #197dc9 -->
+
+<AnchorPane fx:id="anchorPane" prefHeight="341.0" prefWidth="550.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.CentriVaccinali">
+   <children>
+      <Label alignment="CENTER" layoutX="-1.0" layoutY="4.0" prefHeight="35.0" prefWidth="550.0" text="Seleziona il portale a cui accedere" textAlignment="CENTER">
+      <font>
+         <Font size="24.0" />
+      </font>
+      </Label>
+      <Pane fx:id="paneInformations" layoutY="41.0" prefHeight="300.0" prefWidth="0.0" />
+      <Pane fx:id="paneSelectionButtons" layoutY="41.0" prefHeight="300.0" prefWidth="550.0" style="-fx-background-color: #1a73e8;">
+      <Button layoutX="190.0" layoutY="76.0" mnemonicParsing="false" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="43.0" prefWidth="171.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Portale Cittadini" textFill="#1a73e8">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button layoutX="190.0" layoutY="160.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="171.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Portale Operatori" textFill="#1a73e8">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      </Pane>
+   </children>
+</AnchorPane>

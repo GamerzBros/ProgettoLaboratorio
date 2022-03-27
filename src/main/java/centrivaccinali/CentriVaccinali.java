@@ -1,6 +1,7 @@
 package centrivaccinali;
 
 import cittadini.Cittadini;
+import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,8 +10,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.application.Application;
+import javafx.util.Duration;
+
 import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
@@ -79,7 +86,8 @@ public class CentriVaccinali extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
-        URL xmlUrl = getClass().getResource("SelectionUI.fxml");
+        URL xmlUrl = getClass().getResource("/centrivaccinali/SelectionUI.fxml");
+
         loader.setLocation(xmlUrl);
 
         Parent root = loader.load();
@@ -89,6 +97,10 @@ public class CentriVaccinali extends Application {
 
         stage.setScene(scene);
         stage.setTitle("Pagina iniziale");
+
+        AnchorPane pane=(AnchorPane)scene.lookup("#anchroPane");
+
+
 
         InputStream icon = getClass().getResourceAsStream("fiorellino.png");
         Image image = new Image(icon);
@@ -371,6 +383,33 @@ public class CentriVaccinali extends Application {
         currentStage.close();
     }
 
+    public void onChoiceButtonHover(MouseEvent event){
+        Button btn=(Button)event.getSource();
+        ImageView imgView = (ImageView) btn.getScene().lookup("#imgBg");
+
+        if(btn.getText().equals("Portale Cittadini")) {
+            imgView.setImage(new Image(getClass().getResourceAsStream("/centrivaccinali/crowd.png")));
+            btn.getScene().lookup("#lbl_main").setVisible(false);
+            btn.getScene().lookup("#lbl_citizen").setVisible(true);
+        }
+        else if(btn.getText().equals("Portale Operatori")){
+            imgView.setImage(new Image(getClass().getResourceAsStream("/centrivaccinali/medici.png")));
+            btn.getScene().lookup("#lbl_main").setVisible(false);
+            btn.getScene().lookup("#lbl_operator").setVisible(true);
+        }
+
+
+    }
+
+    public void onChoiceButtonExit(MouseEvent event){
+        ImageView imgView=(ImageView)((Button)event.getSource()).getScene().lookup("#imgBg");
+        imgView.setImage(new Image(getClass().getResourceAsStream("/centrivaccinali/varese.png")));
+
+        Button btnSource=(Button)event.getSource();
+        btnSource.getScene().lookup("#lbl_main").setVisible(true);
+        btnSource.getScene().lookup("#lbl_citizen").setVisible(false);
+        btnSource.getScene().lookup("#lbl_operator").setVisible(false);
+    }
 
     /**
      * Contiene il codice di avvio del programma.
