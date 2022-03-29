@@ -2,32 +2,14 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 
-<AnchorPane prefHeight="530.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
+<AnchorPane prefHeight="550.0" prefWidth="920.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
     <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="554.0" stroke="BLACK" strokeType="INSIDE" width="870.0">
-         <fill>
-            <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" radius="0.5">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.09803921729326248" green="0.4901960790157318" blue="0.7882353067398071" />
-                     </color>
-                  </Stop>
-               </stops>
-            </RadialGradient>
-         </fill></Rectangle>
-      <Rectangle arcWidth="5.0" fill="#91ceff" height="514.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="840.0" />
-        <ScrollPane fx:id="scrollPane_CentriVaccinali" layoutX="32.0" layoutY="117.0" prefHeight="395.0" prefWidth="771.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0;" />
-        <TextField fx:id="txt_searchCenter" layoutX="35.0" layoutY="46.0" prefHeight="34.0" prefWidth="658.0" promptText=" Ricerca centro vaccinale" />
-        <Button layoutX="703.0" layoutY="46.0" mnemonicParsing="false" onAction="#findCenter" prefHeight="34.0" prefWidth="103.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #FFFFFF; -fx-background-radius: 0;" text="Cerca" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="50.0" layoutX="0.0" layoutY="0.0" style="-fx-border-style: hidden hidden solid solid" width="920.0" />
+        <ScrollPane fx:id="scrollPane_CentriVaccinali" layoutX="32.0" layoutY="117.0" prefHeight="395.0" prefWidth="869.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0;" />
+        <TextField fx:id="txt_searchCenter" layoutX="474.0" layoutY="14.0" prefHeight="34.0" prefWidth="327.0" promptText=" Ricerca centro vaccinale" />
+        <Button layoutX="697.0" layoutY="14.0" mnemonicParsing="false" onAction="#findCenter" prefHeight="34.0" prefWidth="103.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #FFFFFF; -fx-background-radius: 0;" text="Cerca" />
       <RadioButton fx:id="radio_name" layoutX="35.0" layoutY="88.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="57.0" selected="true" text="Nome" textFill="WHITE">
          <toggleGroup>
             <ToggleGroup fx:id="searchType" />

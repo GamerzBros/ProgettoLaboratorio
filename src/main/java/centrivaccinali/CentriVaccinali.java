@@ -1,7 +1,6 @@
 package centrivaccinali;
 
 import cittadini.Cittadini;
-import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,10 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.application.Application;
-import javafx.util.Duration;
 
 import java.io.*;
 import java.net.URL;
@@ -77,6 +74,10 @@ public class CentriVaccinali extends Application {
      * Reference al portale cittadini
      */
     private Cittadini portaleCittadini;
+    /**
+     *
+     */
+    private Stage currentStage;
 
     /**
      * Crea la UI principale che permette di scegliere il portale. Metodo che viene eseguito subito dopo la creazione della classe.
@@ -94,12 +95,10 @@ public class CentriVaccinali extends Application {
 
         Scene scene=new Scene(root);
 
-
         stage.setScene(scene);
-        stage.setTitle("Pagina iniziale");
+        stage.setTitle("Seleziona il Portale");
 
-        AnchorPane pane=(AnchorPane)scene.lookup("#anchroPane");
-
+        currentStage=stage;
 
 
         InputStream icon = getClass().getResourceAsStream("fiorellino.png");
@@ -188,26 +187,27 @@ public class CentriVaccinali extends Application {
     /**
      * Crea la UI del portale Centri Vaccinali. Viene richiamato una volta che viene selezionato il portale Centri Vaccinale dalla UI principale.
      */
-    public void onCentriVaccinaliSelected(){
+    public void onCentriVaccinaliSelected(ActionEvent event){
         try {
             FXMLLoader loader = new FXMLLoader();
-            URL xmlUrl = getClass().getResource("opzioniLoggato.fxml");
+            URL xmlUrl = getClass().getResource("opzioniOperatore.fxml");
             loader.setLocation(xmlUrl);
 
             Parent root = loader.load();
 
-            Scene scene = new Scene(root);
+            Scene scene=new Scene(root);
 
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("opzioniLoggato");
+            Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
 
-            InputStream icon = getClass().getResourceAsStream("fiorellino.png");
+            currentStage.setScene(scene);
+            currentStage.setTitle("Portale Operatori");
+
+            /*InputStream icon = getClass().getResourceAsStream("fiorellino.png");
             Image image = new Image(icon);
 
-            stage.getIcons().add(image);
+            currentStage.getIcons().add(image);
 
-            stage.show();
+            currentStage.show();*/
         }
         catch (IOException e){
             e.printStackTrace();
@@ -409,6 +409,27 @@ public class CentriVaccinali extends Application {
         btnSource.getScene().lookup("#lbl_main").setVisible(true);
         btnSource.getScene().lookup("#lbl_citizen").setVisible(false);
         btnSource.getScene().lookup("#lbl_operator").setVisible(false);
+    }
+
+    public void goBackFromOpzioniOperatore(MouseEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            URL xmlUrl = getClass().getResource("SelectionUI.fxml");
+            loader.setLocation(xmlUrl);
+
+            Parent root = loader.load();
+
+            Scene scene=new Scene(root);
+
+            Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
+
+            currentStage.setScene(scene);
+
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
     }
 
     /**
