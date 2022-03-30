@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -725,11 +727,19 @@ public class Cittadini implements EventHandler<ActionEvent> {
      * @param event L'evento che richiama il metodo. Necessario per ottenere la scena attuale da cui prendere i parametri di ricerca.
      */
     public void findCenter(ActionEvent event) {
+        Scene currentScene=((Button)event.getSource()).getScene();
+        search(currentScene);
+    }
+
+    public void keyTyped(KeyEvent event){
+        Scene currentScene=((TextField)event.getSource()).getScene();
+        search(currentScene);
+    }
+
+    public void search(Scene currentScene){
         centriVaccinaliList=getCentriVaccinaliFromFile();
 
         Vector<SingoloCentroVaccinale> vector_search = new Vector<>();
-
-        Scene currentScene=((Button)event.getSource()).getScene();
 
         String search = ((TextField)currentScene.lookup("#txt_searchCenter")).getText().toLowerCase();
         boolean searchByName=((RadioButton)currentScene.lookup("#radio_name")).isSelected();
@@ -774,6 +784,27 @@ public class Cittadini implements EventHandler<ActionEvent> {
         currentStage.close();
 
         loadMainCittadiniUI();
+    }
+
+    public void goBackFromMainCittadini(MouseEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            URL xmlUrl = getClass().getResource("/centrivaccinali/SelectionUI.fxml");
+            loader.setLocation(xmlUrl);
+
+            Parent root = loader.load();
+
+            Scene scene=new Scene(root);
+
+            Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
+
+            currentStage.setScene(scene);
+
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
     }
 
 }

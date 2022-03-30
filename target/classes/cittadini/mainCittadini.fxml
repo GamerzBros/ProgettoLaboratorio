@@ -1,22 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
 <AnchorPane prefHeight="550.0" prefWidth="920.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
     <children>
-        <ScrollPane fx:id="scrollPane_CentriVaccinali" layoutX="32.0" layoutY="117.0" prefHeight="395.0" prefWidth="771.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0;">
-         <content>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="79.0" stroke="BLACK" strokeType="INSIDE" width="781.0" />
-         </content></ScrollPane>
-        <TextField fx:id="txt_searchCenter" layoutX="35.0" layoutY="46.0" prefHeight="34.0" prefWidth="658.0" promptText=" Ricerca centro vaccinale" />
-        <Button layoutX="703.0" layoutY="46.0" mnemonicParsing="false" onAction="#findCenter" prefHeight="34.0" prefWidth="103.0" style="-fx-border-color: #197dc9; -fx-border-width: 4; -fx-background-color: #FFFFFF; -fx-background-radius: 0;" text="Cerca" />
-      <RadioButton fx:id="radio_name" layoutX="35.0" layoutY="88.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="57.0" selected="true" text="Nome" textFill="WHITE">
+        <Rectangle fill="white" height="45.0" layoutX="0.0" layoutY="0.0" style="-fx-border-style: hidden hidden solid solid" width="920.0" />
+        <ScrollPane fx:id="scrollPane_CentriVaccinali" layoutX="32.0" layoutY="117.0" prefHeight="395.0" prefWidth="869.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0;" />
+        <TextField fx:id="txt_searchCenter" layoutX="136.0" layoutY="7.5" onKeyTyped="#keyTyped" prefHeight="30.0" prefWidth="516.0" promptText=" Ricerca centro vaccinale" style="-fx-padding: 0 0 0 28;" />
+        <Button layoutX="130.0" layoutY="4.5" mnemonicParsing="false" onAction="#findCenter" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent">
+            <graphic>
+                <ImageView fitHeight="30" fitWidth="30" pickOnBounds="true">
+                    <Image url="@/cittadini/search.png" />
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button layoutX="0.0" layoutY="7.5" onMouseClicked="#goBackFromMainCittadini" style="-fx-background-color: transparent;">
+            <graphic>
+                <ImageView fitHeight="22.0" fitWidth="25.0" preserveRatio="false">
+                    <Image url="@/centrivaccinali/goBackIcon.png" />
+                </ImageView>
+            </graphic>
+        </Button>
+        <RadioButton fx:id="radio_name" layoutX="35.0" layoutY="88.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="57.0" selected="true" text="Nome" textFill="WHITE">
          <toggleGroup>
             <ToggleGroup fx:id="searchType" />
          </toggleGroup>
-      </RadioButton>
-      <RadioButton fx:id="radio_type" layoutX="99.0" layoutY="88.0" mnemonicParsing="false" text="Indirizzo/Tipologia" textFill="WHITE" toggleGroup="$searchType" />
+        </RadioButton>
+        <RadioButton fx:id="radio_type" layoutX="99.0" layoutY="88.0" mnemonicParsing="false" text="Indirizzo/Tipologia" textFill="WHITE" toggleGroup="$searchType" />
+      <Button layoutX="744.0" layoutY="7.5" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: transparent; -fx-border-color: #9aa0a6; -fx-border-radius: 4" text="Accedi" />
+      <Button layoutX="832.0" layoutY="7.5" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: transparent; -fx-border-color: #9aa0a6; -fx-border-radius: 4" text="Registrati" />
     </children>
 </AnchorPane>
