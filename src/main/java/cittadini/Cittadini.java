@@ -1,19 +1,24 @@
 package cittadini;
 
 import centrivaccinali.SingoloCentroVaccinale;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -73,22 +78,27 @@ public class Cittadini implements EventHandler<ActionEvent> {
     @FXML
     private ScrollPane scrollPane_CentriVaccinali;
 
+    private int selectedCenterID;
+    private boolean centerSelected=false;
+
 
     /**
      * Carica la UI principale del portale dei cittadini. Questa UI Consente di scegliere il centro vaccinale presso cui consultare/inserire i dati. Viene chiamato dalla classe CentriVaccinali nel metodo onCittadiniSelected(ActionEvent event).
      */
-    public void loadMainCittadiniUI(){
+    public void loadMainCittadiniUI(Stage stage){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            URL url = getClass().getResource("mainCittadini.fxml");
+            URL url = getClass().getResource("/cittadini/mainCittadini.fxml");
             fxmlLoader.setLocation(url);
             Parent root = fxmlLoader.load();
 
             Scene scene = new Scene(root);
 
-            Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Portale Cittadini");
+
+            String[] userData = new String[2];
+            scene.setUserData(userData);
 
             scrollPane_CentriVaccinali = (ScrollPane) scene.lookup("#scrollPane_CentriVaccinali");
 
@@ -115,46 +125,51 @@ public class Cittadini implements EventHandler<ActionEvent> {
         scrollPane_CentriVaccinali.setContent(scrollPaneContent);
 
         for (int i=0;i<centriVaccinaliMostrati.size();i++){
-            Pane panel=new Pane();
-            panel.setMinHeight(30);
+            HBox hbox=new HBox();
+            hbox.setMinHeight(30);
+            hbox.setAlignment(Pos.CENTER_LEFT);
+            hbox.setStyle("-fx-border-color:#9aa0a6; -fx-border-style: hidden hidden solid hidden;");
             SingoloCentroVaccinale currentCentro=centriVaccinaliMostrati.get(i);
+            hbox.setSpacing(30);
 
-            panel.setStyle("-fx-background-color: #FFFFFF");
+            //hbox.setStyle("-fx-background-color: #FFFFFF");
             Label lblName=new Label(currentCentro.getNome());
             Label lblAddress=new Label(currentCentro.getIndirizzo());
             Label lblType=new Label(currentCentro.getTipologia());
             Button btnGoTo=new Button(">");
 
-            lblName.setLayoutX(6);
-            lblName.setMinHeight(30);
+            //lblName.setLayoutX(6);
+            //lblName.setStyle("-fx-padding: 0 0 0 6");
+            lblName.setPrefWidth(140);
+            //lblName.setMinHeight(30);
             lblName.setFont(new Font("Arial",19));
 
-            lblAddress.setLayoutX(175);
-            lblAddress.setMinHeight(30);
+            //lblAddress.setLayoutX(200);
+            //lblAddress.setStyle("-fx-padding: 0 0 0 200");
+            //lblAddress.setMinHeight(30);
+            lblAddress.setPrefWidth(465);
             lblAddress.setFont(new Font("Arial",19));
 
-            lblType.setLayoutX(575);
-            lblType.setMinHeight(30);
+            //lblType.setLayoutX(625);
+            //lblType.setStyle("-fx-padding: 0 0 0 625");
+            //lblType.setMinHeight(30);
+            lblType.setPrefWidth(130);
             lblType.setFont(new Font("Arial",19));
 
-            btnGoTo.setLayoutX(725);
+            //btnGoTo.setLayoutX(725);
             btnGoTo.setFont(new Font("Arial",19));
             btnGoTo.setStyle( "-fx-background-radius: 5em;" + "-fx-min-width: 1px;" + "-fx-background-color: #FFFFFF;" + "-fx-border-radius: 5em;" + "-fx-border-color: #000000;");
             btnGoTo.setId(String.valueOf(i));
             btnGoTo.setOnAction(this);
-            //TODO Aggiungere l'animazione on click per la timeline
-            /*Timeline timeline=new Timeline();
-            timeline.getKeyFrames().add(new KeyFrame(Duration.millis(1000),new KeyValue(btnPane.prefWidthProperty(),width/3)));
-            timeline.play();*/
 
 
-            panel.getChildren().add(lblName);
-            panel.getChildren().add(lblAddress);
-            panel.getChildren().add(lblType);
-            panel.getChildren().add(btnGoTo);
+            hbox.getChildren().add(lblName);
+            hbox.getChildren().add(lblAddress);
+            hbox.getChildren().add(lblType);
+            hbox.getChildren().add(btnGoTo);
 
 
-            scrollPaneContent.getChildren().add(panel);
+            scrollPaneContent.getChildren().add(hbox);
         }
     }
 
@@ -165,9 +180,36 @@ public class Cittadini implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent actionEvent) {
         Button source = (Button) actionEvent.getSource();
-        int currentCentreID = Integer.parseInt(source.getId());
+        ScrollPane centerListPane = (ScrollPane) source.getScene().lookup("#scrollPane_CentriVaccinali");
+        Pane centerInfoPane = (Pane) source.getScene().lookup("#pane_center_information");
+        int currentCenterID = Integer.parseInt(source.getId());
 
-        loadVisualizzatoreCentroVaccinale(currentCentreID);
+        if(!centerSelected) {
+            System.out.println(centerInfoPane.getLayoutX());
+            selectedCenterID =currentCenterID;
+            centerSelected=true;
+
+            Timeline paneTransition = new Timeline(
+                    new KeyFrame(Duration.millis(300), new KeyValue(centerListPane.prefWidthProperty(), centerListPane.getPrefWidth() / 3)),
+                    new KeyFrame(Duration.millis(300), new KeyValue(centerInfoPane.prefWidthProperty(), centerListPane.getPrefWidth() - (centerListPane.getPrefWidth() / 3))),
+                    new KeyFrame(Duration.millis(300), new KeyValue(centerInfoPane.translateXProperty(), -(centerListPane.getPrefWidth() - (centerListPane.getPrefWidth() / 3)))));
+
+            paneTransition.play();
+
+
+            //loadVisualizzatoreCentroVaccinale(currentCentreID);
+        }
+        else if(currentCenterID==selectedCenterID){
+            System.out.println(centerInfoPane.getLayoutX());
+            Timeline paneTransition = new Timeline(
+                    new KeyFrame(Duration.millis(300), new KeyValue(centerListPane.prefWidthProperty(), centerListPane.getPrefWidth() * 3)),
+                    new KeyFrame(Duration.millis(300), new KeyValue(centerInfoPane.prefWidthProperty(), 0)),
+                    new KeyFrame(Duration.millis(300), new KeyValue(centerInfoPane.translateXProperty(), centerListPane.getPrefWidth()*2)));
+
+            centerSelected=false;
+
+            paneTransition.play();
+        }
     }
 
     /**
@@ -350,6 +392,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
      */
     public void checkLogin(ActionEvent event){
         Scene mainScene=((Button)event.getSource()).getScene();
+        Stage currentStage=(Stage)mainScene.getWindow();
         String[] userData=(String[]) mainScene.getUserData();
         currentCenter=userData[0];
 
@@ -360,7 +403,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
             loadRegistraEventiAvversiUI();
         }
         else{
-            loadLoginUI(mainScene);
+            loadLoginUI(currentStage);
         }
     }
 
@@ -517,9 +560,9 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
     /**
      * Carica la UI che permette ad un utente di effettuare il login, o in alternativa, di caricare la UI necessaria alla registrazione
-     * @param mainScene La scena da cui inserire e prendere il nome centro vaccinale e il codice fiscale del cittadino loggato
+     * @param currentStage La scena da cui inserire e prendere il nome centro vaccinale e il codice fiscale del cittadino loggato
      */
-    public void loadLoginUI(Scene mainScene){
+    public void loadLoginUI(Stage currentStage){
         try {
             FXMLLoader loader = new FXMLLoader();
             URL url = getClass().getResource("loginCittadino.fxml");
@@ -527,12 +570,9 @@ public class Cittadini implements EventHandler<ActionEvent> {
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setScene(scene);
+            currentStage.setScene(scene);
 
-            scene.setUserData(mainScene);
-
-            stage.show();
+            //scene.setUserData(currentStage);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -546,7 +586,8 @@ public class Cittadini implements EventHandler<ActionEvent> {
      */
     public void loadRegisterCitizenUI(ActionEvent event){
         try {
-            Scene mainScene=(Scene) ((Button)event.getSource()).getScene().getUserData();
+            //Scene mainScene=((Button)event.getSource()).getScene();
+            Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
 
             FXMLLoader loader = new FXMLLoader();
             URL url = getClass().getResource("nuovoCittadino.fxml");
@@ -554,16 +595,9 @@ public class Cittadini implements EventHandler<ActionEvent> {
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setScene(scene);
+            currentStage.setScene(scene);
 
-            scene.setUserData(mainScene);
-
-            stage.show();
-
-            Scene loginScene=((Button)event.getSource()).getScene();
-            ((Stage)loginScene.getWindow()).close();
-
+            //scene.setUserData(mainScene);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -779,11 +813,10 @@ public class Cittadini implements EventHandler<ActionEvent> {
      * Torna alla finestra MainCittadini.fxml.
      * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage da chiudere.
      */
-    public void onGoBackToMain(ActionEvent event){
-        Stage currentStage = (Stage)((Scene)((Button)event.getSource()).getScene()).getWindow();
-        currentStage.close();
+    public void onGoBackToMain(MouseEvent event){
+        Stage currentStage = (Stage)((Button)event.getSource()).getScene().getWindow();
 
-        loadMainCittadiniUI();
+        loadMainCittadiniUI(currentStage);
     }
 
     public void goBackFromMainCittadini(MouseEvent event){

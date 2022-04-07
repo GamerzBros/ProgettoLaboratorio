@@ -7,8 +7,9 @@
 
 <AnchorPane prefHeight="550.0" prefWidth="920.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
     <children>
-        <Rectangle fill="white" height="45.0" layoutX="0.0" layoutY="0.0" style="-fx-border-style: hidden hidden solid solid" width="920.0" />
-        <ScrollPane fx:id="scrollPane_CentriVaccinali" layoutX="32.0" layoutY="117.0" prefHeight="395.0" prefWidth="869.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0;" />
+        <Rectangle fill="white" height="45.0" layoutX="0.0" layoutY="0.0" style="-fx-border-style: hidden hidden solid hidden" width="920.0" />
+        <ScrollPane fx:id="scrollPane_CentriVaccinali" layoutX="25.0" layoutY="113.0" prefHeight="413.0" prefWidth="870.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0;" hbarPolicy="NEVER"/>
+        <Pane fx:id="pane_center_information" layoutX="895" layoutY="113" prefHeight="413.0" prefWidth="0.0" style="-fx-background-color: #FFFFFF;" />
         <TextField fx:id="txt_searchCenter" layoutX="136.0" layoutY="7.5" onKeyTyped="#keyTyped" prefHeight="30.0" prefWidth="516.0" promptText=" Ricerca centro vaccinale" style="-fx-padding: 0 0 0 28;" />
         <Button layoutX="130.0" layoutY="4.5" mnemonicParsing="false" onAction="#findCenter" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent">
             <graphic>
@@ -25,12 +26,12 @@
             </graphic>
         </Button>
         <RadioButton fx:id="radio_name" layoutX="35.0" layoutY="88.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="57.0" selected="true" text="Nome" textFill="WHITE">
-         <toggleGroup>
-            <ToggleGroup fx:id="searchType" />
-         </toggleGroup>
+            <toggleGroup>
+                <ToggleGroup fx:id="searchType" />
+            </toggleGroup>
         </RadioButton>
         <RadioButton fx:id="radio_type" layoutX="99.0" layoutY="88.0" mnemonicParsing="false" text="Indirizzo/Tipologia" textFill="WHITE" toggleGroup="$searchType" />
-      <Button layoutX="744.0" layoutY="7.5" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: transparent; -fx-border-color: #9aa0a6; -fx-border-radius: 4" text="Accedi" />
-      <Button layoutX="832.0" layoutY="7.5" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: transparent; -fx-border-color: #9aa0a6; -fx-border-radius: 4" text="Registrati" />
+        <Button layoutX="744.0" layoutY="7.5" mnemonicParsing="false" onAction="#checkLogin" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: transparent; -fx-border-color: #9aa0a6; -fx-border-radius: 4" text="Accedi" />
+        <Button layoutX="832.0" layoutY="7.5" mnemonicParsing="false" onAction="#loadRegisterCitizenUI" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: transparent; -fx-border-color: #9aa0a6; -fx-border-radius: 4" text="Registrati" />
     </children>
 </AnchorPane>

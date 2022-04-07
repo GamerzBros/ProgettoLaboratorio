@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.application.Application;
 
@@ -176,9 +175,9 @@ public class CentriVaccinali extends Application {
     public void onCittadiniSelected(ActionEvent event){
         portaleCittadini =new Cittadini();
         try {
-            portaleCittadini.loadMainCittadiniUI();
             Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
-            stage.close();
+
+            portaleCittadini.loadMainCittadiniUI(stage);
         } catch (Exception e) {
             e.printStackTrace();
         }
