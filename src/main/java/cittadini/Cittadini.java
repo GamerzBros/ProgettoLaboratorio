@@ -162,7 +162,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
             btnGoTo.setId(String.valueOf(i));
             btnGoTo.setOnAction(this);
 
-
+            HBox.setHgrow(lblAddress, Priority.ALWAYS);
             hbox.getChildren().add(lblName);
             hbox.getChildren().add(lblAddress);
             hbox.getChildren().add(lblType);
@@ -185,8 +185,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
         int currentCenterID = Integer.parseInt(source.getId());
 
         if(!centerSelected) {
-            System.out.println(centerInfoPane.getLayoutX());
-            selectedCenterID =currentCenterID;
+            selectedCenterID = currentCenterID;
             centerSelected=true;
 
             Timeline paneTransition = new Timeline(
@@ -196,6 +195,17 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
             paneTransition.play();
 
+            ScrollPane scrollPane=(ScrollPane) source.getScene().lookup("#scrollPane_CentriVaccinali");
+            VBox vbox=(VBox)scrollPane.getContent();
+
+            for(int i=0;i<vbox.getChildren().size();i++){
+                HBox element=(HBox) vbox.getChildren().get(i);
+                ((Label)element.getChildren().get(0)).setPrefWidth(123);
+                ((Label)element.getChildren().get(1)).setPrefWidth(0);
+                ((Label)element.getChildren().get(2)).setPrefWidth(0);
+                //System.out.println(((Label)element.getChildren().get(0)).getText());
+            }
+            //scrollPane.setPrefWidth(200);
 
             //loadVisualizzatoreCentroVaccinale(currentCentreID);
         }
@@ -209,6 +219,21 @@ public class Cittadini implements EventHandler<ActionEvent> {
             centerSelected=false;
 
             paneTransition.play();
+
+            ScrollPane scrollPane=(ScrollPane) source.getScene().lookup("#scrollPane_CentriVaccinali");
+            VBox vbox=(VBox)scrollPane.getContent();
+
+            for(int i=0;i<vbox.getChildren().size();i++){
+                HBox element=(HBox) vbox.getChildren().get(i);
+                ((Label)element.getChildren().get(0)).setPrefWidth(140);
+                ((Label)element.getChildren().get(1)).setPrefWidth(465);
+                ((Label)element.getChildren().get(2)).setPrefWidth(130);//140,465,130
+                //System.out.println(((Label)element.getChildren().get(0)).getText());
+            }
+        }
+        else{
+            selectedCenterID = currentCenterID;
+            //TODO load UI
         }
     }
 
