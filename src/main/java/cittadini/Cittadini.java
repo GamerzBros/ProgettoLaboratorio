@@ -9,12 +9,14 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -96,11 +98,14 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
             stage.setScene(scene);
             stage.setTitle("Portale Cittadini");
+            stage.setY(50);
+            stage.setX(175);
 
             String[] userData = new String[2];
             scene.setUserData(userData);
 
             scrollPane_CentriVaccinali = (ScrollPane) scene.lookup("#scrollPane_CentriVaccinali");
+            scrollPane_CentriVaccinali.lookup(".viewport").setStyle("-fx-background-color: #1a73e8;");
 
             centriVaccinaliList = Cittadini.getCentriVaccinaliFromFile();
 
@@ -120,44 +125,39 @@ public class Cittadini implements EventHandler<ActionEvent> {
      */
     private void creaVbox(List<SingoloCentroVaccinale> centriVaccinaliMostrati){
         VBox scrollPaneContent=new VBox();
-        scrollPaneContent.setMinWidth(scrollPane_CentriVaccinali.getPrefWidth()-2);
-
+        scrollPaneContent.setSpacing(15);
+        scrollPaneContent.setPrefHeight(405);
+        scrollPaneContent.setAlignment(Pos.CENTER);
+        //scrollPaneContent.setMinWidth(scrollPane_CentriVaccinali.getPrefWidth()-2);
         scrollPane_CentriVaccinali.setContent(scrollPaneContent);
 
         for (int i=0;i<centriVaccinaliMostrati.size();i++){
             HBox hbox=new HBox();
-            hbox.setMinHeight(30);
+            hbox.setPrefHeight(40);
             hbox.setAlignment(Pos.CENTER_LEFT);
-            hbox.setStyle("-fx-border-color:#9aa0a6; -fx-border-style: hidden hidden solid hidden;");
+            hbox.setStyle("-fx-border-color:#9aa0a6; -fx-border-style: hidden; -fx-background-color: white; -fx-background-radius: 12; -fx-padding: 0 5 0 5");
             SingoloCentroVaccinale currentCentro=centriVaccinaliMostrati.get(i);
-            hbox.setSpacing(30);
+            hbox.setSpacing(20);
 
-            //hbox.setStyle("-fx-background-color: #FFFFFF");
             Label lblName=new Label(currentCentro.getNome());
             Label lblAddress=new Label(currentCentro.getIndirizzo());
             Label lblType=new Label(currentCentro.getTipologia());
             Button btnGoTo=new Button(">");
 
-            //lblName.setLayoutX(6);
-            //lblName.setStyle("-fx-padding: 0 0 0 6");
-            lblName.setPrefWidth(140);
-            //lblName.setMinHeight(30);
-            lblName.setFont(new Font("Arial",19));
 
-            //lblAddress.setLayoutX(200);
-            //lblAddress.setStyle("-fx-padding: 0 0 0 200");
-            //lblAddress.setMinHeight(30);
-            lblAddress.setPrefWidth(465);
-            lblAddress.setFont(new Font("Arial",19));
+            lblName.setPrefWidth(150);
+            lblName.setStyle("-fx-text-fill: black; -fx-font-family: Arial; -fx-font-size: 19");
 
-            //lblType.setLayoutX(625);
-            //lblType.setStyle("-fx-padding: 0 0 0 625");
-            //lblType.setMinHeight(30);
+
+            lblAddress.setPrefWidth(460);
+            lblAddress.setStyle("-fx-text-fill: black; -fx-font-family: Arial; -fx-font-size: 19");
+
+
             lblType.setPrefWidth(130);
-            lblType.setFont(new Font("Arial",19));
+            lblType.setStyle("-fx-text-fill: black; -fx-font-family: Arial; -fx-font-size: 19");
 
-            //btnGoTo.setLayoutX(725);
-            btnGoTo.setFont(new Font("Arial",19));
+
+            btnGoTo.setFont(new Font("Arial",16));
             btnGoTo.setStyle( "-fx-background-radius: 5em;" + "-fx-min-width: 1px;" + "-fx-background-color: #FFFFFF;" + "-fx-border-radius: 5em;" + "-fx-border-color: #000000;");
             btnGoTo.setId(String.valueOf(i));
             btnGoTo.setOnAction(this);
@@ -167,7 +167,6 @@ public class Cittadini implements EventHandler<ActionEvent> {
             hbox.getChildren().add(lblAddress);
             hbox.getChildren().add(lblType);
             hbox.getChildren().add(btnGoTo);
-
 
             scrollPaneContent.getChildren().add(hbox);
         }
@@ -200,7 +199,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
             for(int i=0;i<vbox.getChildren().size();i++){
                 HBox element=(HBox) vbox.getChildren().get(i);
-                ((Label)element.getChildren().get(0)).setPrefWidth(123);
+                ((Label)element.getChildren().get(0)).setPrefWidth(130);
                 ((Label)element.getChildren().get(1)).setPrefWidth(0);
                 ((Label)element.getChildren().get(2)).setPrefWidth(0);
                 //System.out.println(((Label)element.getChildren().get(0)).getText());
@@ -225,8 +224,8 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
             for(int i=0;i<vbox.getChildren().size();i++){
                 HBox element=(HBox) vbox.getChildren().get(i);
-                ((Label)element.getChildren().get(0)).setPrefWidth(140);
-                ((Label)element.getChildren().get(1)).setPrefWidth(465);
+                ((Label)element.getChildren().get(0)).setPrefWidth(150);
+                ((Label)element.getChildren().get(1)).setPrefWidth(460);
                 ((Label)element.getChildren().get(2)).setPrefWidth(130);//140,465,130
                 //System.out.println(((Label)element.getChildren().get(0)).getText());
             }

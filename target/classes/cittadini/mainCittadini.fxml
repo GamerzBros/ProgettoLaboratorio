@@ -4,11 +4,12 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="550.0" prefWidth="920.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
     <children>
         <Rectangle fill="white" height="45.0" layoutX="0.0" layoutY="0.0" style="-fx-border-style: hidden hidden solid hidden" width="920.0" />
-        <ScrollPane fx:id="scrollPane_CentriVaccinali" layoutX="25.0" layoutY="113.0" prefHeight="413.0" prefWidth="870.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0;" />
+        <ScrollPane fx:id="scrollPane_CentriVaccinali" hbarPolicy="NEVER" layoutX="25.0" layoutY="113.0" prefHeight="413.0" prefWidth="870.0" style="-fx-background-radius: 0; -fx-background-color: transparent; -fx-border-color: #1a73e8;" /> <!-- style="-fx-background: #1a73e8;-->
         <Pane fx:id="pane_center_information" layoutX="895" layoutY="113" prefHeight="413.0" prefWidth="0.0" style="-fx-background-color: #FFFFFF;" />
         <TextField fx:id="txt_searchCenter" layoutX="136.0" layoutY="7.5" onKeyTyped="#keyTyped" prefHeight="30.0" prefWidth="516.0" promptText=" Ricerca centro vaccinale" style="-fx-padding: 0 0 0 28;" />
         <Button layoutX="130.0" layoutY="4.5" mnemonicParsing="false" onAction="#findCenter" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent">
@@ -25,13 +26,23 @@
                 </ImageView>
             </graphic>
         </Button>
-        <RadioButton fx:id="radio_name" layoutX="35.0" layoutY="88.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="57.0" selected="true" text="Nome" textFill="WHITE">
+        <RadioButton fx:id="radio_name" layoutX="221.0" layoutY="50.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="67.0" selected="true" text="Nome" textFill="WHITE">
             <toggleGroup>
                 <ToggleGroup fx:id="searchType" />
             </toggleGroup>
+         <font>
+            <Font size="13.0" />
+         </font>
         </RadioButton>
-        <RadioButton fx:id="radio_type" layoutX="99.0" layoutY="88.0" mnemonicParsing="false" text="Indirizzo/Tipologia" textFill="WHITE" toggleGroup="$searchType" />
+        <RadioButton fx:id="radio_type" layoutX="288.0" layoutY="50.0" mnemonicParsing="false" text="Indirizzo/Tipologia" textFill="WHITE" toggleGroup="$searchType">
+         <font>
+            <Font size="13.0" />
+         </font></RadioButton>
         <Button layoutX="744.0" layoutY="7.5" mnemonicParsing="false" onAction="#checkLogin" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: transparent; -fx-border-color: #9aa0a6; -fx-border-radius: 4" text="Accedi" />
         <Button layoutX="832.0" layoutY="7.5" mnemonicParsing="false" onAction="#loadRegisterCitizenUI" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: transparent; -fx-border-color: #9aa0a6; -fx-border-radius: 4" text="Registrati" />
+      <Label layoutX="140.0" layoutY="50.0" text="Ricerca per " textFill="white">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
     </children>
 </AnchorPane>
