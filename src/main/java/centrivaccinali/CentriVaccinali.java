@@ -314,62 +314,75 @@ public class CentriVaccinali extends Application {
         String vaccineType = ((ChoiceBox<String>)currentScene.lookup("#cbx_vaccinoSomministrato")).getValue();
         LocalDate vaccinationDate = ((DatePicker)currentScene.lookup("#datePicker_datavaccinazione")).getValue();
         String centroVaccinale=((ChoiceBox<String>)currentScene.lookup("#cbx_centroVaccinale")).getValue();
-        String dataVaccinazione = vaccinationDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
+        String dataVaccinazione="";
         String idVaccinazione=null;
 
-
-        try {
-            //L'id vaccinazione è diviso nel seguente modo:i primi 6 bit sono composti dal numero riga del centro vaccinale. I restanti 10 sono composti dal numero riga vaccinato.
-            FileReader fileReader=new FileReader(PATH_TO_CENTRIVACCINALI_DATI);
-            BufferedReader reader=new BufferedReader(fileReader);
-
-            String line;
-            int index=0;
-
-            while ((line=reader.readLine())!=null&&(!line.contains(centroVaccinale))){
-                index++;
-            }
-
-            String centerIndex=String.valueOf(index);
-            while (centerIndex.length()<6){
-                centerIndex="0"+centerIndex;
-            }
-
-            fileReader = new FileReader(PRE_PATH_TO_EVENTI_AVVERSI + centroVaccinale + AFTER_PATH_TO_EVENTI_AVVERSI);
-            reader=new BufferedReader(fileReader);
-
-            index=0;
-            while ((line=reader.readLine())!=null){
-                index++;
-            }
-
-            String patientIndex=String.valueOf(index);
-            while (patientIndex.length()<10){
-                patientIndex="0"+patientIndex;
-            }
-
-            idVaccinazione=centerIndex+patientIndex;
-            System.out.println(idVaccinazione);
-
-            String output = LINE_TYPE_PERSON +";"+name + ";" + surname + ";" + codice_fiscale + ";" + vaccineType + ";" + idVaccinazione + ";" + dataVaccinazione + ";" + centroVaccinale;
-            FileWriter writer = new FileWriter(PRE_PATH_TO_EVENTI_AVVERSI + centroVaccinale + AFTER_PATH_TO_EVENTI_AVVERSI, true);
-            BufferedWriter out = new BufferedWriter(writer);
-            out.write(output);
-            out.flush();
-            out.newLine();
-            out.close();
-            writer.close();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Successo");
-            alert.setHeaderText(null);
-            alert.setContentText("Paziente registrato a sistema");
-            alert.showAndWait();
-
-            ((Stage)currentScene.getWindow()).close();
-
-        }catch (IOException e){
-            e.printStackTrace();
+        if(vaccinationDate != null){ //TODO dava null pointer perchè prendevi la data (anche se era vuota) e sopra la convertivi in string
+             dataVaccinazione = vaccinationDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
         }
+        if(name.equals("") || surname.equals("") || codice_fiscale.equals("") || vaccineType.equals("")  || centroVaccinale.equals("") || dataVaccinazione.equals("")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText(null);
+            alert.setContentText("Controllare i dati inseriti");
+            alert.showAndWait();
+        }else{
+            try {
+
+                //L'id vaccinazione è diviso nel seguente modo:i primi 6 bit sono composti dal numero riga del centro vaccinale. I restanti 10 sono composti dal numero riga vaccinato.
+                FileReader fileReader=new FileReader(PATH_TO_CENTRIVACCINALI_DATI);
+                BufferedReader reader=new BufferedReader(fileReader);
+
+                String line;
+                int index=0;
+
+                while ((line=reader.readLine())!=null&&(!line.contains(centroVaccinale))){
+                    index++;
+                }
+
+                String centerIndex=String.valueOf(index);
+                while (centerIndex.length()<6){
+                    centerIndex="0"+centerIndex;
+                }
+
+                fileReader = new FileReader(PRE_PATH_TO_EVENTI_AVVERSI + centroVaccinale + AFTER_PATH_TO_EVENTI_AVVERSI);
+                reader=new BufferedReader(fileReader);
+
+                index=0;
+                while ((line=reader.readLine())!=null){
+                    index++;
+                }
+
+                String patientIndex=String.valueOf(index);
+                while (patientIndex.length()<10){
+                    patientIndex="0"+patientIndex;
+                }
+
+                idVaccinazione=centerIndex+patientIndex;
+                System.out.println(idVaccinazione);
+
+                String output = LINE_TYPE_PERSON +";"+name + ";" + surname + ";" + codice_fiscale + ";" + vaccineType + ";" + idVaccinazione + ";" + dataVaccinazione + ";" + centroVaccinale;
+                FileWriter writer = new FileWriter(PRE_PATH_TO_EVENTI_AVVERSI + centroVaccinale + AFTER_PATH_TO_EVENTI_AVVERSI, true);
+                BufferedWriter out = new BufferedWriter(writer);
+                out.write(output);
+                out.flush();
+                out.newLine();
+                out.close();
+                writer.close();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Successo");
+                alert.setHeaderText(null);
+                alert.setContentText("Paziente registrato a sistema");
+                alert.showAndWait();
+
+                ((Stage)currentScene.getWindow()).close();
+
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+
+
     }
 
 
