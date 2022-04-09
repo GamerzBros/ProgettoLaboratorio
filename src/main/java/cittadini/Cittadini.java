@@ -126,7 +126,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
     private void creaVbox(List<SingoloCentroVaccinale> centriVaccinaliMostrati){
         VBox scrollPaneContent=new VBox();
         scrollPaneContent.setSpacing(15);
-        scrollPaneContent.setPrefHeight(405);
+        scrollPaneContent.setPrefHeight(409);
         scrollPaneContent.setAlignment(Pos.CENTER);
         //scrollPaneContent.setMinWidth(scrollPane_CentriVaccinali.getPrefWidth()-2);
         scrollPane_CentriVaccinali.setContent(scrollPaneContent);
@@ -149,11 +149,11 @@ public class Cittadini implements EventHandler<ActionEvent> {
             lblName.setStyle("-fx-text-fill: black; -fx-font-family: Arial; -fx-font-size: 19");
 
 
-            lblAddress.setPrefWidth(460);
+            lblAddress.setPrefWidth(465);
             lblAddress.setStyle("-fx-text-fill: black; -fx-font-family: Arial; -fx-font-size: 19");
 
 
-            lblType.setPrefWidth(130);
+            lblType.setPrefWidth(135);
             lblType.setStyle("-fx-text-fill: black; -fx-font-family: Arial; -fx-font-size: 19");
 
 
@@ -199,10 +199,9 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
             for(int i=0;i<vbox.getChildren().size();i++){
                 HBox element=(HBox) vbox.getChildren().get(i);
-                ((Label)element.getChildren().get(0)).setPrefWidth(130);
+                ((Label)element.getChildren().get(0)).setPrefWidth(140);
                 ((Label)element.getChildren().get(1)).setPrefWidth(0);
                 ((Label)element.getChildren().get(2)).setPrefWidth(0);
-                //System.out.println(((Label)element.getChildren().get(0)).getText());
             }
             //scrollPane.setPrefWidth(200);
 
@@ -225,9 +224,8 @@ public class Cittadini implements EventHandler<ActionEvent> {
             for(int i=0;i<vbox.getChildren().size();i++){
                 HBox element=(HBox) vbox.getChildren().get(i);
                 ((Label)element.getChildren().get(0)).setPrefWidth(150);
-                ((Label)element.getChildren().get(1)).setPrefWidth(460);
-                ((Label)element.getChildren().get(2)).setPrefWidth(130);//140,465,130
-                //System.out.println(((Label)element.getChildren().get(0)).getText());
+                ((Label)element.getChildren().get(1)).setPrefWidth(465);
+                ((Label)element.getChildren().get(2)).setPrefWidth(133);
             }
         }
         else{
@@ -424,6 +422,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
         if(userData[1]!=null){
             currentUser=userData[1];
+            //TODO rivedere dove porta il login e il register
             loadRegistraEventiAvversiUI();
         }
         else{
