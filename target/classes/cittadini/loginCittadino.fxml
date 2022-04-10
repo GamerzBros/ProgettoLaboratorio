@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="315.0" prefWidth="480.0" style="-fx-background-color: #1a73e8;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
+<AnchorPane prefHeight="305.0" prefWidth="480.0" style="-fx-background-color: #1a73e8;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.Cittadini">
    <children>
       <Button layoutX="0.0" layoutY="7.5" onMouseClicked="#onGoBackToMain" style="-fx-background-color: transparent;">
          <graphic>
@@ -16,11 +16,11 @@
       </Button>
       <PasswordField fx:id="pswd_login" layoutX="100.0" layoutY="175.0" prefHeight="25.0" prefWidth="280.0" promptText="Password" />
       <TextField fx:id="txt_userLogin" layoutX="100.0" layoutY="130.0" prefHeight="25.0" prefWidth="280.0" promptText="Email" />
-      <Button fx:id="login_button" layoutX="125.0" layoutY="230.0" mnemonicParsing="false" onAction="#loggaCittadini" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Login">
+      <Button fx:id="login_button" layoutX="125.0" layoutY="232.5" mnemonicParsing="false" onAction="#loggaCittadini" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Login">
          <font>
             <Font size="18.0" />
          </font></Button>
-      <Button fx:id="register_button" layoutX="250.0" layoutY="230.0" mnemonicParsing="false" onAction="#loadRegisterCitizenUI" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Registrati">
+      <Button fx:id="register_button" layoutX="250.0" layoutY="232.5" mnemonicParsing="false" onAction="#loadRegisterCitizenUI" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Registrati">
          <font>
             <Font size="18.0" />
          </font>

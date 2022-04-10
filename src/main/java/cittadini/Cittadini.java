@@ -9,18 +9,15 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -33,6 +30,8 @@ import java.util.*;
   David Poletti 746597 Varese
   Eros Marsichina 745299 Varese
   Tommaso Morosi 741227 Varese*/
+
+//TODO sistemare la JavaDoc
 
 /**
  * Contiene tutte le UI e i metodi del portale Cittadini
@@ -158,7 +157,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
 
             btnGoTo.setFont(new Font("Arial",16));
-            btnGoTo.setStyle( "-fx-background-radius: 5em;" + "-fx-min-width: 1px;" + "-fx-background-color: #FFFFFF;" + "-fx-border-radius: 5em;" + "-fx-border-color: #000000;");
+            btnGoTo.setStyle( "-fx-cursor: hand; -fx-background-radius: 5em; -fx-min-width: 1px; -fx-background-color: #FFFFFF; -fx-border-radius: 5em; -fx-border-color: #000000;");
             btnGoTo.setId(String.valueOf(i));
             btnGoTo.setOnAction(this);
 
@@ -188,9 +187,9 @@ public class Cittadini implements EventHandler<ActionEvent> {
             centerSelected=true;
 
             Timeline paneTransition = new Timeline(
-                    new KeyFrame(Duration.millis(300), new KeyValue(centerListPane.prefWidthProperty(), centerListPane.getPrefWidth() / 3)),
-                    new KeyFrame(Duration.millis(300), new KeyValue(centerInfoPane.prefWidthProperty(), centerListPane.getPrefWidth() - (centerListPane.getPrefWidth() / 3))),
-                    new KeyFrame(Duration.millis(300), new KeyValue(centerInfoPane.translateXProperty(), -(centerListPane.getPrefWidth() - (centerListPane.getPrefWidth() / 3)))));
+                    new KeyFrame(Duration.millis(350), new KeyValue(centerListPane.prefWidthProperty(), centerListPane.getPrefWidth() / 3)),
+                    new KeyFrame(Duration.millis(350), new KeyValue(centerInfoPane.prefWidthProperty(), centerListPane.getPrefWidth() - (centerListPane.getPrefWidth() / 3))),
+                    new KeyFrame(Duration.millis(350), new KeyValue(centerInfoPane.translateXProperty(), -(centerListPane.getPrefWidth() - (centerListPane.getPrefWidth() / 3)))));
 
             paneTransition.play();
 
@@ -203,16 +202,15 @@ public class Cittadini implements EventHandler<ActionEvent> {
                 ((Label)element.getChildren().get(1)).setPrefWidth(0);
                 ((Label)element.getChildren().get(2)).setPrefWidth(0);
             }
-            //scrollPane.setPrefWidth(200);
 
-            //loadVisualizzatoreCentroVaccinale(currentCentreID);
+            loadVisualizzatoreCentroVaccinale(centerInfoPane, currentCenterID);
+
         }
         else if(currentCenterID==selectedCenterID){
-            System.out.println(centerInfoPane.getLayoutX());
             Timeline paneTransition = new Timeline(
-                    new KeyFrame(Duration.millis(300), new KeyValue(centerListPane.prefWidthProperty(), centerListPane.getPrefWidth() * 3)),
-                    new KeyFrame(Duration.millis(300), new KeyValue(centerInfoPane.prefWidthProperty(), 0)),
-                    new KeyFrame(Duration.millis(300), new KeyValue(centerInfoPane.translateXProperty(), centerListPane.getPrefWidth()*2)));
+                    new KeyFrame(Duration.millis(350), new KeyValue(centerListPane.prefWidthProperty(), centerListPane.getPrefWidth() * 3)),
+                    new KeyFrame(Duration.millis(350), new KeyValue(centerInfoPane.prefWidthProperty(), 0)),
+                    new KeyFrame(Duration.millis(350), new KeyValue(centerInfoPane.translateXProperty(), centerListPane.getPrefWidth()*2)));
 
             centerSelected=false;
 
@@ -230,7 +228,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
         }
         else{
             selectedCenterID = currentCenterID;
-            //TODO load UI
+            loadVisualizzatoreCentroVaccinale(centerInfoPane, currentCenterID);
         }
     }
 
@@ -273,50 +271,40 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
     /**
      * Crea la UI che mostra i dati relativi al centro vaccinale selezionato. Viene richiamato quando l'utente seleziona un centro vaccinale.
-     * @param idCentro L'ID contenete il numero della riga del centro vaccinale selezionato nel file
+     *
      */
-    public void loadVisualizzatoreCentroVaccinale(int idCentro){
+    public void loadVisualizzatoreCentroVaccinale(Pane centerInfoPane, int selectedCenterID){
         try {
-            FXMLLoader loader = new FXMLLoader();
-            URL url = getClass().getResource("visualizzazioneCentroVaccinale.fxml");
-            loader.setLocation(url);
-            Parent root = loader.load();
+            //TODO ottimizzare sta roba controllando se è già stata caricata la UI tramite una variabile globale booleana
+            Scene scene=new Scene(FXMLLoader.load(getClass().getResource("/cittadini/visualizzazioneCentroVaccinale.fxml")));
+            AnchorPane anchorPane=new AnchorPane(scene.lookup("#main_anchor_pane"));
+            centerInfoPane.getChildren().add(anchorPane);
 
-            Scene newScene = new Scene(root);
+            /*Label lbl_centreName = (Label) scene.lookup("#lbl_highlitedCenterName");
+            Label lbl_centreAddress = (Label) scene.lookup("#lbl_highlitedCenterAddress");
+            Label lbl_centreType = (Label) scene.lookup("#lbl_highlitedCenterType");*/
+            //loadCentreInfo(selectedCenterID, lbl_centreName, lbl_centreAddress, lbl_centreType);
+            loadCenterInfo(selectedCenterID,scene);
 
-            Stage currentStage = (Stage) scrollPane_CentriVaccinali.getScene().getWindow();
-            currentStage.setScene(newScene);
-
-            Label lbl_centreName = (Label) newScene.lookup("#lbl_highlitedCenterName");
-            Label lbl_centreAddress = (Label) newScene.lookup("#lbl_highlitedCenterAddress");
-            Label lbl_centreType = (Label) newScene.lookup("#lbl_highlitedCenterType");
-
-            loadCentreInfo(idCentro, lbl_centreName, lbl_centreAddress, lbl_centreType);
-
-            String[] userData = new String[2];
-            userData[0] = currentCenter;
-            newScene.setUserData(userData);
-
-            currentStage.show();
         }
-        catch (IOException e){
-            e.printStackTrace();
+        catch(IOException e){
+            e.printStackTrace(); //TODO mettere popup con scritto "errore nel caricamento dello info del centro"
         }
     }
 
     /**
      * Carica le informazioni principali del centri vaccinale selezionato.
-     * @param idCentro L'ID contenete il numero della riga del centro vaccinale selezionato nel file
-     * @param lbl_centreName L'ettichetta contenete il nome del centro selezionato
+     * @param idCentro L'ID contenete il numero della riga del centro vaccinale selezionato nel file*/
+     /*@param lbl_centreName L'ettichetta contenete il nome del centro selezionato
      * @param lbl_centreAddress L'ettichetta contenete l'indirizzo del centro selezionato
      * @param lbl_centreType L'ettichetta contenete la tipologia del vaccina somministrato presso il centro selezione
      */
-    public void loadCentreInfo(int idCentro, Label lbl_centreName,Label lbl_centreAddress,Label lbl_centreType){
+    public void loadCenterInfo(int idCentro, Scene currentScene){
         try {
             FileReader fileReader=new FileReader(PATH_TO_CENTRIVACCINALI_DATI);
             BufferedReader reader=new BufferedReader(fileReader);
 
-            String data=reader.readLine();
+            /*String data=reader.readLine();
             int i=0;
             while(i!=idCentro) {
                 data=reader.readLine();
@@ -332,7 +320,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
             lbl_centreAddress.setText(address);
             lbl_centreType.setText(type);
 
-            currentCenter=name;
+            currentCenter=name;*/
 
             Vector<String> eventLines=leggiEventiAvversi(idCentro);
             int[] singleEvents=new int[6];
@@ -340,7 +328,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
             Vector<Integer> otherEventsValues=new Vector<>();
 
             if(eventLines!=null) {
-                for (i = 0; i < eventLines.size(); i++) {
+                for (int i = 0; i < eventLines.size(); i++) {
                     StringTokenizer tokenizer = new StringTokenizer(eventLines.get(i), ";");
                     tokenizer.nextToken();
                     tokenizer.nextToken();
@@ -360,8 +348,6 @@ public class Cittadini implements EventHandler<ActionEvent> {
                 }
 
 
-                Scene currentScene = lbl_centreName.getScene();
-
                 Label lbl_headacheEffect = (Label) currentScene.lookup("#lbl_effect1");
                 Label lbl_feverEffect = (Label) currentScene.lookup("#lbl_effect2");
                 Label lbl_hurtEffect = (Label) currentScene.lookup("#lbl_effect3");
@@ -378,20 +364,24 @@ public class Cittadini implements EventHandler<ActionEvent> {
 
                 ScrollPane scrollPane_otherEvents = (ScrollPane) currentScene.lookup("#scrollPane_otherEvents");
                 VBox vbox = new VBox();
+                vbox.setStyle("-fx-padding: 0 6");
                 scrollPane_otherEvents.setContent(vbox);
 
-                for (i = 0; i < otherEventsText.size(); i++) {
+                for (int i = 0; i < otherEventsText.size(); i++) {
                     Pane vboxContent = new Pane();
 
                     Label lbl_otherEventText = new Label(otherEventsText.get(i));
-                    lbl_otherEventText.setFont(Font.font("Franklin Gothic Medium", 14));
-                    lbl_otherEventText.setMinWidth(800);
-                    lbl_otherEventText.setMinHeight(30);
+                    lbl_otherEventText.setFont(Font.font("Franklin Gothic Medium", 18));
+                    lbl_otherEventText.setPrefWidth(475);
+                    lbl_otherEventText.setPrefHeight(30);
 
                     Label lbl_otherEventValue = new Label(String.valueOf(otherEventsValues.get(i)));
-                    lbl_otherEventValue.setMinWidth(30);
-                    lbl_otherEventValue.setMinHeight(30);
-                    lbl_otherEventValue.setLayoutX(800);
+                    lbl_otherEventValue.setFont(Font.font("Franklin Gothic Medium", 18));
+                    lbl_otherEventValue.setPrefWidth(13);
+                    lbl_otherEventValue.setPrefHeight(30);
+                    lbl_otherEventValue.setLayoutX(490);
+
+                    //TODO aggiungere label con scritto "intensità media"
 
                     vboxContent.getChildren().add(lbl_otherEventText);
                     vboxContent.getChildren().add(lbl_otherEventValue);
@@ -418,14 +408,13 @@ public class Cittadini implements EventHandler<ActionEvent> {
         String[] userData=(String[]) mainScene.getUserData();
         currentCenter=userData[0];
 
-        System.out.println(currentCenter);
-
         if(userData[1]!=null){
             currentUser=userData[1];
             //TODO rivedere dove porta il login e il register
             loadRegistraEventiAvversiUI();
         }
         else{
+            //TODO aggiungere un popup per dire all'utente di loggarsi prima
             loadLoginUI(currentStage);
         }
     }
