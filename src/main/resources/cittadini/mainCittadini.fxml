@@ -38,8 +38,8 @@
          <font>
             <Font size="13.0" />
          </font></RadioButton>
-        <Button layoutX="744.0" layoutY="7.5" mnemonicParsing="false" onAction="#checkLogin" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: transparent; -fx-border-color: #9aa0a6; -fx-border-radius: 4" text="Accedi" />
-        <Button layoutX="832.0" layoutY="7.5" mnemonicParsing="false" onAction="#loadRegisterCitizenUI" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: transparent; -fx-border-color: #9aa0a6; -fx-border-radius: 4" text="Registrati" />
+        <Button layoutX="744.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLogin" prefHeight="25.0" prefWidth="80.0" style="-fx-border-style: hidden;-fx-alignment:  center; -fx-background-color: #1a73e8; -fx-background-radius: 8; -fx-text-fill: white;" text="Accedi" />
+        <Button layoutX="832.0" layoutY="10" mnemonicParsing="false" onAction="#loadRegisterCitizenUI" prefHeight="25.0" prefWidth="80.0" style="-fx-border-style: hidden;-fx-alignment:  center; -fx-background-color: #1a73e8; -fx-background-radius: 8; -fx-text-fill: white;" text="Registrati" />
       <Label layoutX="140.0" layoutY="50.0" text="Ricerca per " textFill="white">
          <font>
             <Font size="14.0" />

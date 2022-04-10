@@ -16,23 +16,20 @@
       </ImageView>
       <Pane fx:id="paneInformations" layoutY="0.0" prefHeight="300.0" prefWidth="200.0" style="-fx-background-color: #1a73e8;">
          <children>
-            <Button layoutX="23.0" layoutY="180.0" mnemonicParsing="false" onAction="#onCentriVaccinaliSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="40.0" prefWidth="150.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Portale Operatori" textFill="#1a73e8">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <!--<graphic>
-                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="false">
-                     <Image url="@/centrivaccinali/siringa.png" />
-                  </ImageView>
-               </graphic>-->
-            </Button>
-            <!---<Pane fx:id="paneSelectionButtons" layoutY="41.0" prefHeight="325.0" prefWidth="200.0" style="-fx-background-color: #1a73e8;">-->
-            <Button layoutX="23.0" layoutY="80.0" mnemonicParsing="false" onAction="#onCittadiniSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="40.0" prefWidth="150.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Portale Cittadini" textFill="#1a73e8">
+            <Button layoutX="23.0" layoutY="180.0" mnemonicParsing="false" onAction="#onCentriVaccinaliSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="40.0" prefWidth="150.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Portale Operatori" textFill="black">
                <font>
                   <Font size="14.0" />
                </font>
                <cursor>
-                  <Cursor fx:constant="DEFAULT" />
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button layoutX="23.0" layoutY="80.0" mnemonicParsing="false" onAction="#onCittadiniSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="40.0" prefWidth="150.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Portale Cittadini" textFill="black">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
          </children>
