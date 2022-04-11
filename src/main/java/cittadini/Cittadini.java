@@ -825,7 +825,7 @@ public class Cittadini implements EventHandler<ActionEvent> {
      * Torna alla finestra MainCittadini.fxml.
      * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage da chiudere.
      */
-    public void onGoBackToMain(MouseEvent event){
+    public void goBackToMain(MouseEvent event){
         Stage currentStage = (Stage)((Button)event.getSource()).getScene().getWindow();
 
         loadMainCittadiniUI(currentStage);

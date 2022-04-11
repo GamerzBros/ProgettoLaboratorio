@@ -56,7 +56,7 @@ public class CentriVaccinali extends Application {
     /**
      * Lista contente i tipi di vaccini
      */
-    private ObservableList<String> vaccino_somministrato_items = FXCollections.observableArrayList("Pfizer","AstraZeneca","Moderna","J&J");
+    private ObservableList<String> vaccino_somministrato_items = FXCollections.observableArrayList("Seleziona Tipologia","Pfizer","AstraZeneca","Moderna","J&J");
     /**
      * Lista contenente i centri vaccinali presenti nel file
      */
@@ -64,11 +64,11 @@ public class CentriVaccinali extends Application {
     /**
      * Lista contente le tipologie di indirizzo
      */
-    private ObservableList<String> qualificatore_items = FXCollections.observableArrayList("Via","V.le","Piazza");
+    private ObservableList<String> qualificatore_items = FXCollections.observableArrayList("Seleziona Qualificatore","Via","V.le","Piazza");
     /**
      * Lista contenete le tipologie di centro vaccinali
      */
-    private ObservableList<String>tipologia_items = FXCollections.observableArrayList("Ospedaliero","Aziendale","Hub");
+    private ObservableList<String>tipologia_items = FXCollections.observableArrayList("Seleziona Tipologia","Ospedaliero","Aziendale","Hub");
     /**
      * Reference al portale cittadini
      */
@@ -216,7 +216,7 @@ public class CentriVaccinali extends Application {
     /**
      * Crea la UI per inserire un nuovo centro vaccinale. Viene richiamato quando l'operatore selezione il pulsante per inserire un nuovo centro.
      */
-    public void onNuovoCentroSelected(){
+    public void onNuovoCentroSelected(ActionEvent event){
         try {
             FXMLLoader loader = new FXMLLoader();
             //URL xmlUrl = getClass().getResource("nuovoCentroVaccinale.fxml");
@@ -227,7 +227,7 @@ public class CentriVaccinali extends Application {
 
             Scene scene = new Scene(root);
 
-            Stage stage = new Stage();
+            Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Nuovo centro vaccinale");
 
@@ -253,7 +253,7 @@ public class CentriVaccinali extends Application {
     /**
      * Crea la UI per inserire un nuovo centro vaccinale. Viene richiamato quando l'operatore selezione il pulsante per inserire un nuovo centro.
      */
-    public void onNewVaccinate(){
+    public void onNewVaccinate(ActionEvent event){
         try {
             FXMLLoader loader = new FXMLLoader();
             URL xmlUrl = getClass().getResource("nuovoPaziente.fxml");
@@ -261,11 +261,9 @@ public class CentriVaccinali extends Application {
 
             Parent root = loader.load();
 
-
-
             Scene scene = new Scene(root);
 
-            Stage stage = new Stage();
+            Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Nuovo Paziente");
 
@@ -442,6 +440,25 @@ public class CentriVaccinali extends Application {
             e.printStackTrace();
         }
 
+    }
+
+    public void goBackToOpzioniOperatore(MouseEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            URL xmlUrl = getClass().getResource("opzioniOperatore.fxml");
+            loader.setLocation(xmlUrl);
+
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+
+            Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+
+            currentStage.setScene(scene);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     /**
