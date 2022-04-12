@@ -4,7 +4,6 @@ import centrivaccinali.SingoloCentroVaccinale;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -21,10 +20,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.*;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -519,34 +514,8 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
 
             currentStage.setScene(scene);
-
         }
         catch(IOException e){
-            e.printStackTrace();
-        }
-
-    }
-
-    /**
-     * Carica la UI necessaria ad effettuare la registrazione di un utente.
-     * @param event L'evento che richiama il metodo. Necessario per chiudere la UI di login
-     */
-    public void loadRegisterCitizenUI(ActionEvent event){
-        try {
-            //Scene mainScene=((Button)event.getSource()).getScene();
-            Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
-
-            FXMLLoader loader = new FXMLLoader();
-            URL url = getClass().getResource("nuovoCittadino.fxml");
-            loader.setLocation(url);
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root);
-            currentStage.setScene(scene);
-
-            //scene.setUserData(mainScene);
-        }
-        catch (Exception e){
             e.printStackTrace();
         }
 
@@ -575,174 +544,22 @@ public class MainCittadini implements EventHandler<ActionEvent> {
 
     /**
      * Carica la UI che permette ad un utente di effettuare il login, o in alternativa, di caricare la UI necessaria alla registrazione
-     * @param currentStage La scena da cui inserire e prendere il nome centro vaccinale e il codice fiscale del cittadino loggato
+     * @param stage La scena da cui inserire e prendere il nome centro vaccinale e il codice fiscale del cittadino loggato
      */
-    public void loadLoginUI(Stage currentStage){
+    public void loadLoginUI(Stage stage){
         try {
             FXMLLoader loader = new FXMLLoader();
-            URL url = getClass().getResource("loginCittadino.fxml");
+            URL url = getClass().getResource("/fxml/LoginUtente.fxml");
             loader.setLocation(url);
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
-            currentStage.setScene(scene);
+            stage.setScene(scene);
 
             //scene.setUserData(currentStage);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
-
-    /**
-     * Effettua il login dell'utente.
-     * @param event L'evento che richiama il metodo. Necessario per ottenere la scena da cui prendere i dati inseriti dall'utente
-     */
-    public void loggaCittadini(ActionEvent event) {
-        Scene currentScene=((Button)event.getSource()).getScene();
-        String user = ((TextField)currentScene.lookup("#txt_userLogin")).getText();
-        String pwd = ((TextField)currentScene.lookup("#pswd_login")).getText();
-        String user_temp;
-        String pwd_temp;
-        String[] parts;
-        System.out.println("Login in corso");
-
-        try {
-            if (!user.equals("") && !pwd.equals("")) {
-                FileReader fileReader=new FileReader(PATH_TO_CITTADINI_REGISTRATI_DATI);
-                BufferedReader reader=new BufferedReader(fileReader);
-                boolean isLogged=false;
-                String line;
-
-                while ((line=reader.readLine())!=null) {
-                    parts = line.split(";");
-                    user_temp = parts[2];
-                    pwd_temp = parts[3];
-
-                    if (user_temp.equals(user)) {
-
-                        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-                        pwd = toHexString(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8)));
-
-                        if(pwd_temp.equals(pwd)) {
-                            System.out.println("LOGGATO");
-                            isLogged = true;
-                            currentUser=parts[4]; //CF dell'utente
-
-                            Scene mainScene=(Scene)currentScene.getUserData();
-                            String[] userData=(String[])mainScene.getUserData();
-                            currentCenter=userData[0];
-                            userData[1]=currentUser;
-                            mainScene.setUserData(userData);
-
-                            Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
-                            currentStage.close();
-
-                            Alert alertSuccessfullLogin=new Alert(Alert.AlertType.INFORMATION);
-                            alertSuccessfullLogin.setTitle("Login effettuato");
-                            alertSuccessfullLogin.setContentText("Utente loggato");
-                            alertSuccessfullLogin.showAndWait();
-
-                            loadRegistraEventiAvversiUI();
-                        }
-                    }
-                }
-                if(!isLogged) {
-                    Alert noUserAlert = new Alert(Alert.AlertType.WARNING);
-                    noUserAlert.setTitle("Errore di login");
-                    noUserAlert.setContentText("Utente non trovato!");
-                    noUserAlert.show();
-                }
-            } else {
-                Alert alertNoData=new Alert(Alert.AlertType.WARNING);
-                alertNoData.setTitle("Inserisci dei dati");
-                alertNoData.setContentText("Non hai inserito i dati");
-                alertNoData.showAndWait();
-                System.out.println("Inserire dei dati");
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Registra un cittadino nel file di testo contente tutti i cittadini registrati.
-     * @param event L'evento che richiama il metodo. Necessario ad ottenere la scena attuale per prendere le informazioni inserite dall'utente.
-     */
-    public void registraCittadino(ActionEvent event){
-        Scene currentScene=((Button)event.getSource()).getScene();
-
-        String name = ((TextField)currentScene.lookup("#txt_userName")).getText();
-        String surname = ((TextField)currentScene.lookup("#txt_userSurname")).getText();
-        String user = ((TextField)currentScene.lookup("#txt_userMail")).getText();
-        String userCF=((TextField)currentScene.lookup("#txt_userCF")).getText();
-        String pwd = ((PasswordField)currentScene.lookup("#pswd_register")).getText();
-        String confrmationPwd=((PasswordField)currentScene.lookup("#pswd_confirm")).getText();
-        LocalDate vaccinationDate = ((DatePicker)currentScene.lookup("#datePicker_datavaccinazione")).getValue();
-        String dataVaccinazione = vaccinationDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
-
-        if(pwd.compareTo(confrmationPwd)==0) {
-
-            try {
-                MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-                byte[] hash = messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8));
-                pwd = toHexString(hash);
-
-                FileWriter writer = new FileWriter(PATH_TO_CITTADINI_REGISTRATI_DATI, false);
-                BufferedWriter out = new BufferedWriter(writer);
-                String scrivi = name+";"+surname+";"+user+";"+pwd+";"+userCF+";"+dataVaccinazione;
-                out.write(scrivi);
-                out.newLine();
-                out.close();
-
-                Scene mainScene=(Scene)currentScene.getUserData();
-                String[] userData=(String[])mainScene.getUserData();
-                currentCenter=userData[0];
-
-                currentUser=userCF;
-
-                userData[1]=currentUser;
-
-                mainScene.setUserData(userData);
-
-
-                ((Stage)currentScene.getWindow()).close();
-
-                Alert alertRegistrationSuccessfull=new Alert(Alert.AlertType.INFORMATION);
-                alertRegistrationSuccessfull.setTitle("Registrazione completata");
-                alertRegistrationSuccessfull.setContentText("Registrazione avvenuta con successo");
-                alertRegistrationSuccessfull.showAndWait();
-
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        else{
-            Alert wrongPswdAlert=new Alert(Alert.AlertType.ERROR);
-            wrongPswdAlert.setTitle("Errore di registrazione");
-            wrongPswdAlert.setContentText("Le password inserite non corrispondono");
-            wrongPswdAlert.show();
-        }
-    }
-
-    /**
-     * Converte un array di byte in una stringa. Viene utilizzato dopo aver effettuato l'hashing di una stringa, per ricomporre quest'ultima.
-     * @param array L'array contenente i byte di risultato dell'hashing.
-     * @return La stringa ottenuta come risultato dalla funzione di hash.
-     */
-    private String toHexString(byte[] array) {
-        StringBuilder sb = new StringBuilder(array.length * 2);
-
-        for (byte b : array) {
-            int value = 0xFF & b;
-            String toAppend = Integer.toHexString(value);
-
-            sb.append(toAppend);
-        }
-        sb.setLength(sb.length() - 1);
-        return sb.toString();
     }
 
     /**

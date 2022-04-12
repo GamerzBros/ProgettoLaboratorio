@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.CentriVaccinali">
+<AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.PortaleOperatori">
    <children>
       <ImageView fitHeight="300" fitWidth="500" preserveRatio="false">
          <Image url="@/centrivaccinali/medici.png" />
@@ -42,7 +42,7 @@
       <!--<ImageView fitHeight="22.0" fitWidth="25.0" layoutX="2.0" layoutY="4.5" onMouseClicked="#goBackFromOpzioniOperatore" pickOnBounds="true" preserveRatio="false" style="-fx-background-color: black">
          <Image url="@/centrivaccinali/goBackIcon.png" />
       </ImageView>-->
-      <Button layoutX="2.0" layoutY="4.5" onMouseClicked="#goBackFromOpzioniOperatore" style="-fx-background-color: transparent;">
+      <Button layoutX="2.0" layoutY="4.5" onMouseClicked="#goBackToSelectionUI" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="22.0" fitWidth="25.0" preserveRatio="false">
                <Image url="@/centrivaccinali/goBackIcon.png" />

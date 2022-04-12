@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="550.0" prefWidth="920.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.MainCittadini">
+<AnchorPane prefHeight="550.0" prefWidth="920.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Rectangle fill="white" height="45.0" layoutX="0.0" layoutY="0.0" style="-fx-border-style: hidden hidden solid hidden" width="920.0" />
         <ScrollPane fx:id="scrollPane_CentriVaccinali" hbarPolicy="NEVER" layoutX="25.0" layoutY="83.0" prefHeight="443.0" prefWidth="870.0" style="-fx-background-radius: 0; -fx-background-color: transparent; -fx-border-color: #1a73e8;" /> <!-- style="-fx-background: #1a73e8;-->

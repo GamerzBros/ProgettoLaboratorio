@@ -82,7 +82,7 @@ public class SelectionUI extends Application {
     public void onCentriVaccinaliSelected(ActionEvent event){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader();
-            URL url = getClass().getResource("/fxml/opzioniOperatore.fxml");
+            URL url = getClass().getResource("/fxml/PortaleOperatori.fxml");
             fxmlLoader.setLocation(url);
             Parent root = fxmlLoader.load();
 
