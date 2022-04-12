@@ -28,7 +28,7 @@ import java.util.StringTokenizer;
 /**
  * Contiene tutte le UI e i metodi del portale CentriVaccinali. Contiene inoltre la UI che permette di seleziona il portale con cui interagire.
  */
-public class CentriVaccinali extends Application {
+public class CentriVaccinali {
     /**
      * Percorso per il file contente le informazioni dei centri vaccinali registrati
      */
@@ -56,7 +56,7 @@ public class CentriVaccinali extends Application {
     /**
      * Lista contente i tipi di vaccini
      */
-    private ObservableList<String> vaccino_somministrato_items = FXCollections.observableArrayList("Seleziona Tipologia","Pfizer","AstraZeneca","Moderna","J&J");
+    private ObservableList<String> vaccino_somministrato_items = FXCollections.observableArrayList("Pfizer","AstraZeneca","Moderna","J&J");
     /**
      * Lista contenente i centri vaccinali presenti nel file
      */
@@ -64,11 +64,11 @@ public class CentriVaccinali extends Application {
     /**
      * Lista contente le tipologie di indirizzo
      */
-    private ObservableList<String> qualificatore_items = FXCollections.observableArrayList("Seleziona Qualificatore","Via","V.le","Piazza");
+    private ObservableList<String> qualificatore_items = FXCollections.observableArrayList("Via","V.le","Piazza");
     /**
      * Lista contenete le tipologie di centro vaccinali
      */
-    private ObservableList<String>tipologia_items = FXCollections.observableArrayList("Seleziona Tipologia","Ospedaliero","Aziendale","Hub");
+    private ObservableList<String>tipologia_items = FXCollections.observableArrayList("Ospedaliero","Aziendale","Hub");
     /**
      * Reference al portale cittadini
      */
@@ -78,34 +78,7 @@ public class CentriVaccinali extends Application {
      */
     private Stage currentStage;
 
-    /**
-     * Crea la UI principale che permette di scegliere il portale. Metodo che viene eseguito subito dopo la creazione della classe.
-     * @param stage Lo stage che conterrà la scena. Uno stage è una finestra, mentre una scena è tutto ciò contenuto in uno stage.
-     * @throws Exception L'eccezione provocata dallo start del programma
-     */
-    @Override
-    public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader();
-        URL xmlUrl = getClass().getResource("/centrivaccinali/SelectionUI.fxml");
 
-        loader.setLocation(xmlUrl);
-
-        Parent root = loader.load();
-
-        Scene scene=new Scene(root);
-
-        stage.setScene(scene);
-        stage.setTitle("Seleziona il Portale");
-
-        currentStage=stage;
-
-
-        InputStream icon = getClass().getResourceAsStream("fiorellino.png");
-        Image image = new Image(icon);
-
-        stage.getIcons().add(image);
-        stage.show();
-    }
 
     /**
      * Registra un centro vaccinale prendendo i dati dalla UI.
@@ -158,61 +131,6 @@ public class CentriVaccinali extends Application {
         }
     }
 
-
-    /**
-     * Termina ogni processo aperto dal programma. Viene eseguito automaticamente qualora ogni finestra del programma venga chiusa.
-     * @throws Exception L'eccezione provocata dallo stop del programma.
-     */
-    @Override
-    public void stop() throws Exception {
-        super.stop();
-    }
-
-    /**
-     * Crea la UI del portale Cittadini. Viene richiamato una volta che viene selezionato il portale Cittadini dalla UI principale.
-     * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage da chiudere.
-     */
-    public void onCittadiniSelected(ActionEvent event){
-        portaleCittadini =new Cittadini();
-        try {
-            Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
-
-            portaleCittadini.loadMainCittadiniUI(stage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Crea la UI del portale Centri Vaccinali. Viene richiamato una volta che viene selezionato il portale Centri Vaccinale dalla UI principale.
-     */
-    public void onCentriVaccinaliSelected(ActionEvent event){
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            URL xmlUrl = getClass().getResource("opzioniOperatore.fxml");
-            loader.setLocation(xmlUrl);
-
-            Parent root = loader.load();
-
-            Scene scene=new Scene(root);
-
-            Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
-
-            currentStage.setScene(scene);
-            currentStage.setTitle("Portale Operatori");
-
-            /*InputStream icon = getClass().getResourceAsStream("fiorellino.png");
-            Image image = new Image(icon);
-
-            currentStage.getIcons().add(image);
-
-            currentStage.show();*/
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
     /**
      * Crea la UI per inserire un nuovo centro vaccinale. Viene richiamato quando l'operatore selezione il pulsante per inserire un nuovo centro.
      */
@@ -233,7 +151,9 @@ public class CentriVaccinali extends Application {
 
             ChoiceBox<String> choiceBox_qualificatore=((ChoiceBox<String>)scene.lookup("#cbx_qualificatore"));
             choiceBox_qualificatore.setItems(qualificatore_items);
+            choiceBox_qualificatore.setValue("Seleziona Qualificatore");
             ChoiceBox<String> choiceBox_tipologiaCentro=((ChoiceBox<String>)scene.lookup("#cbx_tipologia"));
+            choiceBox_tipologiaCentro.setValue("Seleziona Tipologia");
             choiceBox_tipologiaCentro.setItems(tipologia_items);
 
             InputStream icon = getClass().getResourceAsStream("fiorellino.png");
@@ -391,34 +311,6 @@ public class CentriVaccinali extends Application {
     public void annulla_button(ActionEvent event){
         Stage currentStage = (Stage)(((Button)event.getSource()).getScene()).getWindow();
         currentStage.close();
-    }
-
-    public void onChoiceButtonHover(MouseEvent event){
-        Button btn=(Button)event.getSource();
-        ImageView imgView = (ImageView) btn.getScene().lookup("#imgBg");
-
-        if(btn.getText().equals("Portale Cittadini")) {
-            imgView.setImage(new Image(getClass().getResourceAsStream("/centrivaccinali/crowd.png")));
-            btn.getScene().lookup("#lbl_main").setVisible(false);
-            btn.getScene().lookup("#lbl_citizen").setVisible(true);
-        }
-        else if(btn.getText().equals("Portale Operatori")){
-            imgView.setImage(new Image(getClass().getResourceAsStream("/centrivaccinali/medici.png")));
-            btn.getScene().lookup("#lbl_main").setVisible(false);
-            btn.getScene().lookup("#lbl_operator").setVisible(true);
-        }
-
-
-    }
-
-    public void onChoiceButtonExit(MouseEvent event){
-        ImageView imgView=(ImageView)((Button)event.getSource()).getScene().lookup("#imgBg");
-        imgView.setImage(new Image(getClass().getResourceAsStream("/centrivaccinali/varese.png")));
-
-        Button btnSource=(Button)event.getSource();
-        btnSource.getScene().lookup("#lbl_main").setVisible(true);
-        btnSource.getScene().lookup("#lbl_citizen").setVisible(false);
-        btnSource.getScene().lookup("#lbl_operator").setVisible(false);
     }
 
     public void goBackFromOpzioniOperatore(MouseEvent event){
