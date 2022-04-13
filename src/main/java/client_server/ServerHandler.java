@@ -15,6 +15,9 @@ public class ServerHandler extends Thread{
       start();
     }
 
+    public boolean login(){ //ricevo user e psw, connetto db e checko, il client sarà in ascolto e ritorno true o false
+        return true;
+    }
     @Override
     public void run() {
         super.run();
@@ -28,14 +31,13 @@ public class ServerHandler extends Thread{
                 op_converted = Integer.parseInt(op);
                 switch (op_converted){
                     case 1:
-                        System.out.println("siamo nel case 1");
+                        login();
                         break;
                 }
 
                 System.out.println("Ricevuto:" +op);
             }
         }catch (IOException e){}
-
-
     }
+
 }
