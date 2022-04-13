@@ -11,10 +11,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
+import client_server.*;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.net.URL;
+import java.net.UnknownHostException;
 
 public class SelectionUI extends Application {
     /**
@@ -22,6 +27,9 @@ public class SelectionUI extends Application {
      * @param stage Lo stage che conterrà la scena. Uno stage è una finestra, mentre una scena è tutto ciò contenuto in uno stage.
      * @throws Exception L'eccezione provocata dallo start del programma
      */
+    Socket s;
+    PrintWriter out;
+    BufferedReader in;
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
@@ -45,6 +53,12 @@ public class SelectionUI extends Application {
 
         stage.getIcons().add(image);
         stage.show();
+    }
+
+    @Override
+    public void init() throws Exception { //metodo che viene in automatico startato dopo la creazione della ui
+        super.init();
+        becomeClient();
     }
 
     /**
@@ -179,6 +193,16 @@ public class SelectionUI extends Application {
     @Override
     public void stop() throws Exception {
         super.stop();
+    }
+    public void becomeClient(){ //TODO rinominare sto metodo, bruh non so come chiamarlo
+        try {
+            System.out.println("[CLIENT] - Tentativo di connessione ");
+            s = new Socket(InetAddress.getLocalHost(),9870);
+            System.out.println("[CLIENT] - Sono connesso ");
+            System.out.println(Server.client_sockets.size());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
