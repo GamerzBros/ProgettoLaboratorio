@@ -5,11 +5,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class Server {
-    final int PORT = 9870;
+    final int PORT = 9870; //TODO implementazione db
     ServerSocket server_socket;
     Socket s;
-    public static ArrayList<Socket> client_sockets = new ArrayList<>(); //todo i client lo vedono vuoto, capire perchè
-
     Server() throws IOException {
         server_socket = new ServerSocket(PORT);
         System.out.println("Server inizializzato");
@@ -20,10 +18,9 @@ public class Server {
         try {
             while (true) {
                 s = server_socket.accept();
-                client_sockets.add(s);
                 System.out.println("Un client si è connesso");
-                System.out.println(client_sockets.size());
                 //TODO SERVER HANDLER THREAD
+                new ServerHandler(s);
             }
         } catch (IOException e) {
             e.printStackTrace();

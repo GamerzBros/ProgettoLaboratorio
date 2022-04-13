@@ -1,5 +1,6 @@
 package cittadini;
 
+import centrivaccinali.SelectionUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,9 +9,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -20,6 +22,10 @@ public class LoginUtente {
      * Percorso per il file contenente i dati dei cittadini registrati
      */
     public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
+    public static final int LOGIN_OPERATION_CODE=1;
+
+    PrintWriter in;
+    BufferedReader out;
     /**
      * Codice fiscale dell'utente attualmente loggato
      */
@@ -33,7 +39,7 @@ public class LoginUtente {
      * Effettua il login dell'utente.
      * @param event L'evento che richiama il metodo. Necessario per ottenere la scena da cui prendere i dati inseriti dall'utente
      */
-    public void loggaCittadini(ActionEvent event) {
+    public void loggaCittadini(ActionEvent event) { //TODO implementazione server
         Scene currentScene=((Button)event.getSource()).getScene();
         String user = ((TextField)currentScene.lookup("#txt_userLogin")).getText();
         String pwd = ((TextField)currentScene.lookup("#pswd_login")).getText();
@@ -41,6 +47,9 @@ public class LoginUtente {
         String pwd_temp;
         String[] parts;
         System.out.println("Login in corso");
+
+        becomeClient();
+
 
         try {
             if (!user.equals("") && !pwd.equals("")) {
@@ -141,6 +150,17 @@ public class LoginUtente {
             e.printStackTrace();
         }
 
+    }
+    public void becomeClient(){ //TODO rinominare sto metodo, bruh non so come chiamarlo
+        try {
+            System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
+            Socket s = SelectionUI.socket_container;
+            in = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
+            out = new BufferedReader(new InputStreamReader(s.getInputStream()));
+            in.println(LOGIN_OPERATION_CODE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void goBackToMain(ActionEvent event){

@@ -11,10 +11,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
+
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
@@ -29,6 +27,7 @@ public class SelectionUI extends Application {
     Socket s;
     PrintWriter out;
     BufferedReader in;
+    public static Socket socket_container;
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
@@ -199,6 +198,7 @@ public class SelectionUI extends Application {
             System.out.println("[CLIENT] - Tentativo di connessione ");
             s = new Socket(InetAddress.getLocalHost(),9870);
             System.out.println("[CLIENT] - Sono connesso ");
+            socket_container=s;
         } catch (IOException e) {
             e.printStackTrace();
         }
