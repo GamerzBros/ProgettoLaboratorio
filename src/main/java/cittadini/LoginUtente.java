@@ -157,6 +157,7 @@ public class LoginUtente {
             Socket s = SelectionUI.socket_container;
             in = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
             out = new BufferedReader(new InputStreamReader(s.getInputStream()));
+            in.println("parameters");
             in.println(LOGIN_OPERATION_CODE);
         } catch (IOException e) {
             e.printStackTrace();
