@@ -11,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import client_server.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -199,7 +198,6 @@ public class SelectionUI extends Application {
             System.out.println("[CLIENT] - Tentativo di connessione ");
             s = new Socket(InetAddress.getLocalHost(),9870);
             System.out.println("[CLIENT] - Sono connesso ");
-            System.out.println(Server.client_sockets.size());
         } catch (IOException e) {
             e.printStackTrace();
         }
