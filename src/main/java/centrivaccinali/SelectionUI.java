@@ -41,6 +41,7 @@ public class SelectionUI extends Application {
 
         Scene scene=new Scene(root);
 
+        stage.setUserData(new String[]{null,null});
         stage.setScene(scene);
         stage.setTitle("Seleziona il Portale");
 

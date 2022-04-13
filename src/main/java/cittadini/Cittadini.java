@@ -32,6 +32,7 @@ import java.util.*;
   Tommaso Morosi 741227 Varese*/
 
 //TODO sistemare la JavaDoc
+//TODO eliminare questa classe
 
 /**
  * Contiene tutte le UI e i metodi del portale Cittadini
@@ -61,18 +62,6 @@ public class Cittadini {
      * Tipo di linea del file contente le informazioni relative agli eventi avversi
      */
     public static final String LINE_TYPE_EVENT ="E";
-
-
-
-    /**
-     * Chiude la finestra (stage) attuale. Il metodo viene usato per tutte le UI, relative al package, che contengono il tasto "annulla".
-     * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage da chiudere.
-     */
-    public void onAnnullaButtonClicked(ActionEvent event){
-        Scene currentScene=((Button) event.getSource()).getScene();
-        Stage currentStage=(Stage)currentScene.getWindow();
-        currentStage.close();
-    }
 
     /**
      * Torna alla finestra MainCittadini.fxml.

@@ -73,6 +73,10 @@ public class MainCittadini implements EventHandler<ActionEvent> {
     private Stage currentStage;
 
     public MainCittadini(Stage stage){
+        loadMainCittadiniUI(stage);
+    }
+
+    public void loadMainCittadiniUI(Stage stage){
         try {
             FXMLLoader loader = new FXMLLoader();
             URL xmlUrl = getClass().getResource("/fxml/MainCittadini.fxml");
@@ -89,8 +93,22 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             stage.setY(50);
             stage.setX(175);
 
-            String[] userData = new String[2];
-            scene.setUserData(userData);
+            String[] userData= (String[]) stage.getUserData();
+            currentUser=userData[0];
+            currentCenter=userData[1];
+
+            if(currentUser!=null){
+                Button btn_logout=new Button();
+                btn_logout.setPrefWidth(100);
+                btn_logout.setPrefHeight(30);
+                btn_logout.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        currentUser=null;
+                        loadMainCittadiniUI(currentStage);
+                    }
+                });
+            }
 
             scrollPane_CentriVaccinali = (ScrollPane) scene.lookup("#scrollPane_CentriVaccinali");
             scrollPane_CentriVaccinali.lookup(".viewport").setStyle("-fx-background-color: #1a73e8;");
@@ -525,16 +543,14 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      * Controlla che l'utente sia loggato quando prova ad inserire nuovi eventi avversi.
      * @param event L'evento che richiama il metodo. Necessario per ottenere la scena attuale da cui prendere il nome del centro vaccinale selezionato e, se presente, l'utente attuale.
      */
+    //TODO sistemare sta roba
     public void checkLogin(ActionEvent event){
         Scene mainScene=((Button)event.getSource()).getScene();
         Stage currentStage=(Stage)mainScene.getWindow();
-        String[] userData=(String[]) mainScene.getUserData();
-        currentCenter=userData[0];
 
-        if(userData[1]!=null){
-            currentUser=userData[1];
+        if(currentUser!=null){
             //TODO rivedere dove porta il login e il register
-            loadRegistraEventiAvversiUI();
+            loadRegistraEventiAvversiUI(currentStage);
         }
         else{
             //TODO aggiungere un popup per dire all'utente di loggarsi prima
@@ -542,9 +558,14 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         }
     }
 
+    public void onLoginClick(ActionEvent event){
+        Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
+        loadLoginUI(currentStage);
+    }
+
     /**
      * Carica la UI che permette ad un utente di effettuare il login, o in alternativa, di caricare la UI necessaria alla registrazione
-     * @param stage La scena da cui inserire e prendere il nome centro vaccinale e il codice fiscale del cittadino loggato
+     * @param stage Lo stage da cui inserire e prendere il nome centro vaccinale e il codice fiscale del cittadino loggato
      */
     public void loadLoginUI(Stage stage){
         try {
@@ -565,16 +586,15 @@ public class MainCittadini implements EventHandler<ActionEvent> {
     /**
      * Crea la UI che permette ad un utente di inserire eventi avversi.
      */
-    public void loadRegistraEventiAvversiUI(){
+    public void loadRegistraEventiAvversiUI(Stage stage){
         try {
 
             FXMLLoader loader=new FXMLLoader();
-            URL url=getClass().getResource("registraEventiAvversi.fxml");
+            URL url=getClass().getResource("/fxml/registraEventiAvversi.fxml");
             loader.setLocation(url);
             Parent root=loader.load();
 
             Scene scene=new Scene(root);
-            Stage stage=new Stage();
             stage.setScene(scene);
 
             /*String[] userData=new String[2];
@@ -592,87 +612,28 @@ public class MainCittadini implements EventHandler<ActionEvent> {
     }
 
     /**
-     * Registra sul file di testo relativo al centro vaccinale selezionato, gli eventi avversi inseriti dall'utente.
-     * @param actionEvent L'evento che richiama il metodo. Necessario ad ottenere la scena attuale da cui prendere i dati inseriti dall'utente.
+     * Carica la UI necessaria ad effettuare la registrazione di un utente.
+     * @param event L'evento che richiama il metodo. Necessario per chiudere la UI di login
      */
-    public void registerEventiAvversi(ActionEvent actionEvent){
+    public void loadRegisterCitizenUI(ActionEvent event){
         try {
-            Scene currentScene = ((Button) actionEvent.getSource()).getScene();
+            //Scene mainScene=((Button)event.getSource()).getScene();
+            Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
 
-            String[] userData = (String[]) currentScene.getUserData();
-            currentCenter = userData[0];
-            currentUser = userData[1];
+            FXMLLoader loader = new FXMLLoader();
+            URL url = getClass().getResource("/fxml/RegistraUtente.fxml");
+            loader.setLocation(url);
+            Parent root = loader.load();
 
-            System.out.println(currentCenter);
+            Scene scene = new Scene(root);
+            currentStage.setScene(scene);
 
-            Spinner<Integer> spn_headache = (Spinner<Integer>) currentScene.lookup("#spn_headache");
-            Spinner<Integer> spn_fever = (Spinner<Integer>) currentScene.lookup("#spn_fever");
-            Spinner<Integer> spn_hurt = (Spinner<Integer>) currentScene.lookup("#spn_hurt");
-            Spinner<Integer> spn_linf = (Spinner<Integer>) currentScene.lookup("#spn_linf");
-            Spinner<Integer> spn_tac = (Spinner<Integer>) currentScene.lookup("#spn_tac");
-            Spinner<Integer> spn_crs = (Spinner<Integer>) currentScene.lookup("#spn_crs");
-            TextField txt_other1 = (TextField) currentScene.lookup("#txt_other");
-            Spinner<Integer> spn_other1 = (Spinner<Integer>) currentScene.lookup("#spn_other");
-
-
-            int evento1 = spn_headache.getValue();//evento1 = Mal di testa
-            int evento2 = spn_fever.getValue(); //evento2 = Febbre
-            int evento3 = spn_hurt.getValue(); //evento3 = Dolori muscolari o articolari
-            int evento4 = spn_linf.getValue(); //evento4 = Linfoadenopatia
-            int evento5 = spn_tac.getValue(); //evento5 = Tachicardia
-            int evento6 = spn_crs.getValue();//evento6 = Crisi ipertensiva
-            String otherEvent = txt_other1.getText();
-            int otherEventValue = spn_other1.getValue();
-
-            FileReader reader = new FileReader(PRE_PATH_TO_EVENTI_AVVERSI + currentCenter + AFTER_PATH_TO_EVENTI_AVVERSI);
-            BufferedReader in = new BufferedReader(reader);
-            boolean authorized = false;
-            boolean alreadyIn = false;
-            String line;
-
-            while ((line = in.readLine()) != null) {
-                String[] data = line.split(";");
-                if (data[0].equals(LINE_TYPE_PERSON) && data[3].equalsIgnoreCase(currentUser)) {
-                    authorized = true;
-                } else if (data[0].equals(LINE_TYPE_EVENT) && data[2].equalsIgnoreCase(currentUser)) {
-                    alreadyIn = true;
-                }
-            }
-
-            if (alreadyIn) {
-                Alert alertAlreadyIn = new Alert(Alert.AlertType.ERROR);
-                alertAlreadyIn.setTitle("Eventi già inseriti");
-                alertAlreadyIn.setContentText("L'utente ha già inserito una volta degli eventi avversi presso il centro attuale");
-                alertAlreadyIn.showAndWait();
-            }
-            else if (authorized) {
-
-                FileWriter writer = new FileWriter(PRE_PATH_TO_EVENTI_AVVERSI + currentCenter + AFTER_PATH_TO_EVENTI_AVVERSI, true);
-                BufferedWriter out = new BufferedWriter(writer);
-                //String fileInput = "Mal di Testa:" + evento1 + ";" + "Febbre:" + evento2 + ";" + "Dolori muscolari o articolari:" + evento3 + ";" + "Linfoadenopatia:" + evento4 + ";" + "Tachicardia:" + evento5 + ";" + "Crisi ipertensiva:" + evento6 + ";";
-
-                String fileInput = LINE_TYPE_EVENT + ";" + currentCenter + ";" + currentUser + ";" + evento1 + ";" + evento2 + ";" + evento3 + ";" + evento4 + ";" + evento5 + ";" + evento6;
-                if (otherEvent.compareTo("") != 0) {
-                    fileInput += ";" + otherEvent + ";" + otherEventValue;
-                }
-
-                out.write(fileInput);
-                out.newLine();
-                out.flush();
-                out.close();
-            } else {
-                Alert alertNoPermission = new Alert(Alert.AlertType.ERROR);
-                alertNoPermission.setTitle("Utente non autorizzato");
-                alertNoPermission.setContentText("Non sei stato vaccinato presso il centro selezionato!");
-                alertNoPermission.showAndWait();
-            }
-
-            Stage stage = (Stage) currentScene.getWindow();
-            stage.close();
+            //scene.setUserData(mainScene);
         }
-        catch (IOException e){
+        catch (Exception e){
             e.printStackTrace();
         }
+
     }
 
 }

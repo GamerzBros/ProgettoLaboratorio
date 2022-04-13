@@ -144,22 +144,9 @@ public class LoginUtente {
     }
 
     public void goBackToMain(ActionEvent event){
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            URL xmlUrl = getClass().getResource("/fxml/SelectionUI.fxml");
-            loader.setLocation(xmlUrl);
+        Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
 
-            Parent root = loader.load();
-
-            Scene scene=new Scene(root);
-
-            Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
-
-            currentStage.setScene(scene);
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
+        new MainCittadini(currentStage);
     }
 
 }

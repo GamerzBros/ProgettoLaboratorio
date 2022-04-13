@@ -25,6 +25,8 @@ import java.util.StringTokenizer;
   Eros Marsichina 745299 Varese
   Tommaso Morosi 741227 Varese*/
 
+//TODO eliminare questa classe
+
 /**
  * Contiene tutte le UI e i metodi del portale CentriVaccinali. Contiene inoltre la UI che permette di seleziona il portale con cui interagire.
  */

@@ -38,7 +38,7 @@
          <font>
             <Font size="13.0" />
          </font></RadioButton>
-        <Button layoutX="744.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLogin" prefHeight="25.0" prefWidth="80.0" style="-fx-border-style: hidden;-fx-alignment:  center; -fx-background-color: #1a73e8; -fx-background-radius: 8; -fx-text-fill: white;" text="Accedi">
+        <Button layoutX="744.0" layoutY="10.0" mnemonicParsing="false" onAction="#onLoginClick" prefHeight="25.0" prefWidth="80.0" style="-fx-border-style: hidden;-fx-alignment:  center; -fx-background-color: #1a73e8; -fx-background-radius: 8; -fx-text-fill: white;" text="Accedi">
          <font>
             <Font name="Roboto Light" size="12.0" />
          </font></Button>
