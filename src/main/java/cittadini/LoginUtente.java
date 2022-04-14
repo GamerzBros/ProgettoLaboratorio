@@ -16,6 +16,7 @@ import java.net.Socket;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class LoginUtente {
     /**
@@ -40,71 +41,50 @@ public class LoginUtente {
      * @param event L'evento che richiama il metodo. Necessario per ottenere la scena da cui prendere i dati inseriti dall'utente
      */
     public void loggaCittadini(ActionEvent event) { //TODO implementazione server
-        Scene currentScene=((Button)event.getSource()).getScene();
-        String user = ((TextField)currentScene.lookup("#txt_userLogin")).getText();
-        String pwd = ((TextField)currentScene.lookup("#pswd_login")).getText();
-        String user_temp;
-        String pwd_temp;
+        Scene currentScene = ((Button) event.getSource()).getScene();
+        String user = ((TextField) currentScene.lookup("#txt_userLogin")).getText();
+        String pwd = ((TextField) currentScene.lookup("#pswd_login")).getText();
         String[] parts;
         System.out.println("Login in corso");
-
-        becomeClient();
-
-
+        String parameters;
         try {
             if (!user.equals("") && !pwd.equals("")) {
-                FileReader fileReader=new FileReader(PATH_TO_CITTADINI_REGISTRATI_DATI);
-                BufferedReader reader=new BufferedReader(fileReader);
-                boolean isLogged=false;
-                String line;
+                MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+                pwd = toHexString(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8)));
+                parameters = user + ";" + pwd; //parametri per il db
+                System.out.println(pwd);
+                becomeClient(parameters); //connessione
+                String result = out.readLine(); //valore di ritorno true o false per la query della login
+                System.out.println("RISULTATO QUERY = " + result);//codice parlante xdxd
+                if (result.equals("true")) { //se true vuoldire che ha matchato con il db
+                    System.out.println("LOGGATO");
+                    //  currentUser=parts[4]; //CF dell'utente
+                    Scene mainScene = (Scene) currentScene.getUserData();
+                    String[] userData = (String[]) mainScene.getUserData();
+                    currentCenter = userData[0];
+                    userData[1] = currentUser;
+                    mainScene.setUserData(userData);
+                    Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                    currentStage.close();
 
-                while ((line=reader.readLine())!=null) {
-                    parts = line.split(";");
-                    user_temp = parts[2];
-                    pwd_temp = parts[3];
-
-                    if (user_temp.equals(user)) {
-
-                        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-                        pwd = toHexString(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8)));
-
-                        if(pwd_temp.equals(pwd)) {
-                            System.out.println("LOGGATO");
-                            isLogged = true;
-                            currentUser=parts[4]; //CF dell'utente
-
-                            Scene mainScene=(Scene)currentScene.getUserData();
-                            String[] userData=(String[])mainScene.getUserData();
-                            currentCenter=userData[0];
-                            userData[1]=currentUser;
-                            mainScene.setUserData(userData);
-
-                            Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
-                            currentStage.close();
-
-                            Alert alertSuccessfullLogin=new Alert(Alert.AlertType.INFORMATION);
-                            alertSuccessfullLogin.setTitle("Login effettuato");
-                            alertSuccessfullLogin.setContentText("Utente loggato");
-                            alertSuccessfullLogin.showAndWait();
-
-                            //loadRegistraEventiAvversiUI();
-                        }
-                    }
-                }
-                if(!isLogged) {
+                    Alert alertSuccessfullLogin = new Alert(Alert.AlertType.INFORMATION);
+                    alertSuccessfullLogin.setTitle("Login effettuato");
+                    alertSuccessfullLogin.setContentText("Utente loggato");
+                    alertSuccessfullLogin.showAndWait();
+                } else if (result.equals("false")) {
                     Alert noUserAlert = new Alert(Alert.AlertType.WARNING);
                     noUserAlert.setTitle("Errore di login");
                     noUserAlert.setContentText("Utente non trovato!");
                     noUserAlert.show();
                 }
             } else {
-                Alert alertNoData=new Alert(Alert.AlertType.WARNING);
+                Alert alertNoData = new Alert(Alert.AlertType.WARNING);
                 alertNoData.setTitle("Inserisci dei dati");
                 alertNoData.setContentText("Non hai inserito i dati");
                 alertNoData.showAndWait();
                 System.out.println("Inserire dei dati");
             }
-        } catch (Exception e) {
+        } catch (IOException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
     }
@@ -151,13 +131,13 @@ public class LoginUtente {
         }
 
     }
-    public void becomeClient(){ //TODO rinominare sto metodo, bruh non so come chiamarlo
+    public void becomeClient(String parameters){ //TODO rinominare sto metodo, bruh non so come chiamarlo
         try {
             System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
             Socket s = SelectionUI.socket_container;
             in = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
             out = new BufferedReader(new InputStreamReader(s.getInputStream()));
-            in.println("parameters");
+            in.println(parameters);
             in.println(LOGIN_OPERATION_CODE);
         } catch (IOException e) {
             e.printStackTrace();
