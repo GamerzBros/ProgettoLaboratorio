@@ -16,6 +16,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class RegistrazioneUtente {
     /**
@@ -60,9 +61,7 @@ public class RegistrazioneUtente {
 
                 String parameters =name+";"+surname+";"+user+";"+userCF+";"+pwd+";"+dataNascita;
                 becomeClient(parameters);
-                System.out.println("Attendo risposta dal server per login");
                 String result = out.readLine();//risultato query login true o false dal server
-                System.out.println("Risposta ricevuta per login");
                 if(result.equals("true")){
                     /*Scene mainScene=(Scene)currentScene.getUserData();
                     String[] userData=(String[])mainScene.getUserData();

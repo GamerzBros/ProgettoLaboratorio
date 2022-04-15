@@ -3,6 +3,10 @@ package client_server;
 import java.io.*;
 import java.net.Socket;
 import java.sql.*;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 
 public class ServerHandler extends Thread{
     Socket s;
@@ -49,7 +53,7 @@ public class ServerHandler extends Thread{
         }
     }
 
-    public void register(String parameters){
+    public void register(String parameters) throws ParseException {
         String[] parameters_splitted = parameters.split(";");
         String name = parameters_splitted[0];
         String surname = parameters_splitted[1];
@@ -57,19 +61,19 @@ public class ServerHandler extends Thread{
         String userCF = parameters_splitted[3];
         String pwd = parameters_splitted[4];
         String dateBirth = parameters_splitted[5];
+        Date date1 = java.sql.Date.valueOf(dateBirth);
+
+
         try{
             Connection con = connectDB();
             PreparedStatement stm = con.prepareStatement("insert into public.utente(nome,cognome,cf,data_nascita,email,password) values (?,?,?,?,?,?)");
             stm.setString(1,name);
             stm.setString(2,surname);
             stm.setString(3,userCF);
-            stm.setString(4,dateBirth);
+            stm.setDate(4,date1);
             stm.setString(5,user);
             stm.setString(6,pwd);
-            System.out.println("Runno query register");
             int result = stm.executeUpdate();
-            System.out.println(result+"RISULTATO QUERY");
-            System.out.println("Fatta query");
             if(result>0){
                 System.out.println("[DB -THREAD] QUERY REGISTRAZIONE COMPLETATA");
                 out.println("true");
@@ -77,7 +81,9 @@ public class ServerHandler extends Thread{
                 System.out.println("[DB - THREAD] QUERY REGISTRAZIONE ERRORE");
                 out.println("false");
             }
-        }catch (SQLException e){}
+        }catch (SQLException  e){
+            e.printStackTrace();
+        }
     }
 
     public Connection connectDB() throws SQLException {
@@ -87,7 +93,6 @@ public class ServerHandler extends Thread{
         } else {
             System.err.println("[DB - THREAD] - Non sono connesso al db");
         }
-        //conn.close();
         return conn;
     }
 
@@ -104,17 +109,19 @@ public class ServerHandler extends Thread{
                 System.out.println(parameters);
                 op = in.readLine(); //questo è l'operation code
                 op_converted = Integer.parseInt(op);
-                switch (op_converted){
-                    case 1:
+                switch (op_converted) {
+                    case 1 -> {
                         System.out.println("[THREAD] Login chiamata");
                         login(parameters);
-                        break;
-                    case 2:
+                    }
+                    case 2 -> {
                         System.out.println("[THREAD] Register chiamata");
                         register(parameters);
-                        break;
+                    }
                 }
             }
-        }catch (IOException e){}
+        }catch (IOException e){} catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }
