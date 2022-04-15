@@ -25,8 +25,8 @@ public class LoginUtente {
     public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
     public static final int LOGIN_OPERATION_CODE=1;
 
-    PrintWriter in;
-    BufferedReader out;
+   private PrintWriter in;
+   private BufferedReader out;
     /**
      * Codice fiscale dell'utente attualmente loggato
      */
@@ -52,7 +52,6 @@ public class LoginUtente {
                 MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
                 pwd = toHexString(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8)));
                 parameters = user + ";" + pwd; //parametri per il db
-                System.out.println(pwd);
                 becomeClient(parameters); //connessione
                 String result = out.readLine(); //valore di ritorno true o false per la query della login
                 System.out.println("RISULTATO QUERY = " + result);//codice parlante xdxd

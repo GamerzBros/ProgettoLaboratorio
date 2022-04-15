@@ -1,5 +1,6 @@
 package cittadini;
 
+import centrivaccinali.SelectionUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,9 +9,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.awt.event.MouseEvent;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.net.Socket;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -22,6 +22,7 @@ public class RegistrazioneUtente {
      * Percorso per il file contenente i dati dei cittadini registrati
      */
     public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
+    public static final int REGISTER_OPERATION_CODE=2;
     /**
      * Codice fiscale dell'utente attualmente loggato
      */
@@ -31,6 +32,8 @@ public class RegistrazioneUtente {
      */
     private String currentCenter;
 
+    private BufferedReader out;
+    private PrintWriter in;
 
     /**
      * Registra un cittadino nel file di testo contente tutti i cittadini registrati.
@@ -45,8 +48,8 @@ public class RegistrazioneUtente {
         String userCF=((TextField)currentScene.lookup("#txt_userCF")).getText();
         String pwd = ((PasswordField)currentScene.lookup("#pswd_register")).getText();
         String confrmationPwd=((PasswordField)currentScene.lookup("#pswd_confirm")).getText();
-        LocalDate vaccinationDate = ((DatePicker)currentScene.lookup("#datePicker_datavaccinazione")).getValue();
-        String dataVaccinazione = vaccinationDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
+        LocalDate datanascita = ((DatePicker)currentScene.lookup("#datePicker_datavaccinazione")).getValue();
+        String dataNascita = datanascita.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         if(pwd.compareTo(confrmationPwd)==0) {
 
@@ -55,31 +58,35 @@ public class RegistrazioneUtente {
                 byte[] hash = messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8));
                 pwd = toHexString(hash);
 
-                FileWriter writer = new FileWriter(PATH_TO_CITTADINI_REGISTRATI_DATI, false);
-                BufferedWriter out = new BufferedWriter(writer);
-                String scrivi = name+";"+surname+";"+user+";"+pwd+";"+userCF+";"+dataVaccinazione;
-                out.write(scrivi);
-                out.newLine();
-                out.close();
+                String parameters =name+";"+surname+";"+user+";"+userCF+";"+pwd+";"+dataNascita;
+                becomeClient(parameters);
+                System.out.println("Attendo risposta dal server per login");
+                String result = out.readLine();//risultato query login true o false dal server
+                System.out.println("Risposta ricevuta per login");
+                if(result.equals("true")){
+                    /*Scene mainScene=(Scene)currentScene.getUserData();
+                    String[] userData=(String[])mainScene.getUserData();
+                    currentCenter=userData[0];
 
-                Scene mainScene=(Scene)currentScene.getUserData();
-                String[] userData=(String[])mainScene.getUserData();
-                currentCenter=userData[0];
+                    currentUser=userCF;
 
-                currentUser=userCF;
+                    userData[1]=currentUser;
 
-                userData[1]=currentUser;
-
-                mainScene.setUserData(userData);
+                    mainScene.setUserData(userData);
 
 
-                ((Stage)currentScene.getWindow()).close();
-
-                Alert alertRegistrationSuccessfull=new Alert(Alert.AlertType.INFORMATION);
-                alertRegistrationSuccessfull.setTitle("Registrazione completata");
-                alertRegistrationSuccessfull.setContentText("Registrazione avvenuta con successo");
-                alertRegistrationSuccessfull.showAndWait();
-
+                    ((Stage)currentScene.getWindow()).close();
+                    */
+                    Alert alertRegistrationSuccessfull=new Alert(Alert.AlertType.INFORMATION);
+                    alertRegistrationSuccessfull.setTitle("Registrazione completata");
+                    alertRegistrationSuccessfull.setContentText("Registrazione avvenuta con successo");
+                    alertRegistrationSuccessfull.showAndWait();
+                } else if (result.equals("false")) {
+                    Alert alertRegistrationError=new Alert(Alert.AlertType.ERROR);
+                    alertRegistrationError.setTitle("Errore registrazione");
+                    alertRegistrationError.setContentText("Non e' stato possibile soddisfare la sua richiesta");
+                    alertRegistrationError.showAndWait();
+                }
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -129,4 +136,18 @@ public class RegistrazioneUtente {
             e.printStackTrace();
         }
     }
+
+    public void becomeClient(String parameters){ //TODO rinominare sto metodo, bruh non so come chiamarlo
+        try {
+            System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
+            Socket s = SelectionUI.socket_container;
+            in = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
+            out = new BufferedReader(new InputStreamReader(s.getInputStream()));
+            in.println(parameters);
+            in.println(REGISTER_OPERATION_CODE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

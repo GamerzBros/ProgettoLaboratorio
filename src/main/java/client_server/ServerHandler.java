@@ -24,7 +24,6 @@ public class ServerHandler extends Thread{
         String mail_db = "";
         String pwd_db = "";
         String pwd = parameters_splitted[1];
-        System.out.println("PASSWORD RICEVUTA" + pwd);
 
         try {
             Connection con = connectDB();
@@ -48,6 +47,37 @@ public class ServerHandler extends Thread{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void register(String parameters){
+        String[] parameters_splitted = parameters.split(";");
+        String name = parameters_splitted[0];
+        String surname = parameters_splitted[1];
+        String user = parameters_splitted[2];
+        String userCF = parameters_splitted[3];
+        String pwd = parameters_splitted[4];
+        String dateBirth = parameters_splitted[5];
+        try{
+            Connection con = connectDB();
+            PreparedStatement stm = con.prepareStatement("insert into public.utente(nome,cognome,cf,data_nascita,email,password) values (?,?,?,?,?,?)");
+            stm.setString(1,name);
+            stm.setString(2,surname);
+            stm.setString(3,userCF);
+            stm.setString(4,dateBirth);
+            stm.setString(5,user);
+            stm.setString(6,pwd);
+            System.out.println("Runno query register");
+            int result = stm.executeUpdate();
+            System.out.println(result+"RISULTATO QUERY");
+            System.out.println("Fatta query");
+            if(result>0){
+                System.out.println("[DB -THREAD] QUERY REGISTRAZIONE COMPLETATA");
+                out.println("true");
+            }else {
+                System.out.println("[DB - THREAD] QUERY REGISTRAZIONE ERRORE");
+                out.println("false");
+            }
+        }catch (SQLException e){}
     }
 
     public Connection connectDB() throws SQLException {
@@ -79,9 +109,12 @@ public class ServerHandler extends Thread{
                         System.out.println("[THREAD] Login chiamata");
                         login(parameters);
                         break;
+                    case 2:
+                        System.out.println("[THREAD] Register chiamata");
+                        register(parameters);
+                        break;
                 }
             }
         }catch (IOException e){}
     }
-
 }
