@@ -1,0 +1,4 @@
+.datePicker > .text-field{
+ -fx-control-inner-background: transparent;
+ -fx-text-fill: red;
+}

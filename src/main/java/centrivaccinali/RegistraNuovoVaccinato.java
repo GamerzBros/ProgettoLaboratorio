@@ -183,7 +183,7 @@ public class RegistraNuovoVaccinato {
     public void goBackToOpzioniOperatore(MouseEvent event){
         try {
             FXMLLoader loader = new FXMLLoader();
-            URL xmlUrl = getClass().getResource("PortaleOperatori.fxml");
+            URL xmlUrl = getClass().getResource("/fxml/PortaleOperatori.fxml");
             loader.setLocation(xmlUrl);
 
             Parent root = loader.load();
