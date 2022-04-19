@@ -5,7 +5,6 @@ import java.net.Socket;
 import java.sql.*;
 import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 
 public class ServerHandler extends Thread{
@@ -22,7 +21,7 @@ public class ServerHandler extends Thread{
       start();
     }
 
-    public void login(String parameters) {//ricevo user e psw, connetto db e checko, il client sarà in ascolto e ritorno true o false
+    private void login(String parameters) {//ricevo user e psw, connetto db e checko, il client sarà in ascolto e ritorno true o false
         String[] parameters_splitted = parameters.split(";");
         String email = parameters_splitted[0];
         String mail_db = "";
@@ -53,7 +52,7 @@ public class ServerHandler extends Thread{
         }
     }
 
-    public void register(String parameters) throws ParseException {
+    private void registerUser(String parameters) throws ParseException {
         String[] parameters_splitted = parameters.split(";");
         String name = parameters_splitted[0];
         String surname = parameters_splitted[1];
@@ -86,7 +85,12 @@ public class ServerHandler extends Thread{
         }
     }
 
-    public Connection connectDB() throws SQLException {
+    private void registerVaccinatedUser(String parameters){
+        String[] parameters_splitted = parameters.split(";");
+    }
+
+
+    private Connection connectDB() throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/CentriVaccinali", "postgres", "admin");
         if (conn != null) {
             System.out.println("[DB - THREAD] - Sono connesso al db");//qui fa login
@@ -104,7 +108,7 @@ public class ServerHandler extends Thread{
             in = new BufferedReader(new InputStreamReader(s.getInputStream()));
             out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())), true);
             while (true){
-                System.out.println("Ascolto");
+                System.out.println("[THREAD] Ascolto");
                 parameters = in.readLine(); //qui impacchetto qualsiasi dato con separatore ";" per il server
                 System.out.println(parameters);
                 op = in.readLine(); //questo è l'operation code
@@ -116,7 +120,11 @@ public class ServerHandler extends Thread{
                     }
                     case 2 -> {
                         System.out.println("[THREAD] Register chiamata");
-                        register(parameters);
+                        registerUser(parameters);
+                    }
+                    case 3 -> {
+                        System.out.println("[THREAD] Register vaccinati chiamata  ");
+                        registerVaccinatedUser(parameters);
                     }
                 }
             }

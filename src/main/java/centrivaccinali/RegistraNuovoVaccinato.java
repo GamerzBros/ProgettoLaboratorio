@@ -114,7 +114,7 @@ public class RegistraNuovoVaccinato {
         String dataVaccinazione = "";
         String idVaccinazione = null;
 
-        if (vaccinationDate != null) { //TODO dava null pointer perchè prendevi la data (anche se era vuota) e sopra la convertivi in string
+        if (vaccinationDate != null) {
             dataVaccinazione = vaccinationDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
         }
         if (name.equals("") || surname.equals("") || codice_fiscale.equals("") || vaccineType.equals("") || centroVaccinale.equals("") || dataVaccinazione.equals("")) {
