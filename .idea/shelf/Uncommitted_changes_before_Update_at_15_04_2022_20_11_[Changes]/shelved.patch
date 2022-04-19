@@ -1,0 +1,658 @@
+Index: src/main/resources/fxml/registraEventiAvversi.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.scene.control.*?>\r\n<?import javafx.scene.layout.*?>\r\n<?import javafx.scene.paint.*?>\r\n<?import javafx.scene.shape.*?>\r\n<?import javafx.scene.text.*?>\r\n\r\n<AnchorPane prefHeight=\"650.0\" prefWidth=\"550.0\" xmlns=\"http://javafx.com/javafx/11.0.2\" xmlns:fx=\"http://javafx.com/fxml/1\" fx:controller=\"cittadini.RegistraEventiAvversi\">\r\n   <children>\r\n      <Rectangle arcHeight=\"5.0\" arcWidth=\"5.0\" height=\"650.0\" stroke=\"BLACK\" strokeType=\"INSIDE\" width=\"550.0\">\r\n         <fill>\r\n            <RadialGradient centerX=\"0.5\" centerY=\"0.5\" cycleMethod=\"REFLECT\" radius=\"0.5\">\r\n               <stops>\r\n                  <Stop>\r\n                     <color>\r\n                        <Color />\r\n                     </color>\r\n                  </Stop>\r\n                  <Stop offset=\"1.0\">\r\n                     <color>\r\n                        <Color red=\"0.09803921729326248\" green=\"0.4901960790157318\" blue=\"0.7882353067398071\" />\r\n                     </color>\r\n                  </Stop>\r\n               </stops>\r\n            </RadialGradient>\r\n         </fill></Rectangle>\r\n      <Rectangle arcHeight=\"5.0\" arcWidth=\"5.0\" fill=\"#91ceff\" height=\"609.0\" layoutX=\"15.0\" layoutY=\"20.0\" stroke=\"BLACK\" strokeType=\"INSIDE\" width=\"520.0\" />\r\n      <TextField fx:id=\"txt_other\" layoutX=\"95.0\" layoutY=\"495.0\" prefHeight=\"25.0\" prefWidth=\"237.0\" />\r\n      <Spinner fx:id=\"spn_headache\" editable=\"true\" layoutX=\"365.0\" layoutY=\"150.0\" max=\"5\" min=\"0\" prefHeight=\"25.0\" prefWidth=\"55.0\" />\r\n      <Spinner fx:id=\"spn_fever\" editable=\"true\" layoutX=\"365.0\" layoutY=\"200.0\" max=\"5\" min=\"0\" prefHeight=\"25.0\" prefWidth=\"55.0\" />\r\n      <Spinner fx:id=\"spn_hurt\" editable=\"true\" layoutX=\"365.0\" layoutY=\"250.0\" max=\"5\" min=\"0\" prefHeight=\"25.0\" prefWidth=\"55.0\" />\r\n      <Label layoutX=\"95.0\" layoutY=\"150.0\" prefHeight=\"22.0\" prefWidth=\"109.0\" text=\"Mal di testa:\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Label layoutX=\"95.0\" layoutY=\"200.0\" prefHeight=\"22.0\" prefWidth=\"70.0\" text=\"Febbre:\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Label layoutX=\"95.0\" layoutY=\"250.0\" prefHeight=\"22.0\" prefWidth=\"228.0\" text=\"Dolori muscolari o articolari:\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Label layoutX=\"83.0\" layoutY=\"68.0\" prefHeight=\"67.0\" prefWidth=\"384.0\" text=\"Per ogni sintomo se riscontrato inserire un valore da 1 a 5 che rappresenti l'intensità del sintomo:\" wrapText=\"true\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Label layoutX=\"95.0\" layoutY=\"300.0\" prefHeight=\"22.0\" prefWidth=\"145.0\" text=\"Linfoadenopatia:\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Button layoutX=\"393.0\" layoutY=\"564.0\" mnemonicParsing=\"false\" onAction=\"#registerEventiAvversi\" style=\"-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;\" text=\"Conferma\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font></Button>\r\n      <Button fx:id=\"btn_annulla\" layoutX=\"269.0\" layoutY=\"564.0\" mnemonicParsing=\"false\" onAction=\"#onAnnullaButtonClicked\" prefHeight=\"42.0\" prefWidth=\"109.0\" style=\"-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;\" text=\"Annulla\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Button>\r\n      <Spinner fx:id=\"spn_linf\" editable=\"true\" layoutX=\"365.0\" layoutY=\"300.0\" max=\"5\" min=\"0\" prefHeight=\"25.0\" prefWidth=\"55.0\" />\r\n      <Label layoutX=\"95.0\" layoutY=\"350.0\" prefHeight=\"22.0\" prefWidth=\"109.0\" text=\"Tachicardia:\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Spinner fx:id=\"spn_tac\" editable=\"true\" layoutX=\"365.0\" layoutY=\"350.0\" max=\"5\" min=\"0\" prefHeight=\"25.0\" prefWidth=\"55.0\" />\r\n      <Label layoutX=\"95.0\" layoutY=\"400.0\" prefHeight=\"22.0\" prefWidth=\"145.0\" text=\"Crisi ipertensiva:\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Spinner fx:id=\"spn_crs\" editable=\"true\" layoutX=\"365.0\" layoutY=\"400.0\" max=\"5\" min=\"0\" prefHeight=\"25.0\" prefWidth=\"55.0\" />\r\n      <Spinner fx:id=\"spn_other\" editable=\"true\" layoutX=\"366.0\" layoutY=\"495.0\" max=\"5\" min=\"1\" prefHeight=\"25.0\" prefWidth=\"55.0\" />\r\n      <Label layoutX=\"95.0\" layoutY=\"450.0\" prefHeight=\"22.0\" prefWidth=\"298.0\" text=\"Altri sintomi (massimo 256 caratteri):\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n   </children>\r\n</AnchorPane>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/fxml/registraEventiAvversi.fxml b/src/main/resources/fxml/registraEventiAvversi.fxml
+--- a/src/main/resources/fxml/registraEventiAvversi.fxml	(revision f53a3a0456da2299b3926a3914e39079b414b010)
++++ b/src/main/resources/fxml/registraEventiAvversi.fxml	(date 1649945447893)
+@@ -1,84 +1,67 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ 
+ <?import javafx.scene.control.*?>
++<?import javafx.scene.image.*?>
+ <?import javafx.scene.layout.*?>
+-<?import javafx.scene.paint.*?>
+-<?import javafx.scene.shape.*?>
+ <?import javafx.scene.text.*?>
+ 
+-<AnchorPane prefHeight="650.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.RegistraEventiAvversi">
++<AnchorPane prefHeight="500.0" prefWidth="650.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.RegistraEventiAvversi">
+    <children>
+-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="650.0" stroke="BLACK" strokeType="INSIDE" width="550.0">
+-         <fill>
+-            <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" radius="0.5">
+-               <stops>
+-                  <Stop>
+-                     <color>
+-                        <Color />
+-                     </color>
+-                  </Stop>
+-                  <Stop offset="1.0">
+-                     <color>
+-                        <Color red="0.09803921729326248" green="0.4901960790157318" blue="0.7882353067398071" />
+-                     </color>
+-                  </Stop>
+-               </stops>
+-            </RadialGradient>
+-         </fill></Rectangle>
+-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="609.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
+-      <TextField fx:id="txt_other" layoutX="95.0" layoutY="495.0" prefHeight="25.0" prefWidth="237.0" />
+-      <Spinner fx:id="spn_headache" editable="true" layoutX="365.0" layoutY="150.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
+-      <Spinner fx:id="spn_fever" editable="true" layoutX="365.0" layoutY="200.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
+-      <Spinner fx:id="spn_hurt" editable="true" layoutX="365.0" layoutY="250.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
+-      <Label layoutX="95.0" layoutY="150.0" prefHeight="22.0" prefWidth="109.0" text="Mal di testa:">
++      <Button layoutX="0.0" layoutY="7.5" onMouseClicked="#goBackToMain" style="-fx-background-color: transparent;">
++         <graphic>
++            <ImageView fitHeight="22.0" fitWidth="25.0" preserveRatio="false">
++               <Image url="@/centrivaccinali/goBackIcon.png" />
++            </ImageView>
++         </graphic>
++      </Button>
++      <Label layoutX="44.0" layoutY="8.0" prefHeight="46.0" prefWidth="562.0" text="Per ogni sintomo, se riscontrato inserire un valore da 1 a 5 che rappresenti l'intensità del sintomo:" textAlignment="CENTER" wrapText="true">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font>
+       </Label>
+-      <Label layoutX="95.0" layoutY="200.0" prefHeight="22.0" prefWidth="70.0" text="Febbre:">
++      <Label layoutX="49.0" layoutY="68.0" prefHeight="22.0" prefWidth="109.0" text="Mal di testa:">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font>
+       </Label>
+-      <Label layoutX="95.0" layoutY="250.0" prefHeight="22.0" prefWidth="228.0" text="Dolori muscolari o articolari:">
++      <Label layoutX="49.0" layoutY="102.0" prefHeight="22.0" prefWidth="70.0" text="Febbre:">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font>
+       </Label>
+-      <Label layoutX="83.0" layoutY="68.0" prefHeight="67.0" prefWidth="384.0" text="Per ogni sintomo se riscontrato inserire un valore da 1 a 5 che rappresenti l'intensità del sintomo:" wrapText="true">
++      <Label layoutX="35.0" layoutY="164.0" prefHeight="22.0" prefWidth="228.0" text="Dolori muscolari o articolari:">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font>
+       </Label>
+-      <Label layoutX="95.0" layoutY="300.0" prefHeight="22.0" prefWidth="145.0" text="Linfoadenopatia:">
++      <Label layoutX="37.0" layoutY="202.0" prefHeight="22.0" prefWidth="145.0" text="Linfoadenopatia:">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font>
+       </Label>
+-      <Button layoutX="393.0" layoutY="564.0" mnemonicParsing="false" onAction="#registerEventiAvversi" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Conferma">
++      <Button layoutX="272.0" layoutY="447.0" mnemonicParsing="false" onAction="#registerEventiAvversi" prefHeight="38.0" prefWidth="105.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Conferma">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font></Button>
+-      <Button fx:id="btn_annulla" layoutX="269.0" layoutY="564.0" mnemonicParsing="false" onAction="#onAnnullaButtonClicked" prefHeight="42.0" prefWidth="109.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Annulla">
+-         <font>
+-            <Font name="Franklin Gothic Medium" size="18.0" />
+-         </font>
+-      </Button>
+-      <Spinner fx:id="spn_linf" editable="true" layoutX="365.0" layoutY="300.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
+-      <Label layoutX="95.0" layoutY="350.0" prefHeight="22.0" prefWidth="109.0" text="Tachicardia:">
++      <Label layoutX="40.0" layoutY="239.0" prefHeight="22.0" prefWidth="109.0" text="Tachicardia:">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font>
+       </Label>
+-      <Spinner fx:id="spn_tac" editable="true" layoutX="365.0" layoutY="350.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
+-      <Label layoutX="95.0" layoutY="400.0" prefHeight="22.0" prefWidth="145.0" text="Crisi ipertensiva:">
++      <Label layoutX="37.0" layoutY="275.0" prefHeight="22.0" prefWidth="145.0" text="Crisi ipertensiva:">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font>
+       </Label>
+-      <Spinner fx:id="spn_crs" editable="true" layoutX="365.0" layoutY="400.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
+-      <Spinner fx:id="spn_other" editable="true" layoutX="366.0" layoutY="495.0" max="5" min="1" prefHeight="25.0" prefWidth="55.0" />
+-      <Label layoutX="95.0" layoutY="450.0" prefHeight="22.0" prefWidth="298.0" text="Altri sintomi (massimo 256 caratteri):">
++      <Spinner fx:id="spn_headache" editable="true" layoutX="550.0" layoutY="68.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
++      <Spinner fx:id="spn_fever" editable="true" layoutX="550.0" layoutY="108.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
++      <Spinner fx:id="spn_hurt" editable="true" layoutX="550.0" layoutY="148.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
++      <Spinner fx:id="spn_linf" editable="true" layoutX="550.0" layoutY="188.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
++      <Spinner fx:id="spn_tac" editable="true" layoutX="550.0" layoutY="228.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
++      <Spinner fx:id="spn_crs" editable="true" layoutX="550.0" layoutY="268.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
++      <Spinner fx:id="spn_other" editable="true" layoutX="550.0" layoutY="308.0" max="5" min="1" prefHeight="25.0" prefWidth="55.0" />
++      <TextField fx:id="txt_other" layoutX="24.0" layoutY="347.0" prefHeight="85.0" prefWidth="600.0" style="-fx-background-radius: 5" />
++      <Label layoutX="35.0" layoutY="354.0" prefHeight="22.0" prefWidth="348.0" text="Altri sintomi (massimo 256 caratteri):">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font>
+Index: src/main/resources/fxml/RegistraUtente.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.scene.control.*?>\r\n<?import javafx.scene.image.*?>\r\n<?import javafx.scene.layout.*?>\r\n<?import javafx.scene.text.*?>\r\n\r\n<AnchorPane prefHeight=\"400.0\" prefWidth=\"550.0\" style=\"-fx-background-color: #1a73e8\" xmlns=\"http://javafx.com/javafx/11.0.2\" xmlns:fx=\"http://javafx.com/fxml/1\" fx:controller=\"cittadini.RegistrazioneUtente\">\r\n   <children>\r\n      <Button layoutX=\"0.0\" layoutY=\"7.5\" onMouseClicked=\"#goBackToMain\" style=\"-fx-background-color: transparent;\">\r\n         <graphic>\r\n            <ImageView fitHeight=\"22.0\" fitWidth=\"25.0\" preserveRatio=\"false\">\r\n               <Image url=\"@/centrivaccinali/goBackIcon.png\" />\r\n            </ImageView>\r\n         </graphic>\r\n      </Button>\r\n      <TextField fx:id=\"txt_userName\" layoutX=\"55.0\" layoutY=\"130.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" promptText=\"Nome\" />\r\n      <TextField fx:id=\"txt_userMail\" layoutX=\"55.0\" layoutY=\"212.0\" prefHeight=\"25.0\" prefWidth=\"440.0\" promptText=\"Email\" />\r\n      <TextField fx:id=\"txt_userCF\" layoutX=\"55.0\" layoutY=\"171.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" promptText=\"Codice Fiscale\" />\r\n      <PasswordField fx:id=\"pswd_confirm\" layoutX=\"55.0\" layoutY=\"253.0\" prefHeight=\"25.0\" prefWidth=\"440.0\" promptText=\"Conferma Password\" />\r\n      <Button layoutX=\"232.0\" layoutY=\"342.0\" mnemonicParsing=\"false\" onAction=\"#registraCittadino\" style=\"-fx-background-radius: 8px; -fx-background-color: white;\" text=\"Conferma\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font></Button>\r\n      <PasswordField fx:id=\"pswd_register\" layoutX=\"55.0\" layoutY=\"294.0\" prefHeight=\"25.0\" prefWidth=\"440.0\" promptText=\"Password\" />\r\n      <TextField fx:id=\"txt_userSurname\" layoutX=\"282.0\" layoutY=\"130.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" promptText=\"Cognome\" />\r\n      <DatePicker fx:id=\"datePicker_datavaccinazione\" layoutX=\"282.0\" layoutY=\"171.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" promptText=\"Data di nascita\" />\r\n      <ImageView fitHeight=\"75.0\" fitWidth=\"75.0\" layoutX=\"237.5\" layoutY=\"40.0\" pickOnBounds=\"true\" preserveRatio=\"false\">\r\n         <Image url=\"@/cittadini/account.png\" />\r\n      </ImageView>\r\n   </children>\r\n</AnchorPane>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/fxml/RegistraUtente.fxml b/src/main/resources/fxml/RegistraUtente.fxml
+--- a/src/main/resources/fxml/RegistraUtente.fxml	(revision f53a3a0456da2299b3926a3914e39079b414b010)
++++ b/src/main/resources/fxml/RegistraUtente.fxml	(date 1649960388430)
+@@ -14,17 +14,17 @@
+             </ImageView>
+          </graphic>
+       </Button>
+-      <TextField fx:id="txt_userName" layoutX="55.0" layoutY="130.0" prefHeight="25.0" prefWidth="213.0" promptText="Nome" />
+-      <TextField fx:id="txt_userMail" layoutX="55.0" layoutY="212.0" prefHeight="25.0" prefWidth="440.0" promptText="Email" />
+-      <TextField fx:id="txt_userCF" layoutX="55.0" layoutY="171.0" prefHeight="25.0" prefWidth="213.0" promptText="Codice Fiscale" />
+-      <PasswordField fx:id="pswd_confirm" layoutX="55.0" layoutY="253.0" prefHeight="25.0" prefWidth="440.0" promptText="Conferma Password" />
+-      <Button layoutX="232.0" layoutY="342.0" mnemonicParsing="false" onAction="#registraCittadino" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Conferma">
++      <TextField fx:id="txt_userName" layoutX="55.0" layoutY="130.0" prefHeight="25.0" prefWidth="213.0" promptText="Nome" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
++      <TextField fx:id="txt_userMail" layoutX="55.0" layoutY="212.0" prefHeight="25.0" prefWidth="440.0" promptText="Email" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
++      <TextField fx:id="txt_userCF" layoutX="55.0" layoutY="171.0" prefHeight="25.0" prefWidth="213.0" promptText="Codice Fiscale" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
++      <PasswordField fx:id="pswd_confirm" layoutX="55.0" layoutY="253.0" prefHeight="25.0" prefWidth="440.0" promptText="Conferma Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
++      <Button layoutX="232.0" layoutY="344.0" mnemonicParsing="false" onAction="#registraCittadino" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Conferma">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font></Button>
+-      <PasswordField fx:id="pswd_register" layoutX="55.0" layoutY="294.0" prefHeight="25.0" prefWidth="440.0" promptText="Password" />
+-      <TextField fx:id="txt_userSurname" layoutX="282.0" layoutY="130.0" prefHeight="25.0" prefWidth="213.0" promptText="Cognome" />
+-      <DatePicker fx:id="datePicker_datavaccinazione" layoutX="282.0" layoutY="171.0" prefHeight="25.0" prefWidth="213.0" promptText="Data di nascita" />
++      <PasswordField fx:id="pswd_register" layoutX="55.0" layoutY="294.0" prefHeight="25.0" prefWidth="440.0" promptText="Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
++      <TextField fx:id="txt_userSurname" layoutX="282.0" layoutY="130.0" prefHeight="25.0" prefWidth="213.0" promptText="Cognome" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
++      <DatePicker fx:id="datePicker_datavaccinazione" layoutX="282.0" layoutY="171.0" prefHeight="25.0" prefWidth="213.0" promptText="Data di nascita" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
+       <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="237.5" layoutY="40.0" pickOnBounds="true" preserveRatio="false">
+          <Image url="@/cittadini/account.png" />
+       </ImageView>
+Index: src/main/resources/fxml/RegistraNuovoVaccinato.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.scene.control.*?>\r\n<?import javafx.scene.layout.*?>\r\n<?import javafx.scene.paint.*?>\r\n<?import javafx.scene.shape.*?>\r\n<?import javafx.scene.text.*?>\r\n\r\n<AnchorPane prefHeight=\"700.0\" prefWidth=\"550.0\" xmlns=\"http://javafx.com/javafx/11.0.2\" xmlns:fx=\"http://javafx.com/fxml/1\">\r\n   <children>\r\n      <Rectangle arcHeight=\"5.0\" arcWidth=\"5.0\" height=\"700.0\" stroke=\"BLACK\" strokeType=\"INSIDE\" width=\"550.0\">\r\n         <fill>\r\n            <RadialGradient centerX=\"0.5\" centerY=\"0.5\" cycleMethod=\"REFLECT\" radius=\"0.5\">\r\n               <stops>\r\n                  <Stop>\r\n                     <color>\r\n                        <Color />\r\n                     </color>\r\n                  </Stop>\r\n                  <Stop offset=\"1.0\">\r\n                     <color>\r\n                        <Color red=\"0.09803921729326248\" green=\"0.4901960790157318\" blue=\"0.7882353067398071\" />\r\n                     </color>\r\n                  </Stop>\r\n               </stops>\r\n            </RadialGradient>\r\n         </fill></Rectangle>\r\n      <Rectangle arcHeight=\"5.0\" arcWidth=\"5.0\" fill=\"#91ceff\" height=\"660.0\" layoutX=\"15.0\" layoutY=\"20.0\" stroke=\"BLACK\" strokeType=\"INSIDE\" width=\"520.0\" />\r\n      <ChoiceBox fx:id=\"cbx_vaccinoSomministrato\" layoutX=\"324.0\" layoutY=\"310.0\" prefWidth=\"180.0\" />\r\n      <TextField fx:id=\"txt_nomePaziente\" layoutX=\"50.0\" layoutY=\"195.0\" prefHeight=\"25.0\" prefWidth=\"180.0\" />\r\n      <TextField fx:id=\"txt_cognomePaziente\" layoutX=\"324.0\" layoutY=\"195.0\" prefHeight=\"25.0\" prefWidth=\"180.0\" />\r\n      <TextField fx:id=\"txt_cfPaziente\" layoutX=\"50.0\" layoutY=\"310.0\" prefHeight=\"25.0\" prefWidth=\"180.0\" />\r\n      <Label layoutX=\"81.0\" layoutY=\"150.0\" prefHeight=\"22.0\" prefWidth=\"119.0\" text=\"Nome Paziente\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Label layoutX=\"338.0\" layoutY=\"150.0\" prefHeight=\"22.0\" prefWidth=\"152.0\" text=\"Cognome Paziente\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Label layoutX=\"81.0\" layoutY=\"265.0\" prefHeight=\"22.0\" prefWidth=\"119.0\" text=\"Codice Fiscale\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Label layoutX=\"324.0\" layoutY=\"265.0\" prefHeight=\"22.0\" prefWidth=\"180.0\" text=\"Vaccino Somministrato\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Label layoutX=\"341.0\" layoutY=\"380.0\" prefHeight=\"22.0\" prefWidth=\"146.0\" text=\"Data Vaccinazione\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <ChoiceBox fx:id=\"cbx_centroVaccinale\" layoutX=\"51.0\" layoutY=\"426.0\" prefHeight=\"25.0\" prefWidth=\"180.0\" />\r\n      <Label layoutX=\"65.0\" layoutY=\"380.0\" prefHeight=\"22.0\" prefWidth=\"152.0\" text=\"Centro Vaccinale\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Button fx:id=\"nuovoPaziente_confirm\" layoutX=\"395.0\" layoutY=\"605.0\" mnemonicParsing=\"false\" onAction=\"#registraVaccinato\" style=\"-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;\" text=\"Conferma\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Button>\r\n      <DatePicker fx:id=\"datePicker_datavaccinazione\" layoutX=\"327.0\" layoutY=\"426.0\" />\r\n   </children>\r\n</AnchorPane>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/fxml/RegistraNuovoVaccinato.fxml b/src/main/resources/fxml/RegistraNuovoVaccinato.fxml
+--- a/src/main/resources/fxml/RegistraNuovoVaccinato.fxml	(revision f53a3a0456da2299b3926a3914e39079b414b010)
++++ b/src/main/resources/fxml/RegistraNuovoVaccinato.fxml	(date 1649946569166)
+@@ -27,9 +27,9 @@
+          </fill></Rectangle>
+       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="660.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
+       <ChoiceBox fx:id="cbx_vaccinoSomministrato" layoutX="324.0" layoutY="310.0" prefWidth="180.0" />
+-      <TextField fx:id="txt_nomePaziente" layoutX="50.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
+-      <TextField fx:id="txt_cognomePaziente" layoutX="324.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
+-      <TextField fx:id="txt_cfPaziente" layoutX="50.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
++      <TextField fx:id="txt_nomePaziente" layoutX="50.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" promptText="Nome Paziente" />
++      <TextField fx:id="txt_cognomePaziente" layoutX="324.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" promptText="Cognome Paziente" />
++      <TextField fx:id="txt_cfPaziente" layoutX="50.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" promptText="Codice Fiscale" />
+       <Label layoutX="81.0" layoutY="150.0" prefHeight="22.0" prefWidth="119.0" text="Nome Paziente">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+@@ -66,6 +66,6 @@
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font>
+       </Button>
+-      <DatePicker fx:id="datePicker_datavaccinazione" layoutX="327.0" layoutY="426.0" />
++      <DatePicker fx:id="datePicker_datavaccinazione" layoutX="327.0" layoutY="426.0" promptText="Data Vaccinazione" />
+    </children>
+ </AnchorPane>
+Index: src/main/java/cittadini/RegistraEventiAvversi.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package cittadini;\r\n\r\nimport javafx.event.ActionEvent;\r\nimport javafx.scene.Scene;\r\nimport javafx.scene.control.Alert;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.control.Spinner;\r\nimport javafx.scene.control.TextField;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.io.*;\r\n\r\npublic class RegistraEventiAvversi {\r\n    /**\r\n     * Percorso per il file contente le informazioni dei centri vaccinali registrati\r\n     */\r\n    public static final String PATH_TO_CENTRIVACCINALI_DATI = \"data/CentriVaccinali.dati.txt\";\r\n    /**\r\n     * Parte iniziale percorso per il file del centro vaccinale selezionato\r\n     */\r\n    public static final String PRE_PATH_TO_EVENTI_AVVERSI=\"data/Vaccinati_\";\r\n    /**\r\n     * Parte finale del percorso del centro vaccinale selezionato\r\n     */\r\n    public static final String AFTER_PATH_TO_EVENTI_AVVERSI=\".dati.txt\";\r\n    /**\r\n     * Percorso per il file contenente i dati dei cittadini registrati\r\n     */\r\n    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = \"data/Cittadini_Registrati.dati.txt\";\r\n    /**\r\n     * Tipo di linea del file contente le informazioni relative al vaccinato\r\n     */\r\n    public static final String LINE_TYPE_PERSON =\"V\";\r\n    /**\r\n     * Tipo di linea del file contente le informazioni relative agli eventi avversi\r\n     */\r\n    public static final String LINE_TYPE_EVENT =\"E\";\r\n    /**\r\n     * Lista contente tutti i centri vaccinali presenti nel file. Popolata dal metodo getCentriVaccinaliFromFile()\r\n     */\r\n    /**\r\n     * Codice fiscale dell'utente attualmente loggato\r\n     */\r\n    private String currentUser;\r\n    /**\r\n     * Centro vaccinale attualmente selezionato\r\n     */\r\n    private String currentCenter;\r\n\r\n    public RegistraEventiAvversi(Stage stage){\r\n        String[] userData= (String[]) stage.getUserData();\r\n        currentUser=userData[0];\r\n        currentCenter=userData[1];\r\n    }\r\n\r\n    /**\r\n     * Registra sul file di testo relativo al centro vaccinale selezionato, gli eventi avversi inseriti dall'utente.\r\n     * @param actionEvent L'evento che richiama il metodo. Necessario ad ottenere la scena attuale da cui prendere i dati inseriti dall'utente.\r\n     */\r\n    public void registerEventiAvversi(ActionEvent actionEvent){\r\n        try {\r\n            Scene currentScene = ((Button) actionEvent.getSource()).getScene();\r\n\r\n            String[] userData = (String[]) currentScene.getUserData();\r\n            String currentCenter = userData[0];\r\n            String currentUser = userData[1];\r\n\r\n            System.out.println(currentCenter);\r\n\r\n            Spinner<Integer> spn_headache = (Spinner<Integer>) currentScene.lookup(\"#spn_headache\");\r\n            Spinner<Integer> spn_fever = (Spinner<Integer>) currentScene.lookup(\"#spn_fever\");\r\n            Spinner<Integer> spn_hurt = (Spinner<Integer>) currentScene.lookup(\"#spn_hurt\");\r\n            Spinner<Integer> spn_linf = (Spinner<Integer>) currentScene.lookup(\"#spn_linf\");\r\n            Spinner<Integer> spn_tac = (Spinner<Integer>) currentScene.lookup(\"#spn_tac\");\r\n            Spinner<Integer> spn_crs = (Spinner<Integer>) currentScene.lookup(\"#spn_crs\");\r\n            TextField txt_other1 = (TextField) currentScene.lookup(\"#txt_other\");\r\n            Spinner<Integer> spn_other1 = (Spinner<Integer>) currentScene.lookup(\"#spn_other\");\r\n\r\n\r\n            int evento1 = spn_headache.getValue();//evento1 = Mal di testa\r\n            int evento2 = spn_fever.getValue(); //evento2 = Febbre\r\n            int evento3 = spn_hurt.getValue(); //evento3 = Dolori muscolari o articolari\r\n            int evento4 = spn_linf.getValue(); //evento4 = Linfoadenopatia\r\n            int evento5 = spn_tac.getValue(); //evento5 = Tachicardia\r\n            int evento6 = spn_crs.getValue();//evento6 = Crisi ipertensiva\r\n            String otherEvent = txt_other1.getText();\r\n            int otherEventValue = spn_other1.getValue();\r\n\r\n            FileReader reader = new FileReader(PRE_PATH_TO_EVENTI_AVVERSI + currentCenter + AFTER_PATH_TO_EVENTI_AVVERSI);\r\n            BufferedReader in = new BufferedReader(reader);\r\n            boolean authorized = false;\r\n            boolean alreadyIn = false;\r\n            String line;\r\n\r\n            while ((line = in.readLine()) != null) {\r\n                String[] data = line.split(\";\");\r\n                if (data[0].equals(LINE_TYPE_PERSON) && data[3].equalsIgnoreCase(currentUser)) {\r\n                    authorized = true;\r\n                } else if (data[0].equals(LINE_TYPE_EVENT) && data[2].equalsIgnoreCase(currentUser)) {\r\n                    alreadyIn = true;\r\n                }\r\n            }\r\n\r\n            if (alreadyIn) {\r\n                Alert alertAlreadyIn = new Alert(Alert.AlertType.ERROR);\r\n                alertAlreadyIn.setTitle(\"Eventi già inseriti\");\r\n                alertAlreadyIn.setContentText(\"L'utente ha già inserito una volta degli eventi avversi presso il centro attuale\");\r\n                alertAlreadyIn.showAndWait();\r\n            }\r\n            else if (authorized) {\r\n\r\n                FileWriter writer = new FileWriter(PRE_PATH_TO_EVENTI_AVVERSI + currentCenter + AFTER_PATH_TO_EVENTI_AVVERSI, true);\r\n                BufferedWriter out = new BufferedWriter(writer);\r\n                //String fileInput = \"Mal di Testa:\" + evento1 + \";\" + \"Febbre:\" + evento2 + \";\" + \"Dolori muscolari o articolari:\" + evento3 + \";\" + \"Linfoadenopatia:\" + evento4 + \";\" + \"Tachicardia:\" + evento5 + \";\" + \"Crisi ipertensiva:\" + evento6 + \";\";\r\n\r\n                String fileInput = LINE_TYPE_EVENT + \";\" + currentCenter + \";\" + currentUser + \";\" + evento1 + \";\" + evento2 + \";\" + evento3 + \";\" + evento4 + \";\" + evento5 + \";\" + evento6;\r\n                if (otherEvent.compareTo(\"\") != 0) {\r\n                    fileInput += \";\" + otherEvent + \";\" + otherEventValue;\r\n                }\r\n\r\n                out.write(fileInput);\r\n                out.newLine();\r\n                out.flush();\r\n                out.close();\r\n            } else {\r\n                Alert alertNoPermission = new Alert(Alert.AlertType.ERROR);\r\n                alertNoPermission.setTitle(\"Utente non autorizzato\");\r\n                alertNoPermission.setContentText(\"Non sei stato vaccinato presso il centro selezionato!\");\r\n                alertNoPermission.showAndWait();\r\n            }\r\n\r\n            Stage stage = (Stage) currentScene.getWindow();\r\n            stage.close();\r\n        }\r\n        catch (IOException e){\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Chiude la finestra (stage) attuale. Il metodo viene usato per tutte le UI, relative al package, che contengono il tasto \"annulla\".\r\n     * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage da chiudere.\r\n     */\r\n    public void onAnnullaButtonClicked(ActionEvent event){\r\n        Scene currentScene=((Button) event.getSource()).getScene();\r\n        Stage currentStage=(Stage)currentScene.getWindow();\r\n        currentStage.close();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/cittadini/RegistraEventiAvversi.java b/src/main/java/cittadini/RegistraEventiAvversi.java
+--- a/src/main/java/cittadini/RegistraEventiAvversi.java	(revision f53a3a0456da2299b3926a3914e39079b414b010)
++++ b/src/main/java/cittadini/RegistraEventiAvversi.java	(date 1649944576483)
+@@ -6,6 +6,7 @@
+ import javafx.scene.control.Button;
+ import javafx.scene.control.Spinner;
+ import javafx.scene.control.TextField;
++import javafx.scene.input.MouseEvent;
+ import javafx.stage.Stage;
+ 
+ import java.io.*;
+@@ -137,13 +138,9 @@
+         }
+     }
+ 
+-    /**
+-     * Chiude la finestra (stage) attuale. Il metodo viene usato per tutte le UI, relative al package, che contengono il tasto "annulla".
+-     * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage da chiudere.
+-     */
+-    public void onAnnullaButtonClicked(ActionEvent event){
+-        Scene currentScene=((Button) event.getSource()).getScene();
+-        Stage currentStage=(Stage)currentScene.getWindow();
+-        currentStage.close();
++    public void goBackToMain(MouseEvent event){
++        Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
++
++        new MainCittadini(stage);
+     }
+ }
+Index: src/main/java/cittadini/RegistrazioneUtente.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package cittadini;\r\n\r\nimport javafx.event.ActionEvent;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.Scene;\r\nimport javafx.scene.control.*;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.awt.event.MouseEvent;\r\nimport java.io.BufferedWriter;\r\nimport java.io.FileWriter;\r\nimport java.io.IOException;\r\nimport java.net.URL;\r\nimport java.nio.charset.StandardCharsets;\r\nimport java.security.MessageDigest;\r\nimport java.time.LocalDate;\r\nimport java.time.format.DateTimeFormatter;\r\n\r\npublic class RegistrazioneUtente {\r\n    /**\r\n     * Percorso per il file contenente i dati dei cittadini registrati\r\n     */\r\n    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = \"data/Cittadini_Registrati.dati.txt\";\r\n    /**\r\n     * Codice fiscale dell'utente attualmente loggato\r\n     */\r\n    private String currentUser;\r\n    /**\r\n     * Centro vaccinale attualmente selezionato\r\n     */\r\n    private String currentCenter;\r\n\r\n\r\n    /**\r\n     * Registra un cittadino nel file di testo contente tutti i cittadini registrati.\r\n     * @param event L'evento che richiama il metodo. Necessario ad ottenere la scena attuale per prendere le informazioni inserite dall'utente.\r\n     */\r\n    public void registraCittadino(ActionEvent event){\r\n        Scene currentScene=((Button)event.getSource()).getScene();\r\n\r\n        String name = ((TextField)currentScene.lookup(\"#txt_userName\")).getText();\r\n        String surname = ((TextField)currentScene.lookup(\"#txt_userSurname\")).getText();\r\n        String user = ((TextField)currentScene.lookup(\"#txt_userMail\")).getText();\r\n        String userCF=((TextField)currentScene.lookup(\"#txt_userCF\")).getText();\r\n        String pwd = ((PasswordField)currentScene.lookup(\"#pswd_register\")).getText();\r\n        String confrmationPwd=((PasswordField)currentScene.lookup(\"#pswd_confirm\")).getText();\r\n        LocalDate vaccinationDate = ((DatePicker)currentScene.lookup(\"#datePicker_datavaccinazione\")).getValue();\r\n        String dataVaccinazione = vaccinationDate.format(DateTimeFormatter.ofPattern(\"MMM-dd-yyyy\"));\r\n\r\n        if(pwd.compareTo(confrmationPwd)==0) {\r\n\r\n            try {\r\n                MessageDigest messageDigest = MessageDigest.getInstance(\"SHA-256\");\r\n                byte[] hash = messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8));\r\n                pwd = toHexString(hash);\r\n\r\n                FileWriter writer = new FileWriter(PATH_TO_CITTADINI_REGISTRATI_DATI, false);\r\n                BufferedWriter out = new BufferedWriter(writer);\r\n                String scrivi = name+\";\"+surname+\";\"+user+\";\"+pwd+\";\"+userCF+\";\"+dataVaccinazione;\r\n                out.write(scrivi);\r\n                out.newLine();\r\n                out.close();\r\n\r\n                Scene mainScene=(Scene)currentScene.getUserData();\r\n                String[] userData=(String[])mainScene.getUserData();\r\n                currentCenter=userData[0];\r\n\r\n                currentUser=userCF;\r\n\r\n                userData[1]=currentUser;\r\n\r\n                mainScene.setUserData(userData);\r\n\r\n\r\n                ((Stage)currentScene.getWindow()).close();\r\n\r\n                Alert alertRegistrationSuccessfull=new Alert(Alert.AlertType.INFORMATION);\r\n                alertRegistrationSuccessfull.setTitle(\"Registrazione completata\");\r\n                alertRegistrationSuccessfull.setContentText(\"Registrazione avvenuta con successo\");\r\n                alertRegistrationSuccessfull.showAndWait();\r\n\r\n            }\r\n            catch (Exception e) {\r\n                e.printStackTrace();\r\n            }\r\n        }\r\n        else{\r\n            Alert wrongPswdAlert=new Alert(Alert.AlertType.ERROR);\r\n            wrongPswdAlert.setTitle(\"Errore di registrazione\");\r\n            wrongPswdAlert.setContentText(\"Le password inserite non corrispondono\");\r\n            wrongPswdAlert.show();\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Converte un array di byte in una stringa. Viene utilizzato dopo aver effettuato l'hashing di una stringa, per ricomporre quest'ultima.\r\n     * @param array L'array contenente i byte di risultato dell'hashing.\r\n     * @return La stringa ottenuta come risultato dalla funzione di hash.\r\n     */\r\n    private String toHexString(byte[] array) {\r\n        StringBuilder sb = new StringBuilder(array.length * 2);\r\n\r\n        for (byte b : array) {\r\n            int value = 0xFF & b;\r\n            String toAppend = Integer.toHexString(value);\r\n\r\n            sb.append(toAppend);\r\n        }\r\n        sb.setLength(sb.length() - 1);\r\n        return sb.toString();\r\n    }\r\n\r\n    public void goBackToMain(ActionEvent event){\r\n        try {\r\n            FXMLLoader loader = new FXMLLoader();\r\n            URL xmlUrl = getClass().getResource(\"/fxml/SelectionUI.fxml\");\r\n            loader.setLocation(xmlUrl);\r\n\r\n            Parent root = loader.load();\r\n\r\n            Scene scene=new Scene(root);\r\n\r\n            Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();\r\n\r\n            currentStage.setScene(scene);\r\n        }\r\n        catch(IOException e){\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/cittadini/RegistrazioneUtente.java b/src/main/java/cittadini/RegistrazioneUtente.java
+--- a/src/main/java/cittadini/RegistrazioneUtente.java	(revision f53a3a0456da2299b3926a3914e39079b414b010)
++++ b/src/main/java/cittadini/RegistrazioneUtente.java	(date 1649943922180)
+@@ -1,17 +1,12 @@
+ package cittadini;
+ 
+ import javafx.event.ActionEvent;
+-import javafx.fxml.FXMLLoader;
+-import javafx.scene.Parent;
+ import javafx.scene.Scene;
+ import javafx.scene.control.*;
++import javafx.scene.input.MouseEvent;
+ import javafx.stage.Stage;
+-
+-import java.awt.event.MouseEvent;
+ import java.io.BufferedWriter;
+ import java.io.FileWriter;
+-import java.io.IOException;
+-import java.net.URL;
+ import java.nio.charset.StandardCharsets;
+ import java.security.MessageDigest;
+ import java.time.LocalDate;
+@@ -111,22 +106,9 @@
+         return sb.toString();
+     }
+ 
+-    public void goBackToMain(ActionEvent event){
+-        try {
+-            FXMLLoader loader = new FXMLLoader();
+-            URL xmlUrl = getClass().getResource("/fxml/SelectionUI.fxml");
+-            loader.setLocation(xmlUrl);
+-
+-            Parent root = loader.load();
++    public void goBackToMain(MouseEvent event){
++        Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
+ 
+-            Scene scene=new Scene(root);
+-
+-            Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
+-
+-            currentStage.setScene(scene);
+-        }
+-        catch(IOException e){
+-            e.printStackTrace();
+-        }
++        new MainCittadini(stage);
+     }
+ }
+Index: src/main/resources/fxml/nuovoCentroVaccinale.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.scene.control.*?>\r\n<?import javafx.scene.image.*?>\r\n<?import javafx.scene.layout.*?>\r\n<?import javafx.scene.text.*?>\r\n\r\n<AnchorPane prefHeight=\"400.0\" prefWidth=\"550.0\" style=\"-fx-background-color: #1a73e8\" xmlns=\"http://javafx.com/javafx/11.0.2\" xmlns:fx=\"http://javafx.com/fxml/1\">\r\n   <children>\r\n      <Button layoutX=\"0.0\" layoutY=\"7.5\" onMouseClicked=\"#goBackToOpzioniOperatore\" style=\"-fx-background-color: transparent;\">\r\n         <graphic>\r\n            <ImageView fitHeight=\"22.0\" fitWidth=\"25.0\" preserveRatio=\"false\">\r\n               <Image url=\"@/centrivaccinali/goBackIcon.png\" />\r\n            </ImageView>\r\n         </graphic>\r\n      </Button>\r\n      <TextField fx:id=\"txt_nomeCentro\" layoutX=\"51.0\" layoutY=\"160.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" promptText=\"Nome Centro\" />\r\n      <TextField fx:id=\"txt_cap\" layoutX=\"287.0\" layoutY=\"242.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" promptText=\"CAP\" />\r\n      <TextField fx:id=\"txt_comune\" layoutX=\"285.0\" layoutY=\"199.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" promptText=\"Comune\" />\r\n      <TextField fx:id=\"txt_provincia\" layoutX=\"50.0\" layoutY=\"242.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" promptText=\"Provincia\" />\r\n      <TextField fx:id=\"txt_via\" layoutX=\"286.0\" layoutY=\"160.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" promptText=\"Via\" />\r\n      <ChoiceBox fx:id=\"cbx_qualificatore\" layoutX=\"287.0\" layoutY=\"290.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" />\r\n      <ChoiceBox fx:id=\"cbx_tipologia\" layoutX=\"51.0\" layoutY=\"290.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" />\r\n      <TextField fx:id=\"txt_numeroCivico\" layoutX=\"50.0\" layoutY=\"199.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" promptText=\"Numero Civico\" />\r\n      <Button fx:id=\"btn_nuovoPaziente\" layoutX=\"275.0\" layoutY=\"339.0\" mnemonicParsing=\"false\" onAction=\"#registraCentroVaccinale\" prefHeight=\"25.0\" prefWidth=\"100.0\" style=\"-fx-background-radius: 8px; -fx-background-color: white;\" text=\"Registra\">\r\n         <font>\r\n            <Font name=\"System\" size=\"17.0\" />\r\n         </font></Button>\r\n      <Button fx:id=\"btn_annulla\" layoutX=\"164.0\" layoutY=\"339.0\" mnemonicParsing=\"false\" onAction=\"#annulla_button\" prefHeight=\"25.0\" prefWidth=\"100.0\" style=\"-fx-background-radius: 8px; -fx-background-color: white;\" text=\"Annulla\">\r\n         <font>\r\n            <Font name=\"System\" size=\"17.0\" />\r\n         </font>\r\n      </Button>\r\n      <ImageView fitHeight=\"75.0\" fitWidth=\"75.0\" layoutX=\"238.0\" layoutY=\"37.0\" pickOnBounds=\"true\" preserveRatio=\"true\">\r\n         <Image url=\"@/centrivaccinali/hub.png\" />\r\n      </ImageView>\r\n   </children>\r\n</AnchorPane>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/fxml/nuovoCentroVaccinale.fxml b/src/main/resources/fxml/nuovoCentroVaccinale.fxml
+--- a/src/main/resources/fxml/nuovoCentroVaccinale.fxml	(revision f53a3a0456da2299b3926a3914e39079b414b010)
++++ b/src/main/resources/fxml/nuovoCentroVaccinale.fxml	(date 1649943365558)
+@@ -22,15 +22,10 @@
+       <ChoiceBox fx:id="cbx_qualificatore" layoutX="287.0" layoutY="290.0" prefHeight="25.0" prefWidth="213.0" />
+       <ChoiceBox fx:id="cbx_tipologia" layoutX="51.0" layoutY="290.0" prefHeight="25.0" prefWidth="213.0" />
+       <TextField fx:id="txt_numeroCivico" layoutX="50.0" layoutY="199.0" prefHeight="25.0" prefWidth="213.0" promptText="Numero Civico" />
+-      <Button fx:id="btn_nuovoPaziente" layoutX="275.0" layoutY="339.0" mnemonicParsing="false" onAction="#registraCentroVaccinale" prefHeight="25.0" prefWidth="100.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Registra">
++      <Button fx:id="btn_nuovoPaziente" layoutX="216.0" layoutY="341.0" mnemonicParsing="false" onAction="#registraCentroVaccinale" prefHeight="38.0" prefWidth="120.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Registra">
+          <font>
+             <Font name="System" size="17.0" />
+          </font></Button>
+-      <Button fx:id="btn_annulla" layoutX="164.0" layoutY="339.0" mnemonicParsing="false" onAction="#annulla_button" prefHeight="25.0" prefWidth="100.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Annulla">
+-         <font>
+-            <Font name="System" size="17.0" />
+-         </font>
+-      </Button>
+       <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="238.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+          <Image url="@/centrivaccinali/hub.png" />
+       </ImageView>
+Index: target/classes/fxml/registraEventiAvversi.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.scene.control.*?>\r\n<?import javafx.scene.layout.*?>\r\n<?import javafx.scene.paint.*?>\r\n<?import javafx.scene.shape.*?>\r\n<?import javafx.scene.text.*?>\r\n\r\n<AnchorPane prefHeight=\"650.0\" prefWidth=\"550.0\" xmlns=\"http://javafx.com/javafx/11.0.2\" xmlns:fx=\"http://javafx.com/fxml/1\" fx:controller=\"cittadini.RegistraEventiAvversi\">\r\n   <children>\r\n      <Rectangle arcHeight=\"5.0\" arcWidth=\"5.0\" height=\"650.0\" stroke=\"BLACK\" strokeType=\"INSIDE\" width=\"550.0\">\r\n         <fill>\r\n            <RadialGradient centerX=\"0.5\" centerY=\"0.5\" cycleMethod=\"REFLECT\" radius=\"0.5\">\r\n               <stops>\r\n                  <Stop>\r\n                     <color>\r\n                        <Color />\r\n                     </color>\r\n                  </Stop>\r\n                  <Stop offset=\"1.0\">\r\n                     <color>\r\n                        <Color red=\"0.09803921729326248\" green=\"0.4901960790157318\" blue=\"0.7882353067398071\" />\r\n                     </color>\r\n                  </Stop>\r\n               </stops>\r\n            </RadialGradient>\r\n         </fill></Rectangle>\r\n      <Rectangle arcHeight=\"5.0\" arcWidth=\"5.0\" fill=\"#91ceff\" height=\"609.0\" layoutX=\"15.0\" layoutY=\"20.0\" stroke=\"BLACK\" strokeType=\"INSIDE\" width=\"520.0\" />\r\n      <TextField fx:id=\"txt_other\" layoutX=\"95.0\" layoutY=\"495.0\" prefHeight=\"25.0\" prefWidth=\"237.0\" />\r\n      <Spinner fx:id=\"spn_headache\" editable=\"true\" layoutX=\"365.0\" layoutY=\"150.0\" max=\"5\" min=\"0\" prefHeight=\"25.0\" prefWidth=\"55.0\" />\r\n      <Spinner fx:id=\"spn_fever\" editable=\"true\" layoutX=\"365.0\" layoutY=\"200.0\" max=\"5\" min=\"0\" prefHeight=\"25.0\" prefWidth=\"55.0\" />\r\n      <Spinner fx:id=\"spn_hurt\" editable=\"true\" layoutX=\"365.0\" layoutY=\"250.0\" max=\"5\" min=\"0\" prefHeight=\"25.0\" prefWidth=\"55.0\" />\r\n      <Label layoutX=\"95.0\" layoutY=\"150.0\" prefHeight=\"22.0\" prefWidth=\"109.0\" text=\"Mal di testa:\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Label layoutX=\"95.0\" layoutY=\"200.0\" prefHeight=\"22.0\" prefWidth=\"70.0\" text=\"Febbre:\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Label layoutX=\"95.0\" layoutY=\"250.0\" prefHeight=\"22.0\" prefWidth=\"228.0\" text=\"Dolori muscolari o articolari:\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Label layoutX=\"83.0\" layoutY=\"68.0\" prefHeight=\"67.0\" prefWidth=\"384.0\" text=\"Per ogni sintomo se riscontrato inserire un valore da 1 a 5 che rappresenti l'intensità del sintomo:\" wrapText=\"true\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Label layoutX=\"95.0\" layoutY=\"300.0\" prefHeight=\"22.0\" prefWidth=\"145.0\" text=\"Linfoadenopatia:\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Button layoutX=\"393.0\" layoutY=\"564.0\" mnemonicParsing=\"false\" onAction=\"#registerEventiAvversi\" style=\"-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;\" text=\"Conferma\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font></Button>\r\n      <Button fx:id=\"btn_annulla\" layoutX=\"269.0\" layoutY=\"564.0\" mnemonicParsing=\"false\" onAction=\"#onAnnullaButtonClicked\" prefHeight=\"42.0\" prefWidth=\"109.0\" style=\"-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;\" text=\"Annulla\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Button>\r\n      <Spinner fx:id=\"spn_linf\" editable=\"true\" layoutX=\"365.0\" layoutY=\"300.0\" max=\"5\" min=\"0\" prefHeight=\"25.0\" prefWidth=\"55.0\" />\r\n      <Label layoutX=\"95.0\" layoutY=\"350.0\" prefHeight=\"22.0\" prefWidth=\"109.0\" text=\"Tachicardia:\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Spinner fx:id=\"spn_tac\" editable=\"true\" layoutX=\"365.0\" layoutY=\"350.0\" max=\"5\" min=\"0\" prefHeight=\"25.0\" prefWidth=\"55.0\" />\r\n      <Label layoutX=\"95.0\" layoutY=\"400.0\" prefHeight=\"22.0\" prefWidth=\"145.0\" text=\"Crisi ipertensiva:\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Spinner fx:id=\"spn_crs\" editable=\"true\" layoutX=\"365.0\" layoutY=\"400.0\" max=\"5\" min=\"0\" prefHeight=\"25.0\" prefWidth=\"55.0\" />\r\n      <Spinner fx:id=\"spn_other\" editable=\"true\" layoutX=\"366.0\" layoutY=\"495.0\" max=\"5\" min=\"1\" prefHeight=\"25.0\" prefWidth=\"55.0\" />\r\n      <Label layoutX=\"95.0\" layoutY=\"450.0\" prefHeight=\"22.0\" prefWidth=\"298.0\" text=\"Altri sintomi (massimo 256 caratteri):\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n   </children>\r\n</AnchorPane>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/fxml/registraEventiAvversi.fxml b/target/classes/fxml/registraEventiAvversi.fxml
+--- a/target/classes/fxml/registraEventiAvversi.fxml	(revision f53a3a0456da2299b3926a3914e39079b414b010)
++++ b/target/classes/fxml/registraEventiAvversi.fxml	(date 1649946666854)
+@@ -1,84 +1,67 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ 
+ <?import javafx.scene.control.*?>
++<?import javafx.scene.image.*?>
+ <?import javafx.scene.layout.*?>
+-<?import javafx.scene.paint.*?>
+-<?import javafx.scene.shape.*?>
+ <?import javafx.scene.text.*?>
+ 
+-<AnchorPane prefHeight="650.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.RegistraEventiAvversi">
++<AnchorPane prefHeight="500.0" prefWidth="650.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.RegistraEventiAvversi">
+    <children>
+-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="650.0" stroke="BLACK" strokeType="INSIDE" width="550.0">
+-         <fill>
+-            <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" radius="0.5">
+-               <stops>
+-                  <Stop>
+-                     <color>
+-                        <Color />
+-                     </color>
+-                  </Stop>
+-                  <Stop offset="1.0">
+-                     <color>
+-                        <Color red="0.09803921729326248" green="0.4901960790157318" blue="0.7882353067398071" />
+-                     </color>
+-                  </Stop>
+-               </stops>
+-            </RadialGradient>
+-         </fill></Rectangle>
+-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="609.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
+-      <TextField fx:id="txt_other" layoutX="95.0" layoutY="495.0" prefHeight="25.0" prefWidth="237.0" />
+-      <Spinner fx:id="spn_headache" editable="true" layoutX="365.0" layoutY="150.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
+-      <Spinner fx:id="spn_fever" editable="true" layoutX="365.0" layoutY="200.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
+-      <Spinner fx:id="spn_hurt" editable="true" layoutX="365.0" layoutY="250.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
+-      <Label layoutX="95.0" layoutY="150.0" prefHeight="22.0" prefWidth="109.0" text="Mal di testa:">
++      <Button layoutX="0.0" layoutY="7.5" onMouseClicked="#goBackToMain" style="-fx-background-color: transparent;">
++         <graphic>
++            <ImageView fitHeight="22.0" fitWidth="25.0" preserveRatio="false">
++               <Image url="@/centrivaccinali/goBackIcon.png" />
++            </ImageView>
++         </graphic>
++      </Button>
++      <Label layoutX="44.0" layoutY="8.0" prefHeight="46.0" prefWidth="562.0" text="Per ogni sintomo, se riscontrato inserire un valore da 1 a 5 che rappresenti l'intensità del sintomo:" textAlignment="CENTER" wrapText="true">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font>
+       </Label>
+-      <Label layoutX="95.0" layoutY="200.0" prefHeight="22.0" prefWidth="70.0" text="Febbre:">
++      <Label layoutX="49.0" layoutY="68.0" prefHeight="22.0" prefWidth="109.0" text="Mal di testa:">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font>
+       </Label>
+-      <Label layoutX="95.0" layoutY="250.0" prefHeight="22.0" prefWidth="228.0" text="Dolori muscolari o articolari:">
++      <Label layoutX="49.0" layoutY="102.0" prefHeight="22.0" prefWidth="70.0" text="Febbre:">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font>
+       </Label>
+-      <Label layoutX="83.0" layoutY="68.0" prefHeight="67.0" prefWidth="384.0" text="Per ogni sintomo se riscontrato inserire un valore da 1 a 5 che rappresenti l'intensità del sintomo:" wrapText="true">
++      <Label layoutX="35.0" layoutY="164.0" prefHeight="22.0" prefWidth="228.0" text="Dolori muscolari o articolari:">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font>
+       </Label>
+-      <Label layoutX="95.0" layoutY="300.0" prefHeight="22.0" prefWidth="145.0" text="Linfoadenopatia:">
++      <Label layoutX="37.0" layoutY="202.0" prefHeight="22.0" prefWidth="145.0" text="Linfoadenopatia:">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font>
+       </Label>
+-      <Button layoutX="393.0" layoutY="564.0" mnemonicParsing="false" onAction="#registerEventiAvversi" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Conferma">
++      <Button layoutX="272.0" layoutY="447.0" mnemonicParsing="false" onAction="#registerEventiAvversi" prefHeight="38.0" prefWidth="105.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Conferma">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font></Button>
+-      <Button fx:id="btn_annulla" layoutX="269.0" layoutY="564.0" mnemonicParsing="false" onAction="#onAnnullaButtonClicked" prefHeight="42.0" prefWidth="109.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Annulla">
+-         <font>
+-            <Font name="Franklin Gothic Medium" size="18.0" />
+-         </font>
+-      </Button>
+-      <Spinner fx:id="spn_linf" editable="true" layoutX="365.0" layoutY="300.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
+-      <Label layoutX="95.0" layoutY="350.0" prefHeight="22.0" prefWidth="109.0" text="Tachicardia:">
++      <Label layoutX="40.0" layoutY="239.0" prefHeight="22.0" prefWidth="109.0" text="Tachicardia:">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font>
+       </Label>
+-      <Spinner fx:id="spn_tac" editable="true" layoutX="365.0" layoutY="350.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
+-      <Label layoutX="95.0" layoutY="400.0" prefHeight="22.0" prefWidth="145.0" text="Crisi ipertensiva:">
++      <Label layoutX="37.0" layoutY="275.0" prefHeight="22.0" prefWidth="145.0" text="Crisi ipertensiva:">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font>
+       </Label>
+-      <Spinner fx:id="spn_crs" editable="true" layoutX="365.0" layoutY="400.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
+-      <Spinner fx:id="spn_other" editable="true" layoutX="366.0" layoutY="495.0" max="5" min="1" prefHeight="25.0" prefWidth="55.0" />
+-      <Label layoutX="95.0" layoutY="450.0" prefHeight="22.0" prefWidth="298.0" text="Altri sintomi (massimo 256 caratteri):">
++      <Spinner fx:id="spn_headache" editable="true" layoutX="550.0" layoutY="68.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
++      <Spinner fx:id="spn_fever" editable="true" layoutX="550.0" layoutY="108.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
++      <Spinner fx:id="spn_hurt" editable="true" layoutX="550.0" layoutY="148.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
++      <Spinner fx:id="spn_linf" editable="true" layoutX="550.0" layoutY="188.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
++      <Spinner fx:id="spn_tac" editable="true" layoutX="550.0" layoutY="228.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
++      <Spinner fx:id="spn_crs" editable="true" layoutX="550.0" layoutY="268.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
++      <Spinner fx:id="spn_other" editable="true" layoutX="550.0" layoutY="308.0" max="5" min="1" prefHeight="25.0" prefWidth="55.0" />
++      <TextField fx:id="txt_other" layoutX="24.0" layoutY="347.0" prefHeight="85.0" prefWidth="600.0" style="-fx-background-radius: 5" />
++      <Label layoutX="35.0" layoutY="354.0" prefHeight="22.0" prefWidth="348.0" text="Altri sintomi (massimo 256 caratteri):">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font>
+Index: target/classes/fxml/nuovoCentroVaccinale.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.scene.control.*?>\r\n<?import javafx.scene.image.*?>\r\n<?import javafx.scene.layout.*?>\r\n<?import javafx.scene.text.*?>\r\n\r\n<AnchorPane prefHeight=\"400.0\" prefWidth=\"550.0\" style=\"-fx-background-color: #1a73e8\" xmlns=\"http://javafx.com/javafx/11.0.2\" xmlns:fx=\"http://javafx.com/fxml/1\">\r\n   <children>\r\n      <Button layoutX=\"0.0\" layoutY=\"7.5\" onMouseClicked=\"#goBackToOpzioniOperatore\" style=\"-fx-background-color: transparent;\">\r\n         <graphic>\r\n            <ImageView fitHeight=\"22.0\" fitWidth=\"25.0\" preserveRatio=\"false\">\r\n               <Image url=\"@/centrivaccinali/goBackIcon.png\" />\r\n            </ImageView>\r\n         </graphic>\r\n      </Button>\r\n      <TextField fx:id=\"txt_nomeCentro\" layoutX=\"51.0\" layoutY=\"160.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" promptText=\"Nome Centro\" />\r\n      <TextField fx:id=\"txt_cap\" layoutX=\"287.0\" layoutY=\"242.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" promptText=\"CAP\" />\r\n      <TextField fx:id=\"txt_comune\" layoutX=\"285.0\" layoutY=\"199.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" promptText=\"Comune\" />\r\n      <TextField fx:id=\"txt_provincia\" layoutX=\"50.0\" layoutY=\"242.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" promptText=\"Provincia\" />\r\n      <TextField fx:id=\"txt_via\" layoutX=\"286.0\" layoutY=\"160.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" promptText=\"Via\" />\r\n      <ChoiceBox fx:id=\"cbx_qualificatore\" layoutX=\"287.0\" layoutY=\"290.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" />\r\n      <ChoiceBox fx:id=\"cbx_tipologia\" layoutX=\"51.0\" layoutY=\"290.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" />\r\n      <TextField fx:id=\"txt_numeroCivico\" layoutX=\"50.0\" layoutY=\"199.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" promptText=\"Numero Civico\" />\r\n      <Button fx:id=\"btn_nuovoPaziente\" layoutX=\"275.0\" layoutY=\"339.0\" mnemonicParsing=\"false\" onAction=\"#registraCentroVaccinale\" prefHeight=\"25.0\" prefWidth=\"100.0\" style=\"-fx-background-radius: 8px; -fx-background-color: white;\" text=\"Registra\">\r\n         <font>\r\n            <Font name=\"System\" size=\"17.0\" />\r\n         </font></Button>\r\n      <Button fx:id=\"btn_annulla\" layoutX=\"164.0\" layoutY=\"339.0\" mnemonicParsing=\"false\" onAction=\"#annulla_button\" prefHeight=\"25.0\" prefWidth=\"100.0\" style=\"-fx-background-radius: 8px; -fx-background-color: white;\" text=\"Annulla\">\r\n         <font>\r\n            <Font name=\"System\" size=\"17.0\" />\r\n         </font>\r\n      </Button>\r\n      <ImageView fitHeight=\"75.0\" fitWidth=\"75.0\" layoutX=\"238.0\" layoutY=\"37.0\" pickOnBounds=\"true\" preserveRatio=\"true\">\r\n         <Image url=\"@/centrivaccinali/hub.png\" />\r\n      </ImageView>\r\n   </children>\r\n</AnchorPane>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/fxml/nuovoCentroVaccinale.fxml b/target/classes/fxml/nuovoCentroVaccinale.fxml
+--- a/target/classes/fxml/nuovoCentroVaccinale.fxml	(revision f53a3a0456da2299b3926a3914e39079b414b010)
++++ b/target/classes/fxml/nuovoCentroVaccinale.fxml	(date 1649943503830)
+@@ -22,15 +22,10 @@
+       <ChoiceBox fx:id="cbx_qualificatore" layoutX="287.0" layoutY="290.0" prefHeight="25.0" prefWidth="213.0" />
+       <ChoiceBox fx:id="cbx_tipologia" layoutX="51.0" layoutY="290.0" prefHeight="25.0" prefWidth="213.0" />
+       <TextField fx:id="txt_numeroCivico" layoutX="50.0" layoutY="199.0" prefHeight="25.0" prefWidth="213.0" promptText="Numero Civico" />
+-      <Button fx:id="btn_nuovoPaziente" layoutX="275.0" layoutY="339.0" mnemonicParsing="false" onAction="#registraCentroVaccinale" prefHeight="25.0" prefWidth="100.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Registra">
++      <Button fx:id="btn_nuovoPaziente" layoutX="216.0" layoutY="341.0" mnemonicParsing="false" onAction="#registraCentroVaccinale" prefHeight="38.0" prefWidth="120.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Registra">
+          <font>
+             <Font name="System" size="17.0" />
+          </font></Button>
+-      <Button fx:id="btn_annulla" layoutX="164.0" layoutY="339.0" mnemonicParsing="false" onAction="#annulla_button" prefHeight="25.0" prefWidth="100.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Annulla">
+-         <font>
+-            <Font name="System" size="17.0" />
+-         </font>
+-      </Button>
+       <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="238.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+          <Image url="@/centrivaccinali/hub.png" />
+       </ImageView>
+Index: src/main/java/cittadini/LoginUtente.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package cittadini;\r\n\r\nimport centrivaccinali.SelectionUI;\r\nimport javafx.event.ActionEvent;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.Scene;\r\nimport javafx.scene.control.Alert;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.control.TextField;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.io.*;\r\nimport java.net.InetAddress;\r\nimport java.net.Socket;\r\nimport java.net.URL;\r\nimport java.nio.charset.StandardCharsets;\r\nimport java.security.MessageDigest;\r\nimport java.security.NoSuchAlgorithmException;\r\n\r\npublic class LoginUtente {\r\n    /**\r\n     * Percorso per il file contenente i dati dei cittadini registrati\r\n     */\r\n    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = \"data/Cittadini_Registrati.dati.txt\";\r\n    public static final int LOGIN_OPERATION_CODE=1;\r\n\r\n    PrintWriter in;\r\n    BufferedReader out;\r\n    /**\r\n     * Codice fiscale dell'utente attualmente loggato\r\n     */\r\n    private String currentUser;\r\n    /**\r\n     * Centro vaccinale attualmente selezionato\r\n     */\r\n    private String currentCenter;\r\n\r\n    /**\r\n     * Effettua il login dell'utente.\r\n     * @param event L'evento che richiama il metodo. Necessario per ottenere la scena da cui prendere i dati inseriti dall'utente\r\n     */\r\n    public void loggaCittadini(ActionEvent event) { //TODO implementazione server\r\n        Scene currentScene = ((Button) event.getSource()).getScene();\r\n        String user = ((TextField) currentScene.lookup(\"#txt_userLogin\")).getText();\r\n        String pwd = ((TextField) currentScene.lookup(\"#pswd_login\")).getText();\r\n        String[] parts;\r\n        System.out.println(\"Login in corso\");\r\n        String parameters;\r\n        try {\r\n            if (!user.equals(\"\") && !pwd.equals(\"\")) {\r\n                MessageDigest messageDigest = MessageDigest.getInstance(\"SHA-256\");\r\n                pwd = toHexString(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8)));\r\n                parameters = user + \";\" + pwd; //parametri per il db\r\n                System.out.println(pwd);\r\n                becomeClient(parameters); //connessione\r\n                String result = out.readLine(); //valore di ritorno true o false per la query della login\r\n                System.out.println(\"RISULTATO QUERY = \" + result);//codice parlante xdxd\r\n                if (result.equals(\"true\")) { //se true vuoldire che ha matchato con il db\r\n                    System.out.println(\"LOGGATO\");\r\n                    //  currentUser=parts[4]; //CF dell'utente\r\n                    Scene mainScene = (Scene) currentScene.getUserData();\r\n                    String[] userData = (String[]) mainScene.getUserData();\r\n                    currentCenter = userData[0];\r\n                    userData[1] = currentUser;\r\n                    mainScene.setUserData(userData);\r\n                    Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();\r\n                    currentStage.close();\r\n\r\n                    Alert alertSuccessfullLogin = new Alert(Alert.AlertType.INFORMATION);\r\n                    alertSuccessfullLogin.setTitle(\"Login effettuato\");\r\n                    alertSuccessfullLogin.setContentText(\"Utente loggato\");\r\n                    alertSuccessfullLogin.showAndWait();\r\n                } else if (result.equals(\"false\")) {\r\n                    Alert noUserAlert = new Alert(Alert.AlertType.WARNING);\r\n                    noUserAlert.setTitle(\"Errore di login\");\r\n                    noUserAlert.setContentText(\"Utente non trovato!\");\r\n                    noUserAlert.show();\r\n                }\r\n            } else {\r\n                Alert alertNoData = new Alert(Alert.AlertType.WARNING);\r\n                alertNoData.setTitle(\"Inserisci dei dati\");\r\n                alertNoData.setContentText(\"Non hai inserito i dati\");\r\n                alertNoData.showAndWait();\r\n                System.out.println(\"Inserire dei dati\");\r\n            }\r\n        } catch (IOException | NoSuchAlgorithmException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Converte un array di byte in una stringa. Viene utilizzato dopo aver effettuato l'hashing di una stringa, per ricomporre quest'ultima.\r\n     * @param array L'array contenente i byte di risultato dell'hashing.\r\n     * @return La stringa ottenuta come risultato dalla funzione di hash.\r\n     */\r\n    private String toHexString(byte[] array) {\r\n        StringBuilder sb = new StringBuilder(array.length * 2);\r\n\r\n        for (byte b : array) {\r\n            int value = 0xFF & b;\r\n            String toAppend = Integer.toHexString(value);\r\n\r\n            sb.append(toAppend);\r\n        }\r\n        sb.setLength(sb.length() - 1);\r\n        return sb.toString();\r\n    }\r\n\r\n    /**\r\n     * Carica la UI necessaria ad effettuare la registrazione di un utente.\r\n     * @param event L'evento che richiama il metodo. Necessario per chiudere la UI di login\r\n     */\r\n    public void loadRegisterCitizenUI(ActionEvent event){\r\n        try {\r\n            //Scene mainScene=((Button)event.getSource()).getScene();\r\n            Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();\r\n\r\n            FXMLLoader loader = new FXMLLoader();\r\n            URL url = getClass().getResource(\"/fxml/RegistraUtente.fxml\");\r\n            loader.setLocation(url);\r\n            Parent root = loader.load();\r\n\r\n            Scene scene = new Scene(root);\r\n            currentStage.setScene(scene);\r\n\r\n            //scene.setUserData(mainScene);\r\n        }\r\n        catch (Exception e){\r\n            e.printStackTrace();\r\n        }\r\n\r\n    }\r\n    public void becomeClient(String parameters){ //TODO rinominare sto metodo, bruh non so come chiamarlo\r\n        try {\r\n            System.out.println(\"[CLIENT] - Sono già connesso, prendo gli stream \");\r\n            Socket s = SelectionUI.socket_container;\r\n            in = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);\r\n            out = new BufferedReader(new InputStreamReader(s.getInputStream()));\r\n            in.println(parameters);\r\n            in.println(LOGIN_OPERATION_CODE);\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    public void goBackToMain(ActionEvent event){\r\n        Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();\r\n\r\n        new MainCittadini(currentStage);\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/cittadini/LoginUtente.java b/src/main/java/cittadini/LoginUtente.java
+--- a/src/main/java/cittadini/LoginUtente.java	(revision f53a3a0456da2299b3926a3914e39079b414b010)
++++ b/src/main/java/cittadini/LoginUtente.java	(date 1649943922193)
+@@ -8,10 +8,9 @@
+ import javafx.scene.control.Alert;
+ import javafx.scene.control.Button;
+ import javafx.scene.control.TextField;
++import javafx.scene.input.MouseEvent;
+ import javafx.stage.Stage;
+-
+ import java.io.*;
+-import java.net.InetAddress;
+ import java.net.Socket;
+ import java.net.URL;
+ import java.nio.charset.StandardCharsets;
+@@ -144,10 +143,10 @@
+         }
+     }
+ 
+-    public void goBackToMain(ActionEvent event){
+-        Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
++    public void goBackToMain(MouseEvent event){
++        Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
+ 
+-        new MainCittadini(currentStage);
++        new MainCittadini(stage);
+     }
+ 
+ }
+Index: target/classes/fxml/RegistraUtente.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.scene.control.*?>\r\n<?import javafx.scene.image.*?>\r\n<?import javafx.scene.layout.*?>\r\n<?import javafx.scene.text.*?>\r\n\r\n<AnchorPane prefHeight=\"400.0\" prefWidth=\"550.0\" style=\"-fx-background-color: #1a73e8\" xmlns=\"http://javafx.com/javafx/11.0.2\" xmlns:fx=\"http://javafx.com/fxml/1\" fx:controller=\"cittadini.RegistrazioneUtente\">\r\n   <children>\r\n      <Button layoutX=\"0.0\" layoutY=\"7.5\" onMouseClicked=\"#goBackToMain\" style=\"-fx-background-color: transparent;\">\r\n         <graphic>\r\n            <ImageView fitHeight=\"22.0\" fitWidth=\"25.0\" preserveRatio=\"false\">\r\n               <Image url=\"@/centrivaccinali/goBackIcon.png\" />\r\n            </ImageView>\r\n         </graphic>\r\n      </Button>\r\n      <TextField fx:id=\"txt_userName\" layoutX=\"55.0\" layoutY=\"130.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" promptText=\"Nome\" />\r\n      <TextField fx:id=\"txt_userMail\" layoutX=\"55.0\" layoutY=\"212.0\" prefHeight=\"25.0\" prefWidth=\"440.0\" promptText=\"Email\" />\r\n      <TextField fx:id=\"txt_userCF\" layoutX=\"55.0\" layoutY=\"171.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" promptText=\"Codice Fiscale\" />\r\n      <PasswordField fx:id=\"pswd_confirm\" layoutX=\"55.0\" layoutY=\"253.0\" prefHeight=\"25.0\" prefWidth=\"440.0\" promptText=\"Conferma Password\" />\r\n      <Button layoutX=\"232.0\" layoutY=\"342.0\" mnemonicParsing=\"false\" onAction=\"#registraCittadino\" style=\"-fx-background-radius: 8px; -fx-background-color: white;\" text=\"Conferma\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font></Button>\r\n      <PasswordField fx:id=\"pswd_register\" layoutX=\"55.0\" layoutY=\"294.0\" prefHeight=\"25.0\" prefWidth=\"440.0\" promptText=\"Password\" />\r\n      <TextField fx:id=\"txt_userSurname\" layoutX=\"282.0\" layoutY=\"130.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" promptText=\"Cognome\" />\r\n      <DatePicker fx:id=\"datePicker_datavaccinazione\" layoutX=\"282.0\" layoutY=\"171.0\" prefHeight=\"25.0\" prefWidth=\"213.0\" promptText=\"Data di nascita\" />\r\n      <ImageView fitHeight=\"75.0\" fitWidth=\"75.0\" layoutX=\"237.5\" layoutY=\"40.0\" pickOnBounds=\"true\" preserveRatio=\"false\">\r\n         <Image url=\"@/cittadini/account.png\" />\r\n      </ImageView>\r\n   </children>\r\n</AnchorPane>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/fxml/RegistraUtente.fxml b/target/classes/fxml/RegistraUtente.fxml
+--- a/target/classes/fxml/RegistraUtente.fxml	(revision f53a3a0456da2299b3926a3914e39079b414b010)
++++ b/target/classes/fxml/RegistraUtente.fxml	(date 1649960051425)
+@@ -5,6 +5,8 @@
+ <?import javafx.scene.layout.*?>
+ <?import javafx.scene.text.*?>
+ 
++<?import java.net.URL?>
++
+ <AnchorPane prefHeight="400.0" prefWidth="550.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.RegistrazioneUtente">
+    <children>
+       <Button layoutX="0.0" layoutY="7.5" onMouseClicked="#goBackToMain" style="-fx-background-color: transparent;">
+@@ -14,19 +16,22 @@
+             </ImageView>
+          </graphic>
+       </Button>
+-      <TextField fx:id="txt_userName" layoutX="55.0" layoutY="130.0" prefHeight="25.0" prefWidth="213.0" promptText="Nome" />
+-      <TextField fx:id="txt_userMail" layoutX="55.0" layoutY="212.0" prefHeight="25.0" prefWidth="440.0" promptText="Email" />
+-      <TextField fx:id="txt_userCF" layoutX="55.0" layoutY="171.0" prefHeight="25.0" prefWidth="213.0" promptText="Codice Fiscale" />
+-      <PasswordField fx:id="pswd_confirm" layoutX="55.0" layoutY="253.0" prefHeight="25.0" prefWidth="440.0" promptText="Conferma Password" />
+-      <Button layoutX="232.0" layoutY="342.0" mnemonicParsing="false" onAction="#registraCittadino" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Conferma">
++      <TextField fx:id="txt_userName" layoutX="55.0" layoutY="130.0" prefHeight="25.0" prefWidth="213.0" promptText="Nome" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
++      <TextField fx:id="txt_userMail" layoutX="55.0" layoutY="212.0" prefHeight="25.0" prefWidth="440.0" promptText="Email" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
++      <TextField fx:id="txt_userCF" layoutX="55.0" layoutY="171.0" prefHeight="25.0" prefWidth="213.0" promptText="Codice Fiscale" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
++      <PasswordField fx:id="pswd_confirm" layoutX="55.0" layoutY="253.0" prefHeight="25.0" prefWidth="440.0" promptText="Conferma Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
++      <Button layoutX="232.0" layoutY="344.0" mnemonicParsing="false" onAction="#registraCittadino" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Conferma">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font></Button>
+-      <PasswordField fx:id="pswd_register" layoutX="55.0" layoutY="294.0" prefHeight="25.0" prefWidth="440.0" promptText="Password" />
+-      <TextField fx:id="txt_userSurname" layoutX="282.0" layoutY="130.0" prefHeight="25.0" prefWidth="213.0" promptText="Cognome" />
+-      <DatePicker fx:id="datePicker_datavaccinazione" layoutX="282.0" layoutY="171.0" prefHeight="25.0" prefWidth="213.0" promptText="Data di nascita" />
++      <PasswordField fx:id="pswd_register" layoutX="55.0" layoutY="294.0" prefHeight="25.0" prefWidth="440.0" promptText="Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
++      <TextField fx:id="txt_userSurname" layoutX="282.0" layoutY="130.0" prefHeight="25.0" prefWidth="213.0" promptText="Cognome" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
++      <DatePicker fx:id="datePicker_datavaccinazione" styleClass="datePicker" layoutX="282.0" layoutY="171.0" prefHeight="25.0" prefWidth="213.0" promptText="Data di nascita" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
+       <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="237.5" layoutY="40.0" pickOnBounds="true" preserveRatio="false">
+          <Image url="@/cittadini/account.png" />
+       </ImageView>
+    </children>
++   <stylesheets>
++      <URL value="@/fxml/style.css"/>
++   </stylesheets>
+ </AnchorPane>
+Index: .idea/libraries/Maven__org_postgresql_postgresql_42_3_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_postgresql_postgresql_42_3_3.xml b/.idea/libraries/Maven__org_postgresql_postgresql_42_3_3.xml
+new file mode 100644
+--- /dev/null	(date 1649942561147)
++++ b/.idea/libraries/Maven__org_postgresql_postgresql_42_3_3.xml	(date 1649942561147)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.postgresql:postgresql:42.3.3">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/postgresql/postgresql/42.3.3/postgresql-42.3.3.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/postgresql/postgresql/42.3.3/postgresql-42.3.3-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/postgresql/postgresql/42.3.3/postgresql-42.3.3-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__org_checkerframework_checker_qual_3_5_0.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_checkerframework_checker_qual_3_5_0.xml b/.idea/libraries/Maven__org_checkerframework_checker_qual_3_5_0.xml
+new file mode 100644
+--- /dev/null	(date 1649942561131)
++++ b/.idea/libraries/Maven__org_checkerframework_checker_qual_3_5_0.xml	(date 1649942561131)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.checkerframework:checker-qual:3.5.0">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/checkerframework/checker-qual/3.5.0/checker-qual-3.5.0.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/checkerframework/checker-qual/3.5.0/checker-qual-3.5.0-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/checkerframework/checker-qual/3.5.0/checker-qual-3.5.0-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: target/classes/fxml/RegistraNuovoVaccinato.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.scene.control.*?>\r\n<?import javafx.scene.layout.*?>\r\n<?import javafx.scene.paint.*?>\r\n<?import javafx.scene.shape.*?>\r\n<?import javafx.scene.text.*?>\r\n\r\n<AnchorPane prefHeight=\"700.0\" prefWidth=\"550.0\" xmlns=\"http://javafx.com/javafx/11.0.2\" xmlns:fx=\"http://javafx.com/fxml/1\">\r\n   <children>\r\n      <Rectangle arcHeight=\"5.0\" arcWidth=\"5.0\" height=\"700.0\" stroke=\"BLACK\" strokeType=\"INSIDE\" width=\"550.0\">\r\n         <fill>\r\n            <RadialGradient centerX=\"0.5\" centerY=\"0.5\" cycleMethod=\"REFLECT\" radius=\"0.5\">\r\n               <stops>\r\n                  <Stop>\r\n                     <color>\r\n                        <Color />\r\n                     </color>\r\n                  </Stop>\r\n                  <Stop offset=\"1.0\">\r\n                     <color>\r\n                        <Color red=\"0.09803921729326248\" green=\"0.4901960790157318\" blue=\"0.7882353067398071\" />\r\n                     </color>\r\n                  </Stop>\r\n               </stops>\r\n            </RadialGradient>\r\n         </fill></Rectangle>\r\n      <Rectangle arcHeight=\"5.0\" arcWidth=\"5.0\" fill=\"#91ceff\" height=\"660.0\" layoutX=\"15.0\" layoutY=\"20.0\" stroke=\"BLACK\" strokeType=\"INSIDE\" width=\"520.0\" />\r\n      <ChoiceBox fx:id=\"cbx_vaccinoSomministrato\" layoutX=\"324.0\" layoutY=\"310.0\" prefWidth=\"180.0\" />\r\n      <TextField fx:id=\"txt_nomePaziente\" layoutX=\"50.0\" layoutY=\"195.0\" prefHeight=\"25.0\" prefWidth=\"180.0\" />\r\n      <TextField fx:id=\"txt_cognomePaziente\" layoutX=\"324.0\" layoutY=\"195.0\" prefHeight=\"25.0\" prefWidth=\"180.0\" />\r\n      <TextField fx:id=\"txt_cfPaziente\" layoutX=\"50.0\" layoutY=\"310.0\" prefHeight=\"25.0\" prefWidth=\"180.0\" />\r\n      <Label layoutX=\"81.0\" layoutY=\"150.0\" prefHeight=\"22.0\" prefWidth=\"119.0\" text=\"Nome Paziente\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Label layoutX=\"338.0\" layoutY=\"150.0\" prefHeight=\"22.0\" prefWidth=\"152.0\" text=\"Cognome Paziente\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Label layoutX=\"81.0\" layoutY=\"265.0\" prefHeight=\"22.0\" prefWidth=\"119.0\" text=\"Codice Fiscale\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Label layoutX=\"324.0\" layoutY=\"265.0\" prefHeight=\"22.0\" prefWidth=\"180.0\" text=\"Vaccino Somministrato\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Label layoutX=\"341.0\" layoutY=\"380.0\" prefHeight=\"22.0\" prefWidth=\"146.0\" text=\"Data Vaccinazione\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <ChoiceBox fx:id=\"cbx_centroVaccinale\" layoutX=\"51.0\" layoutY=\"426.0\" prefHeight=\"25.0\" prefWidth=\"180.0\" />\r\n      <Label layoutX=\"65.0\" layoutY=\"380.0\" prefHeight=\"22.0\" prefWidth=\"152.0\" text=\"Centro Vaccinale\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Label>\r\n      <Button fx:id=\"nuovoPaziente_confirm\" layoutX=\"395.0\" layoutY=\"605.0\" mnemonicParsing=\"false\" onAction=\"#registraVaccinato\" style=\"-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;\" text=\"Conferma\">\r\n         <font>\r\n            <Font name=\"Franklin Gothic Medium\" size=\"18.0\" />\r\n         </font>\r\n      </Button>\r\n      <DatePicker fx:id=\"datePicker_datavaccinazione\" layoutX=\"327.0\" layoutY=\"426.0\" />\r\n   </children>\r\n</AnchorPane>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/fxml/RegistraNuovoVaccinato.fxml b/target/classes/fxml/RegistraNuovoVaccinato.fxml
+--- a/target/classes/fxml/RegistraNuovoVaccinato.fxml	(revision f53a3a0456da2299b3926a3914e39079b414b010)
++++ b/target/classes/fxml/RegistraNuovoVaccinato.fxml	(date 1649946666857)
+@@ -27,9 +27,9 @@
+          </fill></Rectangle>
+       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="660.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
+       <ChoiceBox fx:id="cbx_vaccinoSomministrato" layoutX="324.0" layoutY="310.0" prefWidth="180.0" />
+-      <TextField fx:id="txt_nomePaziente" layoutX="50.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
+-      <TextField fx:id="txt_cognomePaziente" layoutX="324.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" />
+-      <TextField fx:id="txt_cfPaziente" layoutX="50.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" />
++      <TextField fx:id="txt_nomePaziente" layoutX="50.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" promptText="Nome Paziente" />
++      <TextField fx:id="txt_cognomePaziente" layoutX="324.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" promptText="Cognome Paziente" />
++      <TextField fx:id="txt_cfPaziente" layoutX="50.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" promptText="Codice Fiscale" />
+       <Label layoutX="81.0" layoutY="150.0" prefHeight="22.0" prefWidth="119.0" text="Nome Paziente">
+          <font>
+             <Font name="Franklin Gothic Medium" size="18.0" />
+@@ -66,6 +66,6 @@
+             <Font name="Franklin Gothic Medium" size="18.0" />
+          </font>
+       </Button>
+-      <DatePicker fx:id="datePicker_datavaccinazione" layoutX="327.0" layoutY="426.0" />
++      <DatePicker fx:id="datePicker_datavaccinazione" layoutX="327.0" layoutY="426.0" promptText="Data Vaccinazione" />
+    </children>
+ </AnchorPane>
+Index: target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>C:\\Users\\carca\\Desktop\\ProgettoLaboratorio2\\src\\main\\java\\cittadini\\LoginUtente.java\r\nC:\\Users\\carca\\Desktop\\ProgettoLaboratorio2\\src\\main\\java\\centrivaccinali\\RegistraNuovoCentro.java\r\nC:\\Users\\carca\\Desktop\\ProgettoLaboratorio2\\src\\main\\java\\MainClass.java\r\nC:\\Users\\carca\\Desktop\\ProgettoLaboratorio2\\src\\main\\java\\centrivaccinali\\PortaleOperatori.java\r\nC:\\Users\\carca\\Desktop\\ProgettoLaboratorio2\\src\\main\\java\\centrivaccinali\\SelectionUI.java\r\nC:\\Users\\carca\\Desktop\\ProgettoLaboratorio2\\src\\main\\java\\centrivaccinali\\RegistraNuovoVaccinato.java\r\nC:\\Users\\carca\\Desktop\\ProgettoLaboratorio2\\src\\main\\java\\cittadini\\RegistraEventiAvversi.java\r\nC:\\Users\\carca\\Desktop\\ProgettoLaboratorio2\\src\\main\\java\\cittadini\\Cittadini.java\r\nC:\\Users\\carca\\Desktop\\ProgettoLaboratorio2\\src\\main\\java\\cittadini\\RegistrazioneUtente.java\r\nC:\\Users\\carca\\Desktop\\ProgettoLaboratorio2\\src\\main\\java\\centrivaccinali\\SingoloCentroVaccinale.java\r\nC:\\Users\\carca\\Desktop\\ProgettoLaboratorio2\\src\\main\\java\\client_server\\ServerHandler.java\r\nC:\\Users\\carca\\Desktop\\ProgettoLaboratorio2\\src\\main\\java\\cittadini\\MainCittadini.java\r\nC:\\Users\\carca\\Desktop\\ProgettoLaboratorio2\\src\\main\\java\\centrivaccinali\\CentriVaccinali.java\r\nC:\\Users\\carca\\Desktop\\ProgettoLaboratorio2\\src\\main\\java\\client_server\\Server.java\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst b/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+--- a/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst	(revision f53a3a0456da2299b3926a3914e39079b414b010)
++++ b/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst	(date 1649960051894)
+@@ -1,14 +1,14 @@
+-C:\Users\carca\Desktop\ProgettoLaboratorio2\src\main\java\cittadini\LoginUtente.java
+-C:\Users\carca\Desktop\ProgettoLaboratorio2\src\main\java\centrivaccinali\RegistraNuovoCentro.java
+-C:\Users\carca\Desktop\ProgettoLaboratorio2\src\main\java\MainClass.java
+-C:\Users\carca\Desktop\ProgettoLaboratorio2\src\main\java\centrivaccinali\PortaleOperatori.java
+-C:\Users\carca\Desktop\ProgettoLaboratorio2\src\main\java\centrivaccinali\SelectionUI.java
+-C:\Users\carca\Desktop\ProgettoLaboratorio2\src\main\java\centrivaccinali\RegistraNuovoVaccinato.java
+-C:\Users\carca\Desktop\ProgettoLaboratorio2\src\main\java\cittadini\RegistraEventiAvversi.java
+-C:\Users\carca\Desktop\ProgettoLaboratorio2\src\main\java\cittadini\Cittadini.java
+-C:\Users\carca\Desktop\ProgettoLaboratorio2\src\main\java\cittadini\RegistrazioneUtente.java
+-C:\Users\carca\Desktop\ProgettoLaboratorio2\src\main\java\centrivaccinali\SingoloCentroVaccinale.java
+-C:\Users\carca\Desktop\ProgettoLaboratorio2\src\main\java\client_server\ServerHandler.java
+-C:\Users\carca\Desktop\ProgettoLaboratorio2\src\main\java\cittadini\MainCittadini.java
+-C:\Users\carca\Desktop\ProgettoLaboratorio2\src\main\java\centrivaccinali\CentriVaccinali.java
+-C:\Users\carca\Desktop\ProgettoLaboratorio2\src\main\java\client_server\Server.java
++C:\Users\david\Desktop\GitHub\ProgettoLaboratorio\src\main\java\cittadini\RegistraEventiAvversi.java
++C:\Users\david\Desktop\GitHub\ProgettoLaboratorio\src\main\java\client_server\Server.java
++C:\Users\david\Desktop\GitHub\ProgettoLaboratorio\src\main\java\cittadini\RegistrazioneUtente.java
++C:\Users\david\Desktop\GitHub\ProgettoLaboratorio\src\main\java\MainClass.java
++C:\Users\david\Desktop\GitHub\ProgettoLaboratorio\src\main\java\centrivaccinali\RegistraNuovoVaccinato.java
++C:\Users\david\Desktop\GitHub\ProgettoLaboratorio\src\main\java\centrivaccinali\CentriVaccinali.java
++C:\Users\david\Desktop\GitHub\ProgettoLaboratorio\src\main\java\centrivaccinali\SingoloCentroVaccinale.java
++C:\Users\david\Desktop\GitHub\ProgettoLaboratorio\src\main\java\client_server\ServerHandler.java
++C:\Users\david\Desktop\GitHub\ProgettoLaboratorio\src\main\java\cittadini\LoginUtente.java
++C:\Users\david\Desktop\GitHub\ProgettoLaboratorio\src\main\java\cittadini\MainCittadini.java
++C:\Users\david\Desktop\GitHub\ProgettoLaboratorio\src\main\java\centrivaccinali\SelectionUI.java
++C:\Users\david\Desktop\GitHub\ProgettoLaboratorio\src\main\java\centrivaccinali\RegistraNuovoCentro.java
++C:\Users\david\Desktop\GitHub\ProgettoLaboratorio\src\main\java\centrivaccinali\PortaleOperatori.java
++C:\Users\david\Desktop\GitHub\ProgettoLaboratorio\src\main\java\cittadini\Cittadini.java

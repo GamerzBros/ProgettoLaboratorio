@@ -1,31 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="700.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="550.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="700.0" stroke="BLACK" strokeType="INSIDE" width="550.0">
-         <fill>
-            <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" radius="0.5">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.09803921729326248" green="0.4901960790157318" blue="0.7882353067398071" />
-                     </color>
-                  </Stop>
-               </stops>
-            </RadialGradient>
-         </fill></Rectangle>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91ceff" height="660.0" layoutX="15.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="520.0" />
+      <Button layoutX="0.0" layoutY="7.5" onMouseClicked="#goBackToOpzioniOperatore" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="22.0" fitWidth="25.0" preserveRatio="false">
+               <Image url="@/centrivaccinali/goBackIcon.png" />
+            </ImageView>
+         </graphic>
+      </Button>
       <ChoiceBox fx:id="cbx_vaccinoSomministrato" layoutX="324.0" layoutY="310.0" prefWidth="180.0" />
       <TextField fx:id="txt_nomePaziente" layoutX="50.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" promptText="Nome Paziente" />
       <TextField fx:id="txt_cognomePaziente" layoutX="324.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" promptText="Cognome Paziente" />
@@ -61,7 +49,7 @@
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="nuovoPaziente_confirm" layoutX="395.0" layoutY="605.0" mnemonicParsing="false" onAction="#registraVaccinato" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Conferma">
+      <Button fx:id="nuovoPaziente_confirm" layoutX="381.0" layoutY="451.0" mnemonicParsing="false" onAction="#registraVaccinato" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Conferma">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>

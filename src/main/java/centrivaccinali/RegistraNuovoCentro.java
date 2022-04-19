@@ -55,8 +55,8 @@ public class RegistraNuovoCentro {
     public RegistraNuovoCentro(Stage stage){
         try {
             FXMLLoader loader = new FXMLLoader();
-            //URL xmlUrl = getClass().getResource("nuovoCentroVaccinale.fxml");
-            URL xmlUrl = getClass().getResource("/fxml/nuovoCentroVaccinale.fxml");
+            //URL xmlUrl = getClass().getResource("RegistraNuovoCentroVaccinale.fxml");
+            URL xmlUrl = getClass().getResource("/fxml/RegistraNuovoCentroVaccinale.fxml");
             loader.setLocation(xmlUrl);
             loader.setController(this);
 
