@@ -26,7 +26,7 @@
          </font>
       </Button>
       <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="208.0" layoutY="38.0" pickOnBounds="true" preserveRatio="false">
-         <Image url="@/cittadini/account.png" />
+         <Image url="@/cittadini/account.png"/>
       </ImageView>
    </children>
 </AnchorPane>
