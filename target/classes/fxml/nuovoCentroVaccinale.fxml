@@ -22,15 +22,10 @@
       <ChoiceBox fx:id="cbx_qualificatore" layoutX="287.0" layoutY="290.0" prefHeight="25.0" prefWidth="213.0" />
       <ChoiceBox fx:id="cbx_tipologia" layoutX="51.0" layoutY="290.0" prefHeight="25.0" prefWidth="213.0" />
       <TextField fx:id="txt_numeroCivico" layoutX="50.0" layoutY="199.0" prefHeight="25.0" prefWidth="213.0" promptText="Numero Civico" />
-      <Button fx:id="btn_nuovoPaziente" layoutX="275.0" layoutY="339.0" mnemonicParsing="false" onAction="#registraCentroVaccinale" prefHeight="25.0" prefWidth="100.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Registra">
+      <Button fx:id="btn_nuovoPaziente" layoutX="216.0" layoutY="341.0" mnemonicParsing="false" onAction="#registraCentroVaccinale" prefHeight="38.0" prefWidth="120.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Registra">
          <font>
             <Font name="System" size="17.0" />
          </font></Button>
-      <Button fx:id="btn_annulla" layoutX="164.0" layoutY="339.0" mnemonicParsing="false" onAction="#annulla_button" prefHeight="25.0" prefWidth="100.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Annulla">
-         <font>
-            <Font name="System" size="17.0" />
-         </font>
-      </Button>
       <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="238.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
          <Image url="@/centrivaccinali/hub.png" />
       </ImageView>
