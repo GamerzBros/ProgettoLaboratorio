@@ -1,0 +1,14 @@
+<changelist name="Uncommitted_changes_before_Update_at_19_04_2022_14_07_[Changes]" date="1650370055276" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_04_2022_14_07_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 19/04/2022 14:07 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/client_server/ServerHandler.class" />
+    <option name="AFTER_PATH" value="target/classes/client_server/ServerHandler.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_04_2022_14_07_[Changes]/ServerHandler.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/cittadini/RegistrazioneUtente.class" />
+    <option name="AFTER_PATH" value="target/classes/cittadini/RegistrazioneUtente.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_04_2022_14_07_[Changes]/RegistrazioneUtente.class" />
+  </binary>
+</changelist>

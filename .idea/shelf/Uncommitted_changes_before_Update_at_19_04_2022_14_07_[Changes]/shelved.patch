@@ -1,0 +1,91 @@
+Index: src/main/java/client_server/ServerHandler.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package client_server;\r\n\r\nimport java.io.*;\r\nimport java.net.Socket;\r\nimport java.sql.*;\r\nimport java.sql.Date;\r\nimport java.text.ParseException;\r\nimport java.text.SimpleDateFormat;\r\n\r\n\r\npublic class ServerHandler extends Thread{\r\n    Socket s;\r\n    BufferedReader in;\r\n    PrintWriter out;\r\n    String op;\r\n    String parameters;\r\n    int op_converted;\r\n\r\n\r\n    ServerHandler(Socket s){\r\n      this.s = s;\r\n      start();\r\n    }\r\n\r\n    public void login(String parameters) {//ricevo user e psw, connetto db e checko, il client sarà in ascolto e ritorno true o false\r\n        String[] parameters_splitted = parameters.split(\";\");\r\n        String email = parameters_splitted[0];\r\n        String mail_db = \"\";\r\n        String pwd_db = \"\";\r\n        String pwd = parameters_splitted[1];\r\n\r\n        try {\r\n            Connection con = connectDB();\r\n            PreparedStatement stm = con.prepareStatement(\"SELECT email,password FROM public.utente where email=? and password =?\");\r\n            stm.setString(1, email);\r\n            stm.setString(2, pwd);\r\n            ResultSet result = stm.executeQuery();\r\n            while (result.next()) {\r\n                mail_db = result.getString(\"email\");\r\n\r\n                pwd_db = result.getString(\"password\");\r\n\r\n            }\r\n            if (email.equals(mail_db) && pwd.equals(pwd_db)) {\r\n                System.out.println(\"[DB - THREAD] MATCH NEL DB\");\r\n                out.println(\"true\");\r\n            } else {\r\n                System.out.println(\"[DB - THREAD]NO MATCH NEL DB\");\r\n                out.println(\"false\");\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    public void register(String parameters) throws ParseException {\r\n        String[] parameters_splitted = parameters.split(\";\");\r\n        String name = parameters_splitted[0];\r\n        String surname = parameters_splitted[1];\r\n        String user = parameters_splitted[2];\r\n        String userCF = parameters_splitted[3];\r\n        String pwd = parameters_splitted[4];\r\n        String dateBirth = parameters_splitted[5];\r\n        Date date1 = java.sql.Date.valueOf(dateBirth);\r\n\r\n\r\n        try{\r\n            Connection con = connectDB();\r\n            PreparedStatement stm = con.prepareStatement(\"insert into public.utente(nome,cognome,cf,data_nascita,email,password) values (?,?,?,?,?,?)\");\r\n            stm.setString(1,name);\r\n            stm.setString(2,surname);\r\n            stm.setString(3,userCF);\r\n            stm.setDate(4,date1);\r\n            stm.setString(5,user);\r\n            stm.setString(6,pwd);\r\n            int result = stm.executeUpdate();\r\n            if(result>0){\r\n                System.out.println(\"[DB -THREAD] QUERY REGISTRAZIONE COMPLETATA\");\r\n                out.println(\"true\");\r\n            }else {\r\n                System.out.println(\"[DB - THREAD] QUERY REGISTRAZIONE ERRORE\");\r\n                out.println(\"false\");\r\n            }\r\n        }catch (SQLException  e){\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    public Connection connectDB() throws SQLException {\r\n        Connection conn = DriverManager.getConnection(\"jdbc:postgresql://127.0.0.1:5432/CentriVaccinali\", \"postgres\", \"admin\");\r\n        if (conn != null) {\r\n            System.out.println(\"[DB - THREAD] - Sono connesso al db\");//qui fa login\r\n        } else {\r\n            System.err.println(\"[DB - THREAD] - Non sono connesso al db\");\r\n        }\r\n        return conn;\r\n    }\r\n\r\n    @Override\r\n    public void run() {\r\n        super.run();\r\n        System.out.println(\"[THREAD] - Server thread startato\");\r\n        try{\r\n            in = new BufferedReader(new InputStreamReader(s.getInputStream()));\r\n            out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())), true);\r\n            while (true){\r\n                System.out.println(\"Ascolto\");\r\n                parameters = in.readLine(); //qui impacchetto qualsiasi dato con separatore \";\" per il server\r\n                System.out.println(parameters);\r\n                op = in.readLine(); //questo è l'operation code\r\n                op_converted = Integer.parseInt(op);\r\n                switch (op_converted) {\r\n                    case 1 -> {\r\n                        System.out.println(\"[THREAD] Login chiamata\");\r\n                        login(parameters);\r\n                    }\r\n                    case 2 -> {\r\n                        System.out.println(\"[THREAD] Register chiamata\");\r\n                        register(parameters);\r\n                    }\r\n                }\r\n            }\r\n        }catch (IOException e){} catch (ParseException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/client_server/ServerHandler.java b/src/main/java/client_server/ServerHandler.java
+--- a/src/main/java/client_server/ServerHandler.java	(revision 1fc92e84981217cbe622236c4bc0216e6cb6a7b6)
++++ b/src/main/java/client_server/ServerHandler.java	(date 1650369888478)
+@@ -5,7 +5,6 @@
+ import java.sql.*;
+ import java.sql.Date;
+ import java.text.ParseException;
+-import java.text.SimpleDateFormat;
+ 
+ 
+ public class ServerHandler extends Thread{
+@@ -22,7 +21,7 @@
+       start();
+     }
+ 
+-    public void login(String parameters) {//ricevo user e psw, connetto db e checko, il client sarà in ascolto e ritorno true o false
++    private void login(String parameters) {//ricevo user e psw, connetto db e checko, il client sarà in ascolto e ritorno true o false
+         String[] parameters_splitted = parameters.split(";");
+         String email = parameters_splitted[0];
+         String mail_db = "";
+@@ -53,7 +52,7 @@
+         }
+     }
+ 
+-    public void register(String parameters) throws ParseException {
++    private void registerUser(String parameters) throws ParseException {
+         String[] parameters_splitted = parameters.split(";");
+         String name = parameters_splitted[0];
+         String surname = parameters_splitted[1];
+@@ -86,7 +85,12 @@
+         }
+     }
+ 
+-    public Connection connectDB() throws SQLException {
++    private void registerVaccinatedUser(String parameters){
++        String[] parameters_splitted = parameters.split(";");
++    }
++
++
++    private Connection connectDB() throws SQLException {
+         Connection conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/CentriVaccinali", "postgres", "admin");
+         if (conn != null) {
+             System.out.println("[DB - THREAD] - Sono connesso al db");//qui fa login
+@@ -104,7 +108,7 @@
+             in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+             out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())), true);
+             while (true){
+-                System.out.println("Ascolto");
++                System.out.println("[THREAD] Ascolto");
+                 parameters = in.readLine(); //qui impacchetto qualsiasi dato con separatore ";" per il server
+                 System.out.println(parameters);
+                 op = in.readLine(); //questo è l'operation code
+@@ -116,7 +120,11 @@
+                     }
+                     case 2 -> {
+                         System.out.println("[THREAD] Register chiamata");
+-                        register(parameters);
++                        registerUser(parameters);
++                    }
++                    case 3 -> {
++                        System.out.println("[THREAD] Register vaccinati chiamata  ");
++                        registerVaccinatedUser(parameters);
+                     }
+                 }
+             }
+Index: src/main/java/centrivaccinali/RegistraNuovoVaccinato.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package centrivaccinali;\r\n\r\nimport javafx.collections.FXCollections;\r\nimport javafx.collections.ObservableList;\r\nimport javafx.event.ActionEvent;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.Scene;\r\nimport javafx.scene.control.*;\r\nimport javafx.scene.image.Image;\r\nimport javafx.scene.input.MouseEvent;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.io.*;\r\nimport java.net.URL;\r\nimport java.time.LocalDate;\r\nimport java.time.format.DateTimeFormatter;\r\nimport java.util.StringTokenizer;\r\n\r\npublic class RegistraNuovoVaccinato {\r\n    /**\r\n     * Percorso per il file contente le informazioni dei centri vaccinali registrati\r\n     */\r\n    public static final String PATH_TO_CENTRIVACCINALI_DATI = \"data/CentriVaccinali.dati.txt\";\r\n    /**\r\n     * Parte iniziale percorso per il file del centro vaccinale selezionato\r\n     */\r\n    public static final String PRE_PATH_TO_EVENTI_AVVERSI=\"data/Vaccinati_\";\r\n    /**\r\n     * Parte finale del percorso del centro vaccinale selezionato\r\n     */\r\n    public static final String AFTER_PATH_TO_EVENTI_AVVERSI=\".dati.txt\";\r\n    /**\r\n     * Percorso per il file contenente i dati dei cittadini registrati\r\n     */\r\n    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = \"data/Cittadini_Registrati.dati.txt\";\r\n    /**\r\n     * Tipo di linea del file contente le informazioni relative al vaccinato\r\n     */\r\n    public static final String LINE_TYPE_PERSON =\"V\";\r\n    /**\r\n     * Tipo di linea del file contente le informazioni relative agli eventi avversi\r\n     */\r\n    public static final String LINE_TYPE_EVENT =\"E\";\r\n    /**\r\n     * Lista contente i tipi di vaccini\r\n     */\r\n    private ObservableList<String> vaccino_somministrato_items = FXCollections.observableArrayList(\"Pfizer\",\"AstraZeneca\",\"Moderna\",\"J&J\");\r\n    /**\r\n     * Lista contenente i centri vaccinali presenti nel file\r\n     */\r\n    private ObservableList<String> centro_vaccinale_items = FXCollections.observableArrayList();\r\n\r\n\r\n    public RegistraNuovoVaccinato(Stage stage){\r\n        try {\r\n            FXMLLoader loader = new FXMLLoader();\r\n            URL xmlUrl = getClass().getResource(\"/fxml/RegistraNuovoVaccinato.fxml\");\r\n            loader.setLocation(xmlUrl);\r\n            loader.setController(this);\r\n\r\n            Parent root = loader.load();\r\n\r\n            Scene scene = new Scene(root);\r\n\r\n            stage.setScene(scene);\r\n            stage.setTitle(\"Nuovo Paziente\");\r\n\r\n            try {\r\n                FileReader fileReader = new FileReader(PATH_TO_CENTRIVACCINALI_DATI);\r\n                BufferedReader reader = new BufferedReader(fileReader);\r\n\r\n                ChoiceBox<String> choiceBox_vaccinoSomministrato = ((ChoiceBox<String>) scene.lookup(\"#cbx_vaccinoSomministrato\"));\r\n                choiceBox_vaccinoSomministrato.setItems(vaccino_somministrato_items);\r\n\r\n                ChoiceBox<String> choiceBox = ((ChoiceBox<String>) scene.lookup(\"#cbx_centroVaccinale\"));\r\n\r\n                String line;\r\n\r\n                while ((line = reader.readLine()) != null&&line.compareTo(\"\")!=0) {\r\n                    StringTokenizer tokenizer = new StringTokenizer(line, \";\");\r\n                    centro_vaccinale_items.add(tokenizer.nextToken());\r\n                }\r\n                choiceBox.setItems(centro_vaccinale_items);\r\n            }\r\n            catch (IOException e){\r\n                e.printStackTrace();\r\n            }\r\n\r\n\r\n            InputStream icon = getClass().getResourceAsStream(\"fiorellino.png\");\r\n            Image image = new Image(icon);\r\n            stage.getIcons().add(image);\r\n            stage.show();\r\n\r\n        }\r\n        catch (IOException e){\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Registra un paziente vaccinato nel file di testo relativo al centro vaccinale.\r\n     * @param event L'evento che richiama il metodo. Necessario per ottenere la scena attuale da cui ottenere i valori da inserire nel file.\r\n     */\r\n    public void registraVaccinato(ActionEvent event) {\r\n        Scene currentScene = ((Button) event.getSource()).getScene();\r\n        String name = ((TextField) currentScene.lookup(\"#txt_nomePaziente\")).getText();\r\n        String surname = ((TextField) currentScene.lookup(\"#txt_cognomePaziente\")).getText();\r\n        String codice_fiscale = ((TextField) currentScene.lookup(\"#txt_cfPaziente\")).getText();\r\n        String vaccineType = ((ChoiceBox<String>) currentScene.lookup(\"#cbx_vaccinoSomministrato\")).getValue();\r\n        LocalDate vaccinationDate = ((DatePicker) currentScene.lookup(\"#datePicker_datavaccinazione\")).getValue();\r\n        String centroVaccinale = ((ChoiceBox<String>) currentScene.lookup(\"#cbx_centroVaccinale\")).getValue();\r\n        String dataVaccinazione = \"\";\r\n        String idVaccinazione = null;\r\n\r\n        if (vaccinationDate != null) { //TODO dava null pointer perchè prendevi la data (anche se era vuota) e sopra la convertivi in string\r\n            dataVaccinazione = vaccinationDate.format(DateTimeFormatter.ofPattern(\"MMM-dd-yyyy\"));\r\n        }\r\n        if (name.equals(\"\") || surname.equals(\"\") || codice_fiscale.equals(\"\") || vaccineType.equals(\"\") || centroVaccinale.equals(\"\") || dataVaccinazione.equals(\"\")) {\r\n            Alert alert = new Alert(Alert.AlertType.ERROR);\r\n            alert.setTitle(\"Errore\");\r\n            alert.setHeaderText(null);\r\n            alert.setContentText(\"Controllare i dati inseriti\");\r\n            alert.showAndWait();\r\n        } else {\r\n            try {\r\n\r\n                //L'id vaccinazione è diviso nel seguente modo:i primi 6 bit sono composti dal numero riga del centro vaccinale. I restanti 10 sono composti dal numero riga vaccinato.\r\n                FileReader fileReader = new FileReader(PATH_TO_CENTRIVACCINALI_DATI);\r\n                BufferedReader reader = new BufferedReader(fileReader);\r\n\r\n                String line;\r\n                int index = 0;\r\n\r\n                while ((line = reader.readLine()) != null && (!line.contains(centroVaccinale))) {\r\n                    index++;\r\n                }\r\n\r\n                String centerIndex = String.valueOf(index);\r\n                while (centerIndex.length() < 6) {\r\n                    centerIndex = \"0\" + centerIndex;\r\n                }\r\n\r\n                fileReader = new FileReader(PRE_PATH_TO_EVENTI_AVVERSI + centroVaccinale + AFTER_PATH_TO_EVENTI_AVVERSI);\r\n                reader = new BufferedReader(fileReader);\r\n\r\n                index = 0;\r\n                while ((line = reader.readLine()) != null) {\r\n                    index++;\r\n                }\r\n\r\n                String patientIndex = String.valueOf(index);\r\n                while (patientIndex.length() < 10) {\r\n                    patientIndex = \"0\" + patientIndex;\r\n                }\r\n\r\n                idVaccinazione = centerIndex + patientIndex;\r\n                System.out.println(idVaccinazione);\r\n\r\n                String output = LINE_TYPE_PERSON + \";\" + name + \";\" + surname + \";\" + codice_fiscale + \";\" + vaccineType + \";\" + idVaccinazione + \";\" + dataVaccinazione + \";\" + centroVaccinale;\r\n                FileWriter writer = new FileWriter(PRE_PATH_TO_EVENTI_AVVERSI + centroVaccinale + AFTER_PATH_TO_EVENTI_AVVERSI, true);\r\n                BufferedWriter out = new BufferedWriter(writer);\r\n                out.write(output);\r\n                out.flush();\r\n                out.newLine();\r\n                out.close();\r\n                writer.close();\r\n                Alert alert = new Alert(Alert.AlertType.INFORMATION);\r\n                alert.setTitle(\"Successo\");\r\n                alert.setHeaderText(null);\r\n                alert.setContentText(\"Paziente registrato a sistema\");\r\n                alert.showAndWait();\r\n\r\n                ((Stage) currentScene.getWindow()).close();\r\n\r\n            } catch (IOException e) {\r\n                e.printStackTrace();\r\n            }\r\n        }\r\n    }\r\n\r\n    public void goBackToOpzioniOperatore(MouseEvent event){\r\n        try {\r\n            FXMLLoader loader = new FXMLLoader();\r\n            URL xmlUrl = getClass().getResource(\"PortaleOperatori.fxml\");\r\n            loader.setLocation(xmlUrl);\r\n\r\n            Parent root = loader.load();\r\n\r\n            Scene scene = new Scene(root);\r\n\r\n            Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();\r\n\r\n            currentStage.setScene(scene);\r\n        }\r\n        catch(IOException e){\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/centrivaccinali/RegistraNuovoVaccinato.java b/src/main/java/centrivaccinali/RegistraNuovoVaccinato.java
+--- a/src/main/java/centrivaccinali/RegistraNuovoVaccinato.java	(revision 1fc92e84981217cbe622236c4bc0216e6cb6a7b6)
++++ b/src/main/java/centrivaccinali/RegistraNuovoVaccinato.java	(date 1650369888473)
+@@ -114,7 +114,7 @@
+         String dataVaccinazione = "";
+         String idVaccinazione = null;
+ 
+-        if (vaccinationDate != null) { //TODO dava null pointer perchè prendevi la data (anche se era vuota) e sopra la convertivi in string
++        if (vaccinationDate != null) {
+             dataVaccinazione = vaccinationDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
+         }
+         if (name.equals("") || surname.equals("") || codice_fiscale.equals("") || vaccineType.equals("") || centroVaccinale.equals("") || dataVaccinazione.equals("")) {
