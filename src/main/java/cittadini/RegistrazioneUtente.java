@@ -6,9 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
-import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.*;
 import java.net.Socket;
 import java.net.URL;
@@ -117,23 +118,10 @@ public class RegistrazioneUtente {
         return sb.toString();
     }
 
-    public void goBackToMain(ActionEvent event){
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            URL xmlUrl = getClass().getResource("/fxml/SelectionUI.fxml");
-            loader.setLocation(xmlUrl);
+    public void goBackToMain(MouseEvent event){
+        Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
 
-            Parent root = loader.load();
-
-            Scene scene=new Scene(root);
-
-            Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
-
-            currentStage.setScene(scene);
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
+        new MainCittadini(stage);
     }
 
     public void becomeClient(String parameters){ //TODO rinominare sto metodo, bruh non so come chiamarlo

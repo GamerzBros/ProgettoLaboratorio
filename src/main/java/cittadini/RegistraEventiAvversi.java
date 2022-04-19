@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -137,13 +138,9 @@ public class RegistraEventiAvversi {
         }
     }
 
-    /**
-     * Chiude la finestra (stage) attuale. Il metodo viene usato per tutte le UI, relative al package, che contengono il tasto "annulla".
-     * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage da chiudere.
-     */
-    public void onAnnullaButtonClicked(ActionEvent event){
-        Scene currentScene=((Button) event.getSource()).getScene();
-        Stage currentStage=(Stage)currentScene.getWindow();
-        currentStage.close();
+    public void goBackToMain(MouseEvent event){
+        Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
+
+        new MainCittadini(stage);
     }
 }

@@ -8,10 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
 import java.io.*;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -143,10 +142,10 @@ public class LoginUtente {
         }
     }
 
-    public void goBackToMain(ActionEvent event){
-        Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
+    public void goBackToMain(MouseEvent event){
+        Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
 
-        new MainCittadini(currentStage);
+        new MainCittadini(stage);
     }
 
 }
