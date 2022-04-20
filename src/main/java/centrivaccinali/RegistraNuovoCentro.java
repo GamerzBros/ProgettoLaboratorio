@@ -105,7 +105,13 @@ public class RegistraNuovoCentro {
         String cap = ((TextField) currentScene.lookup("#txt_cap")).getText();
         String tipolog = ((ChoiceBox<String>) currentScene.lookup("#cbx_tipologia")).getValue();
         String parameters = nome + ";" + qualif + ";" + via + ";" + civico + ";" + com + ";" + prov + ";" + cap + ";" + tipolog;
-
+        if(prov.length()>2){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText(null);
+            alert.setContentText("Controllare i dati inseriti");
+            alert.showAndWait();
+        }
         if (nome.equals("") || qualif == null || via.equals("") || civico.equals("") || com.equals("") || prov.equals("") || cap.equals("") || tipolog == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
