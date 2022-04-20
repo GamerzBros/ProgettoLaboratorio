@@ -10,7 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
 import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
@@ -71,9 +70,11 @@ public class RegistraNuovoVaccinato {
                 BufferedReader reader = new BufferedReader(fileReader);
 
                 ChoiceBox<String> choiceBox_vaccinoSomministrato = ((ChoiceBox<String>) scene.lookup("#cbx_vaccinoSomministrato"));
+                choiceBox_vaccinoSomministrato.setValue("Tipologia Vaccino");
                 choiceBox_vaccinoSomministrato.setItems(vaccino_somministrato_items);
 
-                ChoiceBox<String> choiceBox = ((ChoiceBox<String>) scene.lookup("#cbx_centroVaccinale"));
+                ChoiceBox<String> choiceBox_centroVaccinale = ((ChoiceBox<String>) scene.lookup("#cbx_centroVaccinale"));
+                choiceBox_centroVaccinale.setValue("Centro Vaccinale");
 
                 String line;
 
@@ -81,7 +82,7 @@ public class RegistraNuovoVaccinato {
                     StringTokenizer tokenizer = new StringTokenizer(line, ";");
                     centro_vaccinale_items.add(tokenizer.nextToken());
                 }
-                choiceBox.setItems(centro_vaccinale_items);
+                choiceBox_centroVaccinale.setItems(centro_vaccinale_items);
             }
             catch (IOException e){
                 e.printStackTrace();

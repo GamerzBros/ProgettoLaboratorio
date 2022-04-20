@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="550.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="575.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button layoutX="0.0" layoutY="7.5" onMouseClicked="#goBackToOpzioniOperatore" style="-fx-background-color: transparent;">
          <graphic>
@@ -14,46 +14,16 @@
             </ImageView>
          </graphic>
       </Button>
-      <ChoiceBox fx:id="cbx_vaccinoSomministrato" layoutX="324.0" layoutY="310.0" prefWidth="180.0" />
-      <TextField fx:id="txt_nomePaziente" layoutX="50.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" promptText="Nome Paziente" />
-      <TextField fx:id="txt_cognomePaziente" layoutX="324.0" layoutY="195.0" prefHeight="25.0" prefWidth="180.0" promptText="Cognome Paziente" />
-      <TextField fx:id="txt_cfPaziente" layoutX="50.0" layoutY="310.0" prefHeight="25.0" prefWidth="180.0" promptText="Codice Fiscale" />
-      <Label layoutX="81.0" layoutY="150.0" prefHeight="22.0" prefWidth="119.0" text="Nome Paziente">
-         <font>
-            <Font name="Franklin Gothic Medium" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="338.0" layoutY="150.0" prefHeight="22.0" prefWidth="152.0" text="Cognome Paziente">
-         <font>
-            <Font name="Franklin Gothic Medium" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="81.0" layoutY="265.0" prefHeight="22.0" prefWidth="119.0" text="Codice Fiscale">
-         <font>
-            <Font name="Franklin Gothic Medium" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="324.0" layoutY="265.0" prefHeight="22.0" prefWidth="180.0" text="Vaccino Somministrato">
-         <font>
-            <Font name="Franklin Gothic Medium" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="341.0" layoutY="380.0" prefHeight="22.0" prefWidth="146.0" text="Data Vaccinazione">
-         <font>
-            <Font name="Franklin Gothic Medium" size="18.0" />
-         </font>
-      </Label>
-      <ChoiceBox fx:id="cbx_centroVaccinale" layoutX="51.0" layoutY="426.0" prefHeight="25.0" prefWidth="180.0" />
-      <Label layoutX="65.0" layoutY="380.0" prefHeight="22.0" prefWidth="152.0" text="Centro Vaccinale">
-         <font>
-            <Font name="Franklin Gothic Medium" size="18.0" />
-         </font>
-      </Label>
-      <Button fx:id="nuovoPaziente_confirm" layoutX="381.0" layoutY="451.0" mnemonicParsing="false" onAction="#registraVaccinato" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Conferma">
+      <ChoiceBox fx:id="cbx_vaccinoSomministrato" layoutX="339.0" layoutY="261.0" prefWidth="180.0" />
+      <TextField fx:id="txt_nomePaziente" layoutX="51.0" layoutY="109.0" prefHeight="25.0" prefWidth="180.0" promptText="Nome Paziente" />
+      <TextField fx:id="txt_cognomePaziente" layoutX="336.0" layoutY="109.0" prefHeight="25.0" prefWidth="180.0" promptText="Cognome Paziente" />
+      <TextField fx:id="txt_cfPaziente" layoutX="51.0" layoutY="187.0" prefHeight="25.0" prefWidth="180.0" promptText="Codice Fiscale" />
+      <ChoiceBox fx:id="cbx_centroVaccinale" layoutX="60.0" layoutY="261.0" prefHeight="25.0" prefWidth="180.0" />
+      <Button fx:id="nuovoPaziente_confirm" layoutX="233.0" layoutY="335.0" mnemonicParsing="false" onAction="#registraVaccinato" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #197dc9; -fx-border-width: 4;" text="Conferma">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Button>
-      <DatePicker fx:id="datePicker_datavaccinazione" layoutX="327.0" layoutY="426.0" promptText="Data Vaccinazione" />
+      <DatePicker fx:id="datePicker_datavaccinazione" layoutX="336.0" layoutY="187.0" promptText="Data Vaccinazione" />
    </children>
 </AnchorPane>
