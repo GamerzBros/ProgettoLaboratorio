@@ -5,8 +5,6 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<?import java.net.URL?>
-
 <AnchorPane prefHeight="400.0" prefWidth="550.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.RegistrazioneUtente">
    <children>
       <Button layoutX="0.0" layoutY="7.5" onMouseClicked="#goBackToMain" style="-fx-background-color: transparent;">
@@ -26,12 +24,9 @@
          </font></Button>
       <PasswordField fx:id="pswd_register" layoutX="55.0" layoutY="294.0" prefHeight="25.0" prefWidth="440.0" promptText="Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
       <TextField fx:id="txt_userSurname" layoutX="282.0" layoutY="130.0" prefHeight="25.0" prefWidth="213.0" promptText="Cognome" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
-      <DatePicker fx:id="datePicker_datavaccinazione" styleClass="datePicker" layoutX="282.0" layoutY="171.0" prefHeight="25.0" prefWidth="213.0" promptText="Data di nascita" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
+      <DatePicker fx:id="datePicker_datavaccinazione" layoutX="282.0" layoutY="171.0" prefHeight="25.0" prefWidth="213.0" promptText="Data di nascita" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
       <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="237.5" layoutY="40.0" pickOnBounds="true" preserveRatio="false">
          <Image url="@/cittadini/account.png" />
       </ImageView>
    </children>
-   <stylesheets>
-      <URL value="@/fxml/style.css"/>
-   </stylesheets>
 </AnchorPane>

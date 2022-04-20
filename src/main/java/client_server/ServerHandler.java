@@ -61,8 +61,6 @@ public class ServerHandler extends Thread{
         String pwd = parameters_splitted[4];
         String dateBirth = parameters_splitted[5];
         Date date1 = java.sql.Date.valueOf(dateBirth);
-
-
         try{
             Connection con = connectDB();
             PreparedStatement stm = con.prepareStatement("insert into public.utente(nome,cognome,cf,data_nascita,email,password) values (?,?,?,?,?,?)");
@@ -85,8 +83,45 @@ public class ServerHandler extends Thread{
         }
     }
 
-    private void registerVaccinatedUser(String parameters){
+    private void registerVaccinatedUser(String parameters){ //TODO implementare funzione registerVaccinatedUser
         String[] parameters_splitted = parameters.split(";");
+    }
+
+    private void registerVaccineCenter(String parameters) {
+        String[] parameters_splitted = parameters.split(";");
+        String nome = parameters_splitted[0];
+        String qualificatore = parameters_splitted[1];
+        String via = parameters_splitted[2];
+        String civico = parameters_splitted[3];
+        String comune = parameters_splitted[4];
+        String provincia = parameters_splitted[5];
+        String cap = parameters_splitted[6];
+        String tipologia = parameters_splitted[7];
+        try {
+            Connection con = connectDB();
+            String sql = "INSERT INTO public.centrivaccinali (qualificatore,via,civico,comune,provincia,cap,tipologia,nome)\n" +
+                    "VALUES(?,?,?,?,?,?,?,?)";
+            PreparedStatement stm = con.prepareStatement(sql);
+            stm.setString(1, qualificatore);
+            stm.setString(2, via);
+            stm.setString(3, civico);
+            stm.setString(4, comune);
+            stm.setString(5, provincia);
+            stm.setString(6, cap);
+            stm.setString(7, tipologia);
+            stm.setString(8, nome);
+            int result = stm.executeUpdate();
+            if (result > 0) {
+                System.out.println("[DB -THREAD] REGISTRATO CENTRO VACCINALE ");
+                out.println("true");
+            } else {
+                System.out.println("[DB - THREAD] ERRORE REGISTRAZIONE CENTRO VACCINALE");
+                out.println("false");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -125,6 +160,10 @@ public class ServerHandler extends Thread{
                     case 3 -> {
                         System.out.println("[THREAD] Register vaccinati chiamata  ");
                         registerVaccinatedUser(parameters);
+                    }
+                    case 4 ->{
+                        System.out.println("[THREAD] Nuovo Centro Vaccinale inserimento chiamata");
+                        registerVaccineCenter(parameters);
                     }
                 }
             }
