@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.HashMap;
 
 public class RegistraEventiAvversi {
     /**
@@ -49,9 +50,9 @@ public class RegistraEventiAvversi {
     private String currentCenter;
 
     public RegistraEventiAvversi(Stage stage){
-        String[] userData= (String[]) stage.getUserData();
-        currentUser=userData[0];
-        currentCenter=userData[1];
+        HashMap<String,String> userData= (HashMap<String,String>) stage.getUserData();
+        currentUser=userData.get("currentUser");
+        currentCenter=userData.get("currentCenter");
     }
 
     /**
@@ -60,11 +61,7 @@ public class RegistraEventiAvversi {
      */
     public void registerEventiAvversi(ActionEvent actionEvent){
         try {
-            Scene currentScene = ((Button) actionEvent.getSource()).getScene();
-
-            String[] userData = (String[]) currentScene.getUserData();
-            String currentCenter = userData[0];
-            String currentUser = userData[1];
+            Scene currentScene =((Button) actionEvent.getSource()).getScene();
 
             System.out.println(currentCenter);
 

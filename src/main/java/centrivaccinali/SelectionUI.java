@@ -11,12 +11,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
-import java.net.UnknownHostException;
 
 public class SelectionUI extends Application {
     /**
@@ -40,11 +38,8 @@ public class SelectionUI extends Application {
 
         Scene scene=new Scene(root);
 
-        stage.setUserData(new String[]{null,null});
         stage.setScene(scene);
         stage.setTitle("Seleziona il Portale");
-
-        //currentStage=stage;
 
 
         InputStream icon = getClass().getResourceAsStream("fiorellino.png");
@@ -108,9 +103,6 @@ public class SelectionUI extends Application {
             stage.setY(50);
             stage.setX(175);
 
-            String[] userData = new String[2];
-            scene.setUserData(userData);
-
             /*scrollPane_CentriVaccinali = (ScrollPane) scene.lookup("#scrollPane_CentriVaccinali");
             scrollPane_CentriVaccinali.lookup(".viewport").setStyle("-fx-background-color: #1a73e8;");
 
@@ -124,38 +116,6 @@ public class SelectionUI extends Application {
             e.printStackTrace();
         }
     }
-
-
-    /*public void loadMainCittadiniUI(Stage stage){
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            URL url = getClass().getResource("/cittadini/MainCittadini.fxml");
-            fxmlLoader.setLocation(url);
-            Parent root = fxmlLoader.load();
-
-            Scene scene = new Scene(root);
-
-            stage.setScene(scene);
-            stage.setTitle("Portale Cittadini");
-            stage.setY(50);
-            stage.setX(175);
-
-            String[] userData = new String[2];
-            scene.setUserData(userData);
-
-            scrollPane_CentriVaccinali = (ScrollPane) scene.lookup("#scrollPane_CentriVaccinali");
-            scrollPane_CentriVaccinali.lookup(".viewport").setStyle("-fx-background-color: #1a73e8;");
-
-            centriVaccinaliList = Cittadini.getCentriVaccinaliFromFile();
-
-            creaVbox(centriVaccinaliList);
-
-            stage.show();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-    }*/
 
     public void onChoiceButtonHover(MouseEvent event){
         Button btn=(Button)event.getSource();
