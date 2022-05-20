@@ -16,6 +16,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 
 public class LoginUtente {
     /**
@@ -57,18 +58,18 @@ public class LoginUtente {
                 if (result.equals("true")) { //se true vuoldire che ha matchato con il db
                     System.out.println("LOGGATO");
                     //  currentUser=parts[4]; //CF dell'utente
-                    Scene mainScene = (Scene) currentScene.getUserData();
-                    String[] userData = (String[]) mainScene.getUserData();
-                    currentCenter = userData[0];
-                    userData[1] = currentUser;
-                    mainScene.setUserData(userData);
                     Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                    HashMap<String,String> userData = (HashMap<String,String>) currentStage.getUserData();
+                    userData.put("currentUser",currentUser);
+                    //Controllare che non serva risettarlo
+                    //currentStage.setUserData(userData);
                     currentStage.close();
 
                     Alert alertSuccessfullLogin = new Alert(Alert.AlertType.INFORMATION);
                     alertSuccessfullLogin.setTitle("Login effettuato");
                     alertSuccessfullLogin.setContentText("Utente loggato");
                     alertSuccessfullLogin.showAndWait();
+
                 } else if (result.equals("false")) {
                     Alert noUserAlert = new Alert(Alert.AlertType.WARNING);
                     noUserAlert.setTitle("Errore di login");
@@ -122,7 +123,6 @@ public class LoginUtente {
             Scene scene = new Scene(root);
             currentStage.setScene(scene);
 
-            //scene.setUserData(mainScene);
         }
         catch (Exception e){
             e.printStackTrace();

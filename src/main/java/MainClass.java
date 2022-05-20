@@ -1,4 +1,3 @@
-import centrivaccinali.CentriVaccinali;
 import centrivaccinali.SelectionUI;
 
 public class MainClass {
