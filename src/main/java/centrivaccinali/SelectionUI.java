@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -52,12 +53,13 @@ public class SelectionUI extends Application {
 
         stage.getIcons().add(image);
         stage.show();
+        becomeClient();
     }
 
     @Override
     public void init() throws Exception { //metodo che viene in automatico startato dopo la creazione della ui
         super.init();
-        becomeClient();
+       // becomeClient();
     }
 
     /**
@@ -200,7 +202,11 @@ public class SelectionUI extends Application {
             System.out.println("[CLIENT] - Sono connesso ");
             socket_container=s;
         } catch (IOException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore connessione");
+            alert.setTitle("Server non startato");
+            alert.setContentText("Il server non è stato startato, riavviare l'app accendendo prima il server");
+            alert.showAndWait();
         }
     }
 

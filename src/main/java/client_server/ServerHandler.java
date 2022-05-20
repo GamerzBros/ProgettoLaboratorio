@@ -15,7 +15,6 @@ public class ServerHandler extends Thread{
     String parameters;
     int op_converted;
 
-
     ServerHandler(Socket s){
       this.s = s;
       start();
@@ -63,7 +62,8 @@ public class ServerHandler extends Thread{
         Date date1 = java.sql.Date.valueOf(dateBirth);
         try{
             Connection con = connectDB();
-            PreparedStatement stm = con.prepareStatement("insert into public.utente(nome,cognome,cf,data_nascita,email,password) values (?,?,?,?,?,?)");
+            String sql ="insert into public.utente(nome,cognome,cf,data_nascita,email,password) values (?,?,?,?,?,?)" ;
+            PreparedStatement stm = con.prepareStatement(sql);
             stm.setString(1,name);
             stm.setString(2,surname);
             stm.setString(3,userCF);
@@ -85,6 +85,39 @@ public class ServerHandler extends Thread{
 
     private void registerVaccinatedUser(String parameters){ //TODO implementare funzione registerVaccinatedUser
         String[] parameters_splitted = parameters.split(";");
+        String nome = parameters_splitted[0];
+        String cognome = parameters_splitted[1];
+        String codice_fiscale = parameters_splitted[2];
+        String tipoVaccino = parameters_splitted[3];
+        String centroVaccinale = parameters_splitted[4];
+        String dataVaccinazione = parameters_splitted[5];
+        Date dataVaccinazioneSQL = java.sql.Date.valueOf(dataVaccinazione);
+        String idVaccinazione = parameters_splitted[6];
+        System.out.println(dataVaccinazione);
+        System.out.println(dataVaccinazioneSQL);
+        try{
+            Connection con = connectDB();
+            String sql ="insert into vaccinati (nome,cognome,codice_fiscale,vaccino,centrovaccinale,data_vaccinazione,id_vaccinazione) VALUES (?,?,?,?,?,?,?)";
+            PreparedStatement stm = con.prepareStatement(sql);
+            stm.setString(1,nome);
+            stm.setString(2,cognome);
+            stm.setString(3,codice_fiscale);
+            stm.setString(4,tipoVaccino);
+            stm.setString(5,centroVaccinale);
+            stm.setDate(6,dataVaccinazioneSQL);
+            stm.setString(7,idVaccinazione);
+            int result = stm.executeUpdate();
+            if(result>0){
+                System.out.println("[DB -THREAD] QUERY REGISTRAZIONE COMPLETATA");
+                out.println("true");
+            }else {
+                System.out.println("[DB - THREAD] QUERY REGISTRAZIONE ERRORE");
+                out.println("false");
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
     }
 
     private void registerVaccineCenter(String parameters) {
@@ -158,7 +191,7 @@ public class ServerHandler extends Thread{
                         registerUser(parameters);
                     }
                     case 3 -> {
-                        System.out.println("[THREAD] Register vaccinati chiamata  ");
+                        System.out.println("[THREAD] Register vaccinati chiamata  "); //TODO implementare
                         registerVaccinatedUser(parameters);
                     }
                     case 4 ->{
