@@ -155,7 +155,7 @@ public class SelectionUI extends Application {
     public void stop() throws Exception {
         super.stop();
     }
-    public void becomeClient(){ //TODO rinominare sto metodo, bruh non so come chiamarlo
+    public void becomeClient(){
         try {
             System.out.println("[CLIENT] - Tentativo di connessione ");
             s = new Socket(InetAddress.getLocalHost(),9870);

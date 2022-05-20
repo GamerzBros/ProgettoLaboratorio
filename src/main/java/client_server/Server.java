@@ -4,7 +4,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
-    final int PORT = 9870; //TODO implementazione db
+    final int PORT = 9870;
     ServerSocket server_socket;
     Socket s;
     Server() throws IOException {
@@ -18,7 +18,6 @@ public class Server {
             while (true) {
                 s = server_socket.accept();
                 System.out.println("Un client si è connesso");
-                //TODO SERVER HANDLER THREAD
                 new ServerHandler(s);
             }
         } catch (IOException e) {

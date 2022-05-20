@@ -83,7 +83,7 @@ public class ServerHandler extends Thread{
         }
     }
 
-    private void registerVaccinatedUser(String parameters){ //TODO implementare funzione registerVaccinatedUser
+    private void registerVaccinatedUser(String parameters){
         String[] parameters_splitted = parameters.split(";");
         String nome = parameters_splitted[0];
         String cognome = parameters_splitted[1];
@@ -193,7 +193,7 @@ public class ServerHandler extends Thread{
                         registerUser(parameters);
                     }
                     case 3 -> {
-                        System.out.println("[THREAD] Register vaccinati chiamata  "); //TODO implementare
+                        System.out.println("[THREAD] Register vaccinati chiamata  ");
                         registerVaccinatedUser(parameters);
                     }
                     case 4 ->{

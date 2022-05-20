@@ -124,7 +124,7 @@ public class RegistrazioneUtente {
         new MainCittadini(stage);
     }
 
-    public void becomeClient(String parameters){ //TODO rinominare sto metodo, bruh non so come chiamarlo
+    public void becomeClient(String parameters){
         try {
             System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
             Socket s = SelectionUI.socket_container;
