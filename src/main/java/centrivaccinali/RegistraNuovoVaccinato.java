@@ -109,7 +109,7 @@ public class RegistraNuovoVaccinato {
      * Registra un paziente vaccinato nel file di testo relativo al centro vaccinale.
      * @param event L'evento che richiama il metodo. Necessario per ottenere la scena attuale da cui ottenere i valori da inserire nel file.
      */
-    public void registraVaccinato(ActionEvent event) { //todo RIEMPIRE ( DA FARE ANCHE GLI ALTRI ) I MENU A CASCATA CON I RIFERIMENTI DEL DB
+    public void registraVaccinato(ActionEvent event) {
         Scene currentScene = ((Button) event.getSource()).getScene();
         String name = ((TextField) currentScene.lookup("#txt_nomePaziente")).getText();
         String surname = ((TextField) currentScene.lookup("#txt_cognomePaziente")).getText();

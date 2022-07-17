@@ -126,7 +126,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             scrollPane_CentriVaccinali = (ScrollPane) scene.lookup("#scrollPane_CentriVaccinali");
             scrollPane_CentriVaccinali.lookup(".viewport").setStyle("-fx-background-color: #1a73e8;");
 
-            centriVaccinaliList = getCentriVaccinaliFromFile();
+            centriVaccinaliList = getCentriVaccinaliFromFile(); //TODO QUESTO DA SERVER
 
             creaVbox(centriVaccinaliList);
 
@@ -288,7 +288,11 @@ public class MainCittadini implements EventHandler<ActionEvent> {
 
         }
         catch(IOException e){
-            e.printStackTrace(); //TODO mettere popup con scritto "errore nel caricamento dello info del centro"
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setContentText("Errore nel caricamento dello info del centro");
+            alert.showAndWait();
         }
     }
 
@@ -485,7 +489,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         search(currentScene);
     }
 
-    public void search(Scene currentScene){
+    public void search(Scene currentScene){ //TODO IMPLEMENTAZIONE LATO SERVER
         centriVaccinaliList=getCentriVaccinaliFromFile();
 
         Vector<SingoloCentroVaccinale> vector_search = new Vector<>();

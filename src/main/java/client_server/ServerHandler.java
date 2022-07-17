@@ -175,7 +175,6 @@ public class ServerHandler extends Thread{
         try{
             in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
-            //TODO se possibile togliere il print writer e usare direttamente il bufferedwriter
             out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())), true);
             while (true){
                 System.out.println("[THREAD] Ascolto");
