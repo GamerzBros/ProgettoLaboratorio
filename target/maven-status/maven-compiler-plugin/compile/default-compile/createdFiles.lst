@@ -1,7 +1,6 @@
 centrivaccinali\SelectionUI.class
 client_server\ServerHandler.class
 cittadini\MainCittadini.class
-centrivaccinali\CentriVaccinali.class
 centrivaccinali\RegistraNuovoVaccinato.class
 client_server\Server.class
 centrivaccinali\RegistraNuovoCentro.class
@@ -10,4 +9,3 @@ cittadini\LoginUtente.class
 centrivaccinali\PortaleOperatori.class
 MainClass.class
 cittadini\RegistrazioneUtente.class
-cittadini\Cittadini.class
