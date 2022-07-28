@@ -48,41 +48,42 @@ public class LoginUtente {
         System.out.println("Login in corso");
         String parameters;
         try {
-            if (!user.equals("") && !pwd.equals("")) {
-                MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-                pwd = toHexString(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8)));
-                parameters = user + ";" + pwd; //parametri per il db
-                becomeClient(parameters); //connessione
-                String result = out.readLine(); //valore di ritorno true o false per la query della login
-                System.out.println("RISULTATO QUERY = " + result);//codice parlante xdxd
-                if (result.equals("true")) { //se true vuoldire che ha matchato con il db
-                    System.out.println("LOGGATO");
-                    //  currentUser=parts[4]; //CF dell'utente
-                    Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-                    HashMap<String,String> userData = (HashMap<String,String>) currentStage.getUserData();
-                    userData.put("currentUser",currentUser);
-                    //Controllare che non serva risettarlo
-                    //currentStage.setUserData(userData);
-                    currentStage.close();
-
-                    Alert alertSuccessfullLogin = new Alert(Alert.AlertType.INFORMATION);
-                    alertSuccessfullLogin.setTitle("Login effettuato");
-                    alertSuccessfullLogin.setContentText("Utente loggato");
-                    alertSuccessfullLogin.showAndWait();
-
-                } else if (result.equals("false")) {
-                    Alert noUserAlert = new Alert(Alert.AlertType.WARNING);
-                    noUserAlert.setTitle("Errore di login");
-                    noUserAlert.setContentText("Utente non trovato!");
-                    noUserAlert.show();
-                }
-            } else {
+            if (user.equals("") || pwd.equals("")) {
                 Alert alertNoData = new Alert(Alert.AlertType.WARNING);
                 alertNoData.setTitle("Inserisci dei dati");
-                alertNoData.setContentText("Non hai inserito i dati");
-                alertNoData.showAndWait();
-                System.out.println("Inserire dei dati");
+                alertNoData.setContentText("Riempi tutti i campi");
+                alertNoData.show();
+                return;
             }
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+            pwd = toHexString(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8)));
+            parameters = user + ";" + pwd; //parametri per il db
+            becomeClient(parameters); //connessione
+            String result = out.readLine(); //valore di ritorno true o false per la query della login
+            System.out.println("RISULTATO QUERY = " + result);//codice parlante xdxd
+            if (!result.equals("true")) { //se true vuol dire che ha matchato con il db
+                Alert noUserAlert = new Alert(Alert.AlertType.WARNING);
+                noUserAlert.setTitle("Errore di login");
+                noUserAlert.setContentText("Utente non trovato!");
+                noUserAlert.show();
+                return;
+            }
+            System.out.println("LOGGATO");
+            //  currentUser=parts[4]; //CF dell'utente
+            Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            HashMap<String,String> userData = (HashMap<String,String>) currentStage.getUserData();
+            userData.put("currentUser",currentUser);
+            //Controllare che non serva risettarlo
+            //currentStage.setUserData(userData);
+            currentStage.close();
+
+            Alert alertSuccessfullLogin = new Alert(Alert.AlertType.INFORMATION);
+            alertSuccessfullLogin.setTitle("Login effettuato");
+            alertSuccessfullLogin.setContentText("Utente loggato");
+            alertSuccessfullLogin.showAndWait();
+
+            new MainCittadini(currentStage);
+
         } catch (IOException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
