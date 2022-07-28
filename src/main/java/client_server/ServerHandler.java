@@ -1,10 +1,13 @@
 package client_server;
 
+import centrivaccinali.SingoloCentroVaccinale;
+
 import java.io.*;
 import java.net.Socket;
 import java.sql.*;
 import java.sql.Date;
 import java.text.ParseException;
+import java.util.Vector;
 
 
 public class ServerHandler extends Thread{
@@ -13,6 +16,7 @@ public class ServerHandler extends Thread{
     PrintWriter out;
     String op;
     String parameters;
+    ObjectOutputStream os;
     int op_converted;
 
     ServerHandler(Socket s){
@@ -37,7 +41,6 @@ public class ServerHandler extends Thread{
                 mail_db = result.getString("email");
 
                 pwd_db = result.getString("password");
-
             }
             if (email.equals(mail_db) && pwd.equals(pwd_db)) {
                 System.out.println("[DB - THREAD] MATCH NEL DB");
@@ -157,6 +160,44 @@ public class ServerHandler extends Thread{
 
     }
 
+    private void getCentriVaccinaliFromDb(){
+        System.out.println("CHIAMATOOOOOOOO");
+        Vector<SingoloCentroVaccinale> vector = new Vector<>();
+        String nome_db;
+        String qualificatore_db;
+        String via_db;
+        String civico_db;
+        String comune_db;
+        String provincia_db;
+        String cap_db;
+        String tipologia_db;
+        try {
+            Connection con = connectDB();
+            String sql = "SELECT * from centrivaccinali";
+            PreparedStatement stm = con.prepareStatement(sql);
+            ResultSet res = stm.executeQuery();
+            while(res.next()){
+                nome_db = res.getString("nome");
+                via_db = res.getString("via");
+                qualificatore_db = res.getString("qualificatore");
+                civico_db = res.getString("civico");
+                comune_db = res.getString("comune");
+                provincia_db = res.getString("provincia");
+                cap_db = res.getString("cap");
+                String indirizzo = via_db+" "+nome_db+", "+civico_db+", "+comune_db+" ("+provincia_db+") "+cap_db;
+                tipologia_db = res.getString("tipologia");
+                vector.add(new SingoloCentroVaccinale(nome_db, indirizzo, tipologia_db));
+            }
+            os = new ObjectOutputStream(s.getOutputStream());
+            os.writeObject(vector);
+            //System.out.println("VECTOR SENDED");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private Connection connectDB() throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/CentriVaccinali", "postgres", "admin");
@@ -179,7 +220,7 @@ public class ServerHandler extends Thread{
             while (true){
                 System.out.println("[THREAD] Ascolto");
                 parameters = in.readLine(); //qui impacchetto qualsiasi dato con separatore ";" per il server
-                System.out.println(parameters);
+                System.out.println(parameters+"zio");
                 op = in.readLine(); //questo è l'operation code
                 op_converted = Integer.parseInt(op);
                 switch (op_converted) {
@@ -198,6 +239,10 @@ public class ServerHandler extends Thread{
                     case 4 ->{
                         System.out.println("[THREAD] Nuovo Centro Vaccinale inserimento chiamata");
                         registerVaccineCenter(parameters);
+                    }
+                    case 5 ->{
+                        System.out.println("[THREAD] Getter centri vaccinali chiamata");
+                        getCentriVaccinaliFromDb();
                     }
                 }
             }

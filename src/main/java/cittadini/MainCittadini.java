@@ -1,5 +1,6 @@
 package cittadini;
 
+import centrivaccinali.SelectionUI;
 import centrivaccinali.SingoloCentroVaccinale;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -19,6 +20,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.*;
+import java.net.Socket;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -73,6 +75,13 @@ public class MainCittadini implements EventHandler<ActionEvent> {
 
     private Stage currentStage;
 
+    private static PrintWriter out;
+    private static BufferedReader in;
+
+    private static ObjectInputStream ois;
+
+    public static final int GETTER_OPERATION_CODE=5;
+
     public MainCittadini(Stage stage){
         loadMainCittadiniUI(stage);
     }
@@ -126,7 +135,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             scrollPane_CentriVaccinali = (ScrollPane) scene.lookup("#scrollPane_CentriVaccinali");
             scrollPane_CentriVaccinali.lookup(".viewport").setStyle("-fx-background-color: #1a73e8;");
 
-            centriVaccinaliList = getCentriVaccinaliFromFile(); //TODO QUESTO DA SERVER
+            centriVaccinaliList = getCentriVaccinaliFromDb(); //TODO QUESTO DA SERVER
 
             creaVbox(centriVaccinaliList);
 
@@ -189,6 +198,8 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             scrollPaneContent.getChildren().add(hbox);
         }
     }
+
+
 
     /**
      * Apre la UI del centro vaccinale sul quale il cittadino ha cliccato.
@@ -407,8 +418,8 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      * @param currentCentreID L'ID contenete il numero della riga del centro vaccinale selezionato nel file
      * @return Una lista di stringhe contente tutte le righe del file con eventi avversi relativi al centro vaccinale selezionato
      */
-    public Vector<String> leggiEventiAvversi(int currentCentreID){
-        centriVaccinaliList=getCentriVaccinaliFromFile();
+    public Vector<String> leggiEventiAvversi(int currentCentreID) throws IOException, ClassNotFoundException {
+        centriVaccinaliList= getCentriVaccinaliFromDb();
 
         SingoloCentroVaccinale centroVaccinale=centriVaccinaliList.get(currentCentreID);
 
@@ -442,10 +453,20 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      * Legge i centri vaccinali presenti nel file e li restituisce sotto firma di lista.
      * @return Il vettore contente i centri vaccinali presenti nel file.
      */
-    public static Vector<SingoloCentroVaccinale> getCentriVaccinaliFromFile() {
-        Vector<SingoloCentroVaccinale> vector = new Vector<>();
-
+    public static Vector<SingoloCentroVaccinale> getCentriVaccinaliFromDb() throws IOException, ClassNotFoundException {
+        //Vector<SingoloCentroVaccinale> vector = new Vector<>();
+        becomeClient();
+        System.out.println("[CLIENT] Uscito dalla become client");
         try {
+            ois = new ObjectInputStream(SelectionUI.socket_container.getInputStream());
+        } catch (IOException e) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Database error");
+            error.setContentText("Errore nel prendere i dati dal database");
+            e.printStackTrace();
+        }
+
+       /* try {
             FileReader fileReader = new FileReader(PATH_TO_CENTRIVACCINALI_DATI);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
@@ -470,27 +491,28 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return vector;
+*/
+        return (Vector<SingoloCentroVaccinale>) ois.readObject();
 
     }
+
 
     /**
      * Effettua la ricerca di un centro vaccinale nel file di testo. Richiama poi il metodo per aggiornare la UI mostrando solo i centri vaccinali che corrispondono ai parametri della ricerca.
      * @param event L'evento che richiama il metodo. Necessario per ottenere la scena attuale da cui prendere i parametri di ricerca.
      */
-    public void findCenter(ActionEvent event) {
+    public void findCenter(ActionEvent event) throws IOException, ClassNotFoundException {
         Scene currentScene=((Button)event.getSource()).getScene();
         search(currentScene);
     }
 
-    public void keyTyped(KeyEvent event){
+    public void keyTyped(KeyEvent event) throws IOException, ClassNotFoundException {
         Scene currentScene=((TextField)event.getSource()).getScene();
         search(currentScene);
     }
 
-    public void search(Scene currentScene){ //TODO IMPLEMENTAZIONE LATO SERVER
-        centriVaccinaliList=getCentriVaccinaliFromFile();
+    public void search(Scene currentScene) throws IOException, ClassNotFoundException { //TODO IMPLEMENTAZIONE LATO SERVER
+        centriVaccinaliList= getCentriVaccinaliFromDb();
 
         Vector<SingoloCentroVaccinale> vector_search = new Vector<>();
 
@@ -625,6 +647,19 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             e.printStackTrace();
         }
 
+    }
+
+    public static void becomeClient(){
+        try {
+            System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
+            Socket s = SelectionUI.socket_container;
+            out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
+            in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+            out.println("void");
+            out.println(GETTER_OPERATION_CODE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

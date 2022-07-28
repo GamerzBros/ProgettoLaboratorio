@@ -1,5 +1,6 @@
 package centrivaccinali;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /*Cristian Arcadi 745389 Varese
@@ -10,7 +11,7 @@ import java.util.Date;
 /**
  * Classe container. Contiene le informazioni principali di un centro vaccinale.
  */
-public class SingoloCentroVaccinale {
+public class SingoloCentroVaccinale implements Serializable {
     /**
      * Nome del centro vaccinale
      */
