@@ -32,7 +32,6 @@ public class SelectionUI extends Application {
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = getClass().getResource("/fxml/SelectionUI.fxml");
 
-        System.out.println(xmlUrl.toString());
         loader.setLocation(xmlUrl);
 
         Parent root = loader.load();
@@ -65,22 +64,7 @@ public class SelectionUI extends Application {
         try {
             Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
 
-            //currentStage.close();
-
             new MainCittadini(currentStage);
-            /*FXMLLoader loader = new FXMLLoader();
-            URL xmlUrl = getClass().getResource("/fxml/MainCittadini.fxml");
-            System.out.println(xmlUrl.toString());
-            loader.setLocation(xmlUrl);
-
-            Parent root = loader.load();
-
-            Scene scene=new Scene(root);
-
-            Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
-
-            currentStage.setScene(scene);
-            currentStage.setTitle("Portale Cittadini");*/
         } catch (Exception e) {
             e.printStackTrace();
         }

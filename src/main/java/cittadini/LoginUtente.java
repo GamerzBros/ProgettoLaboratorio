@@ -44,7 +44,6 @@ public class LoginUtente {
         Scene currentScene = ((Button) event.getSource()).getScene();
         String user = ((TextField) currentScene.lookup("#txt_userLogin")).getText();
         String pwd = ((TextField) currentScene.lookup("#pswd_login")).getText();
-        String[] parts;
         System.out.println("Login in corso");
         String parameters;
         try {

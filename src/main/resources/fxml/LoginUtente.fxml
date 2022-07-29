@@ -14,13 +14,13 @@
             </ImageView>
          </graphic>
       </Button>
-      <PasswordField fx:id="pswd_login" layoutX="100.0" layoutY="175.0" prefHeight="25.0" prefWidth="280.0" promptText="Password" />
-      <TextField fx:id="txt_userLogin" layoutX="100.0" layoutY="130.0" prefHeight="25.0" prefWidth="280.0" promptText="Email" />
-      <Button fx:id="login_button" layoutX="125.0" layoutY="232.5" mnemonicParsing="false" onAction="#loggaCittadini" prefHeight="25.0" prefWidth="100.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Login">
+      <TextField fx:id="txt_userLogin" layoutX="100.0" layoutY="130.0" prefHeight="25.0" prefWidth="280.0" promptText="Email" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
+      <PasswordField fx:id="pswd_login" layoutX="100.0" layoutY="175.0" prefHeight="25.0" prefWidth="280.0" promptText="Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
+      <Button fx:id="login_button" layoutX="125.0" layoutY="232.5" mnemonicParsing="false" onAction="#loggaCittadini" prefHeight="25.0" prefWidth="105.0" style="-fx-background-radius: 20px; -fx-background-color: white;" text="Login">
          <font>
             <Font size="18.0" />
          </font></Button>
-      <Button fx:id="register_button" layoutX="250.0" layoutY="232.5" mnemonicParsing="false" onAction="#loadRegisterCitizenUI" prefHeight="25.0" prefWidth="100.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Registrati">
+      <Button fx:id="register_button" layoutX="250.0" layoutY="232.5" mnemonicParsing="false" onAction="#loadRegisterCitizenUI" prefHeight="25.0" prefWidth="105.0" style="-fx-background-radius: 20px; -fx-background-color: white;" text="Registrati">
          <font>
             <Font size="18.0" />
          </font>

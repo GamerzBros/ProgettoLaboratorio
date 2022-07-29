@@ -132,14 +132,17 @@ public class MainCittadini implements EventHandler<ActionEvent> {
                 });
             }
 
+            currentStage=stage;
+
+            currentStage.show();
+
             scrollPane_CentriVaccinali = (ScrollPane) scene.lookup("#scrollPane_CentriVaccinali");
             scrollPane_CentriVaccinali.lookup(".viewport").setStyle("-fx-background-color: #1a73e8;");
 
-            centriVaccinaliList = getCentriVaccinaliFromDb(); //TODO QUESTO DA SERVER
+            centriVaccinaliList = getCentriVaccinaliFromDb();
 
             creaVbox(centriVaccinaliList);
 
-            currentStage=stage;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -511,7 +514,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         search(currentScene);
     }
 
-    public void search(Scene currentScene) throws IOException, ClassNotFoundException { //TODO IMPLEMENTAZIONE LATO SERVER
+    public void search(Scene currentScene) throws IOException, ClassNotFoundException {
         centriVaccinaliList= getCentriVaccinaliFromDb();
 
         Vector<SingoloCentroVaccinale> vector_search = new Vector<>();
@@ -520,19 +523,17 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         boolean searchByName=((RadioButton)currentScene.lookup("#radio_name")).isSelected();
         boolean searchByTypeAndAddress=((RadioButton)currentScene.lookup("#radio_type")).isSelected();
 
-        for(int index=0;index<centriVaccinaliList.size();index++){
-            SingoloCentroVaccinale tempCentre=centriVaccinaliList.get(index);
-            String nome=tempCentre.getNome();
-            String indirizzo=tempCentre.getIndirizzo();
-            String tipologia=tempCentre.getTipologia();
+        for (SingoloCentroVaccinale tempCentre : centriVaccinaliList) {
+            String nome = tempCentre.getNome();
+            String indirizzo = tempCentre.getIndirizzo();
+            String tipologia = tempCentre.getTipologia();
 
-            if (searchByName){
-                if((nome.toLowerCase()).contains(search)){
+            if (searchByName) {
+                if ((nome.toLowerCase()).contains(search)) {
                     vector_search.add(new SingoloCentroVaccinale(nome, indirizzo, tipologia));
                 }
-            }
-            else if(searchByTypeAndAddress){
-                if((indirizzo.toLowerCase()).contains(search) || (tipologia.toLowerCase()).contains(search)) {
+            } else if (searchByTypeAndAddress) {
+                if ((indirizzo.toLowerCase()).contains(search) || (tipologia.toLowerCase()).contains(search)) {
                     vector_search.add(new SingoloCentroVaccinale(nome, indirizzo, tipologia));
                 }
             }
@@ -560,28 +561,10 @@ public class MainCittadini implements EventHandler<ActionEvent> {
 
     }
 
-    /**
-     * Controlla che l'utente sia loggato quando prova ad inserire nuovi eventi avversi.
-     * @param event L'evento che richiama il metodo. Necessario per ottenere la scena attuale da cui prendere il nome del centro vaccinale selezionato e, se presente, l'utente attuale.
-     */
-    //TODO sistemare sta roba
-    public void checkLogin(ActionEvent event){
-        Scene mainScene=((Button)event.getSource()).getScene();
-        Stage currentStage=(Stage)mainScene.getWindow();
-
-        if(currentUser!=null){
-            //TODO rivedere dove porta il login e il register
-            loadRegistraEventiAvversiUI(currentStage);
-        }
-        else{
-            //TODO aggiungere un popup per dire all'utente di loggarsi prima
-            loadLoginUI(currentStage);
-        }
-    }
 
     public void onLoginClick(ActionEvent event){
         Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
-        loadLoginUI(currentStage);
+        loadLoginUI(stage);
     }
 
     /**

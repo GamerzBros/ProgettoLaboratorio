@@ -14,19 +14,20 @@
             </ImageView>
          </graphic>
       </Button>
-      <TextField fx:id="txt_userName" layoutX="55.0" layoutY="130.0" prefHeight="25.0" prefWidth="213.0" promptText="Nome" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
-      <TextField fx:id="txt_userMail" layoutX="55.0" layoutY="212.0" prefHeight="25.0" prefWidth="440.0" promptText="Email" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
-      <TextField fx:id="txt_userCF" layoutX="55.0" layoutY="171.0" prefHeight="25.0" prefWidth="213.0" promptText="Codice Fiscale" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
-      <PasswordField fx:id="pswd_confirm" layoutX="55.0" layoutY="253.0" prefHeight="25.0" prefWidth="440.0" promptText="Conferma Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
-      <Button layoutX="232.0" layoutY="344.0" mnemonicParsing="false" onAction="#registraCittadino" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Conferma">
-         <font>
-            <Font name="Franklin Gothic Medium" size="18.0" />
-         </font></Button>
-      <PasswordField fx:id="pswd_register" layoutX="55.0" layoutY="294.0" prefHeight="25.0" prefWidth="440.0" promptText="Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
-      <TextField fx:id="txt_userSurname" layoutX="282.0" layoutY="130.0" prefHeight="25.0" prefWidth="213.0" promptText="Cognome" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
-      <DatePicker fx:id="datePicker_datavaccinazione" layoutX="282.0" layoutY="171.0" prefHeight="25.0" prefWidth="213.0" promptText="Data di nascita" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
       <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="237.5" layoutY="40.0" pickOnBounds="true" preserveRatio="false">
          <Image url="@/cittadini/account.png" />
       </ImageView>
+      <TextField fx:id="txt_userName" layoutX="55.0" layoutY="130.0" prefHeight="25.0" prefWidth="213.0" promptText="Nome" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
+      <TextField fx:id="txt_userSurname" layoutX="282.0" layoutY="130.0" prefHeight="25.0" prefWidth="213.0" promptText="Cognome" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
+      <TextField fx:id="txt_userCF" layoutX="55.0" layoutY="171.0" prefHeight="25.0" prefWidth="213.0" promptText="Codice Fiscale" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
+      <DatePicker fx:id="datePicker_datavaccinazione" layoutX="282.0" layoutY="171.0" prefHeight="25.0" prefWidth="213.0" promptText="Data di nascita" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
+      <TextField fx:id="txt_userMail" layoutX="55.0" layoutY="212.0" prefHeight="25.0" prefWidth="440.0" promptText="Email" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
+      <PasswordField fx:id="pswd_register" layoutX="55.0" layoutY="253.0" prefHeight="25.0" prefWidth="440.0" promptText="Conferma Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
+      <PasswordField fx:id="pswd_confirm" layoutX="55.0" layoutY="294.0" prefHeight="25.0" prefWidth="440.0" promptText="Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
+      <Button layoutX="232.0" layoutY="344.0" mnemonicParsing="false" onAction="#registraCittadino" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Conferma">
+         <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

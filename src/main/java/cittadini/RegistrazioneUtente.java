@@ -81,6 +81,7 @@ public class RegistrazioneUtente {
                     alertRegistrationSuccessfull.setTitle("Registrazione completata");
                     alertRegistrationSuccessfull.setContentText("Registrazione avvenuta con successo");
                     alertRegistrationSuccessfull.showAndWait();
+                    new MainCittadini((Stage) currentScene.getWindow());
                 } else if (result.equals("false")) {
                     Alert alertRegistrationError=new Alert(Alert.AlertType.ERROR);
                     alertRegistrationError.setTitle("Errore registrazione");
