@@ -5,10 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 
 public class PortaleOperatori {
@@ -36,10 +38,38 @@ public class PortaleOperatori {
      * Tipo di linea del file contente le informazioni relative agli eventi avversi
      */
     public static final String LINE_TYPE_EVENT ="E";
-    /**
-     *
-     */
-    private Stage currentStage;
+
+    public PortaleOperatori(Stage stage){
+        loadPortaleOperatoriUI(stage);
+    }
+
+    private void loadPortaleOperatoriUI(Stage stage){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            URL url = getClass().getResource("/fxml/PortaleOperatori.fxml");
+            fxmlLoader.setLocation(url);
+            fxmlLoader.setController(this);
+
+            Parent root = fxmlLoader.load();
+
+            Scene scene = new Scene(root);
+
+            stage.setScene(scene);
+            stage.setTitle("Portale Operatori");
+
+            InputStream iconStream=getClass().getResourceAsStream("/centrivaccinali/operatorPortalIcon.png");
+            Image icon=new Image(iconStream);
+            stage.getIcons().set(0,icon);
+
+            stage.setY(50);
+            stage.setX(175);
+
+            stage.show();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 
     public void goBackToSelectionUI(MouseEvent event){
         try {
@@ -55,6 +85,12 @@ public class PortaleOperatori {
 
             currentStage.setScene(scene);
 
+            currentStage.setTitle("Seleziona il Portale");
+
+            InputStream icon = getClass().getResourceAsStream("/common/fiorellino.png");
+            Image image = new Image(icon);
+
+            currentStage.getIcons().set(0,image);
         }
         catch(IOException e){
             e.printStackTrace();

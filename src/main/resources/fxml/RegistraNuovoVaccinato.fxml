@@ -10,7 +10,7 @@
       <Button layoutX="0.0" layoutY="7.5" onMouseClicked="#goBackToOpzioniOperatore" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="22.0" fitWidth="25.0" preserveRatio="false">
-               <Image url="@/centrivaccinali/goBackIcon.png" />
+               <Image url="@/common/goBackIcon.png" />
             </ImageView>
          </graphic>
       </Button>

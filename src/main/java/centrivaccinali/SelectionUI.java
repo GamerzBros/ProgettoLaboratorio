@@ -42,7 +42,7 @@ public class SelectionUI extends Application {
         stage.setTitle("Seleziona il Portale");
 
 
-        InputStream icon = getClass().getResourceAsStream("fiorellino.png");
+        InputStream icon = getClass().getResourceAsStream("/common/fiorellino.png");
         Image image = new Image(icon);
 
         stage.getIcons().add(image);
@@ -74,33 +74,8 @@ public class SelectionUI extends Application {
      * Crea la UI del portale Centri Vaccinali. Viene richiamato una volta che viene selezionato il portale Centri Vaccinale dalla UI principale.
      */
     public void onCentriVaccinaliSelected(ActionEvent event){
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            URL url = getClass().getResource("/fxml/PortaleOperatori.fxml");
-            fxmlLoader.setLocation(url);
-            Parent root = fxmlLoader.load();
-
-            Scene scene = new Scene(root);
-
-            Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
-
-            stage.setScene(scene);
-            stage.setTitle("Portale Operatori");
-            stage.setY(50);
-            stage.setX(175);
-
-            /*scrollPane_CentriVaccinali = (ScrollPane) scene.lookup("#scrollPane_CentriVaccinali");
-            scrollPane_CentriVaccinali.lookup(".viewport").setStyle("-fx-background-color: #1a73e8;");
-
-            centriVaccinaliList = getCentriVaccinaliFromFile();
-
-            creaVbox(centriVaccinaliList);*/
-
-            stage.show();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
+        Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
+        new PortaleOperatori(stage);
     }
 
     public void onChoiceButtonHover(MouseEvent event){

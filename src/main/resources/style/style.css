@@ -1,0 +1,12 @@
+#backButton{
+    -fx-background-color: transparent;
+    -fx-background-radius: 25;
+}
+
+#backButton:hover{
+    -fx-background-color: #E7EBF0;
+}
+.datepicker .text-field {
+    -fx-background-color: transparent;
+    -fx-border-style: hidden;
+}

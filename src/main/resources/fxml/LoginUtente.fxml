@@ -5,17 +5,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="305.0" prefWidth="480.0" style="-fx-background-color: #1a73e8;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.LoginUtente">
+<AnchorPane prefHeight="305.0" prefWidth="480.0" style="-fx-background-color: #1a73e8;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.LoginUtente">
    <children>
       <Button layoutX="0.0" layoutY="7.5" onMouseClicked="#goBackToMain" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="22.0" fitWidth="25.0" preserveRatio="false">
-               <Image url="@/centrivaccinali/goBackIcon.png" />
+               <Image url="@/common/goBackIcon.png" />
             </ImageView>
          </graphic>
       </Button>
-      <TextField fx:id="txt_userLogin" layoutX="100.0" layoutY="130.0" prefHeight="25.0" prefWidth="280.0" promptText="Email" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
-      <PasswordField fx:id="pswd_login" layoutX="100.0" layoutY="175.0" prefHeight="25.0" prefWidth="280.0" promptText="Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent" />
+      <TextField fx:id="txt_userLogin" layoutX="100.0" layoutY="130.0" prefHeight="25.0" prefWidth="280.0" promptText="Email" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
+      <PasswordField fx:id="pswd_login" layoutX="100.0" layoutY="175.0" prefHeight="25.0" prefWidth="280.0" promptText="Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
       <Button fx:id="login_button" layoutX="125.0" layoutY="232.5" mnemonicParsing="false" onAction="#loggaCittadini" prefHeight="25.0" prefWidth="105.0" style="-fx-background-radius: 20px; -fx-background-color: white;" text="Login">
          <font>
             <Font size="18.0" />
@@ -26,7 +26,7 @@
          </font>
       </Button>
       <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="208.0" layoutY="38.0" pickOnBounds="true" preserveRatio="false">
-         <Image url="@/cittadini/account.png"/>
+         <Image url="@/cittadini/account.png" />
       </ImageView>
    </children>
 </AnchorPane>

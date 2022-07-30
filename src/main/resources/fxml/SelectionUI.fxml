@@ -9,14 +9,14 @@
 <!--azzurro chiaro: #91ceff-->
 <!--blu: #197dc9 -->
 
-<AnchorPane fx:id="anchorPane" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.SelectionUI">
+<AnchorPane fx:id="anchorPane" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.SelectionUI">
    <children>
       <ImageView fx:id="imgBg" fitHeight="300.0" fitWidth="400.0" layoutX="200.0" layoutY="0.0" pickOnBounds="true" preserveRatio="false">
               <Image url="@/centrivaccinali/varese.png" />
       </ImageView>
-      <Pane fx:id="paneInformations" layoutY="0.0" prefHeight="300.0" prefWidth="200.0" style="-fx-background-color: #1a73e8;">
+      <Pane fx:id="paneInformations" layoutY="0.0" prefHeight="300.0" prefWidth="200.0" style="-fx-background-color: #1a73e8">
          <children>
-            <Button layoutX="23.0" layoutY="180.0" mnemonicParsing="false" onAction="#onCentriVaccinaliSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="40.0" prefWidth="150.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Portale Operatori" textFill="black">
+            <Button layoutX="23.0" layoutY="180.0" mnemonicParsing="false" onAction="#onCentriVaccinaliSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="38.0" prefWidth="145.0" style="-fx-background-radius: 17; -fx-background-color: white;" text="Portale Operatori" textFill="#1a73e8">
                <font>
                   <Font size="14.0" />
                </font>
@@ -24,7 +24,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="23.0" layoutY="80.0" mnemonicParsing="false" onAction="#onCittadiniSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="40.0" prefWidth="150.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Portale Cittadini" textFill="black">
+            <Button layoutX="23.0" layoutY="80.0" mnemonicParsing="false" onAction="#onCittadiniSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="38.0" prefWidth="145.0" style="-fx-background-radius: 17; -fx-background-color: white;" text="Portale Cittadini" textFill="#1a73e8">
                <font>
                   <Font size="14.0" />
                </font>

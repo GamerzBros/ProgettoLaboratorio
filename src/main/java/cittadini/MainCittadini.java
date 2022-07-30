@@ -13,6 +13,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -57,6 +59,14 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      */
     private Vector<SingoloCentroVaccinale> centriVaccinaliList=new Vector<>();
     /**
+     * Percorso dell'immagine che verrà usata come icona del portale cittadini
+     */
+    public static final String CITIZENS_PORTAL_ICON_PATH ="/cittadini/citizenPortalIcon.png";
+    /**
+     * Percorso dell'immagine che verrà caricata se non ci sarà nessun centro vaccinale
+     */
+    public static final String NO_CENTERS_IMG_PATH="/cittadini/noCenters.png";
+    /**
      * ScrollPane contenente tutti gli elementi per rappresentare visivamente i centri vaccinali
      */
     @FXML
@@ -93,7 +103,6 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         try {
             FXMLLoader loader = new FXMLLoader();
             URL xmlUrl = getClass().getResource("/fxml/MainCittadini.fxml");
-            System.out.println(xmlUrl.toString());
             loader.setLocation(xmlUrl);
             loader.setController(this);
 
@@ -136,10 +145,29 @@ public class MainCittadini implements EventHandler<ActionEvent> {
 
             currentStage.show();
 
+            InputStream iconStream=getClass().getResourceAsStream(CITIZENS_PORTAL_ICON_PATH);
+            Image icon=new Image(iconStream);
+
+            currentStage.getIcons().set(0,icon);
+
             scrollPane_CentriVaccinali = (ScrollPane) scene.lookup("#scrollPane_CentriVaccinali");
             scrollPane_CentriVaccinali.lookup(".viewport").setStyle("-fx-background-color: #1a73e8;");
 
             centriVaccinaliList = getCentriVaccinaliFromDb();
+
+            if(centriVaccinaliList==null||centriVaccinaliList.size()==0){
+                scrollPane_CentriVaccinali.setVisible(false);
+                scene.lookup("#noCentersImg").setVisible(true);
+                scene.lookup("#noCentersLabel").setVisible(true);
+                /*ImageView img=new ImageView(new Image(getClass().getResourceAsStream(NO_CENTERS_IMG_PATH)));
+                img.setX(25);
+                img.setY(83);
+                img.prefHeight(400);
+                img.prefWidth(650);
+                img.toFront();
+                ((AnchorPane)scene.lookup("#mainPane")).getChildren().add(img);*/
+                return;
+            }
 
             creaVbox(centriVaccinaliList);
 
@@ -165,6 +193,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             HBox hbox=new HBox();
             hbox.setPrefHeight(40);
             hbox.setAlignment(Pos.CENTER_LEFT);
+            //usa #2A2A32 per il tema scuro
             hbox.setStyle("-fx-border-color:#9aa0a6; -fx-border-style: hidden; -fx-background-color: white; -fx-background-radius: 12; -fx-padding: 0 5 0 5");
             SingoloCentroVaccinale currentCentro=centriVaccinaliMostrati.get(i);
             hbox.setSpacing(20);
@@ -188,7 +217,8 @@ public class MainCittadini implements EventHandler<ActionEvent> {
 
 
             btnGoTo.setFont(new Font("Arial",16));
-            btnGoTo.setStyle( "-fx-cursor: hand; -fx-background-radius: 5em; -fx-min-width: 1px; -fx-background-color: #FFFFFF; -fx-border-radius: 5em; -fx-border-color: #000000;");
+            //usa #292E32 per il tema scuro
+            btnGoTo.setStyle( "-fx-background-radius: 5em; -fx-min-width: 1px; -fx-background-color: #FFFFFF; -fx-border-radius: 5em; -fx-border-color: #000000;");
             btnGoTo.setId(String.valueOf(i));
             btnGoTo.setOnAction(this);
 
@@ -554,6 +584,13 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
 
             currentStage.setScene(scene);
+
+            currentStage.setTitle("Seleziona il Portale");
+
+            InputStream icon = getClass().getResourceAsStream("/common/fiorellino.png");
+            Image image = new Image(icon);
+
+            currentStage.getIcons().set(0,image);
         }
         catch(IOException e){
             e.printStackTrace();
