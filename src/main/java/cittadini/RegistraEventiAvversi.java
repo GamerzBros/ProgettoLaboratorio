@@ -59,7 +59,7 @@ public class RegistraEventiAvversi {
      * Registra sul file di testo relativo al centro vaccinale selezionato, gli eventi avversi inseriti dall'utente.
      * @param actionEvent L'evento che richiama il metodo. Necessario ad ottenere la scena attuale da cui prendere i dati inseriti dall'utente.
      */
-    public void registerEventiAvversi(ActionEvent actionEvent){
+    public void registerEventiAvversi(ActionEvent actionEvent){ //TODO fare con il server
         try {
             Scene currentScene =((Button) actionEvent.getSource()).getScene();
 
