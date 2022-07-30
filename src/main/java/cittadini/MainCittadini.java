@@ -317,7 +317,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      * @param lbl_centreAddress L'ettichetta contenete l'indirizzo del centro selezionato
      * @param lbl_centreType L'ettichetta contenete la tipologia del vaccina somministrato presso il centro selezione
      */
-    public void loadCenterInfo(int idCentro, Scene currentScene){
+    public void loadCenterInfo(int idCentro, Scene currentScene){ //todo lato server
         try {
             FileReader fileReader=new FileReader(PATH_TO_CENTRIVACCINALI_DATI);
             BufferedReader reader=new BufferedReader(fileReader);
@@ -421,7 +421,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      * @param currentCentreID L'ID contenete il numero della riga del centro vaccinale selezionato nel file
      * @return Una lista di stringhe contente tutte le righe del file con eventi avversi relativi al centro vaccinale selezionato
      */
-    public Vector<String> leggiEventiAvversi(int currentCentreID) throws IOException, ClassNotFoundException {
+    public Vector<String> leggiEventiAvversi(int currentCentreID) throws IOException, ClassNotFoundException { //todo lato server
         centriVaccinaliList= getCentriVaccinaliFromDb();
 
         SingoloCentroVaccinale centroVaccinale=centriVaccinaliList.get(currentCentreID);
@@ -514,7 +514,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         search(currentScene);
     }
 
-    public void search(Scene currentScene) throws IOException, ClassNotFoundException {
+    public void search(Scene currentScene) throws IOException, ClassNotFoundException { //todo lo teniamo cosi o facciamo roba server ?
         centriVaccinaliList= getCentriVaccinaliFromDb();
 
         Vector<SingoloCentroVaccinale> vector_search = new Vector<>();
