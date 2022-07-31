@@ -2,6 +2,7 @@ package cittadini;
 
 import centrivaccinali.SelectionUI;
 import centrivaccinali.SingoloCentroVaccinale;
+import client_server.Server;
 import client_server.ServerHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -183,7 +184,6 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         scrollPaneContent.setAlignment(Pos.CENTER);
         scrollPane_CentriVaccinali.setContent(scrollPaneContent);
 
-        System.out.println("numero centri: "+centriVaccinaliMostrati.size());
         for (int i=0;i<centriVaccinaliMostrati.size();i++){
             HBox hbox=new HBox();
             hbox.setPrefHeight(40);
@@ -341,7 +341,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      * @param lbl_centreAddress L'ettichetta contenete l'indirizzo del centro selezionato
      * @param lbl_centreType L'ettichetta contenete la tipologia del vaccina somministrato presso il centro selezione
      */
-    public void loadCenterInfo(int idCentro, Scene currentScene){ //todo lato server
+    public void loadCenterInfo(int idCentro, Scene currentScene){
         try {
             FileReader fileReader=new FileReader(PATH_TO_CENTRIVACCINALI_DATI);
             BufferedReader reader=new BufferedReader(fileReader);
@@ -368,6 +368,10 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             int[] singleEvents=new int[6];
             Vector<String> otherEventsText=new Vector<>();
 
+            for(int i=0;i<singleEvents.length;i++){
+                singleEvents[i]=0;
+            }
+
             for(EventiAvversi currentEvents: eventLines) {
 
                 //sommo tra di loro i valori di ogni sintomo per poi poterne far la media
@@ -384,7 +388,9 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             }
 
             for(int i=0;i<singleEvents.length;i++){
-                singleEvents[i]/=eventLines.size();
+                if(singleEvents[i]!=0) {
+                    singleEvents[i] /= eventLines.size();
+                }
             }
 
 
@@ -466,6 +472,10 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         return null;*/
 
         try {
+            out=new PrintWriter(new BufferedWriter(new OutputStreamWriter(SelectionUI.socket_container.getOutputStream())),true);
+            out.println(currentCentreID);
+            out.println(ServerHandler.GET_EVENTIAVVERSI_OP_CODE);
+
             ois = new ObjectInputStream(SelectionUI.socket_container.getInputStream());
             return (Vector<EventiAvversi>) ois.readObject();
         }
@@ -621,7 +631,9 @@ public class MainCittadini implements EventHandler<ActionEvent> {
     /**
      * Crea la UI che permette ad un utente di inserire eventi avversi.
      */
-    public void loadRegistraEventiAvversiUI(Stage stage){
+    public void loadRegistraEventiAvversiUI(ActionEvent actionEvent){
+        //TODO controllare se l'utente è loggato
+
         try {
 
             FXMLLoader loader=new FXMLLoader();
@@ -630,6 +642,8 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             Parent root=loader.load();
 
             Scene scene=new Scene(root);
+
+            Stage stage=(Stage)((Button)actionEvent.getSource()).getScene().getWindow();
             stage.setScene(scene);
 
         }
@@ -662,6 +676,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         }
 
     }
+
 
     public static void becomeClient(){
         try {
