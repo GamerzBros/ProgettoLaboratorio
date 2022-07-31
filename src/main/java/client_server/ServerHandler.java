@@ -1,6 +1,7 @@
 package client_server;
 
 import centrivaccinali.SingoloCentroVaccinale;
+import cittadini.EventiAvversi;
 
 import java.io.*;
 import java.net.Socket;
@@ -11,13 +12,19 @@ import java.util.Vector;
 
 
 public class ServerHandler extends Thread{
-    Socket s;
-    BufferedReader in;
-    PrintWriter out;
-    String op;
-    String parameters;
-    ObjectOutputStream os;
-    int op_converted;
+    public static final int LOGIN_USER_OP_CODE =1;
+    public static final int REGISTER_USER_OP_CODE =2;
+    public static final int REGISTER_VACCINATED_OP_CODE=3;
+    public static final int REGISTER_CENTER_OP_CODE=4;
+    public static final int GET_VAX_CENTERS_OP_CODE=5;
+    public static final int GET_EVENTIAVVERSI_OP_CODE=6;
+    private Socket s;
+    private BufferedReader in;
+    private PrintWriter out;
+    private String op;
+    private String parameters;
+    private ObjectOutputStream os;
+    private int op_converted;
 
     ServerHandler(Socket s){
       this.s = s;
@@ -198,6 +205,43 @@ public class ServerHandler extends Thread{
         }
     }
 
+    private void getEventiAvversi(String idCentro){
+        //faccio diviso 7 perché sono i campi per ogni paziente
+        Vector<EventiAvversi> vector = new Vector<EventiAvversi>();
+        int maleTesta;
+        int febbre;
+        int doloriMuscolari;
+        int linfoadenopatia;
+        int tachicardia;
+        int crisiIpertensiva;
+        String otherSimptoms;
+
+        try {
+            Connection con=connectDB();
+
+            String sql="SELECT * FROM eventiavversi ea JOIN centrivaccinali cv ON ea.id=cv.id WHERE cv.id="+idCentro;
+            PreparedStatement prepSt=con.prepareStatement(sql);
+            ResultSet result=prepSt.executeQuery();
+            while (result.next()){
+                maleTesta=result.getInt("male_testa");
+                febbre=result.getInt("febbre");
+                doloriMuscolari=result.getInt("dolori_muscolari");
+                linfoadenopatia=result.getInt("linfoadenopatia");
+                tachicardia=result.getInt("tachicardia");
+                crisiIpertensiva=result.getInt("crisi_ipertensiva");
+                otherSimptoms=result.getString("altri_sintomi");
+                EventiAvversi ev=new EventiAvversi(maleTesta,febbre,doloriMuscolari,linfoadenopatia,tachicardia,crisiIpertensiva,otherSimptoms);
+                vector.add(ev);
+            }
+
+            ObjectOutputStream oos=new ObjectOutputStream(s.getOutputStream());
+            oos.writeObject(vector);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     private Connection connectDB() throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/CentriVaccinali", "postgres", "admin");
@@ -220,29 +264,32 @@ public class ServerHandler extends Thread{
             while (true){
                 System.out.println("[THREAD] Ascolto");
                 parameters = in.readLine(); //qui impacchetto qualsiasi dato con separatore ";" per il server
-                System.out.println(parameters+"zio");
                 op = in.readLine(); //questo è l'operation code
                 op_converted = Integer.parseInt(op);
                 switch (op_converted) {
-                    case 1 -> {
+                    case LOGIN_USER_OP_CODE -> {
                         System.out.println("[THREAD] Login chiamata");
                         login(parameters);
                     }
-                    case 2 -> {
+                    case REGISTER_USER_OP_CODE -> {
                         System.out.println("[THREAD] Register chiamata");
                         registerUser(parameters);
                     }
-                    case 3 -> {
+                    case REGISTER_VACCINATED_OP_CODE -> {
                         System.out.println("[THREAD] Register vaccinati chiamata  ");
                         registerVaccinatedUser(parameters);
                     }
-                    case 4 ->{
+                    case REGISTER_CENTER_OP_CODE ->{
                         System.out.println("[THREAD] Nuovo Centro Vaccinale inserimento chiamata");
                         registerVaccineCenter(parameters);
                     }
-                    case 5 ->{
+                    case GET_VAX_CENTERS_OP_CODE ->{
                         System.out.println("[THREAD] Getter centri vaccinali chiamata");
                         getCentriVaccinaliFromDb();
+                    }
+                    case GET_EVENTIAVVERSI_OP_CODE ->{
+                        System.out.println("[THREAD] Getter eventi avversi chiamata");
+                        getEventiAvversi(parameters);
                     }
                 }
             }

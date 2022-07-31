@@ -2,6 +2,7 @@ package cittadini;
 
 import centrivaccinali.SelectionUI;
 import centrivaccinali.SingoloCentroVaccinale;
+import client_server.ServerHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -63,10 +64,6 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      */
     public static final String CITIZENS_PORTAL_ICON_PATH ="/cittadini/citizenPortalIcon.png";
     /**
-     * Percorso dell'immagine che verrà caricata se non ci sarà nessun centro vaccinale
-     */
-    public static final String NO_CENTERS_IMG_PATH="/cittadini/noCenters.png";
-    /**
      * ScrollPane contenente tutti gli elementi per rappresentare visivamente i centri vaccinali
      */
     @FXML
@@ -89,8 +86,6 @@ public class MainCittadini implements EventHandler<ActionEvent> {
     private static BufferedReader in;
 
     private static ObjectInputStream ois;
-
-    public static final int GETTER_OPERATION_CODE=5;
 
     public MainCittadini(Stage stage){
         loadMainCittadiniUI(stage);
@@ -186,9 +181,9 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         scrollPaneContent.setSpacing(15);
         scrollPaneContent.setPrefHeight(409);
         scrollPaneContent.setAlignment(Pos.CENTER);
-        //scrollPaneContent.setMinWidth(scrollPane_CentriVaccinali.getPrefWidth()-2);
         scrollPane_CentriVaccinali.setContent(scrollPaneContent);
 
+        System.out.println("numero centri: "+centriVaccinaliMostrati.size());
         for (int i=0;i<centriVaccinaliMostrati.size();i++){
             HBox hbox=new HBox();
             hbox.setPrefHeight(40);
@@ -231,7 +226,6 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             scrollPaneContent.getChildren().add(hbox);
         }
     }
-
 
 
     /**
@@ -370,73 +364,63 @@ public class MainCittadini implements EventHandler<ActionEvent> {
 
             currentCenter=name;*/
 
-            Vector<String> eventLines=leggiEventiAvversi(idCentro);
+            Vector<EventiAvversi> eventLines=leggiEventiAvversi(idCentro);
             int[] singleEvents=new int[6];
             Vector<String> otherEventsText=new Vector<>();
-            Vector<Integer> otherEventsValues=new Vector<>();
 
-            if(eventLines!=null) {
-                for (int i = 0; i < eventLines.size(); i++) {
-                    StringTokenizer tokenizer = new StringTokenizer(eventLines.get(i), ";");
-                    tokenizer.nextToken();
-                    tokenizer.nextToken();
-                    tokenizer.nextToken();
+            for(EventiAvversi currentEvents: eventLines) {
 
-                    singleEvents[0] = singleEvents[0] + (Integer.parseInt(tokenizer.nextToken()));
-                    singleEvents[1] = singleEvents[1] + (Integer.parseInt(tokenizer.nextToken()));
-                    singleEvents[2] = singleEvents[2] + (Integer.parseInt(tokenizer.nextToken()));
-                    singleEvents[3] = singleEvents[3] + (Integer.parseInt(tokenizer.nextToken()));
-                    singleEvents[4] = singleEvents[4] + (Integer.parseInt(tokenizer.nextToken()));
-                    singleEvents[5] = singleEvents[5] + (Integer.parseInt(tokenizer.nextToken()));
+                //sommo tra di loro i valori di ogni sintomo per poi poterne far la media
+                singleEvents[0] += currentEvents.getMaleTesta();
+                singleEvents[1] += currentEvents.getFebbre();
+                singleEvents[2] += currentEvents.getDoloriMuscolari();
+                singleEvents[3] += currentEvents.getLinfoadenopatia();
+                singleEvents[4] += currentEvents.getTachicardia();
+                singleEvents[5] += currentEvents.getCrisiIpertensiva();
 
-                    if (tokenizer.hasMoreTokens()) {
-                        otherEventsText.add(tokenizer.nextToken());
-                        otherEventsValues.add(Integer.parseInt(tokenizer.nextToken()));
-                    }
+                if (currentEvents.getOtherSimptoms() != null&&!(currentEvents.getOtherSimptoms().equals(""))) {
+                    otherEventsText.add(currentEvents.getOtherSimptoms());
                 }
+            }
+
+            for(int i=0;i<singleEvents.length;i++){
+                singleEvents[i]/=eventLines.size();
+            }
 
 
-                Label lbl_headacheEffect = (Label) currentScene.lookup("#lbl_effect1");
-                Label lbl_feverEffect = (Label) currentScene.lookup("#lbl_effect2");
-                Label lbl_hurtEffect = (Label) currentScene.lookup("#lbl_effect3");
-                Label lbl_linfEffect = (Label) currentScene.lookup("#lbl_effect4");
-                Label lbl_tacEffect = (Label) currentScene.lookup("#lbl_effect5");
-                Label lbl_crsEffect = (Label) currentScene.lookup("#lbl_effect6");
+            Label lbl_headacheEffect = (Label) currentScene.lookup("#lbl_effect1");
+            Label lbl_feverEffect = (Label) currentScene.lookup("#lbl_effect2");
+            Label lbl_hurtEffect = (Label) currentScene.lookup("#lbl_effect3");
+            Label lbl_linfEffect = (Label) currentScene.lookup("#lbl_effect4");
+            Label lbl_tacEffect = (Label) currentScene.lookup("#lbl_effect5");
+            Label lbl_crsEffect = (Label) currentScene.lookup("#lbl_effect6");
 
-                lbl_headacheEffect.setText(String.valueOf(singleEvents[0]));//evento1 = Mal di testa
-                lbl_feverEffect.setText(String.valueOf(singleEvents[1])); //evento2 = Febbre
-                lbl_hurtEffect.setText(String.valueOf(singleEvents[2])); //evento3 = Dolori muscolari o articolari
-                lbl_linfEffect.setText(String.valueOf(singleEvents[3])); //evento4 = Linfoadenopatia
-                lbl_tacEffect.setText(String.valueOf(singleEvents[4])); //evento5 = Tachicardia
-                lbl_crsEffect.setText(String.valueOf(singleEvents[5]));//evento6 = Crisi ipertensiva
+            lbl_headacheEffect.setText(String.valueOf(singleEvents[0]));//evento1 = Mal di testa
+            lbl_feverEffect.setText(String.valueOf(singleEvents[1])); //evento2 = Febbre
+            lbl_hurtEffect.setText(String.valueOf(singleEvents[2])); //evento3 = Dolori muscolari o articolari
+            lbl_linfEffect.setText(String.valueOf(singleEvents[3])); //evento4 = Linfoadenopatia
+            lbl_tacEffect.setText(String.valueOf(singleEvents[4])); //evento5 = Tachicardia
+            lbl_crsEffect.setText(String.valueOf(singleEvents[5]));//evento6 = Crisi ipertensiva
 
-                ScrollPane scrollPane_otherEvents = (ScrollPane) currentScene.lookup("#scrollPane_otherEvents");
-                VBox vbox = new VBox();
-                vbox.setStyle("-fx-padding: 0 6");
-                scrollPane_otherEvents.setContent(vbox);
+            ScrollPane scrollPane_otherEvents = (ScrollPane) currentScene.lookup("#scrollPane_otherEvents");
+            VBox vbox = new VBox();
+            vbox.setStyle("-fx-padding: 0 6");
+            scrollPane_otherEvents.setContent(vbox);
 
-                for (int i = 0; i < otherEventsText.size(); i++) {
-                    Pane vboxContent = new Pane();
+            for (int i = 0; i < otherEventsText.size(); i++) {
+                Pane vboxContent = new Pane();
 
-                    Label lbl_otherEventText = new Label(otherEventsText.get(i));
-                    lbl_otherEventText.setFont(Font.font("Franklin Gothic Medium", 18));
-                    lbl_otherEventText.setPrefWidth(475);
-                    lbl_otherEventText.setPrefHeight(30);
+                Label lbl_otherEventText = new Label(otherEventsText.get(i));
+                lbl_otherEventText.setFont(Font.font("Franklin Gothic Medium", 18));
+                lbl_otherEventText.setPrefWidth(490);
+                lbl_otherEventText.setPrefHeight(30);
 
-                    Label lbl_otherEventValue = new Label(String.valueOf(otherEventsValues.get(i)));
-                    lbl_otherEventValue.setFont(Font.font("Franklin Gothic Medium", 18));
-                    lbl_otherEventValue.setPrefWidth(13);
-                    lbl_otherEventValue.setPrefHeight(30);
-                    lbl_otherEventValue.setLayoutX(490);
 
-                    //TODO aggiungere label con scritto "intensità media"
 
-                    vboxContent.getChildren().add(lbl_otherEventText);
-                    vboxContent.getChildren().add(lbl_otherEventValue);
+                vboxContent.getChildren().add(lbl_otherEventText);
 
-                    vbox.getChildren().add(vboxContent);
+                vbox.getChildren().add(vboxContent);
 
-                }
             }
 
         }
@@ -447,12 +431,13 @@ public class MainCittadini implements EventHandler<ActionEvent> {
     }
 
     /**
-     * Legge il file di testo, relativo al centro vaccinale selezionato, contente gli eventi avversi e gli utenti vaccinati
-     * @param currentCentreID L'ID contenete il numero della riga del centro vaccinale selezionato nel file
-     * @return Una lista di stringhe contente tutte le righe del file con eventi avversi relativi al centro vaccinale selezionato
+     * Legge il database, relativo al centro vaccinale selezionato, contente gli eventi avversi e gli utenti vaccinati
+     * @param currentCentreID L'ID (presente nel database) del centro vaccinale selezionato
+     * @return Una lista di stringhe contente gli eventi avversi relativi al centro vaccinale selezionato
      */
-    public Vector<String> leggiEventiAvversi(int currentCentreID) throws IOException, ClassNotFoundException { //todo lato server
-        centriVaccinaliList= getCentriVaccinaliFromDb();
+    public Vector<EventiAvversi> leggiEventiAvversi(int currentCentreID) {
+        //TODO se funziona, rimuovere questa parte a commento
+        /*centriVaccinaliList= getCentriVaccinaliFromDb();
 
         SingoloCentroVaccinale centroVaccinale=centriVaccinaliList.get(currentCentreID);
 
@@ -478,13 +463,22 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             e.printStackTrace();
         }
 
-        return null;
+        return null;*/
+
+        try {
+            ois = new ObjectInputStream(SelectionUI.socket_container.getInputStream());
+            return (Vector<EventiAvversi>) ois.readObject();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
 
     }
 
     /**
-     * Legge i centri vaccinali presenti nel file e li restituisce sotto firma di lista.
-     * @return Il vettore contente i centri vaccinali presenti nel file.
+     * Legge i centri vaccinali presenti nel database e li restituisce sotto firma di lista.
+     * @return Il vettore contente i centri vaccinali presenti nel database.
      */
     public static Vector<SingoloCentroVaccinale> getCentriVaccinaliFromDb() throws IOException, ClassNotFoundException {
         //Vector<SingoloCentroVaccinale> vector = new Vector<>();
@@ -676,7 +670,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
             in = new BufferedReader(new InputStreamReader(s.getInputStream()));
             out.println("void");
-            out.println(GETTER_OPERATION_CODE);
+            out.println(ServerHandler.GET_VAX_CENTERS_OP_CODE);
         } catch (IOException e) {
             e.printStackTrace();
         }

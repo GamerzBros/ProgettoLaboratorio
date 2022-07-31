@@ -78,11 +78,6 @@ public class RegistraNuovoCentro {
             choiceBox_tipologiaCentro.setValue("Seleziona Tipologia");
             choiceBox_tipologiaCentro.setItems(tipologia_items);
 
-            InputStream icon = getClass().getResourceAsStream("fiorellino.png");
-            Image image = new Image(icon);
-
-            stage.getIcons().add(image);
-
             stage.show();
         }
         catch (IOException e){
@@ -128,6 +123,9 @@ public class RegistraNuovoCentro {
                     alert.setHeaderText(null);
                     alert.setContentText("Centro vaccinale registrato");
                     alert.showAndWait();
+
+                    Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
+                    loadOpzioniOperatoreUI(stage);
                 } else if (result.equals("false")) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Errore");
@@ -135,7 +133,6 @@ public class RegistraNuovoCentro {
                     alert.setContentText("Problemi con il server");
                     alert.showAndWait();
                 }
-                ((Stage) currentScene.getWindow()).close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -143,6 +140,11 @@ public class RegistraNuovoCentro {
     }
 
     public void goBackToOpzioniOperatore(MouseEvent event){
+        Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
+        loadOpzioniOperatoreUI(stage);
+    }
+
+    private void loadOpzioniOperatoreUI(Stage stage){
         try {
             FXMLLoader loader = new FXMLLoader();
             URL xmlUrl = getClass().getResource("/fxml/PortaleOperatori.fxml");
@@ -152,9 +154,7 @@ public class RegistraNuovoCentro {
 
             Scene scene = new Scene(root);
 
-            Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-
-            currentStage.setScene(scene);
+            stage.setScene(scene);
         }
         catch(IOException e){
             e.printStackTrace();

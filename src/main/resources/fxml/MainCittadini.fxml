@@ -9,12 +9,12 @@
 <AnchorPane fx:id="mainPane" prefHeight="550.0" prefWidth="920.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Rectangle fill="white" height="45.0" layoutX="0.0" layoutY="0.0" style="-fx-border-style: hidden hidden solid hidden;" width="920.0" />
-        <ScrollPane fx:id="scrollPane_CentriVaccinali" hbarPolicy="NEVER" layoutX="25.0" layoutY="83.0" prefHeight="443.0" prefWidth="870.0" style="-fx-background-radius: 0; -fx-background-color: transparent; -fx-border-color: #1a73e8;" visible="false" /> <!-- style="-fx-background: #1a73e8;-->
+        <ScrollPane fx:id="scrollPane_CentriVaccinali" hbarPolicy="NEVER" layoutX="25.0" layoutY="83.0" prefHeight="443.0" prefWidth="870.0" style="-fx-background-radius: 0; -fx-background-color: transparent; -fx-border-color: #1a73e8;" /> <!-- style="-fx-background: #1a73e8;-->
         <Pane fx:id="pane_center_information" layoutX="895" layoutY="82" prefHeight="443.0" prefWidth="0.0" style="-fx-background-color: white; -fx-background-radius: 8" />
-        <ImageView fx:id="noCentersImg" fitHeight="390" fitWidth="585" layoutX="167.5" layoutY="90.0" visible="true">
+        <ImageView fx:id="noCentersImg" fitHeight="390" fitWidth="585" layoutX="167.5" layoutY="90.0" visible="false">
             <Image url="@/cittadini/noCenters.png" />
         </ImageView>
-        <Label fx:id="noCentersLabel" alignment="CENTER" layoutX="135" layoutY="475" minHeight="20" prefWidth="650" text="Non è stato trovato nessun centro :(" textFill="white">
+        <Label fx:id="noCentersLabel" alignment="CENTER" layoutX="135" layoutY="475" minHeight="20" prefWidth="650" text="Non è stato trovato nessun centro :(" textFill="white" visible="false">
          <font>
             <Font size="18.0" />
          </font></Label>

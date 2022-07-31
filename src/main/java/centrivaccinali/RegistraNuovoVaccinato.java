@@ -142,6 +142,10 @@ public class RegistraNuovoVaccinato {
                     alert.setHeaderText(null);
                     alert.setContentText("Nuovo vaccinato registrato");
                     alert.showAndWait();
+
+                    Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
+                    loadOpzioniOperatoreUI(stage);
+
                 } else if (result.equals("false")) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Errore");
@@ -149,7 +153,6 @@ public class RegistraNuovoVaccinato {
                     alert.setContentText("Nuovo vaccinato non registrato");
                     alert.showAndWait();
                 }
-                ((Stage) currentScene.getWindow()).close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -170,6 +173,11 @@ public class RegistraNuovoVaccinato {
     }
 
     public void goBackToOpzioniOperatore(MouseEvent event){
+        Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
+        loadOpzioniOperatoreUI(stage);
+    }
+
+    private void loadOpzioniOperatoreUI(Stage stage){
         try {
             FXMLLoader loader = new FXMLLoader();
             URL xmlUrl = getClass().getResource("/fxml/PortaleOperatori.fxml");
@@ -179,9 +187,7 @@ public class RegistraNuovoVaccinato {
 
             Scene scene = new Scene(root);
 
-            Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-
-            currentStage.setScene(scene);
+            stage.setScene(scene);
         }
         catch(IOException e){
             e.printStackTrace();
