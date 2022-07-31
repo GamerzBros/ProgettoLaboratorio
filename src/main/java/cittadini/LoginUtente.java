@@ -68,13 +68,10 @@ public class LoginUtente {
                 return;
             }
             System.out.println("LOGGATO");
-            //  currentUser=parts[4]; //CF dell'utente
+
             Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             HashMap<String,String> userData = (HashMap<String,String>) currentStage.getUserData();
-            userData.put("currentUser",currentUser);
-            //Controllare che non serva risettarlo
-            //currentStage.setUserData(userData);
-            currentStage.close();
+            userData.put("currentUser",user);
 
             Alert alertSuccessfullLogin = new Alert(Alert.AlertType.INFORMATION);
             alertSuccessfullLogin.setTitle("Login effettuato");

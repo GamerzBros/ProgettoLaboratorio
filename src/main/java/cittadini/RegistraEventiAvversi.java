@@ -1,6 +1,8 @@
 package cittadini;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -10,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.net.URL;
 import java.util.HashMap;
 
 public class RegistraEventiAvversi {
@@ -53,6 +56,27 @@ public class RegistraEventiAvversi {
         HashMap<String,String> userData= (HashMap<String,String>) stage.getUserData();
         currentUser=userData.get("currentUser");
         currentCenter=userData.get("currentCenter");
+
+        loadUI(stage);
+    }
+
+    private void loadUI(Stage stage){
+        try {
+
+            FXMLLoader loader=new FXMLLoader();
+            URL url=getClass().getResource("/fxml/registraEventiAvversi.fxml");
+            loader.setLocation(url);
+            loader.setController(this);
+            Parent root=loader.load();
+
+            Scene scene=new Scene(root);
+
+            stage.setScene(scene);
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -63,8 +87,6 @@ public class RegistraEventiAvversi {
         try {
             Scene currentScene =((Button) actionEvent.getSource()).getScene();
 
-            System.out.println(currentCenter);
-
             Spinner<Integer> spn_headache = (Spinner<Integer>) currentScene.lookup("#spn_headache");
             Spinner<Integer> spn_fever = (Spinner<Integer>) currentScene.lookup("#spn_fever");
             Spinner<Integer> spn_hurt = (Spinner<Integer>) currentScene.lookup("#spn_hurt");
@@ -72,8 +94,6 @@ public class RegistraEventiAvversi {
             Spinner<Integer> spn_tac = (Spinner<Integer>) currentScene.lookup("#spn_tac");
             Spinner<Integer> spn_crs = (Spinner<Integer>) currentScene.lookup("#spn_crs");
             TextField txt_other1 = (TextField) currentScene.lookup("#txt_other");
-            Spinner<Integer> spn_other1 = (Spinner<Integer>) currentScene.lookup("#spn_other");
-
 
             int evento1 = spn_headache.getValue();//evento1 = Mal di testa
             int evento2 = spn_fever.getValue(); //evento2 = Febbre
@@ -82,7 +102,6 @@ public class RegistraEventiAvversi {
             int evento5 = spn_tac.getValue(); //evento5 = Tachicardia
             int evento6 = spn_crs.getValue();//evento6 = Crisi ipertensiva
             String otherEvent = txt_other1.getText();
-            int otherEventValue = spn_other1.getValue();
 
             FileReader reader = new FileReader(PRE_PATH_TO_EVENTI_AVVERSI + currentCenter + AFTER_PATH_TO_EVENTI_AVVERSI);
             BufferedReader in = new BufferedReader(reader);
@@ -113,7 +132,7 @@ public class RegistraEventiAvversi {
 
                 String fileInput = LINE_TYPE_EVENT + ";" + currentCenter + ";" + currentUser + ";" + evento1 + ";" + evento2 + ";" + evento3 + ";" + evento4 + ";" + evento5 + ";" + evento6;
                 if (otherEvent.compareTo("") != 0) {
-                    fileInput += ";" + otherEvent + ";" + otherEventValue;
+                    fileInput += ";" + otherEvent;
                 }
 
                 out.write(fileInput);

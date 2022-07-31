@@ -117,6 +117,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             if (stage.getUserData() != null){
                 userData = (HashMap<String,String>) stage.getUserData();
                 currentUser = userData.get("currentUser");
+                System.out.println(currentUser);
                 currentCenter = userData.get("currentCenter");
             }
             else{
@@ -125,6 +126,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             }
 
             if(currentUser!=null){
+                //TODO sostituire il bottone accedi con il bottone di logut (qui sotto)
                 Button btn_logout=new Button();
                 btn_logout.setPrefWidth(100);
                 btn_logout.setPrefHeight(30);
@@ -632,33 +634,27 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      * Crea la UI che permette ad un utente di inserire eventi avversi.
      */
     public void loadRegistraEventiAvversiUI(ActionEvent actionEvent){
-        //TODO controllare se l'utente è loggato
+        //TODO controllare che l'utente, se loggato, si sia vaccinato preso il centro selezionato
+        Stage stage=(Stage)((Button)actionEvent.getSource()).getScene().getWindow();
 
-        try {
-
-            FXMLLoader loader=new FXMLLoader();
-            URL url=getClass().getResource("/fxml/registraEventiAvversi.fxml");
-            loader.setLocation(url);
-            Parent root=loader.load();
-
-            Scene scene=new Scene(root);
-
-            Stage stage=(Stage)((Button)actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-
+        HashMap<String,String> userData=(HashMap<String,String>)stage.getUserData();
+        if(userData.get("currentUser")!=null) {
+            new RegistraEventiAvversi(stage);
         }
-        catch (Exception e){
-            e.printStackTrace();
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setContentText("Per aggiungere eventi avversi devi aver effettuato l'accesso");
+            alert.showAndWait();
         }
     }
 
     /**
-     * Carica la UI necessaria ad effettuare la registrazione di un utente.
+     * Carica la UI necessaria a effettuare la registrazione di un utente.
      * @param event L'evento che richiama il metodo. Necessario per chiudere la UI di login
      */
     public void loadRegisterCitizenUI(ActionEvent event){
         try {
-            //Scene mainScene=((Button)event.getSource()).getScene();
             Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
 
             FXMLLoader loader = new FXMLLoader();
