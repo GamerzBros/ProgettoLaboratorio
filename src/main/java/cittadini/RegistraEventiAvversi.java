@@ -15,6 +15,9 @@ import java.io.*;
 import java.net.URL;
 import java.util.HashMap;
 
+/**
+ * Gestisce la UI che permette di registrare a un cittadino gli eventi avversi
+ */
 public class RegistraEventiAvversi {
     /**
      * Percorso per il file contente le informazioni dei centri vaccinali registrati
@@ -52,6 +55,10 @@ public class RegistraEventiAvversi {
      */
     private String currentCenter;
 
+    /**
+     * Costruttore principale della classe RegistraEventiAvversi
+     * @param stage Lo stage su cui verrà caricata la nuova FX Scene
+     */
     public RegistraEventiAvversi(Stage stage){
         HashMap<String,String> userData= (HashMap<String,String>) stage.getUserData();
         currentUser=userData.get("currentUser");
@@ -60,6 +67,10 @@ public class RegistraEventiAvversi {
         loadUI(stage);
     }
 
+    /**
+     * Carica la UI principale della schermata RegistraEventiAvversi.
+     * @param stage Lo stage su cui verrà caricata la nuova FX Scene
+     */
     private void loadUI(Stage stage){
         try {
 
@@ -81,7 +92,7 @@ public class RegistraEventiAvversi {
 
     /**
      * Registra sul file di testo relativo al centro vaccinale selezionato, gli eventi avversi inseriti dall'utente.
-     * @param actionEvent L'evento che richiama il metodo. Necessario ad ottenere la scena attuale da cui prendere i dati inseriti dall'utente.
+     * @param actionEvent L'evento che richiama il metodo. Necessario a ottenere la scena attuale da cui prendere i dati inseriti dall'utente.
      */
     public void registerEventiAvversi(ActionEvent actionEvent){ //TODO fare con il server
         try {
@@ -154,6 +165,10 @@ public class RegistraEventiAvversi {
         }
     }
 
+    /**
+     * Torna indietro alla schermata di selezione portale.
+     * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage su cui inserire la nuova scena per mantenere la stessa finestra ma con una UI diversa
+     */
     public void goBackToMain(MouseEvent event){
         Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
 
