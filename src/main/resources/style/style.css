@@ -9,4 +9,8 @@
 .datepicker .text-field {
     -fx-background-color: transparent;
     -fx-border-style: hidden;
+    -fx-text-fill: white;
+}
+.bottomShadow{
+    -fx-effect: dropshadow(gaussian,#8D9093,1,0.75,0,0);
 }

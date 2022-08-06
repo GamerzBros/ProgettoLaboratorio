@@ -2,22 +2,17 @@ package cittadini;
 
 import centrivaccinali.SelectionUI;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.*;
 import java.net.Socket;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 /**
  * Gestisce la UI che permette a un utente di registrarsi per poi poter registrare eventi aversi
@@ -120,7 +115,7 @@ public class RegistrazioneUtente {
     }
 
     /**
-     * Torna alla homepage del portale cittadini
+     * Torna alla pagina iniziale del portale cittadini
      * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage in cui inserire la nuova scena
      */
     public void goBackToMain(MouseEvent event){

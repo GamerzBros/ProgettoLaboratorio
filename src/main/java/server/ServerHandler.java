@@ -248,7 +248,6 @@ public class ServerHandler extends Thread{
             }
             os = new ObjectOutputStream(s.getOutputStream());
             os.writeObject(vector);
-            //System.out.println("VECTOR SENDED");
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {

@@ -20,15 +20,15 @@ import java.util.StringTokenizer;
 import java.util.UUID;
 
 /**
- * Gestisce la UI della schermata che permette al cittadino di registrare nuovi eventi avversi presso un centro vaccinale
+ * Gestisce la UI che permette agli operatori di centri vaccinali di registrare un nuovo vaccinato
  */
 public class RegistraNuovoVaccinato {
     /**
-     * Il buffer di dati primitivi in output al client
+     * Buffer che permette di inviare dati primitivi al sever
      */
     PrintWriter out;
     /**
-     * Il buffer di dati in input dal client
+     * Buffer che permette di ricevere dati primitivi dal server
      */
     BufferedReader in;
     /**

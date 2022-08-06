@@ -10,15 +10,19 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
 import java.io.*;
 import java.net.Socket;
 import java.net.URL;
 
+/**
+ * Gestisce la UI che permette agli operatori di centri vaccinali di registrare un nuovo centro
+ */
 public class RegistraNuovoCentro {
+    /**
+     * Buffer che permette di ricevere dati primitivi dal server
+     */
     PrintWriter in;
     /**
      * Buffer che permette di inviare dati primitivi al sever
@@ -59,6 +63,10 @@ public class RegistraNuovoCentro {
     private ObservableList<String>tipologia_items = FXCollections.observableArrayList("Ospedaliero","Aziendale","Hub");
 
 
+    /**
+     * Costruttore principale della classe RegistraNuovoCentro
+     * @param stage Lo stage su cui verrà caricata la nuova FX Scene
+     */
     public RegistraNuovoCentro(Stage stage){
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -142,11 +150,19 @@ public class RegistraNuovoCentro {
         }
     }
 
+    /**
+     * Torna alla pagina iniziale del portale operatori di centri vaccinali
+     * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage in cui inserire la nuova scena
+     */
     public void goBackToOpzioniOperatore(MouseEvent event){
         Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
         loadOpzioniOperatoreUI(stage);
     }
 
+    /**
+     * Carica la UI del portale operatori di centri vaccinali
+     * @param stage Lo stage in cui inserire la nuova fx scene
+     */
     private void loadOpzioniOperatoreUI(Stage stage){
         try {
             FXMLLoader loader = new FXMLLoader();

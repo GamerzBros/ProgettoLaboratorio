@@ -18,6 +18,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
+/**
+ * Gestisce la UI che permette a un utente di effettuare il login
+ */
 public class LoginUtente {
     /**
      * Percorso per il file contenente i dati dei cittadini registrati
@@ -150,7 +153,7 @@ public class LoginUtente {
     }
 
     /**
-     * Torna alla homepage del portale cittadini
+     * Torna alla pagina iniziale del portale cittadini
      * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage in cui inserire la nuova scena
      */
     public void goBackToMain(MouseEvent event){

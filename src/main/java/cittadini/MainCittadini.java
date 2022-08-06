@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Vector;
 
 /**
- * Gestisce la UI del portale cittadini che permette di consultare i centri vaccinali e i loro relativi eventi avversi registrati
+ * Gestisce la UI che permette ai cittadini di consultare i centri vaccinali e i loro relativi eventi avversi registrati
  */
 //TODO rivedere quando usare i throws e i try/catch all'interno del progetto
 public class MainCittadini implements EventHandler<ActionEvent> {
@@ -185,6 +185,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
                 scrollPane_CentriVaccinali.setVisible(false);
                 scene.lookup("#noCentersImg").setVisible(true);
                 scene.lookup("#noCentersLabel").setVisible(true);
+                System.out.println("Nessun centro vaccinale presente nel database");
                 /*ImageView img=new ImageView(new Image(getClass().getResourceAsStream(NO_CENTERS_IMG_PATH)));
                 img.setX(25);
                 img.setY(83);
@@ -473,11 +474,13 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         System.out.println("[CLIENT] Uscito dalla become client");
         try {
             ois = new ObjectInputStream(SelectionUI.socket_container.getInputStream());
-        } catch (IOException e) {
+        } catch (Exception e) {
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("Database error");
             error.setContentText("Errore nel prendere i dati dal database");
+            error.showAndWait();
             e.printStackTrace();
+            return null;
         }
 
         return (Vector<SingoloCentroVaccinale>) ois.readObject();
@@ -560,7 +563,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
 
             currentStage.getIcons().set(0,image);
         }
-        catch(IOException e){
+        catch(Exception e){
             e.printStackTrace();
         }
 
@@ -650,8 +653,8 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             in = new BufferedReader(new InputStreamReader(s.getInputStream()));
             out.println("void");
             out.println(ServerHandler.GET_VAX_CENTERS_OP_CODE);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+           e.printStackTrace();
         }
     }
 }
