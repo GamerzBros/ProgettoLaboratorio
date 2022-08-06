@@ -44,10 +44,7 @@ public class RegistraEventiAvversi {
      */
     public static final String LINE_TYPE_EVENT ="E";
     /**
-     * Lista contente tutti i centri vaccinali presenti nel file. Popolata dal metodo getCentriVaccinaliFromFile()
-     */
-    /**
-     * Codice fiscale dell'utente attualmente loggato
+     * ID dell'utente attualmente loggato
      */
     private String currentUser;
     /**

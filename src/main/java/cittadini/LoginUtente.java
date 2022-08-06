@@ -24,8 +24,13 @@ public class LoginUtente {
      */
     public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
     public static final int LOGIN_OPERATION_CODE=1;
-
+    /**
+     * Buffer che permette di ricevere dati primitivi dal server
+     */
    private PrintWriter in;
+    /**
+     * Buffer che permette di inviare dati primitivi al sever
+     */
    private BufferedReader out;
     /**
      * Codice fiscale dell'utente attualmente loggato
@@ -126,6 +131,11 @@ public class LoginUtente {
         }
 
     }
+
+    /**
+     * Invia al server il relativo codice di operazione per effettuare il login di un utente
+     * @param parameters I dati relativi al login che il server dovrà verificare
+     */
     public void becomeClient(String parameters){
         try {
             System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
@@ -139,6 +149,10 @@ public class LoginUtente {
         }
     }
 
+    /**
+     * Torna alla homepage del portale cittadini
+     * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage in cui inserire la nuova scena
+     */
     public void goBackToMain(MouseEvent event){
         Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
 

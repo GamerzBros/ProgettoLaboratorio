@@ -1,5 +1,6 @@
 package centrivaccinali;
 
+import server.ServerHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,9 +19,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.StringTokenizer;
 import java.util.UUID;
 
+/**
+ * Gestisce la UI della schermata che permette al cittadino di registrare nuovi eventi avversi presso un centro vaccinale
+ */
 public class RegistraNuovoVaccinato {
-    private static final int REGISTER_VACCINEUSER_OPERATION_CODE = 3;
+    /**
+     * Il buffer di dati primitivi in output al client
+     */
     PrintWriter out;
+    /**
+     * Il buffer di dati in input dal client
+     */
     BufferedReader in;
     /**
      * Percorso per il file contente le informazioni dei centri vaccinali registrati
@@ -55,7 +64,10 @@ public class RegistraNuovoVaccinato {
      */
     private ObservableList<String> centro_vaccinale_items = FXCollections.observableArrayList();
 
-
+    /**
+     * Costruttore principale della classe RegistraNuovoVaccinato. Costruisce la UI che verrà poi gestita dalla classe attuale
+     * @param stage Lo stage su cui verrà caricata la nuova FX Scene
+     */
     public RegistraNuovoVaccinato(Stage stage){
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -158,7 +170,11 @@ public class RegistraNuovoVaccinato {
             }
         }
     }
-    
+
+    /**
+     * Invia al server il relativo codice di operazione per registrare una nuova vaccinazione
+     * @param parameters I dati relativi alla nuova vaccinazione che il server dovrà inserire nel database
+     */
     public void becomeClient(String parameters){
         try {
             System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
@@ -166,17 +182,25 @@ public class RegistraNuovoVaccinato {
             out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
             in = new BufferedReader(new InputStreamReader(s.getInputStream()));
             out.println(parameters);
-            out.println(REGISTER_VACCINEUSER_OPERATION_CODE);
+            out.println(ServerHandler.REGISTER_VACCINATED_OP_CODE);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Torna alla pagina iniziale del portale operatori di centri vaccinali
+     * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage in cui inserire la nuova scena
+     */
     public void goBackToOpzioniOperatore(MouseEvent event){
         Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
         loadOpzioniOperatoreUI(stage);
     }
 
+    /**
+     * Carica la UI del portale operatori di centri vaccinali
+     * @param stage Lo stage in cui inserire la nuova fx scene
+     */
     private void loadOpzioniOperatoreUI(Stage stage){
         try {
             FXMLLoader loader = new FXMLLoader();

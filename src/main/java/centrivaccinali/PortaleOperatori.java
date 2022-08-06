@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
+/**
+ * Gestisce la UI del portale operatori di centri vaccinali. Consente agli operatori di passare alla UI di aggiunta centro vaccinale e di aggiunta vaccinazioni
+ */
 public class PortaleOperatori {
     /**
      * Percorso per il file contente le informazioni dei centri vaccinali registrati
@@ -38,11 +41,18 @@ public class PortaleOperatori {
      * Tipo di linea del file contente le informazioni relative agli eventi avversi
      */
     public static final String LINE_TYPE_EVENT ="E";
-
+    /**
+     * Costruttore principale della classe PortaleOperatori
+     * @param stage Lo stage su cui verrà caricata la nuova FX Scene
+     */
     public PortaleOperatori(Stage stage){
         loadPortaleOperatoriUI(stage);
     }
 
+    /**
+     * Carica la UI del portale operatori
+     * @param stage Lo stage su cui verrà caricata la nuova FX Scene
+     */
     private void loadPortaleOperatoriUI(Stage stage){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -71,6 +81,10 @@ public class PortaleOperatori {
         }
     }
 
+    /**
+     * Torna indietro alla schermata di selezione portale
+     * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage su cui inserire la nuova scena per mantenere la stessa finestra ma con una UI diversa
+     */
     public void goBackToSelectionUI(MouseEvent event){
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -100,6 +114,7 @@ public class PortaleOperatori {
 
     /**
      * Crea la UI per inserire un nuovo centro vaccinale. Viene richiamato quando l'operatore selezione il pulsante per inserire un nuovo centro.
+     * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage in cui inserire la nuova scena
      */
     public void onNuovoCentroSelected(ActionEvent event){
         Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
@@ -109,6 +124,7 @@ public class PortaleOperatori {
 
     /**
      * Crea la UI per inserire un nuovo centro vaccinale. Viene richiamato quando l'operatore selezione il pulsante per inserire un nuovo centro.
+     * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage in cui inserire la nuova scena
      */
     public void onNewVaccinate(ActionEvent event) {
         Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();

@@ -19,6 +19,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+/**
+ * Gestisce la UI che permette a un utente di registrarsi per poi poter registrare eventi aversi
+ */
 public class RegistrazioneUtente {
     /**
      * Percorso per il file contenente i dati dei cittadini registrati
@@ -26,15 +29,12 @@ public class RegistrazioneUtente {
     public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
     public static final int REGISTER_OPERATION_CODE=2;
     /**
-     * Codice fiscale dell'utente attualmente loggato
+     * Buffer che permette di inviare dati primitivi al sever
      */
-    private String currentUser;
-    /**
-     * Centro vaccinale attualmente selezionato
-     */
-    private String currentCenter;
-
     private BufferedReader out;
+    /**
+     * Buffer che permette di ricevere dati primitivi dal server
+     */
     private PrintWriter in;
 
     /**
@@ -119,12 +119,20 @@ public class RegistrazioneUtente {
         return sb.toString();
     }
 
+    /**
+     * Torna alla homepage del portale cittadini
+     * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage in cui inserire la nuova scena
+     */
     public void goBackToMain(MouseEvent event){
         Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
 
         new MainCittadini(stage);
     }
 
+    /**
+     * Invia al server il relativo codice di operazione per registrare un nuovo utente
+     * @param parameters I dati relativi al nuovo utente che il server dovrà inserire nel database
+     */
     public void becomeClient(String parameters){
         try {
             System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");

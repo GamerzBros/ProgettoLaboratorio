@@ -20,6 +20,9 @@ import java.net.URL;
 
 public class RegistraNuovoCentro {
     PrintWriter in;
+    /**
+     * Buffer che permette di inviare dati primitivi al sever
+     */
     BufferedReader out;
     /**
      * Percorso per il file contente le informazioni dei centri vaccinali registrati
@@ -161,6 +164,10 @@ public class RegistraNuovoCentro {
         }
     }
 
+    /**
+     * Invia al server il relativo codice di operazione per registrare un nuovo centro vaccinale
+     * @param parameters I dati relativi al nuovo utente che il server dovrà inserire nel database
+     */
     public void becomeClient(String parameters){
         try {
             System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");

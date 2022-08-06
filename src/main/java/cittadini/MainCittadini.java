@@ -2,7 +2,7 @@ package cittadini;
 
 import centrivaccinali.SelectionUI;
 import centrivaccinali.SingoloCentroVaccinale;
-import client_server.ServerHandler;
+import server.ServerHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -110,7 +110,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
     }
 
     /**
-     * Carica la UI principale del portale dei cittadini. Questa UI Consente di scegliere il centro vaccinale presso cui consultare/inserire i dati. Viene chiamato dalla classe CentriVaccinali nel metodo onCittadiniSelected(ActionEvent event).
+     * Carica la UI del portale cittadini. Questa UI Consente di scegliere il centro vaccinale presso cui consultare/inserire i dati. Viene chiamato dalla classe CentriVaccinali nel metodo onCittadiniSelected(ActionEvent event).
      * @param stage Lo stage su cui verrà caricata la nuova FX Scene
      */
     public void loadMainCittadiniUI(Stage stage){
@@ -257,7 +257,6 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         }
     }
 
-
     /**
      * Apre la UI del centro vaccinale sul quale il cittadino ha cliccato.
      * @param actionEvent L'evento che richiama il metodo. Necessario ad ottenere il bottone sorgente dell'evento dal quale è possibile ottenere l'id del centro selezionato.
@@ -391,8 +390,8 @@ public class MainCittadini implements EventHandler<ActionEvent> {
                 singleEvents[4] += currentEvents.getTachicardia();
                 singleEvents[5] += currentEvents.getCrisiIpertensiva();
 
-                if (currentEvents.getOtherSimptoms() != null&&!(currentEvents.getOtherSimptoms().equals(""))) {
-                    otherEventsText.add(currentEvents.getOtherSimptoms());
+                if (currentEvents.getOtherSymptoms() != null&&!(currentEvents.getOtherSymptoms().equals(""))) {
+                    otherEventsText.add(currentEvents.getOtherSymptoms());
                 }
             }
 
@@ -484,7 +483,6 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         return (Vector<SingoloCentroVaccinale>) ois.readObject();
     }
 
-
     /**
      * Evento richiamato quando l'utente preme il tasto di ricerca. Richiama il metodo search(Scene currentScene) per effettuare la ricerca dei centri vaccinali
      * @param event L'evento che richiama il metodo. Necessario per ottenere la scena attuale da cui prendere i parametri di ricerca.
@@ -538,7 +536,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
     }
 
     /**
-     * Torna indietro alla schermata di selezione portale.
+     * Torna indietro alla schermata di selezione portale
      * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage su cui inserire la nuova scena per mantenere la stessa finestra ma con una UI diversa
      */
     public void goBackFromMainCittadini(MouseEvent event){
@@ -567,7 +565,6 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         }
 
     }
-
 
     /**
      * Carica la UI di login utente. Viene richiamato quando l'utente preme sul tasto "Login"
@@ -642,7 +639,6 @@ public class MainCittadini implements EventHandler<ActionEvent> {
 
     }
 
-
     /**
      * Invia al server il relativo codice operazione per ottenere una lista di tutti i centri vaccinali presenti nel database
      */
@@ -658,5 +654,4 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             e.printStackTrace();
         }
     }
-
 }

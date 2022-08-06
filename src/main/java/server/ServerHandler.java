@@ -1,4 +1,4 @@
-package client_server;
+package server;
 
 import centrivaccinali.SingoloCentroVaccinale;
 import cittadini.EventiAvversi;
@@ -11,21 +11,67 @@ import java.text.ParseException;
 import java.util.Vector;
 
 
+/**
+ * Thread che funziona da slave del server. Ogni volta che il server apre una nuova connessione con il client, viene creata un'istanza di questa classe che gestirà poi lo scambio di informazioni tra client-server
+ */
 public class ServerHandler extends Thread{
+    /**
+     * Il codice dell'operazione che effettua il login di un utente
+     */
     public static final int LOGIN_USER_OP_CODE =1;
+    /**
+    * Il codice dell'operazione che effettua la registrazione di un utente
+     */
     public static final int REGISTER_USER_OP_CODE =2;
+    /**
+     * Il codice dell'operazione che effettua la registrazione della vaccinazione di un nuovo cittadino
+     */
     public static final int REGISTER_VACCINATED_OP_CODE=3;
+    /**
+     * Il codice dell'operazione che effettua la registrazione di un nuovo centro vaccinale
+     */
     public static final int REGISTER_CENTER_OP_CODE=4;
+    /**
+     * Il codice dell'operazione che invia al client la lista dei centri vaccinali nel database
+     */
     public static final int GET_VAX_CENTERS_OP_CODE=5;
+    /**
+     * Il codice dell'operazione che invia al client la lista degli eventi avversi registrati presso un determinato centro vaccinali
+     */
     public static final int GET_EVENTIAVVERSI_OP_CODE=6;
+    /**
+     * Il socket che permette di comunicare con il client
+     */
     private Socket s;
+    /**
+     * Il buffer di dati primitivi in input dal client
+     */
     private BufferedReader in;
+    /**
+     * Il buffer di dati primitivi in output al client
+     */
     private PrintWriter out;
+    /**
+     * L'operation code ricevuto dal client sotto forma di stringa
+     */
     private String op;
+    /**
+     * Gli ulteriori parametri della richiesta passati assieme all'operation code
+     */
     private String parameters;
+    /**
+     * Il buffer di dati composti (classi) in ouput al client
+     */
     private ObjectOutputStream os;
+    /**
+     * L'operation code ricevuto dal client convertito in un valore intero
+     */
     private int op_converted;
 
+    /**
+     * Costruttore principale della classe.
+     * @param s Il socket ricevuto dal server e che permette lo scambio di dati con il client
+     */
     ServerHandler(Socket s){
       this.s = s;
       start();
