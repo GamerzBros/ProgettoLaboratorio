@@ -40,8 +40,13 @@ public class ServerHandler extends Thread{
      */
     public static final int GET_EVENTIAVVERSI_OP_CODE=6;
     /**
+     * Il codice dell'operazione che riceve gli eventi avversi dell'utente
+     */
+    public static final int REGISTER_EVENTIAVVERSI_OP_CODE =7;
+    /**
      * Il socket che permette di comunicare con il client
      */
+
     private Socket s;
     /**
      * Il buffer di dati primitivi in input dal client
@@ -252,7 +257,7 @@ public class ServerHandler extends Thread{
     }
 
     private void getEventiAvversi(String idCentro){
-        //faccio diviso 7 perché sono i campi per ogni paziente
+        //faccio diviso 8 perché sono i campi per ogni paziente
         Vector<EventiAvversi> vector = new Vector<EventiAvversi>();
         int maleTesta;
         int febbre;
@@ -261,6 +266,7 @@ public class ServerHandler extends Thread{
         int tachicardia;
         int crisiIpertensiva;
         String otherSimptoms;
+
 
         try {
             Connection con=connectDB();
@@ -335,6 +341,10 @@ public class ServerHandler extends Thread{
                     }
                     case GET_EVENTIAVVERSI_OP_CODE ->{
                         System.out.println("[THREAD] Getter eventi avversi chiamata");
+                        getEventiAvversi(parameters);
+                    }
+                    case REGISTER_EVENTIAVVERSI_OP_CODE ->{
+                        System.out.println("[THREAD] Register eventi avversi chiamata");
                         getEventiAvversi(parameters);
                     }
                 }

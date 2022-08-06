@@ -12,7 +12,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 
 /**
@@ -154,8 +157,25 @@ public class RegistraEventiAvversi {
                 alertNoPermission.showAndWait();
             }
 
+            //inizializzo la classe container e la mando al server tramite l'ObjectOutputWriter
+
+            EventiAvversi eventiSalvati= new EventiAvversi(evento1, evento2, evento3, evento4, evento5, evento6, otherEvent, currentUser);
+
+            //inizializzo socket e stream
+            Socket s = new Socket(InetAddress.getLocalHost(),9870);
+            ObjectOutputStream out= new ObjectOutputStream(s.getOutputStream());
+            out.writeObject(eventiSalvati);
+            PrintWriter outPrint= new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())));
+            outPrint.println("7");
+
+
             Stage stage = (Stage) currentScene.getWindow();
             stage.close();
+
+
+
+
+
         }
         catch (IOException e){
             e.printStackTrace();
