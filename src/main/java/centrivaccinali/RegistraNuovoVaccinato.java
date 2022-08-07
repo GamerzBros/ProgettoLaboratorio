@@ -198,19 +198,6 @@ public class RegistraNuovoVaccinato {
      * @param stage Lo stage in cui inserire la nuova fx scene
      */
     private void loadOpzioniOperatoreUI(Stage stage){
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            URL xmlUrl = getClass().getResource("/fxml/PortaleOperatori.fxml");
-            loader.setLocation(xmlUrl);
-
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root);
-
-            stage.setScene(scene);
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
+        new PortaleOperatori(stage);
     }
 }

@@ -6,22 +6,25 @@
 <?import javafx.scene.text.*?>
 
 <?import java.net.URL?>
-<AnchorPane prefHeight="400.0" prefWidth="575.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="345.0" prefWidth="490.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="0.0" layoutY="7.5" onMouseClicked="#goBackToOpzioniOperatore" style="-fx-background-color: transparent;">
+      <Button layoutX="0.0" layoutY="7.5" onMouseClicked="#goBackToOpzioniOperatore" styleClass="bottomShadow" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="22.0" fitWidth="25.0" preserveRatio="false">
                <Image url="@/common/goBackIcon.png" />
             </ImageView>
          </graphic>
       </Button>
-      <TextField fx:id="txt_nomePaziente" layoutX="51.0" layoutY="109.0" prefHeight="25.0" prefWidth="180.0" promptText="Nome Paziente" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;"/>
-      <TextField fx:id="txt_cognomePaziente" layoutX="336.0" layoutY="109.0" prefHeight="25.0" prefWidth="180.0" promptText="Cognome Paziente" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;"/>
-      <TextField fx:id="txt_cfPaziente" layoutX="51.0" layoutY="187.0" prefHeight="25.0" prefWidth="180.0" promptText="Codice Fiscale" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;"/>
-      <DatePicker fx:id="datePicker_datavaccinazione" styleClass="datepicker" layoutX="336.0" layoutY="187.0" promptText="Data Vaccinazione" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;"/>
-      <ChoiceBox fx:id="cbx_centroVaccinale" layoutX="60.0" layoutY="261.0" prefHeight="25.0" prefWidth="180.0"/>
-      <ChoiceBox fx:id="cbx_vaccinoSomministrato" layoutX="339.0" layoutY="261.0" prefWidth="180.0"/>
-      <Button fx:id="nuovoPaziente_confirm" layoutX="233.0" layoutY="335.0" mnemonicParsing="false" onAction="#registraVaccinato" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Conferma">
+      <ImageView layoutX="190.0" layoutY="20" fitHeight="110" fitWidth="110">
+         <Image url="@/centrivaccinali/person.png" />
+      </ImageView>
+      <TextField fx:id="txt_nomePaziente" layoutX="40.0" layoutY="140.0" prefHeight="25.0" prefWidth="190.0" promptText="Nome Paziente" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;"/>
+      <TextField fx:id="txt_cognomePaziente" layoutX="260.0" layoutY="140.0" prefHeight="25.0" prefWidth="190.0" promptText="Cognome Paziente" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;"/>
+      <TextField fx:id="txt_cfPaziente" layoutX="40.0" layoutY="190.0" prefHeight="25.0" prefWidth="190.0" promptText="Codice Fiscale" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;"/>
+      <DatePicker fx:id="datePicker_datavaccinazione" prefWidth="190" prefHeight="25" styleClass="datepicker" layoutX="260.0" layoutY="190.0" promptText="Data Vaccinazione" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;"/>
+      <ChoiceBox fx:id="cbx_centroVaccinale" layoutX="40.0" layoutY="240.0" prefHeight="25.0" prefWidth="190.0"/>
+      <ChoiceBox fx:id="cbx_vaccinoSomministrato" layoutX="260.0" layoutY="240.0" prefWidth="190.0"/>
+      <Button fx:id="nuovoPaziente_confirm" layoutX="190.0" layoutY="290.0" prefWidth="110" mnemonicParsing="false" onAction="#registraVaccinato" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Conferma">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
