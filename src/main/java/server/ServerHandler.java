@@ -44,9 +44,12 @@ public class ServerHandler extends Thread{
      */
     public static final int REGISTER_EVENTIAVVERSI_OP_CODE =7;
     /**
+     * Il codice dell'operazione che controlla se l'utente è stato vaccinato presso il centro vaccinale selezionato (e quindi se di conseguenza può registrare eventi avversi)
+     */
+    public static final int USER_ADD_EVENTS_PERMISSION_CHECK_OP_CODE=8;
+    /**
      * Il socket che permette di comunicare con il client
      */
-
     private Socket s;
     /**
      * Il buffer di dati primitivi in input dal client
@@ -85,29 +88,20 @@ public class ServerHandler extends Thread{
     private void login(String parameters) {//ricevo user e psw, connetto db e checko, il client sarà in ascolto e ritorno true o false
         String[] parameters_splitted = parameters.split(";");
         String email = parameters_splitted[0];
-        String mail_db = "";
-        String pwd_db = "";
+        String cf=null;
         String pwd = parameters_splitted[1];
 
         try {
             Connection con = connectDB();
-            PreparedStatement stm = con.prepareStatement("SELECT email,password FROM public.utente where email=? and password =?");
+            PreparedStatement stm = con.prepareStatement("SELECT cf FROM public.utente where email=? and password =?");
             stm.setString(1, email);
             stm.setString(2, pwd);
             ResultSet result = stm.executeQuery();
-            while (result.next()) {
-                mail_db = result.getString("email");
-
-                pwd_db = result.getString("password");
+            if(result.next()){
+                cf = result.getString("cf").toUpperCase();
             }
-            if (email.equals(mail_db) && pwd.equals(pwd_db)) {
-                System.out.println("[DB - THREAD] MATCH NEL DB");
-                out.println("true");
-            } else {
-                System.out.println("[DB - THREAD]NO MATCH NEL DB");
-                out.println("false");
-            }
-        } catch (SQLException e) {
+            out.println(cf);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -148,17 +142,16 @@ public class ServerHandler extends Thread{
         String[] parameters_splitted = parameters.split(";");
         String nome = parameters_splitted[0];
         String cognome = parameters_splitted[1];
-        String codice_fiscale = parameters_splitted[2];
+        String codice_fiscale = parameters_splitted[2].toUpperCase();
         String tipoVaccino = parameters_splitted[3];
         String centroVaccinale = parameters_splitted[4];
         String dataVaccinazione = parameters_splitted[5];
         Date dataVaccinazioneSQL = java.sql.Date.valueOf(dataVaccinazione);
-        String idVaccinazione = parameters_splitted[6];
         System.out.println(dataVaccinazione);
         System.out.println(dataVaccinazioneSQL);
         try{
-            Connection con = connectDB();
-            String sql ="insert into vaccinati (nome,cognome,codice_fiscale,vaccino,centrovaccinale,data_vaccinazione,id_vaccinazione) VALUES (?,?,?,?,?,?,?)";
+            Connection con = connectDB();;
+            String sql ="insert into vaccinati (nome,cognome,cf_utente,vaccino,centrovaccinale,data_vaccinazione) VALUES (?,?,?,?,?,?)";
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setString(1,nome);
             stm.setString(2,cognome);
@@ -166,7 +159,6 @@ public class ServerHandler extends Thread{
             stm.setString(4,tipoVaccino);
             stm.setString(5,centroVaccinale);
             stm.setDate(6,dataVaccinazioneSQL);
-            stm.setString(7,idVaccinazione);
             int result = stm.executeUpdate();
             if(result>0){
                 System.out.println("[DB -THREAD] QUERY REGISTRAZIONE COMPLETATA");
@@ -270,7 +262,7 @@ public class ServerHandler extends Thread{
         try {
             Connection con=connectDB();
 
-            String sql="SELECT * FROM eventiavversi ea JOIN centrivaccinali cv ON ea.id=cv.id WHERE cv.id="+idCentro;
+            String sql="SELECT * FROM eventiavversi ea JOIN centrivaccinali cv ON ea.id_centro=cv.id WHERE cv.id="+idCentro;
             PreparedStatement prepSt=con.prepareStatement(sql);
             ResultSet result=prepSt.executeQuery();
             while (result.next()){
@@ -302,6 +294,46 @@ public class ServerHandler extends Thread{
             System.err.println("[DB - THREAD] - Non sono connesso al db");
         }
         return conn;
+    }
+
+    private void checkUserPermission(String parameters) {
+        String[] splitParams=parameters.split(";");
+        String userId=splitParams[0].toUpperCase();
+        String centerId=splitParams[1];
+        //- 1 non sei stato vaccinato qui
+        //0 hai già messo tutti gli eventi avversi
+        //da 1 in su sono gli eventi avversi per vaccinazione
+        String sql="SELECT COUNT(*) AS rowCount FROM vaccinati v JOIN utente u ON v.cf_utente=u.cf WHERE u.cf=? AND v.centrovaccinale=?";
+        try {
+            Connection con=connectDB();
+            PreparedStatement prepSt=con.prepareStatement(sql);
+            prepSt.setString(1,userId);
+            prepSt.setInt(2,Integer.parseInt(centerId));
+            System.out.println("userID="+userId+"; centerID="+centerId);
+            ResultSet result=prepSt.executeQuery();
+            if(!result.next()){
+                //l'utente non è stato vaccinato presso il centro selezionato
+                out.println(-1);
+                return;
+            }
+            int vaccinationsNum=result.getInt("rowCount");
+            sql="SELECT COUNT(*) AS rowCount FROM eventiavversi ea WHERE ea.id_centro=? AND ea.cf_utente=?";
+            prepSt=con.prepareStatement(sql);
+            prepSt.setInt(1,Integer.parseInt(centerId));
+            prepSt.setString(2,userId);
+            result=prepSt.executeQuery();
+            result.next();
+            int eventsNum=result.getInt("rowCount");
+            //Il numero di vaccinazioni inserite dall'utente
+            if(vaccinationsNum==eventsNum){
+                //l'utente ha già messo tutti gli eventi avversi
+                out.println(0);
+                return;
+            }
+            out.println(++eventsNum);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -345,6 +377,10 @@ public class ServerHandler extends Thread{
                     case REGISTER_EVENTIAVVERSI_OP_CODE ->{
                         System.out.println("[THREAD] Register eventi avversi chiamata");
                         getEventiAvversi(parameters);
+                    }
+                    case USER_ADD_EVENTS_PERMISSION_CHECK_OP_CODE -> {
+                        System.out.println("[THREAD] Checker eventi avversi chiamata");
+                        checkUserPermission(parameters);
                     }
                 }
             }

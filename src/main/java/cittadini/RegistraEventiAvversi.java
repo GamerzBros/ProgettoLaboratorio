@@ -15,7 +15,6 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 
 /**
@@ -54,6 +53,10 @@ public class RegistraEventiAvversi {
      * Centro vaccinale attualmente selezionato
      */
     private String currentCenter;
+    /**
+     * Il numero della vaccinazione relativa agli eventi avversi
+     */
+    private String eventsNum;
 
     /**
      * Costruttore principale della classe RegistraEventiAvversi
@@ -63,7 +66,8 @@ public class RegistraEventiAvversi {
         HashMap<String,String> userData= (HashMap<String,String>) stage.getUserData();
         currentUser=userData.get("currentUser");
         currentCenter=userData.get("currentCenter");
-
+        eventsNum=userData.get("eventsNum");
+        //TODO usare questo eventsNum nel testo
         loadUI(stage);
     }
 
@@ -75,7 +79,7 @@ public class RegistraEventiAvversi {
         try {
 
             FXMLLoader loader=new FXMLLoader();
-            URL url=getClass().getResource("/fxml/registraEventiAvversi.fxml");
+            URL url=getClass().getResource("/fxml/RegistraEventiAvversi.fxml");
             loader.setLocation(url);
             loader.setController(this);
             Parent root=loader.load();

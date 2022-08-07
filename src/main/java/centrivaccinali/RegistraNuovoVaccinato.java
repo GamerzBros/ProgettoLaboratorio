@@ -83,6 +83,7 @@ public class RegistraNuovoVaccinato {
             stage.setTitle("Nuovo Paziente");
 
             try {
+                //TODO convertire questo in server
                 FileReader fileReader = new FileReader(PATH_TO_CENTRIVACCINALI_DATI);
                 BufferedReader reader = new BufferedReader(fileReader);
 
@@ -100,15 +101,12 @@ public class RegistraNuovoVaccinato {
                     centro_vaccinale_items.add(tokenizer.nextToken());
                 }
                 choiceBox_centroVaccinale.setItems(centro_vaccinale_items);
+                //TODO prendere la posizione del centro vaccinale selezionato nella lista e passarlo come id del centro nel db
             }
             catch (IOException e){
                 e.printStackTrace();
             }
 
-
-            InputStream icon = getClass().getResourceAsStream("fiorellino.png");
-            Image image = new Image(icon);
-            stage.getIcons().add(image);
             stage.show();
 
         }
@@ -130,7 +128,6 @@ public class RegistraNuovoVaccinato {
         LocalDate vaccinationDate = ((DatePicker) currentScene.lookup("#datePicker_datavaccinazione")).getValue();
         String centroVaccinale = ((ChoiceBox<String>) currentScene.lookup("#cbx_centroVaccinale")).getValue();
         String dataVaccinazione = "";
-        String idVaccinazione = null;
 
         if (vaccinationDate != null) {
             dataVaccinazione = vaccinationDate.format(DateTimeFormatter.ofPattern("yyy-MM-dd"));
@@ -143,8 +140,7 @@ public class RegistraNuovoVaccinato {
             alert.showAndWait();
         } else {
             try {
-                idVaccinazione = UUID.randomUUID().toString();
-                String parameters = name+";"+surname+";"+codice_fiscale+";"+vaccineType+";"+centroVaccinale+";"+dataVaccinazione+";"+idVaccinazione;
+                String parameters = name+";"+surname+";"+codice_fiscale+";"+vaccineType+";"+centroVaccinale+";"+dataVaccinazione;
                 System.out.println(dataVaccinazione);
                 becomeClient(parameters);
                 String result = in.readLine();

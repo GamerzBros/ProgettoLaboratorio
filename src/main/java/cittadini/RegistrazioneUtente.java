@@ -42,7 +42,7 @@ public class RegistrazioneUtente {
         String name = ((TextField)currentScene.lookup("#txt_userName")).getText();
         String surname = ((TextField)currentScene.lookup("#txt_userSurname")).getText();
         String user = ((TextField)currentScene.lookup("#txt_userMail")).getText();
-        String userCF=((TextField)currentScene.lookup("#txt_userCF")).getText();
+        String userCF=((TextField)currentScene.lookup("#txt_userCF")).getText().toUpperCase();
         String pwd = ((PasswordField)currentScene.lookup("#pswd_register")).getText();
         String confrmationPwd=((PasswordField)currentScene.lookup("#pswd_confirm")).getText();
         LocalDate datanascita = ((DatePicker)currentScene.lookup("#datePicker_datavaccinazione")).getValue();

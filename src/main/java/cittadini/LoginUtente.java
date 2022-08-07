@@ -68,7 +68,7 @@ public class LoginUtente {
             becomeClient(parameters); //connessione
             String result = out.readLine(); //valore di ritorno true o false per la query della login
             System.out.println("RISULTATO QUERY = " + result);//codice parlante xdxd
-            if (!result.equals("true")) { //se true vuol dire che ha matchato con il db
+            if (result==null) { //se null vuol dire che il login non è andato a buon fine
                 Alert noUserAlert = new Alert(Alert.AlertType.WARNING);
                 noUserAlert.setTitle("Errore di login");
                 noUserAlert.setContentText("Utente non trovato!");
@@ -79,7 +79,7 @@ public class LoginUtente {
 
             Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             HashMap<String,String> userData = (HashMap<String,String>) currentStage.getUserData();
-            userData.put("currentUser",user);
+            userData.put("currentUser",result);
 
             Alert alertSuccessfullLogin = new Alert(Alert.AlertType.INFORMATION);
             alertSuccessfullLogin.setTitle("Login effettuato");
@@ -88,7 +88,7 @@ public class LoginUtente {
 
             new MainCittadini(currentStage);
 
-        } catch (IOException | NoSuchAlgorithmException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

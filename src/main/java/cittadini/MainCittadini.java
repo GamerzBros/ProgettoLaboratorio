@@ -136,7 +136,6 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             if (stage.getUserData() != null){
                 userData = (HashMap<String,String>) stage.getUserData();
                 currentUser = userData.get("currentUser");
-                System.out.println(currentUser);
                 currentCenter = userData.get("currentCenter");
             }
             else{
@@ -272,9 +271,12 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         ScrollPane scrollPane=(ScrollPane) source.getScene().lookup("#scrollPane_CentriVaccinali");
         VBox vbox=(VBox)scrollPane.getContent();
 
+        HashMap<String,String> userData=(HashMap<String,String>)source.getScene().getWindow().getUserData();
+
         if(!centerSelected) {
             selectedCenterID = currentCenterID;
             centerSelected=true;
+            userData.put("currentCenter",String.valueOf(selectedCenterID));
 
             Timeline paneTransition = new Timeline(
                     new KeyFrame(Duration.millis(350), new KeyValue(centerListPane.prefWidthProperty(), centerListPane.getPrefWidth() / 3)),
@@ -315,9 +317,13 @@ public class MainCittadini implements EventHandler<ActionEvent> {
                 Button button=(Button)element.getChildren().get(3);
                 button.setStyle("-fx-cursor: hand; -fx-background-radius: 5em; -fx-min-width: 1px; -fx-background-color: #FFFFFF; -fx-border-radius: 5em; -fx-border-color: #000000;");
             }
+
+            userData.remove("currentCenter");
+
         }
         else{
             selectedCenterID = currentCenterID;
+            userData.put("currentCenter",String.valueOf(selectedCenterID));
 
             for(int i=0;i<vbox.getChildren().size();i++){
                 HBox element=(HBox) vbox.getChildren().get(i);
@@ -343,7 +349,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
     public void loadVisualizzatoreCentroVaccinale(Pane centerInfoPane, int selectedCenterID){
         try {
             //TODO ottimizzare sta roba controllando se è già stata caricata la UI tramite una variabile globale booleana
-            FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("/fxml/visualizzazioneCentroVaccinale.fxml"));
+            FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("/fxml/VisualizzazioneCentroVaccinale.fxml"));
             fxmlLoader.setController(this);
             Scene scene=new Scene(fxmlLoader.load());
             AnchorPane anchorPane=new AnchorPane(scene.lookup("#main_anchor_pane"));
@@ -475,11 +481,11 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         try {
             ois = new ObjectInputStream(SelectionUI.socket_container.getInputStream());
         } catch (Exception e) {
+            e.printStackTrace();
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("Database error");
             error.setContentText("Errore nel prendere i dati dal database");
-            error.showAndWait();
-            e.printStackTrace();
+            error.show();
             return null;
         }
 
@@ -607,14 +613,53 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         Stage stage=(Stage)((Button)actionEvent.getSource()).getScene().getWindow();
 
         HashMap<String,String> userData=(HashMap<String,String>)stage.getUserData();
-        if(userData.get("currentUser")!=null) {
-            new RegistraEventiAvversi(stage);
-        }
-        else{
+        String user=userData.get("currentUser");
+        String center=userData.get("currentCenter");
+        System.out.println(center);
+        //se l'utente non è loggato, non può inserire eventi avversi
+        if(user==null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setContentText("Per aggiungere eventi avversi devi aver effettuato l'accesso");
-            alert.showAndWait();
+            alert.show();
+            return;
+        }
+        int eventsNum= getUserEventsNum(user,center);
+        if(eventsNum==-1){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setContentText("Non sei stato vaccinato presso questo centro");
+            alert.show();
+            return;
+        }
+        if(eventsNum==0){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setContentText("Hai già inserito tutti gli eventi avversi");
+            alert.show();
+            return;
+        }
+        userData.put("eventsNum",String.valueOf(eventsNum));
+        new RegistraEventiAvversi(stage);
+    }
+
+    /**
+     * Controlla se l'utente è stato vaccinato presso il centro vaccinale selezionato e, in caso positivo, restituisce il numero di eventi avversi ancora da inserire.
+     * @param user
+     * @param currentCenter
+     * @return
+     */
+    private int getUserEventsNum(String user, String currentCenter){
+        try {
+            out.println(user + ";" + currentCenter);
+            out.println(ServerHandler.USER_ADD_EVENTS_PERMISSION_CHECK_OP_CODE);
+
+            int eventsNum=Integer.parseInt(in.readLine());
+            return eventsNum;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return -1;
         }
     }
 

@@ -60,7 +60,7 @@
       <Spinner fx:id="spn_tac" editable="true" layoutX="550.0" layoutY="228.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
       <Spinner fx:id="spn_crs" editable="true" layoutX="550.0" layoutY="268.0" max="5" min="0" prefHeight="25.0" prefWidth="55.0" />
       <TextField fx:id="txt_other" layoutX="24.0" layoutY="347.0" prefHeight="85.0" prefWidth="590.0" promptText="Altri Sintomi" style="-fx-background-radius: 5" />
-      <Label layoutX="30.0" layoutY="317.0" prefHeight="22.0" prefWidth="307.0" textFill="white" text="Altri sintomi (massimo 256 caratteri):">
+      <Label layoutX="30.0" layoutY="317.0" prefHeight="22.0" prefWidth="307.0" textFill="white" alignment="TOP_LEFT" text="Altri sintomi (massimo 256 caratteri):">
          <font>
             <Font name="System" size="18.0" />
          </font>
