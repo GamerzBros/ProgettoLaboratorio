@@ -167,11 +167,11 @@ public class RegistraEventiAvversi {
 
             //inizializzo socket e stream
             Socket s = new Socket(InetAddress.getLocalHost(),9870);
-            ObjectOutputStream out= new ObjectOutputStream(s.getOutputStream());
-            out.writeObject(eventiSalvati);
-            PrintWriter outPrint= new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())));
-            outPrint.println("7");
-
+            ObjectOutputStream obOut= new ObjectOutputStream(s.getOutputStream());
+            PrintWriter out= new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
+            out.println("null");
+            out.println("7");
+            obOut.writeObject(eventiSalvati);
 
             Stage stage = (Stage) currentScene.getWindow();
             stage.close();

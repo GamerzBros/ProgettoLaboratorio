@@ -56,8 +56,13 @@ public class ServerHandler extends Thread{
      */
     private BufferedReader in;
     /**
+     * Input Stream per ricevere gli oggetti dal client
+     */
+    private ObjectInputStream oin;
+    /**
      * Il buffer di dati primitivi in output al client
      */
+
     private PrintWriter out;
     /**
      * L'operation code ricevuto dal client sotto forma di stringa
@@ -75,6 +80,10 @@ public class ServerHandler extends Thread{
      * L'operation code ricevuto dal client convertito in un valore intero
      */
     private int op_converted;
+    /**
+     * Oggetto di tipo EventiAvversi per salvare gli oggetti ricevuti
+     */
+    private EventiAvversi eventiAvversi;
 
     /**
      * Costruttore principale della classe.
@@ -335,6 +344,19 @@ public class ServerHandler extends Thread{
             e.printStackTrace();
         }
     }
+    private void registerEventiAvversi(EventiAvversi a){
+        //leggo gli eventiAvversi mandati dal client
+        EventiAvversi eveAvv=a;
+        int maleTesta=eveAvv.getMaleTesta();
+        int febbre=eveAvv.getFebbre();
+        int doloriMuscolari=eveAvv.getDoloriMuscolari();
+        int linfoadenopatia=eveAvv.getLinfoadenopatia();
+        int tachicardia=eveAvv.getTachicardia();
+        int crisiIpertensiva=eveAvv.getCrisiIpertensiva();
+        String otherSimptoms=eveAvv.getOtherSymptoms();
+
+
+    }
 
     @Override
     public void run() {
@@ -343,12 +365,23 @@ public class ServerHandler extends Thread{
         try{
             in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
+            oin= new ObjectInputStream(s.getInputStream());
+
             out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())), true);
             while (true){
                 System.out.println("[THREAD] Ascolto");
                 parameters = in.readLine(); //qui impacchetto qualsiasi dato con separatore ";" per il server
                 op = in.readLine(); //questo è l'operation code
                 op_converted = Integer.parseInt(op);
+                if(op_converted==7){
+
+                    try {
+                        eventiAvversi= (EventiAvversi) oin.readObject();
+                    } catch (ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                }
                 switch (op_converted) {
                     case LOGIN_USER_OP_CODE -> {
                         System.out.println("[THREAD] Login chiamata");
@@ -376,7 +409,7 @@ public class ServerHandler extends Thread{
                     }
                     case REGISTER_EVENTIAVVERSI_OP_CODE ->{
                         System.out.println("[THREAD] Register eventi avversi chiamata");
-                        getEventiAvversi(parameters);
+                        registerEventiAvversi(eventiAvversi);
                     }
                     case USER_ADD_EVENTS_PERMISSION_CHECK_OP_CODE -> {
                         System.out.println("[THREAD] Checker eventi avversi chiamata");
