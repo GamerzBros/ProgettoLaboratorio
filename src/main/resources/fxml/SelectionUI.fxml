@@ -9,14 +9,14 @@
 <!--azzurro chiaro: #91ceff-->
 <!--blu: #197dc9 -->
 
-<AnchorPane fx:id="anchorPane" style="-fx-background-color: white;" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.SelectionUI">
+<AnchorPane fx:id="anchorPane" style="-fx-background-color: white;" prefHeight="300.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrivaccinali.SelectionUI">
    <children>
-      <ImageView fx:id="imgBg" fitHeight="300.0" fitWidth="400.0" layoutX="200.0" layoutY="-50.0" pickOnBounds="true" preserveRatio="false" style="-fx-background-color:#1a73e8; ">
-              <Image url="@/centrivaccinali/varese.png"/>
+      <ImageView fx:id="imgBg" fitHeight="300.0" fitWidth="400.0" layoutX="180.0" layoutY="-40.0" pickOnBounds="true" preserveRatio="false" style="-fx-background-color:#1a73e8; ">
+              <Image url="@/centrivaccinali/introduction.png"/>
       </ImageView>
-      <Pane fx:id="paneInformations" layoutY="0.0" prefHeight="300.0" prefWidth="200.0" style="-fx-background-color: white">
+      <Pane fx:id="paneInformations" layoutY="0.0" prefHeight="300.0" prefWidth="200.0" style="-fx-background-color: transparent">
          <children>
-            <Button layoutX="20.0" layoutY="180.0" mnemonicParsing="false" onAction="#onCentriVaccinaliSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="38.0" prefWidth="170.0" style="-fx-background-radius: 10; -fx-background-color: #1a73e8;" text="Portale Operatori" textFill="white">
+            <Button layoutX="10.0" layoutY="180.0" mnemonicParsing="false" onAction="#onCentriVaccinaliSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="38.0" prefWidth="170.0" style="-fx-background-radius: 10; -fx-background-color: #1a73e8;" text="Portale Operatori" textFill="white">
                <font>
                   <Font size="14.0" />
                </font>
@@ -29,7 +29,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="20.0" layoutY="80.0" mnemonicParsing="false" onAction="#onCittadiniSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="38.0" prefWidth="170.0" style="-fx-background-radius: 10; -fx-background-color: #1a73e8;" text="Portale Cittadini" textFill="white">
+            <Button layoutX="10.0" layoutY="80.0" mnemonicParsing="false" onAction="#onCittadiniSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="38.0" prefWidth="170.0" style="-fx-background-radius: 10; -fx-background-color: #1a73e8;" text="Portale Cittadini" textFill="white">
                <font>
                   <Font size="14.0" />
                </font>
@@ -44,16 +44,16 @@
             </Button>
          </children>
       </Pane>
-      <Label fx:id="lbl_main" alignment="CENTER" layoutX="210.0" layoutY="190.0" prefHeight="105.0" prefWidth="380.0" text="Centri Vaccinali è un progetto universitario creato da Arcadi Cristian, Marsichina Eros, Morosi Tommaso e Poletti David" textAlignment="CENTER" wrapText="true">
+      <Label fx:id="lbl_main" alignment="CENTER" layoutX="190.0" layoutY="200.0" prefHeight="100.0" prefWidth="380.0" text="Centri Vaccinali è un progetto universitario creato da Arcadi Cristian, Marsichina Eros, Morosi Tommaso e Poletti David" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_citizen" alignment="CENTER" layoutX="210.0" layoutY="195.0" prefHeight="105.0" prefWidth="380.0" text="Il portale cittadini consente a questi ultimi di consultare ed inserire eventi avversi avvenuti in seguto alla vaccinazione" textAlignment="CENTER" visible="false" wrapText="true">
+      <Label fx:id="lbl_citizen" alignment="CENTER" layoutX="190.0" layoutY="200.0" prefHeight="100.0" prefWidth="380.0" text="Il portale cittadini consente a questi ultimi di consultare ed inserire eventi avversi avvenuti in seguto alla vaccinazione" textAlignment="CENTER" visible="false" wrapText="true">
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Label fx:id="lbl_operator" alignment="CENTER" layoutX="210.0" layoutY="195.0" prefHeight="105.0" prefWidth="380.0" text="Il portale operatori di centri vaccinali consente a questi ultimi di inserire nuovi cittadini vaccinati o nuovi centri vaccinali" textAlignment="CENTER" visible="false" wrapText="true">
+      <Label fx:id="lbl_operator" alignment="CENTER" layoutX="190.0" layoutY="200.0" prefHeight="100.0" prefWidth="380.0" text="Il portale operatori di centri vaccinali consente a questi ultimi di inserire nuovi cittadini vaccinati o nuovi centri vaccinali" textAlignment="CENTER" visible="false" wrapText="true">
          <font>
             <Font size="18.0" />
          </font>

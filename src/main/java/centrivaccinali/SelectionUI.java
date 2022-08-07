@@ -98,7 +98,7 @@ public class SelectionUI extends Application {
 
     public void onChoiceButtonExit(MouseEvent event){
         ImageView imgView=(ImageView)((Button)event.getSource()).getScene().lookup("#imgBg");
-        imgView.setImage(new Image(getClass().getResourceAsStream("/centrivaccinali/varese.png")));
+        imgView.setImage(new Image(getClass().getResourceAsStream("/centrivaccinali/introduction.png")));
 
         Button btnSource=(Button)event.getSource();
         btnSource.getScene().lookup("#lbl_main").setVisible(true);
