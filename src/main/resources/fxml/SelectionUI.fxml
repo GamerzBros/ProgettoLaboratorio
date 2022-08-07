@@ -16,26 +16,20 @@
       </ImageView>
       <Pane fx:id="paneInformations" layoutY="0.0" prefHeight="300.0" prefWidth="200.0" style="-fx-background-color: transparent">
          <children>
-            <Button layoutX="10.0" layoutY="180.0" mnemonicParsing="false" onAction="#onCentriVaccinaliSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="38.0" prefWidth="170.0" style="-fx-background-radius: 10; -fx-background-color: #1a73e8;" text="Portale Operatori" textFill="white">
-               <font>
-                  <Font size="14.0" />
-               </font>
+            <Button layoutX="10.0" layoutY="80.0" mnemonicParsing="false" onAction="#onCittadiniSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="38.0" prefWidth="170.0" style="-fx-background-radius: 10; -fx-background-color: #1a73e8; -fx-font-size: 15" text="Portale Cittadini" textFill="white">
                <graphic>
-                  <ImageView fitWidth="30" fitHeight="30">
-                     <Image url="@/centrivaccinali/operatorPortalIcon.png" />
+                  <ImageView fitWidth="28" fitHeight="28">
+                     <Image url="@/cittadini/citizenPortalIcon.png" />
                   </ImageView>
                </graphic>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="10.0" layoutY="80.0" mnemonicParsing="false" onAction="#onCittadiniSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="38.0" prefWidth="170.0" style="-fx-background-radius: 10; -fx-background-color: #1a73e8;" text="Portale Cittadini" textFill="white">
-               <font>
-                  <Font size="14.0" />
-               </font>
+            <Button layoutX="10.0" layoutY="180.0" mnemonicParsing="false" onAction="#onCentriVaccinaliSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="38.0" prefWidth="170.0" style="-fx-background-radius: 10; -fx-background-color: #1a73e8; -fx-font-size: 15" text="Portale Operatori" textFill="white">
                <graphic>
-                  <ImageView fitWidth="28" fitHeight="28">
-                     <Image url="@/cittadini/citizenPortalIcon.png" />
+                  <ImageView fitWidth="30" fitHeight="30">
+                     <Image url="@/centrivaccinali/operatorPortalIcon.png" />
                   </ImageView>
                </graphic>
                <cursor>
@@ -49,7 +43,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_citizen" alignment="CENTER" layoutX="190.0" layoutY="200.0" prefHeight="100.0" prefWidth="380.0" text="Il portale cittadini consente a questi ultimi di consultare ed inserire eventi avversi avvenuti in seguto alla vaccinazione" textAlignment="CENTER" visible="false" wrapText="true">
+      <Label fx:id="lbl_citizen" alignment="CENTER" layoutX="190.0" layoutY="200.0" prefHeight="100.0" prefWidth="380.0" text="Il portale cittadini consente a questi ultimi di consultare ed inserire eventi avversi avvenuti in seguito alla vaccinazione" textAlignment="CENTER" visible="false" wrapText="true">
          <font>
             <Font size="18.0" />
          </font></Label>
