@@ -220,7 +220,6 @@ public class ServerHandler extends Thread{
     }
 
     private void getCentriVaccinaliFromDb(){
-        System.out.println("CHIAMATOOOOOOOO");
         Vector<SingoloCentroVaccinale> vector = new Vector<>();
         String nome_db;
         String qualificatore_db;
@@ -344,7 +343,7 @@ public class ServerHandler extends Thread{
             e.printStackTrace();
         }
     }
-    private void registerEventiAvversi(EventiAvversi a){
+    private void registerEventiAvversi(EventiAvversi a) throws IOException {
         //leggo gli eventiAvversi mandati dal client
         EventiAvversi eveAvv=a;
         int maleTesta=eveAvv.getMaleTesta();
@@ -354,7 +353,7 @@ public class ServerHandler extends Thread{
         int tachicardia=eveAvv.getTachicardia();
         int crisiIpertensiva=eveAvv.getCrisiIpertensiva();
         String otherSimptoms=eveAvv.getOtherSymptoms();
-
+        oin= new ObjectInputStream(s.getInputStream());
 
     }
 
@@ -364,9 +363,6 @@ public class ServerHandler extends Thread{
         System.out.println("[THREAD] - Server thread startato");
         try{
             in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-
-            oin= new ObjectInputStream(s.getInputStream());
-
             out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())), true);
             while (true){
                 System.out.println("[THREAD] Ascolto");
@@ -374,7 +370,6 @@ public class ServerHandler extends Thread{
                 op = in.readLine(); //questo è l'operation code
                 op_converted = Integer.parseInt(op);
                 if(op_converted==7){
-
                     try {
                         eventiAvversi= (EventiAvversi) oin.readObject();
                     } catch (ClassNotFoundException e) {

@@ -1,8 +1,6 @@
 centrivaccinali\SelectionUI.class
-client_server\ServerHandler.class
 cittadini\MainCittadini.class
 centrivaccinali\RegistraNuovoVaccinato.class
-client_server\Server.class
 centrivaccinali\RegistraNuovoCentro.class
 centrivaccinali\SingoloCentroVaccinale.class
 cittadini\LoginUtente.class

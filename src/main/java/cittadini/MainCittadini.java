@@ -697,7 +697,9 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
             in = new BufferedReader(new InputStreamReader(s.getInputStream()));
             out.println("void");
+            System.out.println("spedito void");
             out.println(ServerHandler.GET_VAX_CENTERS_OP_CODE);
+            System.out.println("spedito codice");
         } catch (Exception e) {
            e.printStackTrace();
         }
