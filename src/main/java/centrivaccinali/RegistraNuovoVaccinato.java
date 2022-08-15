@@ -172,16 +172,12 @@ public class RegistraNuovoVaccinato {
      * @param parameters I dati relativi alla nuova vaccinazione che il server dovrà inserire nel database
      */
     public void becomeClient(String parameters){
-        try {
-            System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
-            Socket s = SelectionUI.socket_container;
-            out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
-            in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-            out.println(parameters);
-            out.println(ServerHandler.REGISTER_VACCINATED_OP_CODE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
+        Socket s = SelectionUI.socket_container;
+        out = SelectionUI.out_container;
+        in = SelectionUI.in_container;
+        out.println(parameters);
+        out.println(ServerHandler.REGISTER_VACCINATED_OP_CODE);
     }
 
     /**

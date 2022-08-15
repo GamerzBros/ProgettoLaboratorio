@@ -27,6 +27,8 @@ public class SelectionUI extends Application {
     PrintWriter out;
     BufferedReader in;
     public static Socket socket_container;
+    public static PrintWriter out_container;
+    public static BufferedReader in_container;
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
@@ -120,6 +122,10 @@ public class SelectionUI extends Application {
             s = new Socket(InetAddress.getLocalHost(),9870);
             System.out.println("[CLIENT] - Sono connesso ");
             socket_container=s;
+            out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
+            in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+            out_container = out;
+            in_container = in;
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore connessione");

@@ -30,11 +30,11 @@ public class LoginUtente {
     /**
      * Buffer che permette di ricevere dati primitivi dal server
      */
-   private PrintWriter in;
+   private PrintWriter out;
     /**
      * Buffer che permette di inviare dati primitivi al sever
      */
-   private BufferedReader out;
+   private BufferedReader in;
     /**
      * Codice fiscale dell'utente attualmente loggato
      */
@@ -66,7 +66,7 @@ public class LoginUtente {
             pwd = toHexString(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8)));
             parameters = user + ";" + pwd; //parametri per il db
             becomeClient(parameters); //connessione
-            String result = out.readLine(); //valore di ritorno true o false per la query della login
+            String result = in.readLine(); //valore di ritorno true o false per la query della login
             System.out.println("RISULTATO QUERY = " + result);//codice parlante xdxd
             if (result==null) { //se null vuol dire che il login non è andato a buon fine
                 Alert noUserAlert = new Alert(Alert.AlertType.WARNING);
@@ -140,16 +140,12 @@ public class LoginUtente {
      * @param parameters I dati relativi al login che il server dovrà verificare
      */
     public void becomeClient(String parameters){
-        try {
-            System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
-            Socket s = SelectionUI.socket_container;
-            in = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
-            out = new BufferedReader(new InputStreamReader(s.getInputStream()));
-            in.println(parameters);
-            in.println(LOGIN_OPERATION_CODE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
+        Socket s = SelectionUI.socket_container;
+        out = SelectionUI.out_container;
+        in = SelectionUI.in_container;
+        out.println(parameters);
+        out.println(LOGIN_OPERATION_CODE);
     }
 
     /**

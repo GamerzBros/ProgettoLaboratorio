@@ -488,8 +488,8 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             error.show();
             return null;
         }
-
-        return (Vector<SingoloCentroVaccinale>) ois.readObject();
+        Vector <SingoloCentroVaccinale>v =(Vector<SingoloCentroVaccinale>) ois.readObject();
+        return v;
     }
 
     /**
@@ -694,8 +694,8 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         try {
             System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
             Socket s = SelectionUI.socket_container;
-            out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
-            in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+            out = SelectionUI.out_container;
+            in = SelectionUI.in_container;
             out.println("void");
             System.out.println("spedito void");
             out.println(ServerHandler.GET_VAX_CENTERS_OP_CODE);

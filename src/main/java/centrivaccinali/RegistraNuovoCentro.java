@@ -1,5 +1,6 @@
 package centrivaccinali;
 
+import cittadini.MainCittadini;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,11 +24,11 @@ public class RegistraNuovoCentro {
     /**
      * Buffer che permette di ricevere dati primitivi dal server
      */
-    PrintWriter in;
+    PrintWriter out;
     /**
      * Buffer che permette di inviare dati primitivi al sever
      */
-    BufferedReader out;
+    BufferedReader in;
     /**
      * Percorso per il file contente le informazioni dei centri vaccinali registrati
      */
@@ -127,7 +128,7 @@ public class RegistraNuovoCentro {
         } else {
             try {
                 becomeClient(parameters);
-                String result = out.readLine();
+                String result = in.readLine();
                 if (result.equals("true")) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Successo");
@@ -180,20 +181,17 @@ public class RegistraNuovoCentro {
         }
     }
 
+
     /**
      * Invia al server il relativo codice di operazione per registrare un nuovo centro vaccinale
      * @param parameters I dati relativi al nuovo utente che il server dovrà inserire nel database
      */
     public void becomeClient(String parameters){
-        try {
-            System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
-            Socket s = SelectionUI.socket_container;
-            in = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
-            out = new BufferedReader(new InputStreamReader(s.getInputStream()));
-            in.println(parameters);
-            in.println(REGISTER_VACCINECENTRE_OPERATION_CODE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
+        Socket s = SelectionUI.socket_container;
+        out = SelectionUI.out_container;
+        in = SelectionUI.in_container;
+        out.println(parameters);
+        out.println(REGISTER_VACCINECENTRE_OPERATION_CODE);
     }
 }

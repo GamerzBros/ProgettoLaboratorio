@@ -26,11 +26,11 @@ public class RegistrazioneUtente {
     /**
      * Buffer che permette di inviare dati primitivi al sever
      */
-    private BufferedReader out;
+    private BufferedReader in;
     /**
      * Buffer che permette di ricevere dati primitivi dal server
      */
-    private PrintWriter in;
+    private PrintWriter out;
 
     /**
      * Registra un cittadino nel file di testo contente tutti i cittadini registrati.
@@ -57,7 +57,7 @@ public class RegistrazioneUtente {
 
                 String parameters =name+";"+surname+";"+user+";"+userCF+";"+pwd+";"+dataNascita;
                 becomeClient(parameters);
-                String result = out.readLine();//risultato query login true o false dal server
+                String result = in.readLine();//risultato query login true o false dal server
                 if(result.equals("true")){
                     /*Scene mainScene=(Scene)currentScene.getUserData();
                     String[] userData=(String[])mainScene.getUserData();
@@ -129,16 +129,12 @@ public class RegistrazioneUtente {
      * @param parameters I dati relativi al nuovo utente che il server dovrà inserire nel database
      */
     public void becomeClient(String parameters){
-        try {
-            System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
-            Socket s = SelectionUI.socket_container;
-            in = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
-            out = new BufferedReader(new InputStreamReader(s.getInputStream()));
-            in.println(parameters);
-            in.println(REGISTER_OPERATION_CODE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
+        Socket s = SelectionUI.socket_container;
+        out = SelectionUI.out_container;
+        in = SelectionUI.in_container;
+        out.println(parameters);
+        out.println(REGISTER_OPERATION_CODE);
     }
 
 }
