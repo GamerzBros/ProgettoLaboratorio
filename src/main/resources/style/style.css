@@ -1,11 +1,14 @@
-#backButton{
+.backButton{
     -fx-background-color: transparent;
     -fx-background-radius: 25;
 }
-
-#backButton:hover{
-    -fx-background-color: #E7EBF0;
+.backButton:focused{
+    -fx-background-color: transparent;
 }
+.backButton:hover{
+    -fx-opacity: 0.5;
+}
+
 .datepicker .text-field {
     -fx-background-color: transparent;
     -fx-border-style: hidden;
@@ -13,4 +16,16 @@
 }
 .bottomShadow{
     -fx-effect: dropshadow(gaussian,#8D9093,1,0.75,0,0);
+}
+
+.radioButtonChip {
+    -fx-background-color: white;
+    -fx-background-radius: 18;
+    -fx-text-fill: black;
+    -fx-stroke: black;
+    -fx-stroke-width: 3;
+    -fx-padding: 2.4 8.2 2.4 8.2;
+}
+.radioButtonChip:selected{
+    -fx-background-color: orange;
 }

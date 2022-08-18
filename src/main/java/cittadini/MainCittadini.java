@@ -2,6 +2,7 @@ package cittadini;
 
 import centrivaccinali.SelectionUI;
 import centrivaccinali.SingoloCentroVaccinale;
+import javafx.animation.Interpolator;
 import server.ServerHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -178,6 +179,11 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             scrollPane_CentriVaccinali = (ScrollPane) scene.lookup("#scrollPane_CentriVaccinali");
             scrollPane_CentriVaccinali.lookup(".viewport").setStyle("-fx-background-color: #1a73e8;");
 
+            scene.lookup("#radio_name").getStyleClass().remove("radio-button");
+            scene.lookup("#radio_name").getStyleClass().add("toggle-button");
+            scene.lookup("#radio_type").getStyleClass().remove("radio-button");
+            scene.lookup("#radio_type").getStyleClass().add("toggle-button");
+
             centriVaccinaliList = getCentriVaccinaliFromDb();
 
             if(centriVaccinaliList==null||centriVaccinaliList.size()==0){
@@ -211,7 +217,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         VBox scrollPaneContent=new VBox();
         scrollPaneContent.setSpacing(15);
         scrollPaneContent.setPrefHeight(409);
-        scrollPaneContent.setAlignment(Pos.CENTER);
+        //scrollPaneContent.setAlignment(Pos.CENTER);
         scrollPane_CentriVaccinali.setContent(scrollPaneContent);
 
         for (int i=0;i<centriVaccinaliMostrati.size();i++){
@@ -259,7 +265,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
 
     /**
      * Apre la UI del centro vaccinale sul quale il cittadino ha cliccato.
-     * @param actionEvent L'evento che richiama il metodo. Necessario ad ottenere il bottone sorgente dell'evento dal quale è possibile ottenere l'id del centro selezionato.
+     * @param actionEvent L'evento che richiama il metodo. Necessario a ottenere il bottone sorgente dell'evento dal quale è possibile ottenere l'id del centro selezionato.
      */
     @Override
     public void handle(ActionEvent actionEvent) {
@@ -279,17 +285,25 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             userData.put("currentCenter",String.valueOf(selectedCenterID));
 
             Timeline paneTransition = new Timeline(
-                    new KeyFrame(Duration.millis(350), new KeyValue(centerListPane.prefWidthProperty(), centerListPane.getPrefWidth() / 3)),
-                    new KeyFrame(Duration.millis(350), new KeyValue(centerInfoPane.prefWidthProperty(), centerListPane.getPrefWidth() - (centerListPane.getPrefWidth() / 3))),
-                    new KeyFrame(Duration.millis(350), new KeyValue(centerInfoPane.translateXProperty(), -(centerListPane.getPrefWidth() - (centerListPane.getPrefWidth() / 3)))));
+                    new KeyFrame(Duration.millis(350), new KeyValue(centerListPane.prefWidthProperty(), centerListPane.getPrefWidth() / 3, Interpolator.EASE_BOTH)),
+                    new KeyFrame(Duration.millis(350), new KeyValue(centerInfoPane.prefWidthProperty(), centerListPane.getPrefWidth() - (centerListPane.getPrefWidth() / 3), Interpolator.EASE_BOTH)),
+                    new KeyFrame(Duration.millis(350), new KeyValue(centerInfoPane.translateXProperty(), -(centerListPane.getPrefWidth() - (centerListPane.getPrefWidth() / 3)), Interpolator.EASE_BOTH)));
 
             paneTransition.play();
 
             for(int i=0;i<vbox.getChildren().size();i++){
                 HBox element=(HBox) vbox.getChildren().get(i);
-                ((Label)element.getChildren().get(0)).setPrefWidth(140);
-                ((Label)element.getChildren().get(1)).setPrefWidth(0);
-                ((Label)element.getChildren().get(2)).setPrefWidth(0);
+                //((Label)element.getChildren().get(0)).setPrefWidth(140);
+                //((Label)element.getChildren().get(1)).setPrefWidth(0);
+                //((Label)element.getChildren().get(2)).setPrefWidth(0);
+
+                Timeline elementTransition = new Timeline(
+                        new KeyFrame(Duration.millis(350), new KeyValue(((Label)element.getChildren().get(0)).prefWidthProperty(), 140, Interpolator.EASE_BOTH)),
+                        new KeyFrame(Duration.millis(350), new KeyValue(((Label)element.getChildren().get(1)).prefWidthProperty(), 0, Interpolator.EASE_BOTH)),
+                        new KeyFrame(Duration.millis(350), new KeyValue(((Label)element.getChildren().get(2)).prefWidthProperty(), 0, Interpolator.EASE_BOTH)));
+
+                elementTransition.play();
+
                 Button button=(Button)element.getChildren().get(3);
                 if(selectedCenterID==Integer.parseInt(button.getId())){
                     button.setStyle("-fx-cursor: hand; -fx-background-radius: 5em; -fx-min-width: 1px; -fx-background-color: #1aaee8; -fx-border-radius: 5em; -fx-border-color: #000000;");
@@ -355,10 +369,6 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             AnchorPane anchorPane=new AnchorPane(scene.lookup("#main_anchor_pane"));
             centerInfoPane.getChildren().add(anchorPane);
 
-            /*Label lbl_centreName = (Label) scene.lookup("#lbl_highlitedCenterName");
-            Label lbl_centreAddress = (Label) scene.lookup("#lbl_highlitedCenterAddress");
-            Label lbl_centreType = (Label) scene.lookup("#lbl_highlitedCenterType");*/
-            //loadCentreInfo(selectedCenterID, lbl_centreName, lbl_centreAddress, lbl_centreType);
             loadCenterInfo(selectedCenterID,scene);
 
         }

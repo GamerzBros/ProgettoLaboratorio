@@ -352,8 +352,31 @@ public class ServerHandler extends Thread{
         int linfoadenopatia=eveAvv.getLinfoadenopatia();
         int tachicardia=eveAvv.getTachicardia();
         int crisiIpertensiva=eveAvv.getCrisiIpertensiva();
-        String otherSimptoms=eveAvv.getOtherSymptoms();
-        oin= new ObjectInputStream(s.getInputStream());
+        String otherSymptoms=eveAvv.getOtherSymptoms();
+        //oin= new ObjectInputStream(s.getInputStream());
+        int idCentro=Integer.parseInt(in.readLine());
+        String cfUtente=in.readLine();
+
+        String sql="INSERT INTO eventiavversi VALUES (DEFAULT,?,?,?,?,?,?,?,?,?)";
+        try {
+            Connection con = connectDB();
+            PreparedStatement prepSt = con.prepareStatement(sql);
+            prepSt.setInt(1,maleTesta);
+            prepSt.setInt(2,febbre);
+            prepSt.setInt(3,doloriMuscolari);
+            prepSt.setInt(4,linfoadenopatia);
+            prepSt.setInt(5,tachicardia);
+            prepSt.setInt(6,crisiIpertensiva);
+            prepSt.setString(7,otherSymptoms);
+            prepSt.setInt(8,idCentro);
+            prepSt.setString(9,cfUtente);
+            prepSt.executeUpdate();
+            out.println(true);
+            System.out.println("[DB - THREAD] - Eventi avversi registrati");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            out.println(false);
+        }
 
     }
 
@@ -368,6 +391,7 @@ public class ServerHandler extends Thread{
                 System.out.println("[THREAD] Ascolto");
                 parameters = in.readLine(); //qui impacchetto qualsiasi dato con separatore ";" per il server
                 op = in.readLine(); //questo è l'operation code
+                //TODO questo si può togliere
                 op_converted = Integer.parseInt(op);
                 if(op_converted==7){
                     try {

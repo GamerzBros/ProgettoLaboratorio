@@ -4,13 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
+import server.ServerHandler;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -22,42 +21,17 @@ import java.util.HashMap;
  */
 public class RegistraEventiAvversi {
     /**
-     * Percorso per il file contente le informazioni dei centri vaccinali registrati
-     */
-    public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
-    /**
-     * Parte iniziale percorso per il file del centro vaccinale selezionato
-     */
-    public static final String PRE_PATH_TO_EVENTI_AVVERSI="data/Vaccinati_";
-    /**
-     * Parte finale del percorso del centro vaccinale selezionato
-     */
-    public static final String AFTER_PATH_TO_EVENTI_AVVERSI=".dati.txt";
-    /**
-     * Percorso per il file contenente i dati dei cittadini registrati
-     */
-    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
-    /**
-     * Tipo di linea del file contente le informazioni relative al vaccinato
-     */
-    public static final String LINE_TYPE_PERSON ="V";
-    /**
-     * Tipo di linea del file contente le informazioni relative agli eventi avversi
-     */
-    public static final String LINE_TYPE_EVENT ="E";
-    /**
      * ID dell'utente attualmente loggato
      */
     private String currentUser;
     /**
      * Centro vaccinale attualmente selezionato
      */
-    private String currentCenter;
+    private int currentCenter;
     /**
      * Il numero della vaccinazione relativa agli eventi avversi
      */
     private String eventsNum;
-
     /**
      * Costruttore principale della classe RegistraEventiAvversi
      * @param stage Lo stage su cui verrà caricata la nuova FX Scene
@@ -65,9 +39,10 @@ public class RegistraEventiAvversi {
     public RegistraEventiAvversi(Stage stage){
         HashMap<String,String> userData= (HashMap<String,String>) stage.getUserData();
         currentUser=userData.get("currentUser");
-        currentCenter=userData.get("currentCenter");
+        currentCenter=Integer.parseInt(userData.get("currentCenter"));
         eventsNum=userData.get("eventsNum");
-        //TODO usare questo eventsNum nel testo
+        //TODO mettere eventsNum nella UI
+        // (per far sapere all'utente il numero della vaccinazione che sta registrando)
         loadUI(stage);
     }
 
@@ -118,71 +93,26 @@ public class RegistraEventiAvversi {
             int evento6 = spn_crs.getValue();//evento6 = Crisi ipertensiva
             String otherEvent = txt_other1.getText();
 
-            FileReader reader = new FileReader(PRE_PATH_TO_EVENTI_AVVERSI + currentCenter + AFTER_PATH_TO_EVENTI_AVVERSI);
-            BufferedReader in = new BufferedReader(reader);
-            boolean authorized = false;
-            boolean alreadyIn = false;
-            String line;
-
-            while ((line = in.readLine()) != null) {
-                String[] data = line.split(";");
-                if (data[0].equals(LINE_TYPE_PERSON) && data[3].equalsIgnoreCase(currentUser)) {
-                    authorized = true;
-                } else if (data[0].equals(LINE_TYPE_EVENT) && data[2].equalsIgnoreCase(currentUser)) {
-                    alreadyIn = true;
-                }
-            }
-
-            if (alreadyIn) {
-                Alert alertAlreadyIn = new Alert(Alert.AlertType.ERROR);
-                alertAlreadyIn.setTitle("Eventi già inseriti");
-                alertAlreadyIn.setContentText("L'utente ha già inserito una volta degli eventi avversi presso il centro attuale");
-                alertAlreadyIn.showAndWait();
-            }
-            else if (authorized) {
-
-                FileWriter writer = new FileWriter(PRE_PATH_TO_EVENTI_AVVERSI + currentCenter + AFTER_PATH_TO_EVENTI_AVVERSI, true);
-                BufferedWriter out = new BufferedWriter(writer);
-                //String fileInput = "Mal di Testa:" + evento1 + ";" + "Febbre:" + evento2 + ";" + "Dolori muscolari o articolari:" + evento3 + ";" + "Linfoadenopatia:" + evento4 + ";" + "Tachicardia:" + evento5 + ";" + "Crisi ipertensiva:" + evento6 + ";";
-
-                String fileInput = LINE_TYPE_EVENT + ";" + currentCenter + ";" + currentUser + ";" + evento1 + ";" + evento2 + ";" + evento3 + ";" + evento4 + ";" + evento5 + ";" + evento6;
-                if (otherEvent.compareTo("") != 0) {
-                    fileInput += ";" + otherEvent;
-                }
-
-                out.write(fileInput);
-                out.newLine();
-                out.flush();
-                out.close();
-            } else {
-                Alert alertNoPermission = new Alert(Alert.AlertType.ERROR);
-                alertNoPermission.setTitle("Utente non autorizzato");
-                alertNoPermission.setContentText("Non sei stato vaccinato presso il centro selezionato!");
-                alertNoPermission.showAndWait();
-            }
-
             //inizializzo la classe container e la mando al server tramite l'ObjectOutputWriter
 
-            EventiAvversi eventiSalvati= new EventiAvversi(evento1, evento2, evento3, evento4, evento5, evento6, otherEvent, currentUser);
+            EventiAvversi eventiSalvati= new EventiAvversi(evento1, evento2, evento3, evento4, evento5, evento6, otherEvent, currentCenter,currentUser);
 
             //inizializzo socket e stream
             Socket s = new Socket(InetAddress.getLocalHost(),9870);
             ObjectOutputStream obOut= new ObjectOutputStream(s.getOutputStream());
             PrintWriter out= new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
             out.println("null");
-            out.println("7");
+            out.println(ServerHandler.REGISTER_EVENTIAVVERSI_OP_CODE);
             obOut.writeObject(eventiSalvati);
 
+            //TODO prendere il risultato dal server e mostrarlo all'utente
+
             Stage stage = (Stage) currentScene.getWindow();
-            stage.close();
-
-
-
-
-
+            new MainCittadini(stage);
         }
         catch (IOException e){
             e.printStackTrace();
+            //TODO mettere popup di errore
         }
     }
 

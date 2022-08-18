@@ -8,7 +8,7 @@
 <?import java.net.URL?>
 <AnchorPane prefHeight="345.0" prefWidth="490.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="0.0" layoutY="7.5" onMouseClicked="#goBackToOpzioniOperatore" styleClass="bottomShadow" style="-fx-background-color: transparent;">
+      <Button layoutX="0.0" layoutY="7.5" onMouseClicked="#goBackToOpzioniOperatore" styleClass="backButton">
          <graphic>
             <ImageView fitHeight="22.0" fitWidth="25.0" preserveRatio="false">
                <Image url="@/common/goBackIcon.png" />

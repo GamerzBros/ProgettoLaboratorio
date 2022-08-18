@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<?import java.net.URL?>
 <AnchorPane fx:id="mainPane" prefHeight="550.0" prefWidth="920.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Rectangle fill="white" height="45.0" layoutX="0.0" layoutY="0.0" styleClass="bottomShadow" style="-fx-border-style: hidden hidden solid hidden;" width="920.0" />
-        <ScrollPane fx:id="scrollPane_CentriVaccinali" hbarPolicy="NEVER" layoutX="25.0" layoutY="83.0" prefHeight="443.0" prefWidth="870.0" style="-fx-background-radius: 0; -fx-background-color: transparent; -fx-border-color: #1a73e8;" /> <!-- style="-fx-background: #1a73e8;-->
+        <Rectangle fill="white" height="45.0" layoutX="0.0" layoutY="0.0" style="-fx-border-style: hidden hidden solid hidden;" styleClass="bottomShadow" width="920.0" />
+        <ScrollPane fx:id="scrollPane_CentriVaccinali" hbarPolicy="NEVER" layoutX="25.0" layoutY="91.0" prefHeight="435.0" prefWidth="870.0" style="-fx-background-radius: 0; -fx-background-color: transparent; -fx-border-color: #1a73e8;" /> <!-- style="-fx-background: #1a73e8;-->
         <Pane fx:id="pane_center_information" layoutX="895" layoutY="82" prefHeight="443.0" prefWidth="0.0" style="-fx-background-color: white; -fx-background-radius: 8" />
         <ImageView fx:id="noCentersImg" fitHeight="390" fitWidth="585" layoutX="167.5" layoutY="90.0" visible="false">
             <Image url="@/cittadini/noCenters.png" />
@@ -27,14 +27,14 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button layoutX="0.0" layoutY="7.5" onMouseClicked="#goBackFromMainCittadini" style="-fx-background-color: transparent;">
+        <Button layoutX="0.0" layoutY="7.5" onMouseClicked="#goBackFromMainCittadini" styleClass="backButton">
             <graphic>
                 <ImageView fitHeight="22.0" fitWidth="25.0" preserveRatio="false">
                     <Image url="@/common/goBackIcon.png" />
                 </ImageView>
             </graphic>
         </Button>
-        <RadioButton fx:id="radio_name" layoutX="221.0" layoutY="50.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="67.0" selected="true" text="Nome" textFill="WHITE">
+        <RadioButton fx:id="radio_name" layoutX="155.0" layoutY="50.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="70.0" selected="true" styleClass="radioButtonChip" text="Nome" textFill="WHITE">
             <toggleGroup>
                 <ToggleGroup fx:id="searchType" />
             </toggleGroup>
@@ -42,22 +42,17 @@
             <Font size="13.0" />
          </font>
         </RadioButton>
-        <RadioButton fx:id="radio_type" layoutX="288.0" layoutY="50.0" mnemonicParsing="false" text="Indirizzo/Tipologia" textFill="WHITE" toggleGroup="$searchType">
+        <RadioButton fx:id="radio_type" layoutX="230.0" layoutY="50.0" mnemonicParsing="false" prefHeight="16" styleClass="radioButtonChip" text="Indirizzo/Tipologia" textFill="WHITE" toggleGroup="$searchType">
          <font>
             <Font size="13.0" />
          </font></RadioButton>
-        <Button layoutX="744.0" layoutY="10.0" fx:id="btn_login" mnemonicParsing="false" onAction="#onLoginClick" prefHeight="25.0" prefWidth="80.0" style="-fx-border-style: hidden;-fx-alignment:  center; -fx-background-color: #1a73e8; -fx-background-radius: 8; -fx-text-fill: white;" text="Accedi">
+        <Button fx:id="btn_login" layoutX="744.0" layoutY="10.0" mnemonicParsing="false" onAction="#onLoginClick" prefHeight="25.0" prefWidth="80.0" style="-fx-border-style: hidden;-fx-alignment:  center; -fx-background-color: #1a73e8; -fx-background-radius: 8; -fx-text-fill: white;" text="Accedi">
          <font>
             <Font name="Roboto Light" size="12.0" />
          </font></Button>
-        <Button layoutX="832.0" layoutY="10" mnemonicParsing="false" fx:id="btn_register" onAction="#loadRegisterCitizenUI" prefHeight="25.0" prefWidth="80.0" style="-fx-border-style: hidden;-fx-alignment:  center; -fx-background-color: #1a73e8; -fx-background-radius: 8; -fx-text-fill: white;" text="Registrati" />
-        <Label layoutX="140.0" layoutY="50.0" text="Ricerca per " textFill="white">
-         <font>
-            <Font size="14.0" />
-         </font>
-        </Label>
+        <Button fx:id="btn_register" layoutX="832.0" layoutY="10" mnemonicParsing="false" onAction="#loadRegisterCitizenUI" prefHeight="25.0" prefWidth="80.0" style="-fx-border-style: hidden;-fx-alignment:  center; -fx-background-color: #1a73e8; -fx-background-radius: 8; -fx-text-fill: white;" text="Registrati" />
     </children>
     <stylesheets>
-        <URL value="@/style/style.css"/>
+        <URL value="@/style/style.css" />
     </stylesheets>
 </AnchorPane>

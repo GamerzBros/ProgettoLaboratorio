@@ -35,9 +35,13 @@ public class EventiAvversi implements Serializable {
      */
     private String otherSymptoms;
     /**
+     * Campo utilizzato per salvare l'id del centro vaccinale presso cui vengo inseriti gli eventi avversi
+     */
+    private int idCentro;
+    /**
      * Campo utilizzato per salvare il numero identificativo dell'utente di cui si salvano i dati degli eventi avversi
      */
-    private String id;
+    private String cfUtente;
 
     /**
      * Costruttore principale della classe container EventiAvversi che riceve come parametri tutti i valori degli eventi avversi
@@ -49,7 +53,7 @@ public class EventiAvversi implements Serializable {
      * @param crisiIpertensiva L'evento avverso crisi ipertensiva
      * @param otherSymptoms Il campo testuale per inserire ulteriori eventi avversi non listati
      */
-    public EventiAvversi(int maleTesta, int febbre, int doloriMuscolari, int linfoadenopatia, int tachicardia, int crisiIpertensiva, String otherSymptoms, String id) {
+    public EventiAvversi(int maleTesta, int febbre, int doloriMuscolari, int linfoadenopatia, int tachicardia, int crisiIpertensiva, String otherSymptoms, int idCentro, String cfUtente) {
         this.maleTesta = maleTesta;
         this.febbre = febbre;
         this.doloriMuscolari = doloriMuscolari;
@@ -57,7 +61,8 @@ public class EventiAvversi implements Serializable {
         this.tachicardia = tachicardia;
         this.crisiIpertensiva = crisiIpertensiva;
         this.otherSymptoms = otherSymptoms;
-        this.id=id;
+        this.idCentro=idCentro;
+        this.cfUtente=cfUtente;
     }
     public EventiAvversi(int maleTesta, int febbre, int doloriMuscolari, int linfoadenopatia, int tachicardia, int crisiIpertensiva, String otherSymptoms) {
         this.maleTesta = maleTesta;
