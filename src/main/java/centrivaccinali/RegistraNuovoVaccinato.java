@@ -12,12 +12,15 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.*;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.UUID;
+import java.util.Vector;
 
 /**
  * Gestisce la UI che permette agli operatori di centri vaccinali di registrare un nuovo vaccinato
@@ -56,6 +59,14 @@ public class RegistraNuovoVaccinato {
      */
     public static final String LINE_TYPE_EVENT ="E";
     /**
+     * Vettore di centri vaccinali
+     */
+    private Vector<SingoloCentroVaccinale> centriVaccinaliList=null;
+    /**
+     * Variabile per salvare temporaneamente il centro vacinale
+     */
+    private SingoloCentroVaccinale centro;
+    /**
      * Lista contente i tipi di vaccini
      */
     private ObservableList<String> vaccino_somministrato_items = FXCollections.observableArrayList("Pfizer","AstraZeneca","Moderna","J&J");
@@ -83,27 +94,39 @@ public class RegistraNuovoVaccinato {
             stage.setTitle("Nuovo Paziente");
 
             try {
-                //TODO convertire questo in server
-                FileReader fileReader = new FileReader(PATH_TO_CENTRIVACCINALI_DATI);
-                BufferedReader reader = new BufferedReader(fileReader);
+
+                //Inizializzo i choicebox
+                ChoiceBox<String> choiceBox_centroVaccinale = ((ChoiceBox<String>) scene.lookup("#cbx_centroVaccinale"));
+                choiceBox_centroVaccinale.setValue("Centro Vaccinale");
+
 
                 ChoiceBox<String> choiceBox_vaccinoSomministrato = ((ChoiceBox<String>) scene.lookup("#cbx_vaccinoSomministrato"));
                 choiceBox_vaccinoSomministrato.setValue("Tipologia Vaccino");
                 choiceBox_vaccinoSomministrato.setItems(vaccino_somministrato_items);
 
-                ChoiceBox<String> choiceBox_centroVaccinale = ((ChoiceBox<String>) scene.lookup("#cbx_centroVaccinale"));
-                choiceBox_centroVaccinale.setValue("Centro Vaccinale");
+                //Creo gli stream e ricevo dal server il vettore dei centri vaccinali
+                Socket s = new Socket(InetAddress.getLocalHost(),9870);
+                ObjectOutputStream obOut= new ObjectOutputStream(s.getOutputStream());
+                PrintWriter out= new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
+                ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
+                out.println("null");
+                out.println(ServerHandler.GET_VAX_CENTERS_OP_CODE);
+                centriVaccinaliList= (Vector<SingoloCentroVaccinale>) ois.readObject();
 
-                String line;
+                //Aggiorno la lsita dei nomi e la metto nel ChoiceBox
+                for(int i=0;i<centriVaccinaliList.size();i++){
 
-                while ((line = reader.readLine()) != null&&line.compareTo("")!=0) {
-                    StringTokenizer tokenizer = new StringTokenizer(line, ";");
-                    centro_vaccinale_items.add(tokenizer.nextToken());
+                    centro= centriVaccinaliList.get(i);
+                    centro_vaccinale_items.add(centro.getNome());
+
                 }
                 choiceBox_centroVaccinale.setItems(centro_vaccinale_items);
+
+
+
                 //TODO prendere la posizione del centro vaccinale selezionato nella lista e passarlo come id del centro nel db
             }
-            catch (IOException e){
+            catch (IOException | ClassNotFoundException e){
                 e.printStackTrace();
             }
 
