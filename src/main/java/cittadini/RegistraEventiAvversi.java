@@ -1,5 +1,6 @@
 package cittadini;
 
+import centrivaccinali.SelectionUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,6 +33,7 @@ public class RegistraEventiAvversi {
      * Il numero della vaccinazione relativa agli eventi avversi
      */
     private String eventsNum;
+    private Socket s;
     /**
      * Costruttore principale della classe RegistraEventiAvversi
      * @param stage Lo stage su cui verrà caricata la nuova FX Scene
@@ -98,7 +100,7 @@ public class RegistraEventiAvversi {
             EventiAvversi eventiSalvati= new EventiAvversi(evento1, evento2, evento3, evento4, evento5, evento6, otherEvent, currentCenter,currentUser);
 
             //inizializzo socket e stream
-            Socket s = new Socket(InetAddress.getLocalHost(),9870);
+            s = SelectionUI.socket_container;
             ObjectOutputStream obOut= new ObjectOutputStream(s.getOutputStream());
             PrintWriter out= new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
             out.println("null");
