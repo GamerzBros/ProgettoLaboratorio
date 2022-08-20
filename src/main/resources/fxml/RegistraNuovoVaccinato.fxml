@@ -24,7 +24,7 @@
       <DatePicker fx:id="datePicker_datavaccinazione" prefWidth="190" prefHeight="25" styleClass="datepicker" layoutX="260.0" layoutY="190.0" promptText="Data Vaccinazione" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;"/>
       <ChoiceBox fx:id="cbx_centroVaccinale" layoutX="40.0" layoutY="240.0" prefHeight="25.0" prefWidth="190.0"/>
       <ChoiceBox fx:id="cbx_vaccinoSomministrato" layoutX="260.0" layoutY="240.0" prefWidth="190.0"/>
-      <Button fx:id="nuovoPaziente_confirm" layoutX="190.0" layoutY="290.0" prefWidth="110" mnemonicParsing="false" onAction="#registraVaccinato" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Conferma">
+      <Button fx:id="nuovoPaziente_confirm" layoutX="190.0" layoutY="290.0" prefWidth="110" mnemonicParsing="false" onAction="#registraVaccinato" styleClass="buttonSelection" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Conferma">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>

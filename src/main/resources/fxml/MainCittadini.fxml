@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="550.0" prefWidth="920.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="550.0" prefWidth="920.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <AnchorPane fx:id="mainPane" >
+        <AnchorPane fx:id="mainPane">
             <children>
                 <Rectangle fill="white" height="45.0" layoutX="0.0" layoutY="0.0" style="-fx-border-style: hidden hidden solid hidden;" styleClass="bottomShadow" width="920.0" />
-                <ScrollPane fx:id="scrollPane_CentriVaccinali" hbarPolicy="NEVER" styleClass="scrollPaneCenters" layoutX="25.0" layoutY="91.0" prefHeight="435.0" prefWidth="870.0" style="-fx-background-radius: 0; -fx-background-color: transparent; -fx-border-color: #1a73e8;" /> <!-- style="-fx-background: #1a73e8;-->
-                <Pane fx:id="pane_center_information" layoutX="895" layoutY="82" prefHeight="443.0" prefWidth="0.0" style="-fx-background-color: white; -fx-background-radius: 8" />
-                <ImageView fx:id="errorImg" fitHeight="390" fitWidth="585" layoutX="167.5" layoutY="90.0" visible="true"/>
+                <ScrollPane fx:id="scrollPane_CentriVaccinali" hbarPolicy="NEVER" layoutX="25.0" layoutY="91.0" prefHeight="435.0" prefWidth="870.0" style="-fx-background-radius: 0; -fx-background-color: transparent; -fx-border-color: #1a73e8;" styleClass="scrollPaneCenters" /> <!-- style="-fx-background: #1a73e8;-->
+                <Pane fx:id="pane_center_information" layoutX="895" layoutY="82" prefHeight="443.0" prefWidth="0.0" style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 6, 0, 0, 0);" />
+                <ImageView fx:id="errorImg" fitHeight="390" fitWidth="585" layoutX="167.5" layoutY="90.0" visible="true" />
                 <Label fx:id="errorLabel" alignment="CENTER" layoutX="135" layoutY="475" minHeight="20" prefWidth="650" textFill="white" visible="false">
                  <font>
                     <Font size="18.0" />
@@ -46,11 +47,17 @@
                  <font>
                     <Font size="13.0" />
                  </font></RadioButton>
-                <Button fx:id="btn_login" layoutX="744.0" layoutY="10.0" mnemonicParsing="false" onAction="#onLoginClick" prefHeight="25.0" prefWidth="80.0" style="-fx-border-style: hidden;-fx-alignment:  center; -fx-background-color: #1a73e8; -fx-background-radius: 8; -fx-text-fill: white;" text="Accedi">
+                <Button fx:id="btn_login" layoutX="744.0" layoutY="10.0" mnemonicParsing="false" onAction="#onLoginClick" prefHeight="25.0" prefWidth="80.0" styleClass="buttonSelection" style="-fx-border-style: hidden;-fx-alignment:  center; -fx-background-color: #1a73e8; -fx-background-radius: 8; -fx-text-fill: white;" text="Accedi">
                  <font>
                     <Font name="Roboto Light" size="12.0" />
-                 </font></Button>
-                <Button fx:id="btn_register" layoutX="832.0" layoutY="10" mnemonicParsing="false" onAction="#loadRegisterCitizenUI" prefHeight="25.0" prefWidth="80.0" style="-fx-border-style: hidden;-fx-alignment:  center; -fx-background-color: #1a73e8; -fx-background-radius: 8; -fx-text-fill: white;" text="Registrati" />
+                 </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+                <Button fx:id="btn_register" layoutX="832.0" layoutY="10" mnemonicParsing="false" onAction="#loadRegisterCitizenUI" prefHeight="25.0" prefWidth="80.0" styleClass="buttonSelection" style="-fx-border-style: hidden;-fx-alignment:  center; -fx-background-color: #1a73e8; -fx-background-radius: 8; -fx-text-fill: white;" text="Registrati">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
             </children>
         </AnchorPane>
     </children>

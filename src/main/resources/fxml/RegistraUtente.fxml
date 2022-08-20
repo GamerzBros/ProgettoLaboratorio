@@ -25,7 +25,7 @@
       <TextField fx:id="txt_userMail" layoutX="55.0" layoutY="212.0" prefHeight="25.0" prefWidth="440.0" promptText="Email" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
       <PasswordField fx:id="pswd_register" layoutX="55.0" layoutY="253.0" prefHeight="25.0" prefWidth="440.0" promptText="Conferma Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
       <PasswordField fx:id="pswd_confirm" layoutX="55.0" layoutY="294.0" prefHeight="25.0" prefWidth="440.0" promptText="Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
-      <Button layoutX="225.0" layoutY="345.0" mnemonicParsing="false" onAction="#registraCittadino" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Conferma">
+      <Button layoutX="225.0" layoutY="345.0" mnemonicParsing="false" onAction="#registraCittadino" styleClass="buttonSelection" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Conferma">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>

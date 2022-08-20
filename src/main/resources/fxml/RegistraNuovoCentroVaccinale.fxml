@@ -23,7 +23,7 @@
       <TextField fx:id="txt_cap" layoutX="287.0" layoutY="242.0" prefHeight="25.0" prefWidth="213.0" promptText="CAP" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;"/>
       <ChoiceBox fx:id="cbx_qualificatore" layoutX="287.0" layoutY="290.0" prefHeight="25.0" prefWidth="213.0"/>
       <ChoiceBox fx:id="cbx_tipologia" layoutX="51.0" layoutY="290.0" prefHeight="25.0" prefWidth="213.0"/>
-      <Button fx:id="btn_nuovoPaziente" layoutX="216.0" layoutY="341.0" mnemonicParsing="false" onAction="#registraCentroVaccinale" prefHeight="38.0" prefWidth="120.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Registra">
+      <Button fx:id="btn_nuovoPaziente" layoutX="216.0" layoutY="341.0" mnemonicParsing="false" onAction="#registraCentroVaccinale" prefHeight="38.0" prefWidth="120.0" styleClass="buttonSelection" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Registra">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font></Button>
