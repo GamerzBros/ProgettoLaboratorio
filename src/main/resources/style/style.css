@@ -72,14 +72,12 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 20, 0, 0, 0);
 
 }
-
-buttonUI{
+.buttonSelection{
     -fx-background-radius: 10px;
     -fx-background-color:  #1a73e8;
     -fx-font-size: 15;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
-
-buttonUI:hover{
+.buttonSelection:hover{
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 15, 0, 0, 0);
 }

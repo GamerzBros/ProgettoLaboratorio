@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -16,7 +17,7 @@
       </ImageView>
       <Pane fx:id="paneInformations" layoutY="0.0" prefHeight="300.0" prefWidth="200.0" style="-fx-background-color: transparent">
          <children>
-            <Button layoutX="10.0" layoutY="80.0" mnemonicParsing="false" onAction="#onCittadiniSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="38.0" prefWidth="170.0" style="-fx-background-radius: 10; -fx-background-color: #1a73e8; -fx-font-size: 15;" text="Portale Cittadini" textFill="white">
+            <Button layoutX="10.0" layoutY="80.0" mnemonicParsing="false" onAction="#onCittadiniSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="38.0" prefWidth="170.0" styleClass="buttonSelection" text="Portale Cittadini" textFill="white">
                <graphic>
                   <ImageView fitHeight="28" fitWidth="28">
                      <Image url="@/cittadini/citizenPortalIcon.png" />
@@ -26,7 +27,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="10.0" layoutY="180.0" mnemonicParsing="false" onAction="#onCentriVaccinaliSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="38.0" prefWidth="170.0" style="-fx-background-radius: 10; -fx-background-color: #1a73e8; -fx-font-size: 15" text="Portale Operatori" textFill="white">
+            <Button layoutX="10.0" layoutY="180.0" mnemonicParsing="false" onAction="#onCentriVaccinaliSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="38.0" prefWidth="170.0" styleClass="buttonSelection" text="Portale Operatori" textFill="white">
                <graphic>
                   <ImageView fitHeight="30" fitWidth="30">
                      <Image url="@/centrivaccinali/operatorPortalIcon.png" />
@@ -53,4 +54,7 @@
          </font>
       </Label>
    </children>
+   <stylesheets>
+      <URL value="@/style/style.css" />
+   </stylesheets>
 </AnchorPane>
