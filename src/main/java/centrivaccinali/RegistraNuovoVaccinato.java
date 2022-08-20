@@ -33,6 +33,7 @@ public class RegistraNuovoVaccinato {
     /**
      * Buffer che permette di ricevere dati primitivi dal server
      */
+    //TODO aggiungere anche qui un objectinputstream (per cri)
     BufferedReader in;
     /**
      * Percorso per il file contente le informazioni dei centri vaccinali registrati
@@ -94,7 +95,6 @@ public class RegistraNuovoVaccinato {
             stage.setTitle("Nuovo Paziente");
 
             try {
-
                 //Inizializzo i choicebox
                 ChoiceBox<String> choiceBox_centroVaccinale = ((ChoiceBox<String>) scene.lookup("#cbx_centroVaccinale"));
                 choiceBox_centroVaccinale.setValue("Centro Vaccinale");
@@ -103,26 +103,18 @@ public class RegistraNuovoVaccinato {
                 ChoiceBox<String> choiceBox_vaccinoSomministrato = ((ChoiceBox<String>) scene.lookup("#cbx_vaccinoSomministrato"));
                 choiceBox_vaccinoSomministrato.setValue("Tipologia Vaccino");
                 choiceBox_vaccinoSomministrato.setItems(vaccino_somministrato_items);
-
+                //TODO sistemare il problema degli stream bloccanti (per cri)
+                ObjectInputStream ois=new ObjectInputStream(SelectionUI.socket_container.getInputStream());
                 //Creo gli stream e ricevo dal server il vettore dei centri vaccinali
-                Socket s = new Socket(InetAddress.getLocalHost(),9870);
-                ObjectOutputStream obOut= new ObjectOutputStream(s.getOutputStream());
-                PrintWriter out= new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
-                ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
-                out.println("null");
-                out.println(ServerHandler.GET_VAX_CENTERS_OP_CODE);
+                becomeClient();
                 centriVaccinaliList= (Vector<SingoloCentroVaccinale>) ois.readObject();
 
                 //Aggiorno la lsita dei nomi e la metto nel ChoiceBox
                 for(int i=0;i<centriVaccinaliList.size();i++){
-
                     centro= centriVaccinaliList.get(i);
                     centro_vaccinale_items.add(centro.getNome());
-
                 }
                 choiceBox_centroVaccinale.setItems(centro_vaccinale_items);
-
-
 
                 //TODO prendere la posizione del centro vaccinale selezionato nella lista e passarlo come id del centro nel db
             }
@@ -164,8 +156,9 @@ public class RegistraNuovoVaccinato {
         } else {
             try {
                 String parameters = name+";"+surname+";"+codice_fiscale+";"+vaccineType+";"+centroVaccinale+";"+dataVaccinazione;
+                out.println(parameters);
+                out.println(ServerHandler.REGISTER_VACCINATED_OP_CODE);
                 System.out.println(dataVaccinazione);
-                becomeClient(parameters);
                 String result = in.readLine();
                 if (result.equals("true")) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -191,16 +184,15 @@ public class RegistraNuovoVaccinato {
     }
 
     /**
-     * Invia al server il relativo codice di operazione per registrare una nuova vaccinazione
-     * @param parameters I dati relativi alla nuova vaccinazione che il server dovrà inserire nel database
+     * Invia al server il relativo codice di operazione per ottenere i centri vaccinali dal database e inserirli nel combo box
      */
-    public void becomeClient(String parameters){
+    public void becomeClient(){
         System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
         Socket s = SelectionUI.socket_container;
         out = SelectionUI.out_container;
         in = SelectionUI.in_container;
-        out.println(parameters);
-        out.println(ServerHandler.REGISTER_VACCINATED_OP_CODE);
+        out.println("null");
+        out.println(ServerHandler.GET_VAX_CENTERS_OP_CODE);
     }
 
     /**

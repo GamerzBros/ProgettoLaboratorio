@@ -15,7 +15,10 @@
     -fx-text-fill: white;
 }
 .bottomShadow{
-    -fx-effect: dropshadow(gaussian,#8D9093,1,0.75,0,0);
+    /*metto una shadow all'oggetto per far vedere che è elevato
+    -fx-effect: dropshadow(gaussian,#8D9093,1,0.75,0,0);*/
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);
+
 }
 
 .radioButtonChip {
@@ -28,4 +31,8 @@
 }
 .radioButtonChip:selected{
     -fx-background-color: orange;
+}
+
+.scrollPaneCenters .viewport{
+    -fx-background-color: #1a73e8;
 }

@@ -25,6 +25,7 @@ public class SelectionUI extends Application {
      */
     Socket s;
     PrintWriter out;
+    //TODO penso anche qui vada aggiunto un objectinputstream che verrà utilizzato dalla classe registra nuovo vaccinato
     BufferedReader in;
     public static Socket socket_container;
     public static PrintWriter out_container;

@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
@@ -75,7 +76,7 @@ public class RegistraEventiAvversi {
      * Registra sul file di testo relativo al centro vaccinale selezionato, gli eventi avversi inseriti dall'utente.
      * @param actionEvent L'evento che richiama il metodo. Necessario a ottenere la scena attuale da cui prendere i dati inseriti dall'utente.
      */
-    public void registerEventiAvversi(ActionEvent actionEvent){ //TODO fare con il server
+    public void registerEventiAvversi(ActionEvent actionEvent){
         try {
             Scene currentScene =((Button) actionEvent.getSource()).getScene();
 
@@ -101,20 +102,37 @@ public class RegistraEventiAvversi {
 
             //inizializzo socket e stream
             s = SelectionUI.socket_container;
+            //TODO sistemare il problema degli stream bloccanti (per cri)
             ObjectOutputStream obOut= new ObjectOutputStream(s.getOutputStream());
             PrintWriter out= new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
             out.println("null");
             out.println(ServerHandler.REGISTER_EVENTIAVVERSI_OP_CODE);
             obOut.writeObject(eventiSalvati);
 
-            //TODO prendere il risultato dal server e mostrarlo all'utente
+            BufferedReader in=new BufferedReader(new InputStreamReader(s.getInputStream()));
+            if(in.readLine().equals("true")){
+                System.out.println("Eventi avversi registrati con successo");
+                Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Registrazione avvenuta con successo");
+                alert.setHeaderText("Eventi avversi registrati con successo");
+                alert.showAndWait();
+                Stage stage = (Stage) currentScene.getWindow();
+                new MainCittadini(stage);
 
-            Stage stage = (Stage) currentScene.getWindow();
-            new MainCittadini(stage);
+            }
+            else{
+                System.out.println("Errore nella registrazione degli eventi avversi");
+                Alert alert=new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Errore nella registrazione");
+                alert.setHeaderText("Gli eventi avversi non sono stati inseriti correttamente, ti invitiamo a riprovare");
+                alert.showAndWait();
+            }
         }
         catch (IOException e){
             e.printStackTrace();
-            //TODO mettere popup di errore
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("Abbiamo riscontrato un problema, ti invitiamo a riprovare");
         }
     }
 

@@ -353,7 +353,6 @@ public class ServerHandler extends Thread{
         int tachicardia=eveAvv.getTachicardia();
         int crisiIpertensiva=eveAvv.getCrisiIpertensiva();
         String otherSymptoms=eveAvv.getOtherSymptoms();
-        //oin= new ObjectInputStream(s.getInputStream());
         int idCentro=Integer.parseInt(in.readLine());
         String cfUtente=in.readLine();
 
@@ -371,11 +370,11 @@ public class ServerHandler extends Thread{
             prepSt.setInt(8,idCentro);
             prepSt.setString(9,cfUtente);
             prepSt.executeUpdate();
-            out.println(true);
+            out.println("true");
             System.out.println("[DB - THREAD] - Eventi avversi registrati");
         } catch (SQLException e) {
             e.printStackTrace();
-            out.println(false);
+            out.println("false");
         }
 
     }
@@ -385,22 +384,14 @@ public class ServerHandler extends Thread{
         super.run();
         System.out.println("[THREAD] - Server thread startato");
         try{
+            //TODO sistemare il problema degli stream bloccanti nel case REGISTER_EVENTI_AVVERSI (per cri)
             in = new BufferedReader(new InputStreamReader(s.getInputStream()));
             out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())), true);
             while (true){
                 System.out.println("[THREAD] Ascolto");
                 parameters = in.readLine(); //qui impacchetto qualsiasi dato con separatore ";" per il server
                 op = in.readLine(); //questo è l'operation code
-                //TODO questo si può togliere
                 op_converted = Integer.parseInt(op);
-                if(op_converted==7){
-                    try {
-                        eventiAvversi= (EventiAvversi) oin.readObject();
-                    } catch (ClassNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                }
                 switch (op_converted) {
                     case LOGIN_USER_OP_CODE -> {
                         System.out.println("[THREAD] Login chiamata");
@@ -428,7 +419,17 @@ public class ServerHandler extends Thread{
                     }
                     case REGISTER_EVENTIAVVERSI_OP_CODE ->{
                         System.out.println("[THREAD] Register eventi avversi chiamata");
-                        registerEventiAvversi(eventiAvversi);
+                        try {
+                            in.close();
+                            oin=new ObjectInputStream(s.getInputStream());
+                            eventiAvversi= (EventiAvversi) oin.readObject();
+                            registerEventiAvversi(eventiAvversi);
+                            oin.close();
+                            in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                            out.println("false");
+                        }
                     }
                     case USER_ADD_EVENTS_PERMISSION_CHECK_OP_CODE -> {
                         System.out.println("[THREAD] Checker eventi avversi chiamata");

@@ -3,6 +3,10 @@ package cittadini;
 import centrivaccinali.SelectionUI;
 import centrivaccinali.SingoloCentroVaccinale;
 import javafx.animation.Interpolator;
+import javafx.application.Platform;
+import javafx.scene.Node;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.ImageView;
 import server.ServerHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -35,31 +39,15 @@ import java.util.Vector;
 //TODO rivedere quando usare i throws e i try/catch all'interno del progetto
 public class MainCittadini implements EventHandler<ActionEvent> {
     /**
-     * Percorso per il file contente le informazioni dei centri vaccinali registrati
+     * La stringa che verrà mostrata all'utente qualora non sia stato trovato nessun centro vaccinale all'interno del database
      */
-    public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
+    public static final String NO_CENTERS_TEXT="Non è stato trovato nessun centro nel database :(";
     /**
-     * Parte iniziale percorso per il file del centro vaccinale selezionato
+     * La string che verrà mostrata all'utente qualora ci sia stato un problema di connessione con il server
      */
-    public static final String PRE_PATH_TO_EVENTI_AVVERSI="data/Vaccinati_";
+    public static final String SERVER_ERROR_TEXT ="Abbiamo riscontrato un errore di connessione con il server. Riprova più tardi";
     /**
-     * Parte finale del percorso del centro vaccinale selezionato
-     */
-    public static final String AFTER_PATH_TO_EVENTI_AVVERSI=".dati.txt";
-    /**
-     * Percorso per il file contenente i dati dei cittadini registrati
-     */
-    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
-    /**
-     * Tipo di linea del file contente le informazioni relative al vaccinato
-     */
-    public static final String LINE_TYPE_PERSON ="V";
-    /**
-     * Tipo di linea del file contente le informazioni relative agli eventi avversi
-     */
-    public static final String LINE_TYPE_EVENT ="E";
-    /**
-     * Lista contente tutti i centri vaccinali presenti nel file. Popolata dal metodo getCentriVaccinaliFromFile()
+     * Lista contente tutti i centri vaccinali presenti nel database. Popolata dal metodo getCentriVaccinaliFromFile()
      */
     private Vector<SingoloCentroVaccinale> centriVaccinaliList=null;
     /**
@@ -101,6 +89,10 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      * Buffer che permette di ricevere dati composti (classi) dal server
      */
     private static ObjectInputStream ois;
+    /**
+     *
+     */
+    private boolean loadingPopupVisible=false;
 
     /**
      * Costruttore principale della classe MainCittadini
@@ -115,7 +107,6 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      * @param stage Lo stage su cui verrà caricata la nuova FX Scene
      */
     public void loadMainCittadiniUI(Stage stage){
-        //TODO aggiungere feedback visivo del caricamento
         try {
             FXMLLoader loader = new FXMLLoader();
             URL xmlUrl = getClass().getResource("/fxml/MainCittadini.fxml");
@@ -126,10 +117,10 @@ public class MainCittadini implements EventHandler<ActionEvent> {
 
             Scene scene = new Scene(root);
 
-            stage.setScene(scene);
-            stage.setTitle("Portale Cittadini");
             stage.setY(50);
             stage.setX(175);
+            stage.setScene(scene);
+            stage.setTitle("Portale Cittadini");
 
             //Setto la userData dello stage per evitare possibili null pointer
             HashMap<String,String> userData;
@@ -169,39 +160,74 @@ public class MainCittadini implements EventHandler<ActionEvent> {
                 ((AnchorPane)scene.lookup("#mainPane")).getChildren().add(btn_logout);
             }
 
-            stage.show();
+            //stage.show();
 
             InputStream iconStream=getClass().getResourceAsStream(CITIZENS_PORTAL_ICON_PATH);
             Image icon=new Image(iconStream);
 
             stage.getIcons().set(0,icon);
 
-            scrollPane_CentriVaccinali = (ScrollPane) scene.lookup("#scrollPane_CentriVaccinali");
-            scrollPane_CentriVaccinali.lookup(".viewport").setStyle("-fx-background-color: #1a73e8;");
 
             scene.lookup("#radio_name").getStyleClass().remove("radio-button");
             scene.lookup("#radio_name").getStyleClass().add("toggle-button");
             scene.lookup("#radio_type").getStyleClass().remove("radio-button");
             scene.lookup("#radio_type").getStyleClass().add("toggle-button");
 
-            centriVaccinaliList = getCentriVaccinaliFromDb();
+            AnchorPane mainPane=(AnchorPane) scene.lookup("#mainPane");
 
-            if(centriVaccinaliList==null||centriVaccinaliList.size()==0){
-                scrollPane_CentriVaccinali.setVisible(false);
-                scene.lookup("#noCentersImg").setVisible(true);
-                scene.lookup("#noCentersLabel").setVisible(true);
-                System.out.println("Nessun centro vaccinale presente nel database");
-                /*ImageView img=new ImageView(new Image(getClass().getResourceAsStream(NO_CENTERS_IMG_PATH)));
-                img.setX(25);
-                img.setY(83);
-                img.prefHeight(400);
-                img.prefWidth(650);
-                img.toFront();
-                ((AnchorPane)scene.lookup("#mainPane")).getChildren().add(img);*/
-                return;
-            }
+            Node loadingPopup=showLoadingAnimation(scene);
+            //mainPane.setOpacity(0.7);
+            mainPane.setEffect(new GaussianBlur(1.9));
+            //metto il popup al centro della scena
+            loadingPopup.setLayoutX(((AnchorPane)root).getWidth()/2-loadingPopup.getBoundsInLocal().getWidth()/2);
+            loadingPopup.setLayoutY(((AnchorPane)root).getHeight()/2-loadingPopup.getBoundsInLocal().getHeight()/2);
 
-            creaVbox(centriVaccinaliList);
+            new Thread(()-> {
+                try {
+
+                    centriVaccinaliList = getCentriVaccinaliFromDb();
+
+                    Thread.sleep(1500);
+
+                    Platform.runLater(()->{
+                        if (centriVaccinaliList == null || centriVaccinaliList.size() == 0) {
+                            scrollPane_CentriVaccinali.setVisible(false);
+                            ImageView img=((ImageView)scene.lookup("#errorImg"));
+                            img.setImage(new Image(getClass().getResourceAsStream("/cittadini/noCenters.png")));
+                            img.setVisible(true);
+                            Label label= (Label) scene.lookup("#errorLabel");
+                            label.setText(NO_CENTERS_TEXT);
+                            label.setVisible(true);
+                            System.out.println("Nessun centro vaccinale presente nel database");
+                        }
+                        else {
+                            creaVbox(centriVaccinaliList);
+                        }
+                        ((AnchorPane) scrollPane_CentriVaccinali.getScene().getRoot()).getChildren().remove(loadingPopup);
+                        mainPane.setEffect(null);
+                    });
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    Platform.runLater(()-> {
+                        ((AnchorPane) scrollPane_CentriVaccinali.getScene().getRoot()).getChildren().remove(loadingPopup);
+                        mainPane.setEffect(null);
+
+                        scrollPane_CentriVaccinali.setVisible(false);
+                        ImageView img=((ImageView)scene.lookup("#errorImg"));
+                        img.setImage(new Image(getClass().getResourceAsStream("/cittadini/errorWithDb.png")));
+                        img.setVisible(true);
+                        Label label= (Label) scene.lookup("#errorLabel");
+                        label.setText(SERVER_ERROR_TEXT);
+                        label.setVisible(true);
+
+                        /*Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Errore");
+                        alert.setContentText("C'è stato un problema nel caricamento dei centri vaccinali");
+                        alert.showAndWait();*/
+                    });
+                }
+            }).start();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -214,6 +240,8 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      * @param centriVaccinaliMostrati Lista contenente i centri vaccinale da inserire dentro il vbox (quindi dentro la UI).
      */
     private void creaVbox(List<SingoloCentroVaccinale> centriVaccinaliMostrati){
+        scrollPane_CentriVaccinali.setDisable(true);
+
         VBox scrollPaneContent=new VBox();
         scrollPaneContent.setSpacing(15);
         scrollPaneContent.setPrefHeight(409);
@@ -261,6 +289,17 @@ public class MainCittadini implements EventHandler<ActionEvent> {
 
             scrollPaneContent.getChildren().add(hbox);
         }
+
+        scrollPane_CentriVaccinali.setDisable(false);
+    }
+
+    private Node showLoadingAnimation(Scene scene) throws IOException{
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("/fxml/LoadingPopup.fxml"));
+        Node loadingPopup=loader.load();
+
+        ((AnchorPane)scene.getRoot()).getChildren().add(loadingPopup);
+
+        return loadingPopup;
     }
 
     /**
@@ -492,10 +531,6 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             ois = new ObjectInputStream(SelectionUI.socket_container.getInputStream());
         } catch (Exception e) {
             e.printStackTrace();
-            Alert error = new Alert(Alert.AlertType.ERROR);
-            error.setTitle("Database error");
-            error.setContentText("Errore nel prendere i dati dal database");
-            error.show();
             return null;
         }
         Vector <SingoloCentroVaccinale>v =(Vector<SingoloCentroVaccinale>) ois.readObject();
@@ -526,7 +561,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      */
     public void search(Scene currentScene) throws IOException, ClassNotFoundException { //todo lo teniamo cosi o facciamo roba server ?
         //controllo che la lista non sia già popolata (per evitare inutili chiamate al db)
-        if(centriVaccinaliList!=null) {
+        if(centriVaccinaliList==null) {
             centriVaccinaliList = getCentriVaccinaliFromDb();
         }
 

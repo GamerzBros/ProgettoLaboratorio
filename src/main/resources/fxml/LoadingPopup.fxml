@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="280.0" prefWidth="390.0" style="-fx-background-radius: 8; -fx-background-color: white" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ImageView fitHeight="195" fitWidth="375" layoutX="8.0" preserveRatio="false" style="-fx-background-color: transparent">
+            <Image url="@/common/loadingPopupImage.jpg" />
+        </ImageView>
+      <ProgressIndicator layoutX="169.0" layoutY="220.0" style="-fx-progress-color: blue" />
+      <Label alignment="CENTER" layoutX="15.0" layoutY="193" prefWidth="360" text="Stiamo caricando i dati, non ci vorrà molto!" wrapText="true">
+         <font>
+            <Font size="17.0" />
+         </font></Label>
+        
+    </children>
+</AnchorPane>
