@@ -354,8 +354,10 @@ public class ServerHandler extends Thread{
         int tachicardia=eveAvv.getTachicardia();
         int crisiIpertensiva=eveAvv.getCrisiIpertensiva();
         String otherSymptoms=eveAvv.getOtherSymptoms();
-        int idCentro=Integer.parseInt(in.readLine());
-        String cfUtente=in.readLine();
+        int idCentro=eveAvv.getIdCentro();
+        String cfUtente =eveAvv.getCfUtente();
+        System.out.println("SONO ARRIVATO QUI ");
+
 
         String sql="INSERT INTO eventiavversi VALUES (DEFAULT,?,?,?,?,?,?,?,?,?)";
         try {
@@ -421,12 +423,9 @@ public class ServerHandler extends Thread{
                     case REGISTER_EVENTIAVVERSI_OP_CODE ->{
                         System.out.println("[THREAD] Register eventi avversi chiamata");
                         try {
-                            in.close();
                             oin=new ObjectInputStream(s.getInputStream());
                             eventiAvversi= (EventiAvversi) oin.readObject();
                             registerEventiAvversi(eventiAvversi);
-                            oin.close();
-                            in = new BufferedReader(new InputStreamReader(s.getInputStream()));
                         } catch (ClassNotFoundException e) {
                             e.printStackTrace();
                             out.println("false");

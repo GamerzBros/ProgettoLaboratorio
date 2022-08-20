@@ -146,11 +146,14 @@ public class RegistraEventiAvversi {
     }
 
     public void becomeClient(){
-        System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
+        System.out.println("[CLIENT EVENTI AVVERSI] - Sono già connesso, prendo gli stream ");
         Socket s = SelectionUI.socket_container;
         out = SelectionUI.out_container;
         in = SelectionUI.in_container;
         out.println("null");
         out.println(ServerHandler.REGISTER_EVENTIAVVERSI_OP_CODE);
+        System.out.println("[CLIENT EVENTI AVVERSI] - Uscito dalla become client");
+
+
     }
 }

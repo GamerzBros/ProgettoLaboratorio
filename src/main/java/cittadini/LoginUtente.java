@@ -140,12 +140,13 @@ public class LoginUtente {
      * @param parameters I dati relativi al login che il server dovrà verificare
      */
     public void becomeClient(String parameters){
-        System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
+        System.out.println("[CLIENT LOGIN UTENTE] - Sono già connesso, prendo gli stream ");
         Socket s = SelectionUI.socket_container;
         out = SelectionUI.out_container;
         in = SelectionUI.in_container;
         out.println(parameters);
         out.println(LOGIN_OPERATION_CODE);
+        System.out.println("[CLIENT LOGIN UTENTE] - Uscito dalla become client ");
     }
 
     /**

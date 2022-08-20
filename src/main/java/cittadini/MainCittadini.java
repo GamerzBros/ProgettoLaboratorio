@@ -736,7 +736,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      */
     public static void becomeClient(){
         try {
-            System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
+            System.out.println("[CLIENT MAIN CITTADINI] - Sono già connesso, prendo gli stream ");
             Socket s = SelectionUI.socket_container;
             out = SelectionUI.out_container;
             in = SelectionUI.in_container;

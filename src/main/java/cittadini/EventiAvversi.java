@@ -43,6 +43,22 @@ public class EventiAvversi implements Serializable {
      */
     private String cfUtente;
 
+    public int getIdCentro() {
+        return idCentro;
+    }
+
+    public void setIdCentro(int idCentro) {
+        this.idCentro = idCentro;
+    }
+
+    public String getCfUtente() {
+        return cfUtente;
+    }
+
+    public void setCfUtente(String cfUtente) {
+        this.cfUtente = cfUtente;
+    }
+
     /**
      * Costruttore principale della classe container EventiAvversi che riceve come parametri tutti i valori degli eventi avversi
      * @param maleTesta L'evento avverso mal di testa
