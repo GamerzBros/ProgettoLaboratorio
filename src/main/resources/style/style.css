@@ -36,3 +36,38 @@
 .scrollPaneCenters .viewport{
     -fx-background-color: #1a73e8;
 }
+
+.choiceBoxChip{
+    -fx-background-radius: 18px;
+    -fx-border-radius: 18px;
+    -fx-mark-color: #1a73e8;
+    -fx-padding: 2.4 8.2 2.4 8.2;
+}
+
+.choiceBoxChip .menu-item:focused
+{
+    -fx-background-color: orange;
+}
+
+.choiceBoxChip:hover{
+    -fx-border-color: orange;
+    -fx-background-color: orange;
+}
+
+.buttonChip{
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+}
+
+.buttonChip:hover{
+    -fx-background-color: orange;
+    -fx-padding: 2.4 8.2 2.4 8.2;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.rectangleChip{
+    -fx-background-radius: 18px;
+}
+.rectangleChip:hover{
+    -fx-padding: 2.4 8.2 2.4 8.2;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
