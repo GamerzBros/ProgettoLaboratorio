@@ -564,7 +564,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         if(centriVaccinaliList==null) {
             centriVaccinaliList = getCentriVaccinaliFromDb();
         }
-
+        //TODO chiudere il centro selezionato se ce n'è uno aperto (perché se no si bugga)
         Vector<SingoloCentroVaccinale> vector_search = new Vector<>();
 
         String search = ((TextField)currentScene.lookup("#txt_searchCenter")).getText().toLowerCase();

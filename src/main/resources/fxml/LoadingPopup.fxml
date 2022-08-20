@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="280.0" prefWidth="390.0" style="-fx-background-radius: 8; -fx-background-color: white" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="280.0" prefWidth="390.0" style="-fx-background-radius: 8; -fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 8, 0, 0, 0);" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <ImageView fitHeight="195" fitWidth="375" layoutX="8.0" preserveRatio="false" style="-fx-background-color: transparent">
             <Image url="@/common/loadingPopupImage.jpg" />
