@@ -65,11 +65,21 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 .rectangleChip{
-    -fx-background-radius: 18px;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 .rectangleChip:hover{
     -fx-padding: 2.4 8.2 2.4 8.2;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 20, 0, 0, 0);
 
+}
+
+buttonUI{
+    -fx-background-radius: 10px;
+    -fx-background-color:  #1a73e8;
+    -fx-font-size: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+buttonUI:hover{
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 15, 0, 0, 0);
 }
