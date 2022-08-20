@@ -654,7 +654,6 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      * @param actionEvent L'evento che richiama il metodo. Necessario per ottenere lo stage in cui inserire la nuova scena
      */
     public void loadRegistraEventiAvversiUI(ActionEvent actionEvent){
-        //TODO controllare che l'utente, se loggato, si sia vaccinato preso il centro selezionato
         Stage stage=(Stage)((Button)actionEvent.getSource()).getScene().getWindow();
 
         HashMap<String,String> userData=(HashMap<String,String>)stage.getUserData();

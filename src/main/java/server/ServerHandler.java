@@ -153,7 +153,8 @@ public class ServerHandler extends Thread{
         String cognome = parameters_splitted[1];
         String codice_fiscale = parameters_splitted[2].toUpperCase();
         String tipoVaccino = parameters_splitted[3];
-        String centroVaccinale = parameters_splitted[4];
+        int centroVaccinale = Integer.parseInt(parameters_splitted[4]);
+        System.out.println(centroVaccinale);
         String dataVaccinazione = parameters_splitted[5];
         Date dataVaccinazioneSQL = java.sql.Date.valueOf(dataVaccinazione);
         System.out.println(dataVaccinazione);
@@ -166,7 +167,7 @@ public class ServerHandler extends Thread{
             stm.setString(2,cognome);
             stm.setString(3,codice_fiscale);
             stm.setString(4,tipoVaccino);
-            stm.setString(5,centroVaccinale);
+            stm.setInt(5,centroVaccinale);
             stm.setDate(6,dataVaccinazioneSQL);
             int result = stm.executeUpdate();
             if(result>0){

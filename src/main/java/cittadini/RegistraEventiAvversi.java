@@ -16,6 +16,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
+import java.nio.Buffer;
 import java.util.HashMap;
 
 /**
@@ -34,7 +35,9 @@ public class RegistraEventiAvversi {
      * Il numero della vaccinazione relativa agli eventi avversi
      */
     private String eventsNum;
-    private Socket s;
+    private PrintWriter out;
+    private BufferedReader in;
+
     /**
      * Costruttore principale della classe RegistraEventiAvversi
      * @param stage Lo stage su cui verrà caricata la nuova FX Scene
@@ -101,15 +104,11 @@ public class RegistraEventiAvversi {
             EventiAvversi eventiSalvati= new EventiAvversi(evento1, evento2, evento3, evento4, evento5, evento6, otherEvent, currentCenter,currentUser);
 
             //inizializzo socket e stream
-            s = SelectionUI.socket_container;
             //TODO sistemare il problema degli stream bloccanti (per cri)
-            ObjectOutputStream obOut= new ObjectOutputStream(s.getOutputStream());
-            PrintWriter out= new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
-            out.println("null");
-            out.println(ServerHandler.REGISTER_EVENTIAVVERSI_OP_CODE);
+            becomeClient();
+            ObjectOutputStream obOut= new ObjectOutputStream(SelectionUI.socket_container.getOutputStream());
             obOut.writeObject(eventiSalvati);
 
-            BufferedReader in=new BufferedReader(new InputStreamReader(s.getInputStream()));
             if(in.readLine().equals("true")){
                 System.out.println("Eventi avversi registrati con successo");
                 Alert alert=new Alert(Alert.AlertType.INFORMATION);
@@ -144,5 +143,14 @@ public class RegistraEventiAvversi {
         Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
 
         new MainCittadini(stage);
+    }
+
+    public void becomeClient(){
+        System.out.println("[CLIENT] - Sono già connesso, prendo gli stream ");
+        Socket s = SelectionUI.socket_container;
+        out = SelectionUI.out_container;
+        in = SelectionUI.in_container;
+        out.println("null");
+        out.println(ServerHandler.REGISTER_EVENTIAVVERSI_OP_CODE);
     }
 }

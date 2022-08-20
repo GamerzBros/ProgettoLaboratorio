@@ -33,7 +33,6 @@ public class RegistraNuovoVaccinato {
     /**
      * Buffer che permette di ricevere dati primitivi dal server
      */
-    //TODO aggiungere anche qui un objectinputstream (per cri)
     BufferedReader in;
     /**
      * Percorso per il file contente le informazioni dei centri vaccinali registrati
@@ -103,12 +102,10 @@ public class RegistraNuovoVaccinato {
                 ChoiceBox<String> choiceBox_vaccinoSomministrato = ((ChoiceBox<String>) scene.lookup("#cbx_vaccinoSomministrato"));
                 choiceBox_vaccinoSomministrato.setValue("Tipologia Vaccino");
                 choiceBox_vaccinoSomministrato.setItems(vaccino_somministrato_items);
-                //TODO sistemare il problema degli stream bloccanti (per cri)
+                becomeClient();
                 ObjectInputStream ois=new ObjectInputStream(SelectionUI.socket_container.getInputStream());
                 //Creo gli stream e ricevo dal server il vettore dei centri vaccinali
-                becomeClient();
                 centriVaccinaliList= (Vector<SingoloCentroVaccinale>) ois.readObject();
-
                 //Aggiorno la lsita dei nomi e la metto nel ChoiceBox
                 for(int i=0;i<centriVaccinaliList.size();i++){
                     centro= centriVaccinaliList.get(i);
@@ -141,13 +138,13 @@ public class RegistraNuovoVaccinato {
         String codice_fiscale = ((TextField) currentScene.lookup("#txt_cfPaziente")).getText();
         String vaccineType = ((ChoiceBox<String>) currentScene.lookup("#cbx_vaccinoSomministrato")).getValue();
         LocalDate vaccinationDate = ((DatePicker) currentScene.lookup("#datePicker_datavaccinazione")).getValue();
-        String centroVaccinale = ((ChoiceBox<String>) currentScene.lookup("#cbx_centroVaccinale")).getValue();
+        int centroVaccinale = ((ChoiceBox<String>) currentScene.lookup("#cbx_centroVaccinale")).getSelectionModel().getSelectedIndex()+1;
         String dataVaccinazione = "";
 
         if (vaccinationDate != null) {
             dataVaccinazione = vaccinationDate.format(DateTimeFormatter.ofPattern("yyy-MM-dd"));
         }
-        if (name.equals("") || surname.equals("") || codice_fiscale.equals("") || vaccineType.equals("") || centroVaccinale.equals("") || dataVaccinazione.equals("")) {
+        if (name.equals("") || surname.equals("") || codice_fiscale.equals("") || vaccineType.equals("") || dataVaccinazione.equals("")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setHeaderText(null);
