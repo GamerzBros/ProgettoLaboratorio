@@ -4,6 +4,7 @@ import centrivaccinali.SelectionUI;
 import centrivaccinali.SingoloCentroVaccinale;
 import javafx.animation.Interpolator;
 import javafx.application.Platform;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
@@ -129,10 +130,10 @@ public class MainCittadini implements EventHandler<ActionEvent> {
 
             Scene scene = new Scene(root);
 
-            stage.setY(50);
-            stage.setX(175);
             stage.setScene(scene);
             stage.setTitle("Portale Cittadini");
+
+            stage.centerOnScreen();
 
             //Setto la userData dello stage per evitare possibili null pointer
             HashMap<String,String> userData;
@@ -284,7 +285,9 @@ public class MainCittadini implements EventHandler<ActionEvent> {
 
 
             btnGoTo.setFont(new Font("Arial",16));
+            btnGoTo.setCursor(Cursor.HAND);
             //usa #292E32 per il tema scuro
+            btnGoTo.getStyleClass().add("buttonSelection");
             btnGoTo.setStyle( "-fx-background-radius: 5em; -fx-min-width: 1px; -fx-background-color: #FFFFFF; -fx-border-radius: 5em; -fx-border-color: #000000;");
             btnGoTo.setId(String.valueOf(i));
             btnGoTo.setOnAction(this);
@@ -456,6 +459,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
     public void loadCenterInfo(int idCentro, Scene currentScene){
         //TODO aggiungere un feedback visivo per il caricamento
         try {
+            //TODO far leggere gli eventi avversi ad un thread separato
             Vector<EventiAvversi> eventLines=leggiEventiAvversi(idCentro);
             int[] singleEvents=new int[6];
             Vector<String> otherEventsText=new Vector<>();
@@ -709,6 +713,8 @@ public class MainCittadini implements EventHandler<ActionEvent> {
 
             currentStage.setTitle("Seleziona il Portale");
 
+            currentStage.centerOnScreen();
+
             InputStream icon = getClass().getResourceAsStream("/common/fiorellino.png");
             Image image = new Image(icon);
 
@@ -743,7 +749,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             Scene scene = new Scene(root);
             stage.setScene(scene);
 
-            //scene.setUserData(currentStage);
+            stage.centerOnScreen();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -823,7 +829,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             Scene scene = new Scene(root);
             currentStage.setScene(scene);
 
-            //scene.setUserData(mainScene);
+            currentStage.centerOnScreen();
         }
         catch (Exception e){
             e.printStackTrace();

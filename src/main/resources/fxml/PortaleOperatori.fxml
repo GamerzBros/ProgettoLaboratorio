@@ -13,9 +13,9 @@
       <ImageView fitHeight="300" fitWidth="500" preserveRatio="false" style="-fx-background-color: transparent">
          <Image url="@/centrivaccinali/medici.png" />
       </ImageView>
-      <Button layoutX="2.0" layoutY="4.5" onMouseClicked="#goBackToSelectionUI" styleClass="backButton">
+      <Button layoutX="4.0" layoutY="4.5" onMouseClicked="#goBackToSelectionUI" styleClass="backButton">
          <graphic>
-            <ImageView fitHeight="22.0" fitWidth="25.0" preserveRatio="false">
+            <ImageView fitHeight="22.0" fitWidth="20.0" preserveRatio="false">
                <Image url="@/common/goBackIcon.png" />
             </ImageView>
          </graphic>

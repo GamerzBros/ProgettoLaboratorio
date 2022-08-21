@@ -69,6 +69,8 @@ public class RegistraEventiAvversi {
 
             stage.setScene(scene);
 
+            stage.centerOnScreen();
+
         }
         catch (Exception e){
             e.printStackTrace();

@@ -67,12 +67,11 @@ public class PortaleOperatori {
             stage.setScene(scene);
             stage.setTitle("Portale Operatori");
 
+            stage.centerOnScreen();
+
             InputStream iconStream=getClass().getResourceAsStream("/centrivaccinali/operatorPortalIcon.png");
             Image icon=new Image(iconStream);
             stage.getIcons().set(0,icon);
-
-            stage.setY(50);
-            stage.setX(175);
 
             stage.show();
         }

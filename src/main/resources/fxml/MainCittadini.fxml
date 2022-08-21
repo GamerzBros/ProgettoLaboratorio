@@ -12,7 +12,7 @@
     <children>
         <AnchorPane fx:id="mainPane">
             <children>
-                <Rectangle fill="white" height="45.0" layoutX="0.0" layoutY="0.0" style="-fx-border-style: hidden hidden solid hidden;" styleClass="bottomShadow" width="920.0" />
+                <Rectangle fill="white" height="45.0" layoutX="0.0" layoutY="0.0" style="-fx-border-style: hidden hidden solid hidden; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 6, 0, 0, 0);" width="920.0" />
                 <ScrollPane fx:id="scrollPane_CentriVaccinali" hbarPolicy="NEVER" layoutX="25.0" layoutY="91.0" prefHeight="435.0" prefWidth="870.0" style="-fx-background-radius: 0; -fx-background-color: transparent; -fx-border-color: #1a73e8;" styleClass="scrollPaneCenters" /> <!-- style="-fx-background: #1a73e8;-->
                 <Pane fx:id="pane_center_information" layoutX="895" layoutY="82" prefHeight="443.0" prefWidth="0.0" style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 6, 0, 0, 0);" />
                 <ImageView fx:id="errorImg" fitHeight="390" fitWidth="585" layoutX="167.5" layoutY="90.0" visible="true" />
@@ -28,9 +28,9 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button layoutX="0.0" layoutY="7.5" onMouseClicked="#goBackFromMainCittadini" styleClass="backButton">
+                <Button layoutX="4.0" layoutY="7.5" onMouseClicked="#goBackFromMainCittadini" styleClass="backButton">
                     <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="25.0" preserveRatio="false">
+                        <ImageView fitHeight="22.0" fitWidth="20.0" preserveRatio="false">
                             <Image url="@/common/goBackIcon.png" />
                         </ImageView>
                     </graphic>
@@ -50,14 +50,11 @@
                 <Button fx:id="btn_login" layoutX="744.0" layoutY="10.0" mnemonicParsing="false" onAction="#onLoginClick" prefHeight="25.0" prefWidth="80.0" styleClass="buttonSelection" style="-fx-border-style: hidden;-fx-alignment:  center; -fx-background-color: #1a73e8; -fx-background-radius: 8; -fx-text-fill: white;" text="Accedi">
                  <font>
                     <Font name="Roboto Light" size="12.0" />
-                 </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
+                 </font></Button>
                 <Button fx:id="btn_register" layoutX="832.0" layoutY="10" mnemonicParsing="false" onAction="#loadRegisterCitizenUI" prefHeight="25.0" prefWidth="80.0" styleClass="buttonSelection" style="-fx-border-style: hidden;-fx-alignment:  center; -fx-background-color: #1a73e8; -fx-background-radius: 8; -fx-text-fill: white;" text="Registrati">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
+               <font>
+                   <Font name="Roboto Light" size="12.0" />
+               </font></Button>
             </children>
         </AnchorPane>
     </children>

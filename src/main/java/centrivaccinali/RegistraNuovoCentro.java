@@ -83,6 +83,8 @@ public class RegistraNuovoCentro {
             stage.setScene(scene);
             stage.setTitle("Nuovo centro vaccinale");
 
+            stage.centerOnScreen();
+
             ChoiceBox<String> choiceBox_qualificatore=((ChoiceBox<String>)scene.lookup("#cbx_qualificatore"));
             choiceBox_qualificatore.setItems(qualificatore_items);
             choiceBox_qualificatore.setValue("Seleziona Qualificatore");

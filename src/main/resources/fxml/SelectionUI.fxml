@@ -23,9 +23,6 @@
                      <Image url="@/cittadini/citizenPortalIcon.png" />
                   </ImageView>
                </graphic>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
             </Button>
             <Button layoutX="10.0" layoutY="180.0" mnemonicParsing="false" onAction="#onCentriVaccinaliSelected" onMouseEntered="#onChoiceButtonHover" onMouseExited="#onChoiceButtonExit" prefHeight="38.0" prefWidth="170.0" styleClass="buttonSelection" text="Portale Operatori" textFill="white" style="-fx-font-size: 15; -fx-background-radius: 10; -fx-background-color: #1a73e8;">
                <graphic>
@@ -33,9 +30,6 @@
                      <Image url="@/centrivaccinali/operatorPortalIcon.png" />
                   </ImageView>
                </graphic>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
             </Button>
          </children>
       </Pane>

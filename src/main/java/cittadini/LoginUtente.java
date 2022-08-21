@@ -35,20 +35,12 @@ public class LoginUtente {
      * Buffer che permette di inviare dati primitivi al sever
      */
    private BufferedReader in;
-    /**
-     * Codice fiscale dell'utente attualmente loggato
-     */
-    private String currentUser;
-    /**
-     * Centro vaccinale attualmente selezionato
-     */
-    private String currentCenter;
 
     /**
      * Effettua il login dell'utente.
      * @param event L'evento che richiama il metodo. Necessario per ottenere la scena da cui prendere i dati inseriti dall'utente
      */
-    public void loggaCittadini(ActionEvent event) { //TODO FARE BENE LOGIN
+    public void loggaCittadini(ActionEvent event) {
         Scene currentScene = ((Button) event.getSource()).getScene();
         String user = ((TextField) currentScene.lookup("#txt_userLogin")).getText();
         String pwd = ((TextField) currentScene.lookup("#pswd_login")).getText();
@@ -127,6 +119,8 @@ public class LoginUtente {
 
             Scene scene = new Scene(root);
             currentStage.setScene(scene);
+
+            currentStage.centerOnScreen();
 
         }
         catch (Exception e){

@@ -93,6 +93,8 @@ public class RegistraNuovoVaccinato {
             stage.setScene(scene);
             stage.setTitle("Nuovo Paziente");
 
+            stage.centerOnScreen();
+
             try {
                 //Inizializzo i choicebox
                 ChoiceBox<String> choiceBox_centroVaccinale = ((ChoiceBox<String>) scene.lookup("#cbx_centroVaccinale"));

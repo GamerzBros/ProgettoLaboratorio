@@ -45,6 +45,8 @@ public class SelectionUI extends Application {
         stage.setResizable(false);
         stage.setTitle("Seleziona il Portale");
 
+        stage.centerOnScreen();
+
 
         InputStream icon = getClass().getResourceAsStream("/common/fiorellino.png");
         Image image = new Image(icon);

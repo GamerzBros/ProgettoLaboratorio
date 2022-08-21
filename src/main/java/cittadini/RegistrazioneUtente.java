@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import server.ServerHandler;
+
 import java.io.BufferedWriter;
 import java.io.*;
 import java.net.Socket;
@@ -18,11 +20,6 @@ import java.time.format.DateTimeFormatter;
  * Gestisce la UI che permette a un utente di registrarsi per poi poter registrare eventi aversi
  */
 public class RegistrazioneUtente {
-    /**
-     * Percorso per il file contenente i dati dei cittadini registrati
-     */
-    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
-    public static final int REGISTER_OPERATION_CODE=2;
     /**
      * Buffer che permette di inviare dati primitivi al sever
      */
@@ -48,6 +45,8 @@ public class RegistrazioneUtente {
         LocalDate datanascita = ((DatePicker)currentScene.lookup("#datePicker_datavaccinazione")).getValue();
         String dataNascita = datanascita.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
+        //TODO controllare che tutti i dati siano stati inseriti nei vari campi
+
         if(pwd.compareTo(confrmationPwd)==0) {
 
             try {
@@ -59,19 +58,6 @@ public class RegistrazioneUtente {
                 becomeClient(parameters);
                 String result = in.readLine();//risultato query login true o false dal server
                 if(result.equals("true")){
-                    /*Scene mainScene=(Scene)currentScene.getUserData();
-                    String[] userData=(String[])mainScene.getUserData();
-                    currentCenter=userData[0];
-
-                    currentUser=userCF;
-
-                    userData[1]=currentUser;
-
-                    mainScene.setUserData(userData);
-
-
-                    ((Stage)currentScene.getWindow()).close();
-                    */
                     Alert alertRegistrationSuccessfull=new Alert(Alert.AlertType.INFORMATION);
                     alertRegistrationSuccessfull.setTitle("Registrazione completata");
                     alertRegistrationSuccessfull.setContentText("Registrazione avvenuta con successo");
@@ -134,7 +120,7 @@ public class RegistrazioneUtente {
         out = SelectionUI.out_container;
         in = SelectionUI.in_container;
         out.println(parameters);
-        out.println(REGISTER_OPERATION_CODE);
+        out.println(ServerHandler.REGISTER_USER_OP_CODE);
     }
 
 }
