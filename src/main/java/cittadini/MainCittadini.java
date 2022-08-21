@@ -39,13 +39,29 @@ import java.util.Vector;
 //TODO rivedere quando usare i throws e i try/catch all'interno del progetto
 public class MainCittadini implements EventHandler<ActionEvent> {
     /**
-     * La stringa che verrà mostrata all'utente qualora non sia stato trovato nessun centro vaccinale all'interno del database
+     * Il percorso dell'immagine che verrà mostrata qualora non sia possibile connettersi al server
      */
-    public static final String NO_CENTERS_TEXT="Non è stato trovato nessun centro nel database :(";
+    public static final String ERROR_WITH_DB_IMG_PATH="/cittadini/errorWithDb.png";
     /**
-     * La string che verrà mostrata all'utente qualora ci sia stato un problema di connessione con il server
+     * Il percorso dell'immagine che verrà mostrata qualora non sia presente nessun centro vaccinale nel database
+     */
+    public static final String NO_CENTERS_IMG_PATH="/cittadini/noCenters.png";
+    /**
+     * Il percorso dell'immagine che verrà mostrata qualora non sia presente nessun centro vaccinale corrispondente alla ricerca
+     */
+    public static final String NO_SEARCH_RESULT_IMG_PATH="/cittadini/noSearchResult.png";
+    /**
+     * La string che verrà mostrata all'utente qualora non sia stato possibile connettersi al server
      */
     public static final String SERVER_ERROR_TEXT ="Abbiamo riscontrato un errore di connessione con il server. Riprova più tardi";
+    /**
+     * La stringa che verrà mostrata all'utente qualora non sia presente nessun centro vaccinale all'interno del database
+     */
+    public static final String NO_CENTERS_TEXT="Non è stato trovato nessun centro vaccinale nel database";
+    /**
+     * La stringa che verrà mostrata all'utente qualora non sia stato trovato nessun centro vaccinale corrispondente alla ricerca
+     */
+    public static final String NO_SEARCHED_CENTERS_FOUND_TEXT ="Purtroppo la tua ricerca non ha prodotto nessun risultato";
     /**
      * Lista contente tutti i centri vaccinali presenti nel database. Popolata dal metodo getCentriVaccinaliFromFile()
      */
@@ -179,7 +195,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
                 try {
 
                     //Faccio in modo che il popup di caricamento sia visibile almeno per poco tempo
-                    Thread.sleep(750);
+                    Thread.sleep(700);
 
                     centriVaccinaliList = getCentriVaccinaliFromDb();
 
@@ -187,7 +203,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
                         if (centriVaccinaliList == null) {
                             scrollPane_CentriVaccinali.setVisible(false);
                             ImageView img=((ImageView)scene.lookup("#errorImg"));
-                            img.setImage(new Image(getClass().getResourceAsStream("/cittadini/errorWithDb.png")));
+                            img.setImage(new Image(getClass().getResourceAsStream(ERROR_WITH_DB_IMG_PATH)));
                             img.setVisible(true);
                             Label label= (Label) scene.lookup("#errorLabel");
                             label.setText(SERVER_ERROR_TEXT);
@@ -196,7 +212,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
                         else if (centriVaccinaliList.size() == 0) {
                             scrollPane_CentriVaccinali.setVisible(false);
                             ImageView img=((ImageView)scene.lookup("#errorImg"));
-                            img.setImage(new Image(getClass().getResourceAsStream("/cittadini/noCenters.png")));
+                            img.setImage(new Image(getClass().getResourceAsStream(NO_CENTERS_IMG_PATH)));
                             img.setVisible(true);
                             Label label= (Label) scene.lookup("#errorLabel");
                             label.setText(NO_CENTERS_TEXT);
@@ -228,7 +244,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      * @param centriVaccinaliMostrati Lista contenente i centri vaccinale da inserire dentro il vbox (quindi dentro la UI).
      */
     private void creaVbox(List<SingoloCentroVaccinale> centriVaccinaliMostrati){
-        scrollPane_CentriVaccinali.setDisable(true);
+        scrollPane_CentriVaccinali.setVisible(true);
 
         VBox scrollPaneContent=new VBox();
         scrollPaneContent.setSpacing(15);
@@ -568,12 +584,29 @@ public class MainCittadini implements EventHandler<ActionEvent> {
     }
 
     /**
-     * Effettua la ricerca di un centro vaccinale. Richiama poi il metodo per aggiornare la UI mostrando solo i centri vaccinali che corrispondono ai parametri della ricerca.
+     * Effettua la ricerca di un centro vaccinale su un thread separato. Richiama poi il metodo per aggiornare la UI mostrando solo i centri vaccinali che corrispondono ai parametri della ricerca.
      * @param currentScene La scena in cui verranno inseriti i centri trovati
      */
     public void search(Scene currentScene){
         try {
             AnchorPane mainPane = (AnchorPane) currentScene.lookup("#mainPane");
+            ScrollPane scrollPane = (ScrollPane) currentScene.lookup("#scrollPane_CentriVaccinali");
+            ImageView errorImg=(ImageView)currentScene.lookup("#errorImg");
+            Label errorLabel=(Label)currentScene.lookup("#errorLabel");
+            Pane centerInfoPane=(Pane)currentScene.lookup("#pane_center_information");
+
+            scrollPane.setContent(null);
+            errorImg.setVisible(false);
+            errorLabel.setVisible(false);
+
+            //Se c'è un centro selezionato, chiudo il pannello di informazioni del centro per poter ricostruire il vbox senza bug
+            if (centerSelected) {
+                ((HashMap<String, String>) currentScene.getWindow().getUserData()).remove("currentCenter");
+                centerInfoPane.prefWidth(0);
+                centerInfoPane.translateXProperty().set(scrollPane.getWidth()*2);
+                scrollPane.setPrefWidth(scrollPane.getPrefWidth() * 3);
+                centerSelected = false;
+            }
 
             if(loadingPopup==null) {
                 loadingPopup = showLoadingAnimation(currentScene);
@@ -585,61 +618,69 @@ public class MainCittadini implements EventHandler<ActionEvent> {
 
             currentSearchThread=new Thread(() -> {
                 try {
-                    //Metto in sleep il thread per fare in modo che il popup di caricamento si veda per un minimo di tempo
-                    Thread.sleep(450);
+                    Thread.sleep(400);
+                    try {
+                        //Metto in sleep il thread per fare in modo che il popup di caricamento si veda per un minimo di tempo
 
-                    //controllo che la lista non sia già popolata (per evitare inutili chiamate al db)
-                    if (centriVaccinaliList == null) {
-                        centriVaccinaliList = getCentriVaccinaliFromDb();
-                    }
-                    //Se c'è un centro selezionato, chiudo il pannello di informazioni del centro per poter ricostruire il vbox senza bug
-                    if (centerSelected) {
-                        Platform.runLater(()-> {
-                            ((HashMap<String, String>) currentScene.getWindow().getUserData()).remove("currentCenter");
-                            currentScene.lookup("#pane_center_information").prefWidth(0);
-                            ScrollPane scrollPane = (ScrollPane) currentScene.lookup("#scrollPane_CentriVaccinali");
-                            scrollPane.setLayoutX(scrollPane.getWidth() * 2);
-                        });
-                    }
-                    Vector<SingoloCentroVaccinale> vector_search = new Vector<>();
+                        //controllo che la lista non sia già popolata (per evitare inutili chiamate al db)
+                        if (centriVaccinaliList == null) {
+                            centriVaccinaliList = getCentriVaccinaliFromDb();
+                        }
 
-                    String search = ((TextField) currentScene.lookup("#txt_searchCenter")).getText().toLowerCase();
-                    boolean searchByName = ((RadioButton) currentScene.lookup("#radio_name")).isSelected();
-                    boolean searchByTypeAndAddress = ((RadioButton) currentScene.lookup("#radio_type")).isSelected();
+                        Vector<SingoloCentroVaccinale> vector_search = new Vector<>();
 
-                    for (SingoloCentroVaccinale tempCentre : centriVaccinaliList) {
-                        String nome = tempCentre.getNome();
-                        String indirizzo = tempCentre.getIndirizzo();
-                        String tipologia = tempCentre.getTipologia();
+                        String search = ((TextField) currentScene.lookup("#txt_searchCenter")).getText().toLowerCase();
+                        boolean searchByName = ((RadioButton) currentScene.lookup("#radio_name")).isSelected();
+                        boolean searchByTypeAndAddress = ((RadioButton) currentScene.lookup("#radio_type")).isSelected();
 
-                        if (searchByName) {
-                            if ((nome.toLowerCase()).contains(search)) {
-                                vector_search.add(new SingoloCentroVaccinale(nome, indirizzo, tipologia));
-                            }
-                        } else if (searchByTypeAndAddress) {
-                            if ((indirizzo.toLowerCase()).contains(search) || (tipologia.toLowerCase()).contains(search)) {
-                                vector_search.add(new SingoloCentroVaccinale(nome, indirizzo, tipologia));
+                        for (SingoloCentroVaccinale tempCentre : centriVaccinaliList) {
+                            String nome = tempCentre.getNome();
+                            String indirizzo = tempCentre.getIndirizzo();
+                            String tipologia = tempCentre.getTipologia();
+
+                            if (searchByName) {
+                                if ((nome.toLowerCase()).contains(search)) {
+                                    vector_search.add(new SingoloCentroVaccinale(nome, indirizzo, tipologia));
+                                }
+                            } else if (searchByTypeAndAddress) {
+                                if ((indirizzo.toLowerCase()).contains(search) || (tipologia.toLowerCase()).contains(search)) {
+                                    vector_search.add(new SingoloCentroVaccinale(nome, indirizzo, tipologia));
+                                }
                             }
                         }
+
+                        Platform.runLater(() -> {
+                            if (vector_search.size() == 0) {
+                                scrollPane.setVisible(false);
+                                errorImg.setImage(new Image(getClass().getResourceAsStream(NO_SEARCH_RESULT_IMG_PATH)));
+                                errorImg.setVisible(true);
+                                errorLabel.setText(NO_SEARCHED_CENTERS_FOUND_TEXT);
+                                errorLabel.setVisible(true);
+                            } else {
+                                errorImg.setVisible(false);
+                                errorLabel.setVisible(false);
+                                creaVbox(vector_search);
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        errorImg.setImage(new Image(getClass().getResourceAsStream(ERROR_WITH_DB_IMG_PATH)));
+                        errorImg.setVisible(true);
+                        errorLabel.setText(SERVER_ERROR_TEXT);
+                        errorLabel.setVisible(true);
                     }
+
                     Platform.runLater(() -> {
-                        creaVbox(vector_search);
+                        mainPane.setEffect(null);
+                        ((AnchorPane) currentScene.getRoot()).getChildren().remove(loadingPopup);
+                        loadingPopup = null;
                     });
-                    System.out.println("creato vbox");
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                    //TODO mettere popup di errore
-                }
 
-                Platform.runLater(() -> {
-                    mainPane.setEffect(null);
-                    ((AnchorPane) currentScene.getRoot()).getChildren().remove(loadingPopup);
-                    loadingPopup=null;
-                    System.out.println("popup rimosso");
-                });
-
-                currentSearchThread=null;
+                    currentSearchThread = null;
+                }
+                catch (InterruptedException e) {
+                    System.out.println("Nuova ricerca effettuata");
+                }
             });
             currentSearchThread.start();
         }
@@ -794,6 +835,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      * Invia al server il relativo codice operazione per ottenere una lista di tutti i centri vaccinali presenti nel database
      */
     public static void becomeClient(){
+        //TODO fare in modo che il client provi a ricollegarsi al server se non è connesso
         try {
             System.out.println("[CLIENT MAIN CITTADINI] - Sono già connesso, prendo gli stream ");
             Socket s = SelectionUI.socket_container;
