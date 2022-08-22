@@ -435,11 +435,9 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             //TODO ottimizzare sta roba controllando se è già stata caricata la UI tramite una variabile globale booleana
             FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("/fxml/VisualizzazioneCentroVaccinale.fxml"));
             fxmlLoader.setController(this);
-            Scene scene=new Scene(fxmlLoader.load());
-            AnchorPane anchorPane=new AnchorPane(scene.lookup("#main_anchor_pane"));
-            centerInfoPane.getChildren().add(anchorPane);
+            centerInfoPane.getChildren().add(fxmlLoader.load());
 
-            loadCenterInfo(selectedCenterID,scene);
+            loadCenterInfo(selectedCenterID,centerInfoPane);
 
         }
         catch(IOException e){
@@ -454,80 +452,96 @@ public class MainCittadini implements EventHandler<ActionEvent> {
     /**
      * Carica le informazioni principali del centri vaccinale selezionato.
      * @param idCentro L'ID contenete il numero della riga del centro vaccinale selezionato nel file
-     * @param currentScene La UI in cui verranno inseriti a video i dati presi dal database
+     * @param centerInfoPane Il pannello in cui verranno inseriti a video i dati presi dal database
      */
-    public void loadCenterInfo(int idCentro, Scene currentScene){
-        //TODO aggiungere un feedback visivo per il caricamento
-        try {
-            //TODO far leggere gli eventi avversi ad un thread separato
-            Vector<EventiAvversi> eventLines=leggiEventiAvversi(idCentro);
-            int[] singleEvents=new int[6];
-            Vector<String> otherEventsText=new Vector<>();
+    public void loadCenterInfo(int idCentro, Pane centerInfoPane){
+        double indicatorSize=115;
 
-            for(int i=0;i<singleEvents.length;i++){
-                singleEvents[i]=0;
-            }
+        ProgressIndicator loadingIndicator=new ProgressIndicator();
+        ((AnchorPane)centerInfoPane.lookup("#root_anchor_pane")).getChildren().add(loadingIndicator);
+        ScrollPane scrollPane=((ScrollPane)(centerInfoPane.getParent()).lookup("#scrollPane_CentriVaccinali"));
+        loadingIndicator.setMinHeight(indicatorSize);
+        loadingIndicator.setMinWidth(indicatorSize);
+        loadingIndicator.setLayoutX((scrollPane.getPrefWidth()-(scrollPane.getPrefWidth()/3)-loadingIndicator.getMinWidth())/2);
+        loadingIndicator.setLayoutY((centerInfoPane.getPrefHeight()-loadingIndicator.getMinHeight())/2);
+        loadingIndicator.setStyle("-fx-progress-color: blue");
+        centerInfoPane.lookup("#main_anchor_pane").setOpacity(0.70);
 
-            for(EventiAvversi currentEvents: eventLines) {
+        new Thread(()-> {
+            try {
+                Thread.sleep(550);
 
-                //sommo tra di loro i valori di ogni sintomo per poi poterne far la media
-                singleEvents[0] += currentEvents.getMaleTesta();
-                singleEvents[1] += currentEvents.getFebbre();
-                singleEvents[2] += currentEvents.getDoloriMuscolari();
-                singleEvents[3] += currentEvents.getLinfoadenopatia();
-                singleEvents[4] += currentEvents.getTachicardia();
-                singleEvents[5] += currentEvents.getCrisiIpertensiva();
+                Vector<EventiAvversi> eventLines = leggiEventiAvversi(idCentro);
+                int[] singleEvents = new int[6];
+                Vector<String> otherEventsText = new Vector<>();
 
-                if (currentEvents.getOtherSymptoms() != null&&!(currentEvents.getOtherSymptoms().equals(""))) {
-                    otherEventsText.add(currentEvents.getOtherSymptoms());
+                for (EventiAvversi currentEvents : eventLines) {
+                    //sommo tra di loro i valori di ogni sintomo per poi poterne far la media
+                    singleEvents[0] += currentEvents.getMaleTesta();
+                    singleEvents[1] += currentEvents.getFebbre();
+                    singleEvents[2] += currentEvents.getDoloriMuscolari();
+                    singleEvents[3] += currentEvents.getLinfoadenopatia();
+                    singleEvents[4] += currentEvents.getTachicardia();
+                    singleEvents[5] += currentEvents.getCrisiIpertensiva();
+
+                    if (currentEvents.getOtherSymptoms() != null && !(currentEvents.getOtherSymptoms().equals(""))) {
+                        otherEventsText.add(currentEvents.getOtherSymptoms());
+                    }
                 }
-            }
 
-            for(int i=0;i<singleEvents.length;i++){
-                if(singleEvents[i]!=0) {
-                    singleEvents[i] /= eventLines.size();
+                for (int i = 0; i < singleEvents.length; i++) {
+                    if (singleEvents[i] != 0) {
+                        singleEvents[i] /= eventLines.size();
+                    }
                 }
+
+
+                Label lbl_headacheEffect = (Label) centerInfoPane.lookup("#lbl_effect1");
+                Label lbl_feverEffect = (Label) centerInfoPane.lookup("#lbl_effect2");
+                Label lbl_hurtEffect = (Label) centerInfoPane.lookup("#lbl_effect3");
+                Label lbl_linfEffect = (Label) centerInfoPane.lookup("#lbl_effect4");
+                Label lbl_tacEffect = (Label) centerInfoPane.lookup("#lbl_effect5");
+                Label lbl_crsEffect = (Label) centerInfoPane.lookup("#lbl_effect6");
+
+                Platform.runLater(() -> {
+                    lbl_headacheEffect.setText(String.valueOf(singleEvents[0]));//evento1 = Mal di testa
+                    lbl_feverEffect.setText(String.valueOf(singleEvents[1])); //evento2 = Febbre
+                    lbl_hurtEffect.setText(String.valueOf(singleEvents[2])); //evento3 = Dolori muscolari o articolari
+                    lbl_linfEffect.setText(String.valueOf(singleEvents[3])); //evento4 = Linfoadenopatia
+                    lbl_tacEffect.setText(String.valueOf(singleEvents[4])); //evento5 = Tachicardia
+                    lbl_crsEffect.setText(String.valueOf(singleEvents[5]));//evento6 = Crisi ipertensiva
+
+                    ScrollPane scrollPane_otherEvents = (ScrollPane) centerInfoPane.lookup("#scrollPane_otherEvents");
+                    VBox vbox = new VBox();
+                    vbox.setStyle("-fx-padding: 0 6");
+                    scrollPane_otherEvents.setContent(vbox);
+
+                    for (int i = 0; i < otherEventsText.size(); i++) {
+                        Pane vboxContent = new Pane();
+
+                        Label lbl_otherEventText = new Label(otherEventsText.get(i));
+                        lbl_otherEventText.setFont(Font.font("Franklin Gothic Medium", 18));
+                        lbl_otherEventText.setPrefWidth(490);
+                        lbl_otherEventText.setPrefHeight(30);
+
+                        //TODO aggiungere un dividere tra i vari campi degli altri eventi
+
+                        vboxContent.getChildren().add(lbl_otherEventText);
+
+                        vbox.getChildren().add(vboxContent);
+                    }
+                });
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                //TODO aggiungere un feedback visivo per l'errore
             }
 
-
-            Label lbl_headacheEffect = (Label) currentScene.lookup("#lbl_effect1");
-            Label lbl_feverEffect = (Label) currentScene.lookup("#lbl_effect2");
-            Label lbl_hurtEffect = (Label) currentScene.lookup("#lbl_effect3");
-            Label lbl_linfEffect = (Label) currentScene.lookup("#lbl_effect4");
-            Label lbl_tacEffect = (Label) currentScene.lookup("#lbl_effect5");
-            Label lbl_crsEffect = (Label) currentScene.lookup("#lbl_effect6");
-
-            lbl_headacheEffect.setText(String.valueOf(singleEvents[0]));//evento1 = Mal di testa
-            lbl_feverEffect.setText(String.valueOf(singleEvents[1])); //evento2 = Febbre
-            lbl_hurtEffect.setText(String.valueOf(singleEvents[2])); //evento3 = Dolori muscolari o articolari
-            lbl_linfEffect.setText(String.valueOf(singleEvents[3])); //evento4 = Linfoadenopatia
-            lbl_tacEffect.setText(String.valueOf(singleEvents[4])); //evento5 = Tachicardia
-            lbl_crsEffect.setText(String.valueOf(singleEvents[5]));//evento6 = Crisi ipertensiva
-
-            ScrollPane scrollPane_otherEvents = (ScrollPane) currentScene.lookup("#scrollPane_otherEvents");
-            VBox vbox = new VBox();
-            vbox.setStyle("-fx-padding: 0 6");
-            scrollPane_otherEvents.setContent(vbox);
-
-            for (int i = 0; i < otherEventsText.size(); i++) {
-                Pane vboxContent = new Pane();
-
-                Label lbl_otherEventText = new Label(otherEventsText.get(i));
-                lbl_otherEventText.setFont(Font.font("Franklin Gothic Medium", 18));
-                lbl_otherEventText.setPrefWidth(490);
-                lbl_otherEventText.setPrefHeight(30);
-
-
-                vboxContent.getChildren().add(lbl_otherEventText);
-
-                vbox.getChildren().add(vboxContent);
-
-            }
-
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+            Platform.runLater(() -> {
+                ((AnchorPane)centerInfoPane.lookup("#root_anchor_pane")).getChildren().remove(loadingIndicator);
+                centerInfoPane.lookup("#main_anchor_pane").setOpacity(1);
+            });
+        }).start();
 
     }
 
