@@ -105,6 +105,10 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      * Popup mostrato durante la ricerca. Serve al Thread di ricerca per eliminare dalla UI il popup quando l'operazione è terminata
      */
     private Node loadingPopup=null;
+    /**
+     * Usata per sapere se la UI, contente le informazioni del centro vaccinale, sia già stata caricata
+     */
+    private boolean centerInfoPaneUILoaded=false;
 
 
     /**
@@ -158,6 +162,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
                 scene.lookup("#btn_register").setVisible(false);
                 btn_logout.setLayoutX(810);
                 btn_logout.setLayoutY(10);
+                btn_logout.getStyleClass().add("buttonSelection");
                 btn_logout.setOnAction(event -> {
                     HashMap<String,String> newUserData=(HashMap<String,String>) stage.getUserData();
                     newUserData.remove("currentUser");
@@ -433,9 +438,12 @@ public class MainCittadini implements EventHandler<ActionEvent> {
     public void loadVisualizzatoreCentroVaccinale(Pane centerInfoPane, int selectedCenterID){
         try {
             //TODO ottimizzare sta roba controllando se è già stata caricata la UI tramite una variabile globale booleana
-            FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("/fxml/VisualizzazioneCentroVaccinale.fxml"));
-            fxmlLoader.setController(this);
-            centerInfoPane.getChildren().add(fxmlLoader.load());
+            if(!centerInfoPaneUILoaded) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/VisualizzazioneCentroVaccinale.fxml"));
+                fxmlLoader.setController(this);
+                centerInfoPane.getChildren().add(fxmlLoader.load());
+                centerInfoPaneUILoaded=true;
+            }
 
             loadCenterInfo(selectedCenterID,centerInfoPane);
 
@@ -465,7 +473,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         loadingIndicator.setLayoutX((scrollPane.getPrefWidth()-(scrollPane.getPrefWidth()/3)-loadingIndicator.getMinWidth())/2);
         loadingIndicator.setLayoutY((centerInfoPane.getPrefHeight()-loadingIndicator.getMinHeight())/2);
         loadingIndicator.setStyle("-fx-progress-color: blue");
-        centerInfoPane.lookup("#main_anchor_pane").setOpacity(0.70);
+        centerInfoPane.lookup("#main_anchor_pane").setOpacity(0.6);
 
         new Thread(()-> {
             try {

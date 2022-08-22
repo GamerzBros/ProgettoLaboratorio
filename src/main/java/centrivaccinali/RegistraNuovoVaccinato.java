@@ -100,10 +100,10 @@ public class RegistraNuovoVaccinato {
                 ChoiceBox<String> choiceBox_centroVaccinale = ((ChoiceBox<String>) scene.lookup("#cbx_centroVaccinale"));
                 choiceBox_centroVaccinale.setValue("Centro Vaccinale");
 
-
                 ChoiceBox<String> choiceBox_vaccinoSomministrato = ((ChoiceBox<String>) scene.lookup("#cbx_vaccinoSomministrato"));
                 choiceBox_vaccinoSomministrato.setValue("Tipologia Vaccino");
                 choiceBox_vaccinoSomministrato.setItems(vaccino_somministrato_items);
+                //TODO mettere lettura centri su un thread separato
                 becomeClient();
                 ObjectInputStream ois=new ObjectInputStream(SelectionUI.socket_container.getInputStream());
                 //Creo gli stream e ricevo dal server il vettore dei centri vaccinali

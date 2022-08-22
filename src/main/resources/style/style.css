@@ -17,12 +17,14 @@
     -fx-background-color: white;
     -fx-background-radius: 18;
     -fx-text-fill: black;
-    -fx-stroke: black;
-    -fx-stroke-width: 3;
     -fx-padding: 2.4 8.2 2.4 8.2;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.8), 6, 0 , 0 , 0 );
 }
 .radioButtonChip:selected{
     -fx-background-color: orange;
+}
+.radioButtonChip:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.8), 12, 0 , 0 , 0 );
 }
 
 .scrollPaneCenters .viewport{
