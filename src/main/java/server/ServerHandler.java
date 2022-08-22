@@ -387,7 +387,6 @@ public class ServerHandler extends Thread{
         super.run();
         System.out.println("[THREAD] - Server thread startato");
         try{
-            //TODO sistemare il problema degli stream bloccanti nel case REGISTER_EVENTI_AVVERSI (per cri)
             in = new BufferedReader(new InputStreamReader(s.getInputStream()));
             out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())), true);
             while (true){

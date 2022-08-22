@@ -115,7 +115,6 @@ public class RegistraNuovoVaccinato {
                 }
                 choiceBox_centroVaccinale.setItems(centro_vaccinale_items);
 
-                //TODO prendere la posizione del centro vaccinale selezionato nella lista e passarlo come id del centro nel db
             }
             catch (IOException | ClassNotFoundException e){
                 e.printStackTrace();

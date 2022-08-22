@@ -106,7 +106,6 @@ public class RegistraEventiAvversi {
             EventiAvversi eventiSalvati= new EventiAvversi(evento1, evento2, evento3, evento4, evento5, evento6, otherEvent, currentCenter,currentUser);
 
             //inizializzo socket e stream
-            //TODO sistemare il problema degli stream bloccanti (per cri)
             becomeClient();
             ObjectOutputStream obOut= new ObjectOutputStream(SelectionUI.socket_container.getOutputStream());
             obOut.writeObject(eventiSalvati);

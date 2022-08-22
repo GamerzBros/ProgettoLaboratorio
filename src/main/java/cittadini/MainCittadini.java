@@ -524,7 +524,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
                         lbl_otherEventText.setPrefWidth(490);
                         lbl_otherEventText.setPrefHeight(30);
 
-                        //TODO aggiungere un dividere tra i vari campi degli altri eventi
+                        //TODO aggiungere un divider tra i vari campi degli altri eventi
 
                         vboxContent.getChildren().add(lbl_otherEventText);
 
