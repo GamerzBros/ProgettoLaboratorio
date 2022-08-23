@@ -13,14 +13,11 @@ import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import server.ServerHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -38,7 +35,6 @@ import javafx.util.Duration;
 import java.io.*;
 import java.net.Socket;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
@@ -47,7 +43,7 @@ import java.util.Vector;
  * Gestisce la UI che permette ai cittadini di consultare i centri vaccinali e i loro relativi eventi avversi registrati
  */
 //TODO rivedere quando usare i throws e i try/catch all'interno del progetto
-public class MainCittadini implements EventHandler<ActionEvent> {
+public class MainCittadini {
     /**
      * Il percorso dell'immagine che verrà mostrata qualora non sia possibile connettersi al server
      */
@@ -72,6 +68,10 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      * La stringa che verrà mostrata all'utente qualora non sia stato trovato nessun centro vaccinale corrispondente alla ricerca
      */
     public static final String NO_SEARCHED_CENTERS_FOUND_TEXT ="Purtroppo la tua ricerca non ha prodotto nessun risultato";
+    /**
+     * Il percorso dell'immagine che verrà inserita nel bottone per aprire il pannello di informazioni di ogni centro
+     */
+    private static final String OPEN_CENTER_INFO_IMG_PATH = "/cittadini/openCenterInfo.png";
     /**
      * Lista contente tutti i centri vaccinali presenti nel database. Popolata dal metodo getCentriVaccinaliFromFile()
      */
@@ -279,7 +279,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             Label lblName=new Label(currentCentro.getNome());
             Label lblAddress=new Label(currentCentro.getIndirizzo());
             Label lblType=new Label(currentCentro.getTipologia());
-            Button btnGoTo=new Button(">");
+            ImageView btnGoTo=new ImageView(new Image(getClass().getResourceAsStream(OPEN_CENTER_INFO_IMG_PATH)));
 
             lblName.setWrapText(true);
             lblAddress.setWrapText(true);
@@ -298,13 +298,13 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             lblType.setStyle("-fx-text-fill: black; -fx-font-family: Arial; -fx-font-size: 19");
 
 
-            btnGoTo.setFont(new Font("Arial",16));
             btnGoTo.setCursor(Cursor.HAND);
             //usa #292E32 per il tema scuro
+            btnGoTo.setFitWidth(36);
+            btnGoTo.setFitHeight(36);
             btnGoTo.getStyleClass().add("buttonSelection");
-            btnGoTo.setStyle( "-fx-background-radius: 5em; -fx-min-width: 1px; -fx-background-color: #FFFFFF; -fx-border-radius: 5em; -fx-border-color: #000000;");
             btnGoTo.setId(String.valueOf(i));
-            btnGoTo.setOnAction(this);
+            btnGoTo.setOnMouseClicked(this::startOpenInfoPaneAnimation);
 
             HBox.setHgrow(lblAddress, Priority.ALWAYS);
             hbox.getChildren().add(lblName);
@@ -341,9 +341,8 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      * Apre la UI del centro vaccinale sul quale il cittadino ha cliccato.
      * @param actionEvent L'evento che richiama il metodo. Necessario a ottenere il bottone sorgente dell'evento dal quale è possibile ottenere l'id del centro selezionato.
      */
-    @Override
-    public void handle(ActionEvent actionEvent) {
-        Button source = (Button) actionEvent.getSource();
+    public void startOpenInfoPaneAnimation(MouseEvent actionEvent) {
+        ImageView source = (ImageView) actionEvent.getSource();
         ScrollPane centerListPane = (ScrollPane) source.getScene().lookup("#scrollPane_CentriVaccinali");
         Pane centerInfoPane = (Pane) source.getScene().lookup("#pane_center_information");
         int currentCenterID = Integer.parseInt(source.getId());
@@ -367,7 +366,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
 
             paneTransition.setOnFinished((eventHandler)->{
                 Timeline buttonRotation=new Timeline(
-                new KeyFrame(Duration.millis(350), new KeyValue(source.rotateProperty(), 180, Interpolator.EASE_BOTH)));
+                new KeyFrame(Duration.millis(400), new KeyValue(source.rotateProperty(), 225, Interpolator.EASE_BOTH)));
 
                 buttonRotation.play();
             });
@@ -382,10 +381,6 @@ public class MainCittadini implements EventHandler<ActionEvent> {
 
                 elementTransition.play();
 
-                Button button=(Button)element.getChildren().get(3);
-                if(selectedCenterID==Integer.parseInt(button.getId())){
-                    button.setStyle("-fx-cursor: hand; -fx-background-radius: 5em; -fx-min-width: 1px; -fx-background-color: orange; -fx-border-radius: 5em; -fx-border-color: #000000;");
-                }
             }
 
             loadVisualizzatoreCentroVaccinale(centerInfoPane, currentCenterID);
@@ -402,7 +397,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
 
             paneTransition.setOnFinished((eventHandler)->{
                 Timeline buttonRotation=new Timeline(
-                        new KeyFrame(Duration.millis(350), new KeyValue(source.rotateProperty(), 0, Interpolator.EASE_BOTH)));
+                        new KeyFrame(Duration.millis(400), new KeyValue(source.rotateProperty(), 0, Interpolator.EASE_BOTH)));
 
                 buttonRotation.play();
             });
@@ -412,8 +407,6 @@ public class MainCittadini implements EventHandler<ActionEvent> {
                 ((Label)element.getChildren().get(0)).setPrefWidth(150);
                 ((Label)element.getChildren().get(1)).setPrefWidth(465);
                 ((Label)element.getChildren().get(2)).setPrefWidth(133);
-                Button button=(Button)element.getChildren().get(3);
-                button.setStyle("-fx-cursor: hand; -fx-background-radius: 5em; -fx-min-width: 1px; -fx-background-color: #FFFFFF; -fx-border-radius: 5em; -fx-border-color: #000000;");
             }
 
             userData.remove("currentCenter");
