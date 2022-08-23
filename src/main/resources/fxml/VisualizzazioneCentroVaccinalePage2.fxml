@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <Label fx:id="lbl_totalEvents" layoutX="14.0" layoutY="370.0" prefHeight="30.0" prefWidth="330.0" text="Totale eventi: 0">
+        <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+        </font>
+    </Label>
+    <PieChart fx:id="pieChart_symptoms" prefHeight="330" prefWidth="600" />
+</AnchorPane>

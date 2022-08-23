@@ -4,10 +4,15 @@ import centrivaccinali.SelectionUI;
 import centrivaccinali.SingoloCentroVaccinale;
 import javafx.animation.Interpolator;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.chart.PieChart;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import server.ServerHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -30,6 +35,7 @@ import javafx.util.Duration;
 import java.io.*;
 import java.net.Socket;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
@@ -438,14 +444,37 @@ public class MainCittadini implements EventHandler<ActionEvent> {
     public void loadVisualizzatoreCentroVaccinale(Pane centerInfoPane, int selectedCenterID){
         try {
             //TODO ottimizzare sta roba controllando se è già stata caricata la UI tramite una variabile globale booleana
-            if(!centerInfoPaneUILoaded) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/VisualizzazioneCentroVaccinale.fxml"));
-                fxmlLoader.setController(this);
-                centerInfoPane.getChildren().add(fxmlLoader.load());
-                centerInfoPaneUILoaded=true;
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/VisualizzazioneCentroVaccinalePage1.fxml"));
+            fxmlLoader.setController(this);
+            Parent centerPageOne = fxmlLoader.load();
+            fxmlLoader=new FXMLLoader(getClass().getResource("/fxml/VisualizzazioneCentroVaccinalePage2.fxml"));
+            fxmlLoader.setController(this);
+            Parent centerPageTwo = fxmlLoader.load();
+
+            /*metto le due scene al centro del pannello
+            centerPageOne.setLayoutX((centerInfoPane.getWidth()-((AnchorPane)centerPageOne).getPrefWidth())/2);
+            centerPageTwo.setLayoutX((centerInfoPane.getWidth()-((AnchorPane)centerPageTwo).getPrefWidth())/2);*/
+
+            if(centerInfoPaneUILoaded){
+                centerInfoPane.getChildren().remove(0);
+            }
+            else {
+                centerInfoPaneUILoaded = true;
             }
 
-            loadCenterInfo(selectedCenterID,centerInfoPane);
+            Pagination pagination=new Pagination(2);
+            pagination.getStyleClass().add("pagination");
+            pagination.setPageFactory((pageIndex)->{
+                if(pageIndex==0){
+                    return centerPageOne;
+                }
+                else{
+                    return centerPageTwo;
+                }
+            });
+            centerInfoPane.getChildren().add(pagination);
+
+            loadCenterInfo(selectedCenterID,centerInfoPane,(AnchorPane) centerPageOne,(AnchorPane) centerPageTwo);
 
         }
         catch(IOException e){
@@ -462,18 +491,19 @@ public class MainCittadini implements EventHandler<ActionEvent> {
      * @param idCentro L'ID contenete il numero della riga del centro vaccinale selezionato nel file
      * @param centerInfoPane Il pannello in cui verranno inseriti a video i dati presi dal database
      */
-    public void loadCenterInfo(int idCentro, Pane centerInfoPane){
+    public void loadCenterInfo(int idCentro, Pane centerInfoPane, AnchorPane centerPageOne, AnchorPane centerPageTwo){
         double indicatorSize=115;
 
         ProgressIndicator loadingIndicator=new ProgressIndicator();
-        ((AnchorPane)centerInfoPane.lookup("#root_anchor_pane")).getChildren().add(loadingIndicator);
+        //((AnchorPane)centerInfoPane.lookup("#root_anchor_pane")).getChildren().add(loadingIndicator);
+        centerInfoPane.getChildren().add(loadingIndicator);
         ScrollPane scrollPane=((ScrollPane)(centerInfoPane.getParent()).lookup("#scrollPane_CentriVaccinali"));
         loadingIndicator.setMinHeight(indicatorSize);
         loadingIndicator.setMinWidth(indicatorSize);
         loadingIndicator.setLayoutX((scrollPane.getPrefWidth()-(scrollPane.getPrefWidth()/3)-loadingIndicator.getMinWidth())/2);
         loadingIndicator.setLayoutY((centerInfoPane.getPrefHeight()-loadingIndicator.getMinHeight())/2);
         loadingIndicator.setStyle("-fx-progress-color: blue");
-        centerInfoPane.lookup("#main_anchor_pane").setOpacity(0.6);
+        centerInfoPane.getChildren().get(0).setOpacity(0.6);
 
         new Thread(()-> {
             try {
@@ -504,12 +534,37 @@ public class MainCittadini implements EventHandler<ActionEvent> {
                 }
 
 
-                Label lbl_headacheEffect = (Label) centerInfoPane.lookup("#lbl_effect1");
-                Label lbl_feverEffect = (Label) centerInfoPane.lookup("#lbl_effect2");
-                Label lbl_hurtEffect = (Label) centerInfoPane.lookup("#lbl_effect3");
-                Label lbl_linfEffect = (Label) centerInfoPane.lookup("#lbl_effect4");
-                Label lbl_tacEffect = (Label) centerInfoPane.lookup("#lbl_effect5");
-                Label lbl_crsEffect = (Label) centerInfoPane.lookup("#lbl_effect6");
+                Label lbl_headacheEffect = (Label) centerPageOne.lookup("#lbl_effect1");
+                Label lbl_feverEffect = (Label) centerPageOne.lookup("#lbl_effect2");
+                Label lbl_hurtEffect = (Label) centerPageOne.lookup("#lbl_effect3");
+                Label lbl_linfEffect = (Label) centerPageOne.lookup("#lbl_effect4");
+                Label lbl_tacEffect = (Label) centerPageOne.lookup("#lbl_effect5");
+                Label lbl_crsEffect = (Label) centerPageOne.lookup("#lbl_effect6");
+
+                int total=0;
+                for(int i=0;i<singleEvents.length;i++){
+                    total+=singleEvents[i];
+                }
+
+                PieChart pieChart = (PieChart) centerPageTwo.lookup("#pieChart_symptoms");
+                ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+                pieChartData.add(new PieChart.Data("Mal di testa", singleEvents[0]));
+                pieChartData.add(new PieChart.Data("Febbre", singleEvents[1]));
+                pieChartData.add(new PieChart.Data("Dolori muscolari", singleEvents[2]));
+                pieChartData.add(new PieChart.Data("Linfoadenopatia", singleEvents[3]));
+                pieChartData.add(new PieChart.Data("Tachicardia", singleEvents[4]));
+                pieChartData.add(new PieChart.Data("Crisi ipertensiva", singleEvents[5]));
+                pieChart.setData(pieChartData);
+
+                for(PieChart.Data data : pieChartData) {
+                    data.nameProperty().bind(Bindings.concat(data.getName(), " ", (int)(data.getPieValue() * 100 / total), "%"));
+                }
+
+                pieChart.getStyleClass().add("pieChart");
+
+
+                Label lbl_totalEvents = (Label) centerPageTwo.lookup("#lbl_totalEvents");
+                lbl_totalEvents.setText("Numero totale di eventi registrati: "+eventLines.size());
 
                 Platform.runLater(() -> {
                     lbl_headacheEffect.setText(String.valueOf(singleEvents[0]));//evento1 = Mal di testa
@@ -546,8 +601,8 @@ public class MainCittadini implements EventHandler<ActionEvent> {
             }
 
             Platform.runLater(() -> {
-                ((AnchorPane)centerInfoPane.lookup("#root_anchor_pane")).getChildren().remove(loadingIndicator);
-                centerInfoPane.lookup("#main_anchor_pane").setOpacity(1);
+                centerInfoPane.getChildren().remove(loadingIndicator);
+                centerInfoPane.getChildren().get(0).setOpacity(1);
             });
         }).start();
 
