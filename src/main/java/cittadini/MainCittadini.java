@@ -7,12 +7,14 @@ import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Orientation;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import server.ServerHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -32,6 +34,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import java.io.*;
 import java.net.Socket;
 import java.net.URL;
@@ -464,6 +467,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
 
             Pagination pagination=new Pagination(2);
             pagination.getStyleClass().add("pagination");
+
             pagination.setPageFactory((pageIndex)->{
                 if(pageIndex==0){
                     return centerPageOne;
@@ -508,6 +512,8 @@ public class MainCittadini implements EventHandler<ActionEvent> {
         new Thread(()-> {
             try {
                 Thread.sleep(550);
+
+                System.out.println(centerInfoPane.getPrefWidth());
 
                 Vector<EventiAvversi> eventLines = leggiEventiAvversi(idCentro);
                 int[] singleEvents = new int[6];
@@ -577,6 +583,7 @@ public class MainCittadini implements EventHandler<ActionEvent> {
                     ScrollPane scrollPane_otherEvents = (ScrollPane) centerInfoPane.lookup("#scrollPane_otherEvents");
                     VBox vbox = new VBox();
                     vbox.setStyle("-fx-padding: 0 6");
+                    vbox.setSpacing(3);
                     scrollPane_otherEvents.setContent(vbox);
 
                     for (int i = 0; i < otherEventsText.size(); i++) {
@@ -587,11 +594,17 @@ public class MainCittadini implements EventHandler<ActionEvent> {
                         lbl_otherEventText.setPrefWidth(490);
                         lbl_otherEventText.setPrefHeight(30);
 
-                        //TODO aggiungere un divider tra i vari campi degli altri eventi
+                        //TODO centrare divider
+
+                        Separator separator = new Separator();
+                        separator.setOrientation(Orientation.HORIZONTAL);
+                        separator.setPrefWidth(480);
+                        separator.setCenterShape(true);
 
                         vboxContent.getChildren().add(lbl_otherEventText);
 
                         vbox.getChildren().add(vboxContent);
+                        vbox.getChildren().add(separator);
                     }
                 });
 
