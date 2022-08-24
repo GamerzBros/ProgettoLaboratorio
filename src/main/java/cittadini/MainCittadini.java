@@ -11,7 +11,6 @@ import javafx.geometry.Orientation;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import server.ServerHandler;
 import javafx.animation.KeyFrame;
@@ -148,46 +147,7 @@ public class MainCittadini {
 
             stage.centerOnScreen();
 
-            //Setto la userData dello stage per evitare possibili null pointer
-            HashMap<String,String> userData;
-            String currentUser=null;
-
-            if (stage.getUserData() != null){
-                userData = (HashMap<String,String>) stage.getUserData();
-                currentUser = userData.get("currentUser");
-            }
-            else{
-                userData=new HashMap<String,String>();
-                stage.setUserData(userData);
-            }
-
-            if(currentUser!=null){
-                Button btn_logout=new Button();
-                btn_logout.setText("Logout");
-                btn_logout.setStyle("-fx-border-style: hidden;-fx-alignment:  center; -fx-background-color: #1a73e8; -fx-background-radius: 8; -fx-text-fill: white;");
-                btn_logout.setPrefWidth(100);
-                btn_logout.setPrefHeight(25);
-                scene.lookup("#btn_login").setVisible(false);
-                scene.lookup("#btn_register").setVisible(false);
-                btn_logout.setLayoutX(810);
-                btn_logout.setLayoutY(10);
-                btn_logout.getStyleClass().add("buttonSelection");
-                btn_logout.setOnAction(event -> {
-                    HashMap<String,String> newUserData=(HashMap<String,String>) stage.getUserData();
-                    newUserData.remove("currentUser");
-                    stage.setUserData(newUserData);
-                    //TODO sostituire la chiamata di questo metodo, con il metodo che carica solo i bottoni
-                    loadMainCittadiniUI(stage);
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Logout effettuato");
-                    alert.setContentText("Logout effettuato correttamente");
-                    alert.showAndWait();
-                });
-
-                ((AnchorPane)scene.lookup("#mainPane")).getChildren().add(btn_logout);
-            }
-
-            //stage.show();
+            setSceneButtons(stage);
 
             InputStream iconStream=getClass().getResourceAsStream(CITIZENS_PORTAL_ICON_PATH);
             Image icon=new Image(iconStream);
@@ -203,12 +163,9 @@ public class MainCittadini {
             AnchorPane mainPane=(AnchorPane) scene.lookup("#mainPane");
 
             Node loadingPopup=showLoadingAnimation(scene);
-            //mainPane.setOpacity(0.7);
-            mainPane.setEffect(new GaussianBlur(1.85));
 
             new Thread(()-> {
                 try {
-
                     //Faccio in modo che il popup di caricamento sia visibile almeno per poco tempo
                     Thread.sleep(700);
 
@@ -250,6 +207,63 @@ public class MainCittadini {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Controlla se l'utente ha effettuato l'accesso e carica i relativi bottoni.
+     * Se l'utente è quindi loggato, inserisce nella UI il pulsante di logout.
+     * Se l'utente non è loggato, rende visibili i pulsanti di accesso e di registrazione e rimuove, qualora sia presente, il pulsante di logout
+     * @param stage Lo stage da cui verranno ottenuti gli UserData per controllare se l'utente ha effettuato l'accesso
+     */
+    private void setSceneButtons(Stage stage){
+        //Setto la userData dello stage per evitare possibili null pointer
+        HashMap<String,String> userData;
+        String currentUser=null;
+        Scene scene=stage.getScene();
+
+        if (stage.getUserData() != null){
+            userData = (HashMap<String,String>) stage.getUserData();
+            currentUser = userData.get("currentUser");
+        }
+        else{
+            userData=new HashMap<String,String>();
+            stage.setUserData(userData);
+        }
+
+        if(currentUser!=null){
+            Button btn_logout=new Button();
+            btn_logout.setText("Logout");
+            btn_logout.setStyle("-fx-border-style: hidden;-fx-alignment:  center; -fx-background-color: #1a73e8; -fx-background-radius: 8; -fx-text-fill: white;");
+            btn_logout.setPrefWidth(100);
+            btn_logout.setPrefHeight(25);
+            scene.lookup("#btn_login").setVisible(false);
+            scene.lookup("#btn_register").setVisible(false);
+            btn_logout.setLayoutX(810);
+            btn_logout.setLayoutY(10);
+            btn_logout.getStyleClass().add("buttonSelection");
+            btn_logout.setOnAction(event -> {
+                HashMap<String,String> newUserData=(HashMap<String,String>) stage.getUserData();
+                newUserData.remove("currentUser");
+                stage.setUserData(newUserData);
+                setSceneButtons(stage);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Logout effettuato");
+                alert.setContentText("Logout effettuato correttamente");
+                alert.showAndWait();
+            });
+
+            btn_logout.idProperty().set("btn_logout");
+
+            ((AnchorPane)scene.lookup("#mainPane")).getChildren().add(btn_logout);
+        }
+        else{
+            Button btnLogout=(Button) scene.lookup("#btn_logout");
+            if(btnLogout!=null) {
+                ((AnchorPane) scene.lookup("#mainPane")).getChildren().remove(btnLogout);
+            }
+            scene.lookup("#btn_login").setVisible(true);
+            scene.lookup("#btn_register").setVisible(true);
         }
     }
 
@@ -506,8 +520,6 @@ public class MainCittadini {
             try {
                 Thread.sleep(550);
 
-                System.out.println(centerInfoPane.getPrefWidth());
-
                 Vector<EventiAvversi> eventLines = leggiEventiAvversi(idCentro);
                 int[] singleEvents = new int[6];
                 Vector<String> otherEventsText = new Vector<>();
@@ -697,7 +709,6 @@ public class MainCittadini {
 
             if(loadingPopup==null) {
                 loadingPopup = showLoadingAnimation(currentScene);
-                mainPane.setEffect(new GaussianBlur(1.85));
             }
             if(currentSearchThread!=null){
                 currentSearchThread.interrupt();

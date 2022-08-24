@@ -1,5 +1,7 @@
 package centrivaccinali;
 
+import javafx.application.Platform;
+import javafx.scene.layout.AnchorPane;
 import server.ServerHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -63,10 +65,6 @@ public class RegistraNuovoVaccinato {
      */
     private Vector<SingoloCentroVaccinale> centriVaccinaliList=null;
     /**
-     * Variabile per salvare temporaneamente il centro vacinale
-     */
-    private SingoloCentroVaccinale centro;
-    /**
      * Lista contente i tipi di vaccini
      */
     private ObservableList<String> vaccino_somministrato_items = FXCollections.observableArrayList("Pfizer","AstraZeneca","Moderna","J&J");
@@ -94,34 +92,50 @@ public class RegistraNuovoVaccinato {
             stage.setTitle("Nuovo Paziente");
 
             stage.centerOnScreen();
+            //Inizializzo i choicebox
+            ChoiceBox<String> choiceBox_centroVaccinale = ((ChoiceBox<String>) scene.lookup("#cbx_centroVaccinale"));
+            choiceBox_centroVaccinale.setValue("Centro Vaccinale");
 
-            try {
-                //Inizializzo i choicebox
-                ChoiceBox<String> choiceBox_centroVaccinale = ((ChoiceBox<String>) scene.lookup("#cbx_centroVaccinale"));
-                choiceBox_centroVaccinale.setValue("Centro Vaccinale");
+            ChoiceBox<String> choiceBox_vaccinoSomministrato = ((ChoiceBox<String>) scene.lookup("#cbx_vaccinoSomministrato"));
+            choiceBox_vaccinoSomministrato.setValue("Tipologia Vaccino");
+            choiceBox_vaccinoSomministrato.setItems(vaccino_somministrato_items);
 
-                ChoiceBox<String> choiceBox_vaccinoSomministrato = ((ChoiceBox<String>) scene.lookup("#cbx_vaccinoSomministrato"));
-                choiceBox_vaccinoSomministrato.setValue("Tipologia Vaccino");
-                choiceBox_vaccinoSomministrato.setItems(vaccino_somministrato_items);
-                //TODO mettere lettura centri su un thread separato
-                becomeClient();
-                ObjectInputStream ois=new ObjectInputStream(SelectionUI.socket_container.getInputStream());
-                //Creo gli stream e ricevo dal server il vettore dei centri vaccinali
-                centriVaccinaliList= (Vector<SingoloCentroVaccinale>) ois.readObject();
-                //Aggiorno la lsita dei nomi e la metto nel ChoiceBox
-                for(int i=0;i<centriVaccinaliList.size();i++){
-                    centro= centriVaccinaliList.get(i);
-                    centro_vaccinale_items.add(centro.getNome());
+            double popupSize=90;
+            ProgressIndicator loadingPopup=new ProgressIndicator();
+            loadingPopup.setMinHeight(popupSize);
+            loadingPopup.setMinWidth(popupSize);
+            loadingPopup.setLayoutX(scene.getWidth()/2-loadingPopup.getMinWidth()/2);
+            loadingPopup.setLayoutY(scene.getHeight()/2-loadingPopup.getMinHeight()/2);
+            loadingPopup.setStyle("-fx-progress-color: white");
+            ((AnchorPane)scene.getRoot()).getChildren().add(loadingPopup);
+            scene.lookup("#main_anchor_pane").setOpacity(0.60);
+
+            new Thread(()->{
+                try {
+                    //faccio in modo che il popup di caricamento sia visibile almeno per un breve periodo di tempo
+                    Thread.sleep(400);
+
+                    becomeClient();
+                    ObjectInputStream ois = new ObjectInputStream(SelectionUI.socket_container.getInputStream());
+                    //Creo gli stream e ricevo dal server il vettore dei centri vaccinali
+                    centriVaccinaliList = (Vector<SingoloCentroVaccinale>) ois.readObject();
+                    //Aggiorno la lsita dei nomi e la metto nel ChoiceBox
+                    for (SingoloCentroVaccinale centro : centriVaccinaliList) {
+                        centro_vaccinale_items.add(centro.getNome());
+                    }
+                    choiceBox_centroVaccinale.setItems(centro_vaccinale_items);
                 }
-                choiceBox_centroVaccinale.setItems(centro_vaccinale_items);
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-            }
-            catch (IOException | ClassNotFoundException e){
-                e.printStackTrace();
-            }
+                Platform.runLater(()->{
+                    ((AnchorPane)scene.getRoot()).getChildren().remove(loadingPopup);
+                    scene.lookup("#main_anchor_pane").setOpacity(1);
+                });
+            }).start();
 
             stage.show();
-
         }
         catch (IOException e){
             e.printStackTrace();

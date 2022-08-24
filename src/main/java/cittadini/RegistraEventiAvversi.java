@@ -44,8 +44,6 @@ public class RegistraEventiAvversi {
         currentUser=userData.get("currentUser");
         currentCenter=Integer.parseInt(userData.get("currentCenter"));
         eventsNum=userData.get("eventsNum");
-        //TODO mettere eventsNum nella UI
-        // (per far sapere all'utente il numero della vaccinazione che sta registrando)
         loadUI(stage);
     }
 

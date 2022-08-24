@@ -243,7 +243,7 @@ public class ServerHandler extends Thread{
                 comune_db = res.getString("comune");
                 provincia_db = res.getString("provincia");
                 cap_db = res.getString("cap");
-                String indirizzo = via_db+" "+nome_db+", "+civico_db+", "+comune_db+" ("+provincia_db+") "+cap_db;
+                String indirizzo = qualificatore_db+" "+via_db+", "+civico_db+", "+comune_db+" ("+provincia_db+") "+cap_db;
                 tipologia_db = res.getString("tipologia");
                 vector.add(new SingoloCentroVaccinale(nome_db, indirizzo, tipologia_db));
             }
