@@ -7,7 +7,7 @@
 
 <?import java.net.URL?>
 <AnchorPane prefHeight="345.0" prefWidth="490.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
+   <AnchorPane fx:id="main_anchor_pane">
       <Button layoutX="4.0" layoutY="7.5" onMouseClicked="#goBackToOpzioniOperatore" styleClass="backButton">
          <graphic>
             <ImageView fitHeight="22.0" fitWidth="20.0" preserveRatio="false">
@@ -29,7 +29,7 @@
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Button>
-   </children>
+   </AnchorPane>
    <stylesheets>
       <URL value="@/style/style.css"/>
    </stylesheets>

@@ -41,13 +41,21 @@ public class RegistrazioneUtente {
         String user = ((TextField)currentScene.lookup("#txt_userMail")).getText();
         String userCF=((TextField)currentScene.lookup("#txt_userCF")).getText().toUpperCase();
         String pwd = ((PasswordField)currentScene.lookup("#pswd_register")).getText();
-        String confrmationPwd=((PasswordField)currentScene.lookup("#pswd_confirm")).getText();
-        LocalDate datanascita = ((DatePicker)currentScene.lookup("#datePicker_datavaccinazione")).getValue();
-        String dataNascita = datanascita.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String confirmationPwd=((PasswordField)currentScene.lookup("#pswd_confirm")).getText();
+        LocalDate dataNascita = ((DatePicker)currentScene.lookup("#datePicker_datavaccinazione")).getValue();
 
-        //TODO controllare che tutti i dati siano stati inseriti nei vari campi
+        //TODO dividere gli errori in diversi if (per mostrare all'utente popup diversi e meno generici)
+        if(name.equals("")||surname.equals("")||user.equals("")||pwd.equals("")||pwd.compareTo(confirmationPwd)!=0||dataNascita==null||userCF.length()!=16){
+            Alert alert=new Alert(Alert.AlertType.WARNING,"Compila tutti i campi");
+            alert.setContentText("Attenzione, controlla di aver inserito tutti i dati nei vari campi");
+            alert.show();
+            return;
+        }
 
-        if(pwd.compareTo(confrmationPwd)==0) {
+        //String dataNascitaString = dataNascita.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+
+        if(pwd.compareTo(confirmationPwd)==0) {
 
             try {
                 MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
