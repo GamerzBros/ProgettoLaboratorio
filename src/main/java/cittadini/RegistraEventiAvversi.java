@@ -32,7 +32,13 @@ public class RegistraEventiAvversi {
      * Il numero della vaccinazione relativa agli eventi avversi
      */
     private String eventsNum;
+    /**
+     * PrintWriter utilizzato per mandare messaggi al server
+     */
     private PrintWriter out;
+    /**
+     * BufferedReader utilizzato per ricevere messaggi dal server
+     */
     private BufferedReader in;
 
     /**
@@ -144,6 +150,9 @@ public class RegistraEventiAvversi {
         new MainCittadini(stage);
     }
 
+    /**
+     * Classe utilizzata per creare lo stream I/O col server
+     */
     public void becomeClient(){
         System.out.println("[CLIENT EVENTI AVVERSI] - Sono già connesso, prendo gli stream ");
         Socket s = SelectionUI.socket_container;

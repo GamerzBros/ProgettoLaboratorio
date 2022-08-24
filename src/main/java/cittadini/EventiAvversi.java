@@ -43,18 +43,34 @@ public class EventiAvversi implements Serializable {
      */
     private String cfUtente;
 
+    /**
+     * Classe che restituisce l'id del centro vaccinale
+     * @return Id del centro vaccinale
+     */
     public int getIdCentro() {
         return idCentro;
     }
 
+    /**
+     * Imposta l'attuale id del centro vaccinale con quello ricevuto
+     * @param idCentro id del centro vaccinale con cui aggiornare quello attuale
+     */
     public void setIdCentro(int idCentro) {
         this.idCentro = idCentro;
     }
 
+    /**
+     * Restituisce il codice identificativo dell'utente
+     * @return Il codice identificativo dell'utente
+     */
     public String getCfUtente() {
         return cfUtente;
     }
 
+    /**
+     * Modifica il codice identificativo dell'utente attuale
+     * @param cfUtente cf dell'utente con cui aggiornare quello attuale
+     */
     public void setCfUtente(String cfUtente) {
         this.cfUtente = cfUtente;
     }

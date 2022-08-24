@@ -18,17 +18,36 @@ import java.net.Socket;
 import java.net.URL;
 
 public class SelectionUI extends Application {
+
+    /**
+     * Socket per la connessione al server
+     */
+    Socket s;
+    /**
+     * PrintWriter per scirvere messaggi al server
+     */
+    PrintWriter out;
+    /**
+     * BufferedReader per ricevere messaggi dal server
+     */
+    BufferedReader in;
+    /**
+     * Container del Socket
+     */
+    public static Socket socket_container;
+    /**
+     * Container del PrintWriter
+     */
+    public static PrintWriter out_container;
+    /**
+     * Container del BufferedReader
+     */
+    public static BufferedReader in_container;
     /**
      * Crea la UI principale che permette di scegliere il portale. Metodo che viene eseguito subito dopo la creazione della classe.
      * @param stage Lo stage che conterrà la scena. Uno stage è una finestra, mentre una scena è tutto ciò contenuto in uno stage.
      * @throws Exception L'eccezione provocata dallo start del programma
      */
-    Socket s;
-    PrintWriter out;
-    BufferedReader in;
-    public static Socket socket_container;
-    public static PrintWriter out_container;
-    public static BufferedReader in_container;
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
@@ -83,6 +102,10 @@ public class SelectionUI extends Application {
         new PortaleOperatori(stage);
     }
 
+    /**
+     * Modifica le immagini di sfondo quando si passa il puntatore su una delle opzioni
+     * @param event L'evento che richiama il metodo. Necessario per sapere su quale bottone si sta passando
+     */
     public void onChoiceButtonHover(MouseEvent event){
         Button btn=(Button)event.getSource();
         ImageView imgView = (ImageView) btn.getScene().lookup("#imgBg");
@@ -101,6 +124,10 @@ public class SelectionUI extends Application {
 
     }
 
+    /**
+     * Modifica le immagini di sfondo quando si esce con il puntatore da una delle opzioni
+     * @param event L'evento che richiama il metodo. Necessario per sapere quando si esce dal bottone
+     */
     public void onChoiceButtonExit(MouseEvent event){
         ImageView imgView=(ImageView)((Button)event.getSource()).getScene().lookup("#imgBg");
         imgView.setImage(new Image(getClass().getResourceAsStream("/centrivaccinali/introduction.png")));
@@ -119,6 +146,10 @@ public class SelectionUI extends Application {
     public void stop() throws Exception {
         super.stop();
     }
+
+    /**
+     * Stabilisce una connessione tra client e server, aggiornando l'I/O
+     */
     public void becomeClient(){
         try {
             System.out.println("[CLIENT] - Tentativo di connessione ");

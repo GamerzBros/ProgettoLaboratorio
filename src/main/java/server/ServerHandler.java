@@ -94,7 +94,11 @@ public class ServerHandler extends Thread{
       start();
     }
 
-    private void login(String parameters) {//ricevo user e psw, connetto db e checko, il client sarà in ascolto e ritorno true o false
+    /**
+     * Classe che riceve l'user id e la password dell'utente, si connette al database per controllare le credenziali di accesso e resituisce un true o un false al client
+     * @param parameters parametri contenenti l'user id e la password dell'utente
+     */
+    private void login(String parameters) {
         String[] parameters_splitted = parameters.split(";");
         String email = parameters_splitted[0];
         String cf=null;
@@ -115,6 +119,11 @@ public class ServerHandler extends Thread{
         }
     }
 
+    /**
+     * Metodo usato per aggiungere i dati dell'utente al database
+     * @param parameters Variabile contenente i dati dell'utente
+     * @throws ParseException
+     */
     private void registerUser(String parameters) throws ParseException {
         String[] parameters_splitted = parameters.split(";");
         String name = parameters_splitted[0];
@@ -147,6 +156,10 @@ public class ServerHandler extends Thread{
         }
     }
 
+    /**
+     * Metodo usato per aggiungere i dati dell'utente vaccinato al database
+     * @param parameters Variabile contenente i dati dell'utente
+     */
     private void registerVaccinatedUser(String parameters){
         String[] parameters_splitted = parameters.split(";");
         String nome = parameters_splitted[0];
@@ -183,6 +196,10 @@ public class ServerHandler extends Thread{
 
     }
 
+    /**
+     * Metodo usato per aggiungere i dati del centro vaccinale al database
+     * @param parameters Variabile contenente i dati del centro vaccinale
+     */
     private void registerVaccineCenter(String parameters) {
         String[] parameters_splitted = parameters.split(";");
         String nome = parameters_splitted[0];
@@ -220,6 +237,9 @@ public class ServerHandler extends Thread{
 
     }
 
+    /**
+     * Metodo usato per ottenere i dati di un centro vaccinale dal database
+     */
     private void getCentriVaccinaliFromDb(){
         Vector<SingoloCentroVaccinale> vector = new Vector<>();
         String nome_db;
@@ -256,6 +276,10 @@ public class ServerHandler extends Thread{
         }
     }
 
+    /**
+     * Metodo utilizzato per inserire nel database gli eventi avversi dell'utente
+     * @param idCentro Id del centro vaccinale
+     */
     private void getEventiAvversi(String idCentro){
         //faccio diviso 8 perché sono i campi per ogni paziente
         Vector<EventiAvversi> vector = new Vector<EventiAvversi>();
@@ -294,7 +318,11 @@ public class ServerHandler extends Thread{
 
     }
 
-
+    /**
+     * Metodo usato per stabilire una connessione con il database
+     * @return Connessione stabilita
+     * @throws SQLException
+     */
     private Connection connectDB() throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/CentriVaccinali", "postgres", "admin");
         if (conn != null) {
@@ -305,6 +333,10 @@ public class ServerHandler extends Thread{
         return conn;
     }
 
+    /**
+     * Metodo per controllare i eprmessi dell'utente
+     * @param parameters Dati dell'utente e del centro vaccinale
+     */
     private void checkUserPermission(String parameters) {
         String[] splitParams=parameters.split(";");
         String userId=splitParams[0].toUpperCase();
@@ -344,6 +376,12 @@ public class ServerHandler extends Thread{
             e.printStackTrace();
         }
     }
+
+    /**
+     * Metodo per registrare gli eventi avversi
+     * @param a Variabile contenente i dati degli eventi avversi dell'utente
+     * @throws IOException
+     */
     private void registerEventiAvversi(EventiAvversi a) throws IOException {
         //leggo gli eventiAvversi mandati dal client
         EventiAvversi eveAvv=a;
@@ -382,6 +420,9 @@ public class ServerHandler extends Thread{
 
     }
 
+    /**
+     * Metodo principale che gestisce la connessione con il client
+     */
     @Override
     public void run() {
         super.run();
