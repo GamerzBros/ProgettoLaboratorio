@@ -8,6 +8,7 @@
 
 <AnchorPane prefHeight="340.0" prefWidth="480.0" style="-fx-background-color: #1a73e8;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.LoginUtente">
     <children>
+
         <Button layoutX="4.0" layoutY="7.5" onMouseClicked="#goBackToMain" styleClass="backButton">
             <graphic>
                 <ImageView fitHeight="22.0" fitWidth="20.0" preserveRatio="false">
@@ -15,6 +16,9 @@
                 </ImageView>
             </graphic>
         </Button>
+        <ImageView fitHeight="115.0" fitWidth="115.0" layoutX="173.0" layoutY="14.0" pickOnBounds="true" preserveRatio="false">
+            <Image url="@/cittadini/login.png" />
+        </ImageView>
         <TextField fx:id="txt_userLogin" layoutX="100.0" layoutY="136.0" prefHeight="25.0" prefWidth="280.0" promptText="Email" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
         <PasswordField fx:id="pswd_login" layoutX="100.0" layoutY="179.0" prefHeight="25.0" prefWidth="280.0" promptText="Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
         <Button fx:id="login_button" layoutX="190.0" layoutY="228.0" mnemonicParsing="false" onAction="#loggaCittadini" prefWidth="95.0" styleClass="buttonSelection" style="-fx-background-radius: 8; -fx-background-color: white;" text="Login">
@@ -22,18 +26,15 @@
                 <Font name="Franklin Gothic Medium" size="18.0" />
             </font>
         </Button>
+        <Label alignment="CENTER" layoutX="80.0" layoutY="279.0" prefWidth="320" text="Non hai un account?" textFill="WHITE">
+            <font>
+                <Font size="15.0" />
+            </font></Label>
         <Button fx:id="register_button" layoutX="190.0" layoutY="298.0" mnemonicParsing="false" onAction="#loadRegisterCitizenUI" underline="true" styleClass="buttonSelection" style="-fx-background-color: transparent;" textFill="white" text="Registrati">
             <font>
                 <Font name="Franklin Gothic Medium" size="18.0" />
             </font>
         </Button>
-        <ImageView fitHeight="115.0" fitWidth="115.0" layoutX="173.0" layoutY="14.0" pickOnBounds="true" preserveRatio="false">
-            <Image url="@/cittadini/login.png" />
-        </ImageView>
-        <Label alignment="CENTER" layoutX="80.0" layoutY="279.0" prefWidth="320" text="Non hai un account?" textFill="WHITE">
-            <font>
-                <Font size="15.0" />
-            </font></Label>
     </children>
     <stylesheets>
         <URL value="@/style/style.css" />

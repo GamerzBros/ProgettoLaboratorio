@@ -2,7 +2,6 @@ package server;
 
 import centrivaccinali.SingoloCentroVaccinale;
 import cittadini.EventiAvversi;
-
 import java.io.*;
 import java.net.Socket;
 import java.sql.*;
@@ -95,8 +94,8 @@ public class ServerHandler extends Thread{
     }
 
     /**
-     * Classe che riceve l'user id e la password dell'utente, si connette al database per controllare le credenziali di accesso e resituisce un true o un false al client
-     * @param parameters parametri contenenti l'user id e la password dell'utente
+     * Controlla nel database se le credenziali dell'utente sono corrette e comunica al client l'esito dell'operazione
+     * @param parameters La stringa contenente le credenziali dell'utente (email e password)
      */
     private void login(String parameters) {
         String[] parameters_splitted = parameters.split(";");
@@ -120,9 +119,8 @@ public class ServerHandler extends Thread{
     }
 
     /**
-     * Metodo usato per aggiungere i dati dell'utente al database
-     * @param parameters Variabile contenente i dati dell'utente
-     * @throws ParseException
+     * Registra un nuovo utente nel database
+     * @param parameters La stringa contenente i dati dell'utente
      */
     private void registerUser(String parameters) throws ParseException {
         String[] parameters_splitted = parameters.split(";");
@@ -157,8 +155,8 @@ public class ServerHandler extends Thread{
     }
 
     /**
-     * Metodo usato per aggiungere i dati dell'utente vaccinato al database
-     * @param parameters Variabile contenente i dati dell'utente
+     * Registra un nuovo vaccinato nel database
+     * @param parameters La stringa contenente i dati del nuovo vaccinato
      */
     private void registerVaccinatedUser(String parameters){
         String[] parameters_splitted = parameters.split(";");
@@ -197,8 +195,8 @@ public class ServerHandler extends Thread{
     }
 
     /**
-     * Metodo usato per aggiungere i dati del centro vaccinale al database
-     * @param parameters Variabile contenente i dati del centro vaccinale
+     * Registra un nuovo centro vaccinale nel database
+     * @param parameters La stringa contenente i dati del nuovo centro vaccinale
      */
     private void registerVaccineCenter(String parameters) {
         String[] parameters_splitted = parameters.split(";");
@@ -238,7 +236,7 @@ public class ServerHandler extends Thread{
     }
 
     /**
-     * Metodo usato per ottenere i dati di un centro vaccinale dal database
+     * Ottiene tutti i centri vaccinale nel database e li restituisce al client
      */
     private void getCentriVaccinaliFromDb(){
         Vector<SingoloCentroVaccinale> vector = new Vector<>();
@@ -277,8 +275,8 @@ public class ServerHandler extends Thread{
     }
 
     /**
-     * Metodo utilizzato per inserire nel database gli eventi avversi dell'utente
-     * @param idCentro Id del centro vaccinale
+     * Prende gli eventi avversi, relativi a un centro vaccinale, dal database e li restituisce al client
+     * @param idCentro L'id del centro vaccinale di cui si otterranno i relativi eventi avversi registrati
      */
     private void getEventiAvversi(String idCentro){
         //faccio diviso 8 perché sono i campi per ogni paziente
@@ -319,9 +317,8 @@ public class ServerHandler extends Thread{
     }
 
     /**
-     * Metodo usato per stabilire una connessione con il database
-     * @return Connessione stabilita
-     * @throws SQLException
+     * Permette al server di aprire una connessione con il database
+     * @return La nuova istanza della connessione creata
      */
     private Connection connectDB() throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/CentriVaccinali", "postgres", "admin");
@@ -334,8 +331,9 @@ public class ServerHandler extends Thread{
     }
 
     /**
-     * Metodo per controllare i eprmessi dell'utente
-     * @param parameters Dati dell'utente e del centro vaccinale
+     * Controlla se l'utente può inserire un nuova serie di eventi avversi presso il centro selezionato.
+     * Se l'utente è autorizzato, restituisce il numero della vaccinazione alla quale faranno riferimento gli eventi avversi che verranno inseriti
+     * @param parameters La stringa contenente l'id dell'utente e del centro vaccinale selezionato
      */
     private void checkUserPermission(String parameters) {
         String[] splitParams=parameters.split(";");
@@ -378,9 +376,8 @@ public class ServerHandler extends Thread{
     }
 
     /**
-     * Metodo per registrare gli eventi avversi
-     * @param a Variabile contenente i dati degli eventi avversi dell'utente
-     * @throws IOException
+     * Inserisce una serie di eventi avversi nel database
+     * @param a La classe contenente la serie di eventi avversi dell'utente
      */
     private void registerEventiAvversi(EventiAvversi a) throws IOException {
         //leggo gli eventiAvversi mandati dal client
@@ -421,7 +418,8 @@ public class ServerHandler extends Thread{
     }
 
     /**
-     * Metodo principale che gestisce la connessione con il client
+     * Gestisce le nuove comunicazioni in entrata da parte del client per fornire a quest'ultimo il relativo servizio richiesto.
+     * Eseguito quando viene invocato il metodo start() della classe attuale.
      */
     @Override
     public void run() {

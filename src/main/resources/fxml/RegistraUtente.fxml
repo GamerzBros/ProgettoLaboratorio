@@ -31,6 +31,8 @@
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Button>
+      <Label  alignment="CENTER" layoutY="396" text="Hai già un account?" textFill="white"/>
+      <Button layoutX="225.0" layoutY="415" onAction="#loadLoginCitizenUI" textFill="white" styleClass="buttonSelection" style="-fx-background-color: transparent;" underline="true" text="Accedi"/>
    </children>
    <stylesheets>
       <URL value="@/style/style.css" />

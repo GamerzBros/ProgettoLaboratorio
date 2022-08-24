@@ -104,12 +104,11 @@ public class LoginUtente {
     }
 
     /**
-     * Carica la UI necessaria ad effettuare la registrazione di un utente.
+     * Carica la UI necessaria ad effettuare la registrazione di un nuovo utente.
      * @param event L'evento che richiama il metodo. Necessario per chiudere la UI di login
      */
     public void loadRegisterCitizenUI(ActionEvent event){
         try {
-            //Scene mainScene=((Button)event.getSource()).getScene();
             Stage currentStage=(Stage)((Button)event.getSource()).getScene().getWindow();
 
             FXMLLoader loader = new FXMLLoader();

@@ -30,7 +30,6 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.io.*;
 import java.net.Socket;
 import java.net.URL;
@@ -295,9 +294,18 @@ public class MainCittadini {
             Label lblType=new Label(currentCentro.getTipologia());
             ImageView btnGoTo=new ImageView(new Image(getClass().getResourceAsStream(OPEN_CENTER_INFO_IMG_PATH)));
 
+            Tooltip tooltip=new Tooltip(lblName.getText());
+            tooltip.setShowDelay(Duration.seconds(0.2));
             lblName.setWrapText(true);
+            lblName.setTooltip(tooltip);
+            tooltip=new Tooltip(lblAddress.getText());
+            tooltip.setShowDelay(Duration.seconds(0.2));
             lblAddress.setWrapText(true);
+            lblAddress.setTooltip(tooltip);
+            tooltip=new Tooltip(lblType.getText());
+            tooltip.setShowDelay(Duration.seconds(0.2));
             lblType.setWrapText(true);
+            lblType.setTooltip(tooltip);
 
 
             lblName.setPrefWidth(150);
