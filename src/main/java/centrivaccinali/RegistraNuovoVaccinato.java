@@ -153,7 +153,7 @@ public class RegistraNuovoVaccinato {
         String codice_fiscale = ((TextField) currentScene.lookup("#txt_cfPaziente")).getText();
         String vaccineType = ((ChoiceBox<String>) currentScene.lookup("#cbx_vaccinoSomministrato")).getValue();
         LocalDate vaccinationDate = ((DatePicker) currentScene.lookup("#datePicker_datavaccinazione")).getValue();
-        int centroVaccinale = ((ChoiceBox<String>) currentScene.lookup("#cbx_centroVaccinale")).getSelectionModel().getSelectedIndex()+1;
+        int centroVaccinale = ((ChoiceBox<String>) currentScene.lookup("#cbx_centroVaccinale")).getSelectionModel().getSelectedIndex();
         String dataVaccinazione = "";
 
         if (vaccinationDate != null) {

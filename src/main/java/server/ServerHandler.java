@@ -106,6 +106,7 @@ public class ServerHandler extends Thread{
         try {
             Connection con = connectDB();
             PreparedStatement stm = con.prepareStatement("SELECT cf FROM public.utente where email=? and password =?");
+            System.out.println("email: "+email+"; password:"+pwd);
             stm.setString(1, email);
             stm.setString(2, pwd);
             ResultSet result = stm.executeQuery();
@@ -165,7 +166,6 @@ public class ServerHandler extends Thread{
         String codice_fiscale = parameters_splitted[2].toUpperCase();
         String tipoVaccino = parameters_splitted[3];
         int centroVaccinale = Integer.parseInt(parameters_splitted[4]);
-        System.out.println(centroVaccinale);
         String dataVaccinazione = parameters_splitted[5];
         Date dataVaccinazioneSQL = java.sql.Date.valueOf(dataVaccinazione);
         System.out.println(dataVaccinazione);

@@ -867,7 +867,7 @@ public class MainCittadini {
         HashMap<String,String> userData=(HashMap<String,String>)stage.getUserData();
         String user=userData.get("currentUser");
         String center=userData.get("currentCenter");
-        System.out.println(center);
+        System.out.println(user);
         //se l'utente non è loggato, non può inserire eventi avversi
         if(user==null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

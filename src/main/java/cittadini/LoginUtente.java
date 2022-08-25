@@ -58,20 +58,22 @@ public class LoginUtente {
             pwd = toHexString(messageDigest.digest(pwd.getBytes(StandardCharsets.UTF_8)));
             parameters = user + ";" + pwd; //parametri per il db
             becomeClient(parameters); //connessione
-            String result = in.readLine(); //valore di ritorno true o false per la query della login
-            System.out.println("RISULTATO QUERY = " + result);//codice parlante xdxd
-            if (result==null) { //se null vuol dire che il login non è andato a buon fine
+            String result = in.readLine();
+            //System.out.println("RISULTATO QUERY = " + result);//codice parlante xdxd
+            if (result==null||result.equals("null")) { //se null vuol dire che il login non è andato a buon fine
                 Alert noUserAlert = new Alert(Alert.AlertType.WARNING);
                 noUserAlert.setTitle("Errore di login");
                 noUserAlert.setContentText("Utente non trovato!");
                 noUserAlert.show();
+                //TODO pulire il campo della password
                 return;
             }
-            System.out.println("LOGGATO");
+            System.out.println("LOGGATO\nCF utente: "+result);
 
             Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             HashMap<String,String> userData = (HashMap<String,String>) currentStage.getUserData();
             userData.put("currentUser",result);
+
 
             Alert alertSuccessfullLogin = new Alert(Alert.AlertType.INFORMATION);
             alertSuccessfullLogin.setTitle("Login effettuato");
