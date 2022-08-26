@@ -2,110 +2,116 @@
 
 <?import java.net.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="750.0" prefWidth="950.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="700.0" prefWidth="950.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button layoutX="4.0" layoutY="7.5" onMouseClicked="#goBackToMain" style="-fx-background-color: transparent;" styleClass="backButton">
          <graphic>
-            <ImageView fitHeight="22.0" fitWidth="20.0" preserveRatio="false">
+            <ImageView fitHeight="22.0" fitWidth="20.0" preserveRatio="false ">
                <Image url="@/common/goBackIcon.png" />
             </ImageView>
          </graphic>
       </Button>
+      <ImageView fitHeight="670.0" fitWidth="950.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@/cittadini/sick.jpg" />
+      </ImageView>
       <!--<Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a73e8" height="393.0" layoutX="100.0" layoutY="104.0" width="466.0" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.8), 6, 0 , 0 , 0 ); -fx-background-radius: 10; -fx-border-radius: 10;"/>-->
-      <Pane layoutX="50.0" layoutY="13.0" opacity="0.85" prefHeight="82.0" prefWidth="550.0" style="-fx-background-color: orange; -fx-background-radius: 18;" styleClass="rectangleChip" />
-      <Label fx:id="vaccination_num" alignment="TOP_CENTER" layoutX="44" layoutY="15.0" prefHeight="20" prefWidth="562" style="-fx-font-size: 16" text="Vaccinazione numero " />
-      <Label layoutX="44.0" layoutY="35.0" prefHeight="55.0" prefWidth="562.0" text="Per ogni sintomo, se riscontrato inserire un valore da 1 a 5 che rappresenti l'intensitÃ  del sintomo:" textAlignment="CENTER" wrapText="true">
+      <Pane layoutX="50.0" layoutY="13.0" opacity="0.85" prefHeight="82.0" prefWidth="550.0" style="-fx-background-color: orange; -fx-background-radius: 18;" styleClass="rectangleChip" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
+         <children>
+            <Label fx:id="vaccination_num" alignment="TOP_CENTER" prefHeight="20" prefWidth="562" style="-fx-font-size: 16" text="Vaccinazione numero " />
+            <Label layoutY="25.0" prefHeight="55.0" prefWidth="562.0" text="Per ogni sintomo, se riscontrato inserire un valore da 1 a 5 che rappresenti l'intensitÃ  del sintomo:" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="System" size="18.0" />
+               </font>
+            </Label>
+         </children></Pane>
+      <Pane layoutX="200.0" layoutY="101.0" opacity="0.85" prefHeight="398.0" prefWidth="550.0" style="-fx-background-radius: 18; -fx-background-color: #1a73e8;" styleClass="shadowEf">
+         <children>
+            <Label layoutX="207.0" layoutY="200.0" prefHeight="27.0" prefWidth="134.0" text="Linfoadenopatia:" textFill="white">
+               <font>
+                  <Font name="System" size="18.0" />
+               </font>
+            </Label>
+         </children></Pane>
+      <Label alignment="CENTER" layoutY="105.0" prefHeight="27.0" prefWidth="70.0" text="Febbre:" textFill="white" AnchorPane.leftAnchor="440.0" AnchorPane.rightAnchor="440.0">
          <font>
             <Font name="System" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="280.0" layoutY="105.0" prefHeight="22.0" prefWidth="200.0" text="Febbre:" textFill="white">
-         <font>
-            <Font name="System" size="18.0" />
-         </font>
-      </Label>
-      <RadioButton layoutX="170.0" layoutY="140.0" mnemonicParsing="false" text="0" textFill="WHITE">
+      <RadioButton layoutX="305.0" layoutY="140.0" mnemonicParsing="false" text="0" textFill="WHITE">
          <toggleGroup>
-         <ToggleGroup fx:id="radio_fever" />
-      </toggleGroup></RadioButton>
-      <RadioButton layoutX="220.0" layoutY="140.0" mnemonicParsing="false" text="1" textFill="WHITE"  toggleGroup="$radio_fever" />
-      <RadioButton layoutX="270.0" layoutY="140.0" mnemonicParsing="false" text="2" textFill="WHITE"  toggleGroup="$radio_fever" />
-      <RadioButton layoutX="320.0" layoutY="140.0" mnemonicParsing="false" text="3" textFill="WHITE"  toggleGroup="$radio_fever"/>
-      <RadioButton layoutX="370.0" layoutY="140.0" mnemonicParsing="false" text="4" textFill="WHITE"  toggleGroup="$radio_fever"/>
-      <RadioButton layoutX="420.0" layoutY="140.0" mnemonicParsing="false" text="5" textFill="WHITE"  toggleGroup="$radio_fever"/>
-      <Label layoutX="280.0" layoutY="170.0" prefHeight="22.0" prefWidth="109.0" text="Mal di testa:" textFill="white">
+            <ToggleGroup fx:id="radio_fever" />
+         </toggleGroup></RadioButton>
+      <RadioButton layoutX="370.0" layoutY="140.0" mnemonicParsing="false" text="1" textFill="WHITE" toggleGroup="$radio_fever" />
+      <RadioButton layoutX="435.0" layoutY="140.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="28.0" text="2" textFill="WHITE" toggleGroup="$radio_fever" />
+      <RadioButton layoutX="500.0" layoutY="140.0" mnemonicParsing="false" text="3" textFill="WHITE" toggleGroup="$radio_fever" />
+      <RadioButton layoutX="565.0" layoutY="140.0" mnemonicParsing="false" text="4" textFill="WHITE" toggleGroup="$radio_fever" />
+      <RadioButton layoutX="630.0" layoutY="140.0" mnemonicParsing="false" text="5" textFill="WHITE" toggleGroup="$radio_fever" />
+      <Label layoutX="280.0" layoutY="170.0" prefHeight="22.0" prefWidth="100.0" text="Mal di testa:" textFill="white" AnchorPane.leftAnchor="425.0" AnchorPane.rightAnchor="425.0">
          <font>
             <Font name="System" size="18.0" />
          </font>
       </Label>
-      <RadioButton layoutX="170.0" layoutY="205.0" mnemonicParsing="false" text="0" textFill="WHITE" ><toggleGroup>
+      <RadioButton layoutX="305.0" layoutY="205.0" mnemonicParsing="false" text="0" textFill="WHITE"><toggleGroup>
          <ToggleGroup fx:id="radio_headache" />
       </toggleGroup></RadioButton>
-      <RadioButton layoutX="220.0" layoutY="205.0" mnemonicParsing="false" text="1" textFill="WHITE" toggleGroup="$radio_headache"/>
-      <RadioButton layoutX="270.0" layoutY="205.0" mnemonicParsing="false" text="2" textFill="WHITE" toggleGroup="$radio_headache"/>
-      <RadioButton layoutX="320.0" layoutY="205.0" mnemonicParsing="false" text="3" textFill="WHITE" toggleGroup="$radio_headache"/>
-      <RadioButton layoutX="370.0" layoutY="205.0" mnemonicParsing="false" text="4" textFill="WHITE" toggleGroup="$radio_headache"/>
-      <RadioButton layoutX="420.0" layoutY="205.0" mnemonicParsing="false" text="5" textFill="WHITE" toggleGroup="$radio_headache"/>
-      <Label layoutX="220.0" layoutY="235.0" prefHeight="22.0" prefWidth="228.0" text="Dolori muscolari o articolari:" textFill="white">
+      <RadioButton layoutX="370.0" layoutY="205.0" mnemonicParsing="false" text="1" textFill="WHITE" toggleGroup="$radio_headache" />
+      <RadioButton layoutX="435.0" layoutY="205.0" mnemonicParsing="false" text="2" textFill="WHITE" toggleGroup="$radio_headache" />
+      <RadioButton layoutX="500.0" layoutY="205.0" mnemonicParsing="false" text="3" textFill="WHITE" toggleGroup="$radio_headache" />
+      <RadioButton layoutX="565.0" layoutY="205.0" mnemonicParsing="false" text="4" textFill="WHITE" toggleGroup="$radio_headache" />
+      <RadioButton layoutX="630.0" layoutY="205.0" mnemonicParsing="false" text="5" textFill="WHITE" toggleGroup="$radio_headache" />
+      <Label layoutX="361.0" layoutY="235.0" prefHeight="22.0" prefWidth="228.0" text="Dolori muscolari o articolari:" textFill="white" AnchorPane.leftAnchor="361.0" AnchorPane.rightAnchor="361.0">
          <font>
             <Font name="System" size="18.0" />
          </font>
       </Label>
-      <RadioButton layoutX="170.0" layoutY="270.0" mnemonicParsing="false" text="0" textFill="WHITE" ><toggleGroup>
+      <RadioButton layoutX="305.0" layoutY="270.0" mnemonicParsing="false" text="0" textFill="WHITE"><toggleGroup>
          <ToggleGroup fx:id="radio_musclepain" />
       </toggleGroup></RadioButton>
-      <RadioButton layoutX="220.0" layoutY="270.0" mnemonicParsing="false" text="1" textFill="WHITE" toggleGroup="$radio_musclepain"/>
-      <RadioButton layoutX="270.0" layoutY="270.0" mnemonicParsing="false" text="2" textFill="WHITE" toggleGroup="$radio_musclepain"/>
-      <RadioButton layoutX="320.0" layoutY="270.0" mnemonicParsing="false" text="3" textFill="WHITE" toggleGroup="$radio_musclepain"/>
-      <RadioButton layoutX="370.0" layoutY="270.0" mnemonicParsing="false" text="4" textFill="WHITE" toggleGroup="$radio_musclepain"/>
-      <RadioButton layoutX="420.0" layoutY="270.0" mnemonicParsing="false" text="5" textFill="WHITE" toggleGroup="$radio_musclepain"/>
-      <Label layoutX="270.0" layoutY="300.0" prefHeight="22.0" prefWidth="145.0" text="Linfoadenopatia:" textFill="white">
-         <font>
-            <Font name="System" size="18.0" />
-         </font>
-      </Label>
-      <RadioButton layoutX="170.0" layoutY="335.0" mnemonicParsing="false" text="0" textFill="WHITE"><toggleGroup>
+      <RadioButton layoutX="370.0" layoutY="270.0" mnemonicParsing="false" text="1" textFill="WHITE" toggleGroup="$radio_musclepain" />
+      <RadioButton layoutX="435.0" layoutY="270.0" mnemonicParsing="false" text="2" textFill="WHITE" toggleGroup="$radio_musclepain" />
+      <RadioButton layoutX="500.0" layoutY="270.0" mnemonicParsing="false" text="3" textFill="WHITE" toggleGroup="$radio_musclepain" />
+      <RadioButton layoutX="565.0" layoutY="270.0" mnemonicParsing="false" text="4" textFill="WHITE" toggleGroup="$radio_musclepain" />
+      <RadioButton layoutX="630.0" layoutY="270.0" mnemonicParsing="false" text="5" textFill="WHITE" toggleGroup="$radio_musclepain" />
+      <RadioButton layoutX="305.0" layoutY="335.0" mnemonicParsing="false" text="0" textFill="WHITE"><toggleGroup>
          <ToggleGroup fx:id="radio_linfoadenopatia" />
       </toggleGroup></RadioButton>
-      <RadioButton layoutX="220.0" layoutY="335.0" mnemonicParsing="false" text="1" textFill="#f2f2f2" toggleGroup="$radio_linfoadenopatia" />
-      <RadioButton layoutX="270.0" layoutY="335.0" mnemonicParsing="false" text="2" textFill="#f2f2f2" toggleGroup="$radio_linfoadenopatia" />
-      <RadioButton layoutX="320.0" layoutY="335.0" mnemonicParsing="false" text="3" textFill="WHITE" toggleGroup="$radio_linfoadenopatia"/>
-      <RadioButton layoutX="370.0" layoutY="335.0" mnemonicParsing="false" text="4" textFill="WHITE" toggleGroup="$radio_linfoadenopatia"/>
-      <RadioButton layoutX="420.0" layoutY="335.0" mnemonicParsing="false" text="5" textFill="WHITE" toggleGroup="$radio_linfoadenopatia"/>
-      <Label layoutX="280.0" layoutY="365.0" prefHeight="22.0" prefWidth="109.0" text="Tachicardia:" textFill="white">
+      <RadioButton layoutX="370.0" layoutY="335.0" mnemonicParsing="false" text="1" textFill="#f2f2f2" toggleGroup="$radio_linfoadenopatia" />
+      <RadioButton layoutX="435.0" layoutY="335.0" mnemonicParsing="false" text="2" textFill="#f2f2f2" toggleGroup="$radio_linfoadenopatia" />
+      <RadioButton layoutX="500.0" layoutY="335.0" mnemonicParsing="false" text="3" textFill="WHITE" toggleGroup="$radio_linfoadenopatia" />
+      <RadioButton layoutX="565.0" layoutY="335.0" mnemonicParsing="false" text="4" textFill="WHITE" toggleGroup="$radio_linfoadenopatia" />
+      <RadioButton layoutX="630.0" layoutY="335.0" mnemonicParsing="false" text="5" textFill="WHITE" toggleGroup="$radio_linfoadenopatia" />
+      <Label layoutX="426.0" layoutY="360.0" prefHeight="27.0" prefWidth="100.0" text="Tachicardia:" textFill="white">
          <font>
             <Font name="System" size="18.0" />
          </font>
       </Label>
-      <RadioButton layoutX="170.0" layoutY="400.0" mnemonicParsing="false" text="0" textFill="#d3d3d3"><toggleGroup>
+      <RadioButton layoutX="305.0" layoutY="400.0" mnemonicParsing="false" text="0" textFill="#d3d3d3"><toggleGroup>
          <ToggleGroup fx:id="radio_tachycardia" />
       </toggleGroup></RadioButton>
-      <RadioButton layoutX="220.0" layoutY="400.0" mnemonicParsing="false" text="1" textFill="WHITE" toggleGroup="$radio_tachycardia"/>
-      <RadioButton layoutX="270.0" layoutY="400.0" mnemonicParsing="false" text="2" textFill="WHITE" toggleGroup="$radio_tachycardia"/>
-      <RadioButton layoutX="320.0" layoutY="400.0" mnemonicParsing="false" text="3" textFill="WHITE" toggleGroup="$radio_tachycardia"/>
-      <RadioButton layoutX="370.0" layoutY="400.0" mnemonicParsing="false" text="4" textFill="WHITE" toggleGroup="$radio_tachycardia"/>
-      <RadioButton layoutX="420.0" layoutY="400.0" mnemonicParsing="false" text="5" textFill="WHITE" toggleGroup="$radio_tachycardia"/>
-      <Label layoutX="270.0" layoutY="430.0" prefHeight="22.0" prefWidth="145.0" text="Crisi ipertensiva:" textFill="white">
+      <RadioButton layoutX="370.0" layoutY="400.0" mnemonicParsing="false" text="1" textFill="WHITE" toggleGroup="$radio_tachycardia" />
+      <RadioButton layoutX="435.0" layoutY="400.0" mnemonicParsing="false" text="2" textFill="WHITE" toggleGroup="$radio_tachycardia" />
+      <RadioButton layoutX="500.0" layoutY="400.0" mnemonicParsing="false" text="3" textFill="WHITE" toggleGroup="$radio_tachycardia" />
+      <RadioButton layoutX="565.0" layoutY="400.0" mnemonicParsing="false" text="4" textFill="WHITE" toggleGroup="$radio_tachycardia" />
+      <RadioButton layoutX="630.0" layoutY="400.0" mnemonicParsing="false" text="5" textFill="WHITE" toggleGroup="$radio_tachycardia" />
+      <Label layoutX="409.0" layoutY="430.0" prefHeight="27.0" prefWidth="134.0" text="Crisi ipertensiva:" textFill="white" AnchorPane.leftAnchor="409.0" AnchorPane.rightAnchor="407.0">
          <font>
             <Font name="System" size="18.0" />
          </font>
       </Label>
-      <RadioButton layoutX="170.0" layoutY="465.0" mnemonicParsing="false" text="0" textFill="WHITE"><toggleGroup>
+      <RadioButton layoutX="305.0" layoutY="465.0" mnemonicParsing="false" text="0" textFill="WHITE"><toggleGroup>
          <ToggleGroup fx:id="radio_hypertensivecrisis" />
       </toggleGroup></RadioButton>
-      <RadioButton layoutX="220.0" layoutY="465.0" mnemonicParsing="false" text="1" textFill="WHITE" toggleGroup="$radio_hypertensivecrisis"/>
-      <RadioButton layoutX="270.0" layoutY="465.0" mnemonicParsing="false" text="2" textFill="WHITE" toggleGroup="$radio_hypertensivecrisis"/>
-      <RadioButton layoutX="320.0" layoutY="465.0" mnemonicParsing="false" text="3" textFill="WHITE" toggleGroup="$radio_hypertensivecrisis"/>
-      <RadioButton layoutX="370.0" layoutY="465.0" mnemonicParsing="false" text="4" textFill="WHITE" toggleGroup="$radio_hypertensivecrisis"/>
-      <RadioButton layoutX="420.0" layoutY="465.0" mnemonicParsing="false" text="5" textFill="WHITE" toggleGroup="$radio_hypertensivecrisis"/>
-      <TextField fx:id="txt_other" alignment="TOP_LEFT" layoutX="30.0" layoutY="510.0" prefHeight="97.0" prefWidth="690.0" promptText="Se presenti, inserisci qui altri sintomi (massimo 256 caratteri)" style="-fx-background-radius: 8; -fx-font-size: 16;" styleClass="rectangleChip" />
-      <Button layoutX="272.0" layoutY="620.0" mnemonicParsing="false" onAction="#registerEventiAvversi" prefHeight="38.0" prefWidth="105.0" style="-fx-background-radius: 8px; -fx-background-color: white;" styleClass="buttonSelection" text="Conferma">
+      <RadioButton layoutX="370.0" layoutY="465.0" mnemonicParsing="false" text="1" textFill="WHITE" toggleGroup="$radio_hypertensivecrisis" />
+      <RadioButton layoutX="435.0" layoutY="465.0" mnemonicParsing="false" text="2" textFill="WHITE" toggleGroup="$radio_hypertensivecrisis" />
+      <RadioButton layoutX="500.0" layoutY="465.0" mnemonicParsing="false" text="3" textFill="WHITE" toggleGroup="$radio_hypertensivecrisis" />
+      <RadioButton layoutX="565.0" layoutY="465.0" mnemonicParsing="false" text="4" textFill="WHITE" toggleGroup="$radio_hypertensivecrisis" />
+      <RadioButton layoutX="630.0" layoutY="465.0" mnemonicParsing="false" text="5" textFill="WHITE" toggleGroup="$radio_hypertensivecrisis" />
+      <TextField fx:id="txt_other" alignment="TOP_LEFT" layoutX="30.0" layoutY="510.0" prefHeight="97.0" prefWidth="690.0" promptText="Se presenti, inserisci qui altri sintomi (massimo 256 caratteri)" style="-fx-background-radius: 8; -fx-font-size: 16;" styleClass="rectangleChip" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0" />
+      <Button contentDisplay="CENTER" layoutX="272.0" layoutY="620.0" mnemonicParsing="false" onAction="#registerEventiAvversi" prefHeight="38.0" prefWidth="105.0" style="-fx-background-radius: 8px; -fx-background-color: #1a73e8;" styleClass="buttonSelection" text="Conferma" AnchorPane.leftAnchor="422.5" AnchorPane.rightAnchor="422.5">
          <font>
             <Font name="System" size="18.0" />
          </font></Button>
