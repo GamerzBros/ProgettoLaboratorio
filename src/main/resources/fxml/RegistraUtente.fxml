@@ -7,32 +7,37 @@
 <?import javafx.scene.text.*?>
 
 <!--TODO mettere un pulsante per passare alla UI di Login (come nella schermata di LoginUtente)-->
-<AnchorPane prefHeight="400.0" prefWidth="550.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.RegistrazioneUtente">
+
+<AnchorPane prefHeight="430.0" prefWidth="600.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.RegistrazioneUtente">
    <children>
       <Button layoutX="4.0" layoutY="7.5" onMouseClicked="#goBackToMain" styleClass="backButton">
          <graphic>
-            <ImageView fitHeight="22.0" fitWidth="20.0" styleClass="backButton" preserveRatio="false">
+            <ImageView fitHeight="22.0" fitWidth="20.0" preserveRatio="false" styleClass="backButton">
                <Image url="@/common/goBackIcon.png" />
             </ImageView>
          </graphic>
       </Button>
-      <ImageView fitHeight="115.0" fitWidth="115.0" layoutX="218.0" layoutY="20.0" pickOnBounds="true" preserveRatio="false">
+      <ImageView fitHeight="120.0" fitWidth="120.0" layoutX="243.0" layoutY="23.0" pickOnBounds="true" preserveRatio="false">
          <Image url="@/cittadini/register.png" />
       </ImageView>
-      <TextField fx:id="txt_userName" layoutX="55.0" layoutY="130.0" prefHeight="25.0" prefWidth="213.0" promptText="Nome" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
-      <TextField fx:id="txt_userSurname" layoutX="282.0" layoutY="130.0" prefHeight="25.0" prefWidth="213.0" promptText="Cognome" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
-      <TextField fx:id="txt_userCF" layoutX="55.0" layoutY="171.0" prefHeight="25.0" prefWidth="213.0" promptText="Codice Fiscale" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
-      <DatePicker fx:id="datePicker_datavaccinazione" layoutX="282.0" layoutY="171.0" prefHeight="25.0" prefWidth="213.0" promptText="Data di nascita" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" styleClass="datepicker" />
-      <TextField fx:id="txt_userMail" layoutX="55.0" layoutY="212.0" prefHeight="25.0" prefWidth="440.0" promptText="Email" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
-      <PasswordField fx:id="pswd_register" layoutX="55.0" layoutY="253.0" prefHeight="25.0" prefWidth="440.0" promptText="Conferma Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
-      <PasswordField fx:id="pswd_confirm" layoutX="55.0" layoutY="294.0" prefHeight="25.0" prefWidth="440.0" promptText="Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
-      <Button layoutX="225.0" layoutY="345.0" mnemonicParsing="false" onAction="#registraCittadino" styleClass="buttonSelection" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Conferma">
+      <TextField fx:id="txt_userName" layoutX="45.0" layoutY="130.0" prefHeight="25.0" prefWidth="240.0" promptText="Nome" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
+      <TextField fx:id="txt_userSurname" layoutX="315.0" layoutY="130.0" prefHeight="25.0" prefWidth="240.0" promptText="Cognome" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
+      <TextField fx:id="txt_userCF" layoutX="45.0" layoutY="171.0" prefHeight="25.0" prefWidth="240.0" promptText="Codice Fiscale" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
+      <DatePicker fx:id="datePicker_datavaccinazione" layoutX="315.0" layoutY="171.0" prefHeight="25.0" prefWidth="240.0" promptText="Data di nascita" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" styleClass="datepicker" />
+      <TextField fx:id="txt_userMail" layoutX="45.0" layoutY="212.0" prefHeight="25.0" prefWidth="510.0" promptText="Email" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
+      <PasswordField fx:id="pswd_register" layoutX="45.0" layoutY="253.0" prefHeight="25.0" prefWidth="510.0" promptText="Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
+      <PasswordField fx:id="pswd_confirm" layoutX="45.0" layoutY="294.0" prefHeight="25.0" prefWidth="510.0" promptText="Conferma Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
+      <Button layoutX="249.0" layoutY="345.0" mnemonicParsing="false" onAction="#registraCittadino" style="-fx-background-radius: 8px; -fx-background-color: white;" styleClass="buttonSelection" text="Conferma">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Button>
-      <Label  alignment="CENTER" layoutY="396" text="Hai già un account?" textFill="white"/>
-      <Button layoutX="225.0" layoutY="415" onAction="#loadLoginCitizenUI" textFill="white" styleClass="buttonSelection" style="-fx-background-color: transparent;" underline="true" text="Accedi"/>
+      <Label alignment="CENTER" layoutX="248.0" layoutY="388.0" text="Hai già un account?" textFill="white" />
+      <Button layoutX="268.0" layoutY="404.0" onAction="#loadLoginCitizenUI" style="-fx-background-color: transparent;" styleClass="buttonSelection" text="Accedi" textFill="white" underline="true">
+         <font>
+            <Font name="Franklin Gothic Medium" size="16.0" />
+         </font>
+      </Button>
    </children>
    <stylesheets>
       <URL value="@/style/style.css" />
