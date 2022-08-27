@@ -80,7 +80,7 @@ public class RegistraEventiAvversi {
     }
 
     /**
-     * Registra sul file di testo relativo al centro vaccinale selezionato, gli eventi avversi inseriti dall'utente.
+     * Registra sul database gli eventi avversi inseriti dall'utente.
      * @param actionEvent L'evento che richiama il metodo. Necessario a ottenere la scena attuale da cui prendere i dati inseriti dall'utente.
      */
     public void registerEventiAvversi(ActionEvent actionEvent){
@@ -149,7 +149,7 @@ public class RegistraEventiAvversi {
     }
 
     /**
-     * Classe utilizzata per creare lo stream I/O col server
+     * Metodo che invia al server il relativo codice operazione per la registrazione di eventi avversi
      */
     public void becomeClient(){
         System.out.println("[CLIENT EVENTI AVVERSI] - Sono già connesso, prendo gli stream ");

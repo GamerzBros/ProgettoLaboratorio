@@ -35,7 +35,7 @@ public class ServerHandler extends Thread{
      */
     public static final int GET_VAX_CENTERS_OP_CODE=5;
     /**
-     * Il codice dell'operazione che invia al client la lista degli eventi avversi registrati presso un determinato centro vaccinali
+     * Il codice dell'operazione che invia al client la lista degli eventi avversi registrati presso un determinato centro vaccinale
      */
     public static final int GET_EVENTIAVVERSI_OP_CODE=6;
     /**
@@ -55,24 +55,23 @@ public class ServerHandler extends Thread{
      */
     private BufferedReader in;
     /**
-     * Input Stream per ricevere gli oggetti dal client
+     * Stream per ricevere oggetti serializzati dal client
      */
     private ObjectInputStream oin;
     /**
-     * Il buffer di dati primitivi in output al client
+     * Il buffer di dati in output al client
      */
-
     private PrintWriter out;
     /**
      * L'operation code ricevuto dal client sotto forma di stringa
      */
     private String op;
     /**
-     * Gli ulteriori parametri della richiesta passati assieme all'operation code
+     * Gli ulteriori parametri della richiesta dal client, passati assieme all'operation code
      */
     private String parameters;
     /**
-     * Il buffer di dati composti (classi) in ouput al client
+     * Stream per inviare oggetti serializzati al client
      */
     private ObjectOutputStream os;
     /**
@@ -86,7 +85,7 @@ public class ServerHandler extends Thread{
 
     /**
      * Costruttore principale della classe.
-     * @param s Il socket ricevuto dal server e che permette lo scambio di dati con il client
+     * @param s Il socket connesso ricevuto dal server e che permette lo scambio di dati con il client
      */
     ServerHandler(Socket s){
       this.s = s;
@@ -94,8 +93,8 @@ public class ServerHandler extends Thread{
     }
 
     /**
-     * Controlla nel database se le credenziali dell'utente sono corrette e comunica al client l'esito dell'operazione
-     * @param parameters La stringa contenente le credenziali dell'utente (email e password)
+     * Controlla nel database se c'è un riscontro delle credenziali con quelle inserite dall'utente, e ne comunica l'esito al client
+     * @param parameters La stringa contenente le credenziali dell'utente
      */
     private void login(String parameters) {
         String[] parameters_splitted = parameters.split(";");
@@ -376,8 +375,8 @@ public class ServerHandler extends Thread{
     }
 
     /**
-     * Inserisce una serie di eventi avversi nel database
-     * @param a La classe contenente la serie di eventi avversi dell'utente
+     * Inserisce gli eventi avversi nel database
+     * @param a Variabile di tipo EventiAvversi contenente gli eventi avversi dichiarati dall'utente
      */
     private void registerEventiAvversi(EventiAvversi a) throws IOException {
         //leggo gli eventiAvversi mandati dal client

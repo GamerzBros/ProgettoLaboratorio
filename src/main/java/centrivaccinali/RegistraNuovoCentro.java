@@ -22,37 +22,16 @@ import java.net.URL;
  */
 public class RegistraNuovoCentro {
     /**
-     * Buffer che permette di ricevere dati primitivi dal server
+     * Buffer che permette di ricevere dati dal server
      */
     PrintWriter out;
     /**
-     * Buffer che permette di inviare dati primitivi al sever
+     * Buffer che permette di inviare dati al sever
      */
     BufferedReader in;
     /**
-     * Percorso per il file contente le informazioni dei centri vaccinali registrati
-     */
-    public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
-    /**
-     * Parte iniziale percorso per il file del centro vaccinale selezionato
-     */
-    public static final String PRE_PATH_TO_EVENTI_AVVERSI="data/Vaccinati_";
-    /**
-     * Parte finale del percorso del centro vaccinale selezionato
-     */
-    public static final String AFTER_PATH_TO_EVENTI_AVVERSI=".dati.txt";
-    /**
-     * Percorso per il file contenente i dati dei cittadini registrati
-     */
-    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
-    /**
-     * Tipo di linea del file contente le informazioni relative al vaccinato
-     */
-    public static final String LINE_TYPE_PERSON ="V";
-    /**
-     * Tipo di linea del file contente le informazioni relative agli eventi avversi
-     */
-    public static final String LINE_TYPE_EVENT ="E";
+     * Codice operazionale per il server
+     * */
     public static final int REGISTER_VACCINECENTRE_OPERATION_CODE =4;
     /**
      * Lista contente le tipologie di indirizzo

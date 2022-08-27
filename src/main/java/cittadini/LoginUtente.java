@@ -23,9 +23,8 @@ import java.util.HashMap;
  */
 public class LoginUtente {
     /**
-     * Percorso per il file contenente i dati dei cittadini registrati
+     * Codice operazionale di login per il server
      */
-    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
     public static final int LOGIN_OPERATION_CODE=1;
     /**
      * Buffer che permette di ricevere dati primitivi dal server
@@ -131,7 +130,7 @@ public class LoginUtente {
     }
 
     /**
-     * Invia al server il relativo codice di operazione per effettuare il login di un utente
+     * Invia al server il relativo codice di operazione per effettuare il login di un utente e i dati
      * @param parameters I dati relativi al login che il server dovrà verificare
      */
     public void becomeClient(String parameters){

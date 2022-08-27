@@ -88,16 +88,16 @@ public class MainCittadini {
      */
     private int selectedCenterID;
     /**
-     * Usata per sapere se nella UI sià già aperto il pannello contente le informazioni su un centro vaccinale
+     * variabile usata per sapere se nella UI sià già aperto il pannello contente le informazioni su un centro vaccinale
      */
     private boolean centerSelected=false;
 
     /**
-     * Buffer che permette di inviare dati primitivi al sever
+     * Buffer che permette di inviare dati al sever
      */
     private static PrintWriter out;
     /**
-     * Buffer che permette di ricevere dati primitivi dal server
+     * Buffer che permette di ricevere dati dal server
      */
     private static BufferedReader in;
     /**
@@ -105,7 +105,7 @@ public class MainCittadini {
      */
     private static ObjectInputStream ois;
     /**
-     * Thread attuale per la ricerca. Serve per far terminare la ricerca corrente quando l'utente ne effettua una nuova
+     * Thread per la ricerca. Serve per far terminare la ricerca corrente quando l'utente ne effettua una nuova
      */
     private Thread currentSearchThread=null;
     /**
@@ -113,7 +113,7 @@ public class MainCittadini {
      */
     private Node loadingPopup=null;
     /**
-     * Usata per sapere se la UI, contente le informazioni del centro vaccinale, sia già stata caricata
+     * variabile usata per sapere se la UI, contente le informazioni del centro vaccinale, sia già stata caricata
      */
     private boolean centerInfoPaneUILoaded=false;
 
@@ -269,7 +269,7 @@ public class MainCittadini {
 
     /**
      * Crea il vbox e i necessari componenti grafici contenenti le informazioni sui centri vaccinali consultabili.
-     * @param centriVaccinaliMostrati Lista contenente i centri vaccinale da inserire dentro il vbox (quindi dentro la UI).
+     * @param centriVaccinaliMostrati Lista contenente i centri vaccinale da inserire dentro il vbox.
      */
     private void creaVbox(List<SingoloCentroVaccinale> centriVaccinaliMostrati){
         scrollPane_CentriVaccinali.setVisible(true);
@@ -341,7 +341,7 @@ public class MainCittadini {
     }
 
     /**
-     * Crea un popup che mostra l'animazione di caricamento. Di default è al centro della scena
+     * Crea un popup che mostra l'animazione di caricamento.
      * @param scene La scena in cui verrà inserito il popup
      * @return Il popup creato
      * @throws IOException Se non è possibile caricare il file FXML
@@ -507,7 +507,7 @@ public class MainCittadini {
 
     /**
      * Carica le informazioni principali del centri vaccinale selezionato.
-     * @param idCentro L'ID contenete il numero della riga del centro vaccinale selezionato nel file
+     * @param idCentro L'ID del centro vaccinale
      * @param centerInfoPane Il pannello in cui verranno inseriti a video i dati presi dal database
      */
     public void loadCenterInfo(int idCentro, Pane centerInfoPane, AnchorPane centerPageOne, AnchorPane centerPageTwo){
@@ -636,7 +636,7 @@ public class MainCittadini {
 
     /**
      * Legge il database, relativo al centro vaccinale selezionato, contente gli eventi avversi e gli utenti vaccinati
-     * @param currentCentreID L'ID (presente nel database) del centro vaccinale selezionato
+     * @param currentCentreID L'ID  del centro vaccinale selezionato
      * @return Una lista di stringhe contente gli eventi avversi relativi al centro vaccinale selezionato
      */
     public Vector<EventiAvversi> leggiEventiAvversi(int currentCentreID) {
@@ -796,7 +796,7 @@ public class MainCittadini {
     }
 
     /**
-     * Torna indietro alla schermata di selezione portale
+     * Metodo per tornare indietro alla schermata di selezione portale
      * @param event L'evento che richiama il metodo. Necessario per ottenere lo stage su cui inserire la nuova scena per mantenere la stessa finestra ma con una UI diversa
      */
     public void goBackFromMainCittadini(MouseEvent event){
@@ -829,7 +829,7 @@ public class MainCittadini {
     }
 
     /**
-     * Carica la UI di login utente. Viene richiamato quando l'utente preme sul tasto "Login"
+     * Metodo per caricare la UI di login utente. Viene richiamato quando l'utente preme sul tasto "Login"
      * @param event Il bottone cliccato dall'utente
      */
     public void onLoginClick(ActionEvent event){
@@ -838,7 +838,7 @@ public class MainCittadini {
     }
 
     /**
-     * Carica la UI che permette ad un utente di effettuare il login, o in alternativa, di caricare la UI necessaria alla registrazione
+     * Metodo per caricare la UI che permette ad un utente di effettuare il login, o in alternativa, di caricare la UI necessaria alla registrazione
      * @param stage Lo stage da cui inserire e prendere il nome centro vaccinale e il codice fiscale del cittadino loggato
      */
     public void loadLoginUI(Stage stage){
@@ -897,8 +897,8 @@ public class MainCittadini {
 
     /**
      * Controlla se l'utente è stato vaccinato presso il centro vaccinale selezionato e, in caso positivo, restituisce il numero di eventi avversi ancora da inserire.
-     * @param user
-     * @param currentCenter
+     * @param user stringa rappresentante l'utente
+     * @param currentCenter stringa rappresentante il centro dove ci si è vaccinati
      * @return
      */
     private int getUserEventsNum(String user, String currentCenter){
@@ -940,7 +940,7 @@ public class MainCittadini {
     }
 
     /**
-     * Invia al server il relativo codice operazione per ottenere una lista di tutti i centri vaccinali presenti nel database
+     * Metodo che invia al server il relativo codice operazione per ottenere una lista di tutti i centri vaccinali presenti nel database
      */
     public static void becomeClient(){
         //TODO fare in modo che il client provi a ricollegarsi al server se non è connesso

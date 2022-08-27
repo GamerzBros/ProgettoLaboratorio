@@ -21,16 +21,16 @@ import java.time.LocalDate;
  */
 public class RegistrazioneUtente {
     /**
-     * Buffer che permette di inviare dati primitivi al sever
+     * Buffer che permette di inviare dati al sever
      */
     private BufferedReader in;
     /**
-     * Buffer che permette di ricevere dati primitivi dal server
+     * Buffer che permette di ricevere dati dal server
      */
     private PrintWriter out;
 
     /**
-     * Registra un cittadino nel file di testo contente tutti i cittadini registrati.
+     * Registra un cittadino database contente tutti i cittadini registrati.
      * @param event L'evento che richiama il metodo. Necessario ad ottenere la scena attuale per prendere le informazioni inserite dall'utente.
      */
     public void registraCittadino(ActionEvent event){
@@ -107,7 +107,7 @@ public class RegistrazioneUtente {
     }
 
     /**
-     * Invia al server il relativo codice di operazione per registrare un nuovo utente
+     * Invia al server il relativo codice di operazione, e i dati, per registrare un nuovo utente
      * @param parameters I dati relativi al nuovo utente che il server dovrà inserire nel database
      */
     private void becomeClient(String parameters){

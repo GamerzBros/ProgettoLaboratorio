@@ -22,7 +22,7 @@ public class Server {
 
     /**
      * Costruttore principale del server
-     * @throws IOException Causata da un errore nell'inizializzazione del server socket
+     * @throws IOException Errore causato durante la connessione al server
      */
     Server() throws IOException {
         server_socket = new ServerSocket(PORT);

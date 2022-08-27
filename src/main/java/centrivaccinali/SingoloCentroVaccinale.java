@@ -26,7 +26,7 @@ public class SingoloCentroVaccinale implements Serializable {
     private String tipologia;
 
     /**
-     * Costruisce un SingoloCentroVaccinale con nome e indirizzo
+     * Costruisce un oggetto SingoloCentroVaccinale con nome e indirizzo
      * @param nome La stringa contente il nome del centro vaccinale
      * @param indirizzo La stringa contenente l'indirizzo del centro vaccinale
      */

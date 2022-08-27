@@ -44,7 +44,7 @@ public class EventiAvversi implements Serializable {
     private String cfUtente;
 
     /**
-     * Classe che restituisce l'id del centro vaccinale
+     * Mettodo che restituisce l'id del centro vaccinale
      * @return Id del centro vaccinale
      */
     public int getIdCentro() {

@@ -24,7 +24,7 @@ public class SelectionUI extends Application {
      */
     Socket s;
     /**
-     * PrintWriter per scirvere messaggi al server
+     * PrintWriter per inviare messaggi al server
      */
     PrintWriter out;
     /**
@@ -96,6 +96,7 @@ public class SelectionUI extends Application {
 
     /**
      * Crea la UI del portale Centri Vaccinali. Viene richiamato una volta che viene selezionato il portale Centri Vaccinale dalla UI principale.
+     * @param event L'evento che richiama il metodo. Necessario per creare il nuovo stage
      */
     public void onCentriVaccinaliSelected(ActionEvent event){
         Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
