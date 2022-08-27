@@ -38,7 +38,7 @@ public class RegistrazioneUtente {
 
         String name = ((TextField)currentScene.lookup("#txt_userName")).getText();
         String surname = ((TextField)currentScene.lookup("#txt_userSurname")).getText();
-        String user = ((TextField)currentScene.lookup("#txt_userMail")).getText();
+        String user = ((TextField)currentScene.lookup("#txt_userMail")).getText().toLowerCase();
         String userCF=((TextField)currentScene.lookup("#txt_userCF")).getText().toUpperCase();
         String pwd = ((PasswordField)currentScene.lookup("#pswd_register")).getText();
         String confirmationPwd=((PasswordField)currentScene.lookup("#pswd_confirm")).getText();

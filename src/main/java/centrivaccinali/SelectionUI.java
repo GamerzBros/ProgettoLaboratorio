@@ -43,6 +43,7 @@ public class SelectionUI extends Application {
      * Container del BufferedReader
      */
     public static BufferedReader in_container;
+
     /**
      * Crea la UI principale che permette di scegliere il portale. Metodo che viene eseguito subito dopo la creazione della classe.
      * @param stage Lo stage che conterrà la scena. Uno stage è una finestra, mentre una scena è tutto ciò contenuto in uno stage.

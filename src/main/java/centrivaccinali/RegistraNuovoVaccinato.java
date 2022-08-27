@@ -37,30 +37,6 @@ public class RegistraNuovoVaccinato {
      */
     BufferedReader in;
     /**
-     * Percorso per il file contente le informazioni dei centri vaccinali registrati
-     */
-    public static final String PATH_TO_CENTRIVACCINALI_DATI = "data/CentriVaccinali.dati.txt";
-    /**
-     * Parte iniziale percorso per il file del centro vaccinale selezionato
-     */
-    public static final String PRE_PATH_TO_EVENTI_AVVERSI="data/Vaccinati_";
-    /**
-     * Parte finale del percorso del centro vaccinale selezionato
-     */
-    public static final String AFTER_PATH_TO_EVENTI_AVVERSI=".dati.txt";
-    /**
-     * Percorso per il file contenente i dati dei cittadini registrati
-     */
-    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
-    /**
-     * Tipo di linea del file contente le informazioni relative al vaccinato
-     */
-    public static final String LINE_TYPE_PERSON ="V";
-    /**
-     * Tipo di linea del file contente le informazioni relative agli eventi avversi
-     */
-    public static final String LINE_TYPE_EVENT ="E";
-    /**
      * Vettore di centri vaccinali
      */
     private Vector<SingoloCentroVaccinale> centriVaccinaliList=null;

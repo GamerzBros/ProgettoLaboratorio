@@ -17,7 +17,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <ImageView fitHeight="120.0" fitWidth="120.0" layoutX="243.0" layoutY="23.0" pickOnBounds="true" preserveRatio="false">
+      <ImageView fitHeight="120.0" fitWidth="120.0" layoutX="243.0" layoutY="21.0" pickOnBounds="true" preserveRatio="false">
          <Image url="@/cittadini/register.png" />
       </ImageView>
       <TextField fx:id="txt_userName" layoutX="45.0" layoutY="130.0" prefHeight="25.0" prefWidth="240.0" promptText="Nome" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
@@ -27,7 +27,7 @@
       <TextField fx:id="txt_userMail" layoutX="45.0" layoutY="212.0" prefHeight="25.0" prefWidth="510.0" promptText="Email" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
       <PasswordField fx:id="pswd_register" layoutX="45.0" layoutY="253.0" prefHeight="25.0" prefWidth="510.0" promptText="Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
       <PasswordField fx:id="pswd_confirm" layoutX="45.0" layoutY="294.0" prefHeight="25.0" prefWidth="510.0" promptText="Conferma Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
-      <Button layoutX="249.0" layoutY="345.0" mnemonicParsing="false" onAction="#registraCittadino" style="-fx-background-radius: 8px; -fx-background-color: white;" styleClass="buttonSelection" text="Conferma">
+      <Button layoutX="249.0" layoutY="345.0" mnemonicParsing="false" onAction="#registraCittadino" style="-fx-background-radius: 8px; -fx-background-color: white;" styleClass="buttonSelection" text="Registrati">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>

@@ -22,10 +22,6 @@ import java.util.HashMap;
  * Gestisce la UI che permette a un utente di effettuare il login
  */
 public class LoginUtente {
-    /**
-     * Percorso per il file contenente i dati dei cittadini registrati
-     */
-    public static final String PATH_TO_CITTADINI_REGISTRATI_DATI = "data/Cittadini_Registrati.dati.txt";
     public static final int LOGIN_OPERATION_CODE=1;
     /**
      * Buffer che permette di ricevere dati primitivi dal server
@@ -42,7 +38,7 @@ public class LoginUtente {
      */
     public void loggaCittadini(ActionEvent event) {
         Scene currentScene = ((Button) event.getSource()).getScene();
-        String user = ((TextField) currentScene.lookup("#txt_userLogin")).getText();
+        String user = ((TextField) currentScene.lookup("#txt_userLogin")).getText().toLowerCase();
         String pwd = ((TextField) currentScene.lookup("#pswd_login")).getText();
         System.out.println("Login in corso");
         String parameters;

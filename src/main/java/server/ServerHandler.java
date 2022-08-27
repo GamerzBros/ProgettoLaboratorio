@@ -349,12 +349,13 @@ public class ServerHandler extends Thread{
             prepSt.setInt(2,Integer.parseInt(centerId));
             System.out.println("userID="+userId+"; centerID="+centerId);
             ResultSet result=prepSt.executeQuery();
-            if(!result.next()){
+            result.next();
+            int vaccinationsNum=result.getInt("rowCount");
+            if(vaccinationsNum==0){
                 //l'utente non è stato vaccinato presso il centro selezionato
                 out.println(-1);
                 return;
             }
-            int vaccinationsNum=result.getInt("rowCount");
             sql="SELECT COUNT(*) AS rowCount FROM eventiavversi ea WHERE ea.id_centro=? AND ea.cf_utente=?";
             prepSt=con.prepareStatement(sql);
             prepSt.setInt(1,Integer.parseInt(centerId));

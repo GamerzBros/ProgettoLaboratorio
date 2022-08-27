@@ -160,6 +160,7 @@ public class MainCittadini {
             scene.lookup("#radio_type").getStyleClass().add("toggle-button");
 
             AnchorPane mainPane=(AnchorPane) scene.lookup("#mainPane");
+            scrollPane_CentriVaccinali= (ScrollPane) scene.lookup("#scrollPane_CentriVaccinali");
 
             Node loadingPopup=showLoadingAnimation(scene);
 
@@ -188,7 +189,6 @@ public class MainCittadini {
                             Label label= (Label) scene.lookup("#errorLabel");
                             label.setText(NO_CENTERS_TEXT);
                             label.setVisible(true);
-                            System.out.println("Nessun centro vaccinale presente nel database");
                         } else {
                             creaVbox(centriVaccinaliList);
                         }
@@ -440,13 +440,17 @@ public class MainCittadini {
 
             for(int i=0;i<vbox.getChildren().size();i++){
                 HBox element=(HBox) vbox.getChildren().get(i);
-                Button button=(Button)element.getChildren().get(3);
+                ImageView imgButton=(ImageView)element.getChildren().get(3);
 
-                if(selectedCenterID==Integer.parseInt(button.getId())) {
-                    button.setStyle("-fx-cursor: hand; -fx-background-radius: 5em; -fx-min-width: 1px; -fx-background-color: #1aaee8; -fx-border-radius: 5em; -fx-border-color: #000000;");
+                if(selectedCenterID==Integer.parseInt(imgButton.getId())) {
+                    Timeline buttonRotation=new Timeline(new KeyFrame(Duration.millis(400), new KeyValue(imgButton.rotateProperty(), 225, Interpolator.EASE_BOTH)));
+
+                    buttonRotation.play();
                 }
                 else{
-                    button.setStyle("-fx-cursor: hand; -fx-background-radius: 5em; -fx-min-width: 1px; -fx-background-color: #FFFFFF; -fx-border-radius: 5em; -fx-border-color: #000000;");
+                    Timeline buttonRotation=new Timeline(new KeyFrame(Duration.millis(400), new KeyValue(imgButton.rotateProperty(), 0, Interpolator.EASE_BOTH)));
+
+                    buttonRotation.play();
                 }
             }
 
@@ -461,7 +465,7 @@ public class MainCittadini {
      */
     public void loadVisualizzatoreCentroVaccinale(Pane centerInfoPane, int selectedCenterID){
         try {
-            //TODO ottimizzare sta roba controllando se è già stata caricata la UI tramite una variabile globale booleana
+            //TODO ottimizzare sta roba mettendo le due scene come attributi (e skippando quindi ogni volta il caricamento)
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/VisualizzazioneCentroVaccinalePage1.fxml"));
             fxmlLoader.setController(this);
             Parent centerPageOne = fxmlLoader.load();
@@ -469,9 +473,6 @@ public class MainCittadini {
             fxmlLoader.setController(this);
             Parent centerPageTwo = fxmlLoader.load();
 
-            /*metto le due scene al centro del pannello
-            centerPageOne.setLayoutX((centerInfoPane.getWidth()-((AnchorPane)centerPageOne).getPrefWidth())/2);
-            centerPageTwo.setLayoutX((centerInfoPane.getWidth()-((AnchorPane)centerPageTwo).getPrefWidth())/2);*/
 
             if(centerInfoPaneUILoaded){
                 centerInfoPane.getChildren().remove(0);
@@ -514,12 +515,16 @@ public class MainCittadini {
         double indicatorSize=115;
 
         ProgressIndicator loadingIndicator=new ProgressIndicator();
-        //((AnchorPane)centerInfoPane.lookup("#root_anchor_pane")).getChildren().add(loadingIndicator);
         centerInfoPane.getChildren().add(loadingIndicator);
         ScrollPane scrollPane=((ScrollPane)(centerInfoPane.getParent()).lookup("#scrollPane_CentriVaccinali"));
         loadingIndicator.setMinHeight(indicatorSize);
         loadingIndicator.setMinWidth(indicatorSize);
-        loadingIndicator.setLayoutX((scrollPane.getPrefWidth()-(scrollPane.getPrefWidth()/3)-loadingIndicator.getMinWidth())/2);
+        if(scrollPane.getPrefWidth()<centerInfoPane.getPrefWidth()){
+            loadingIndicator.setLayoutX((centerInfoPane.getPrefWidth() - loadingIndicator.getMinWidth()) / 2);
+        }
+        else {
+            loadingIndicator.setLayoutX((scrollPane.getPrefWidth() - (scrollPane.getPrefWidth() / 3) - loadingIndicator.getMinWidth()) / 2);
+        }
         loadingIndicator.setLayoutY((centerInfoPane.getPrefHeight()-loadingIndicator.getMinHeight())/2);
         loadingIndicator.setStyle("-fx-progress-color: blue");
         centerInfoPane.getChildren().get(0).setOpacity(0.6);
@@ -529,21 +534,43 @@ public class MainCittadini {
                 Thread.sleep(550);
 
                 Vector<EventiAvversi> eventLines = leggiEventiAvversi(idCentro);
+                int[] eventsCount = new int[6];
                 int[] singleEvents = new int[6];
                 Vector<String> otherEventsText = new Vector<>();
 
-                for (EventiAvversi currentEvents : eventLines) {
+                for (EventiAvversi currentEvent : eventLines) {
                     //sommo tra di loro i valori di ogni sintomo per poi poterne far la media
-                    singleEvents[0] += currentEvents.getMaleTesta();
-                    singleEvents[1] += currentEvents.getFebbre();
-                    singleEvents[2] += currentEvents.getDoloriMuscolari();
-                    singleEvents[3] += currentEvents.getLinfoadenopatia();
-                    singleEvents[4] += currentEvents.getTachicardia();
-                    singleEvents[5] += currentEvents.getCrisiIpertensiva();
+                    singleEvents[0] += currentEvent.getMaleTesta();
+                    singleEvents[1] += currentEvent.getFebbre();
+                    singleEvents[2] += currentEvent.getDoloriMuscolari();
+                    singleEvents[3] += currentEvent.getLinfoadenopatia();
+                    singleEvents[4] += currentEvent.getTachicardia();
+                    singleEvents[5] += currentEvent.getCrisiIpertensiva();
 
-                    if (currentEvents.getOtherSymptoms() != null && !(currentEvents.getOtherSymptoms().equals(""))) {
-                        otherEventsText.add(currentEvents.getOtherSymptoms());
+                    if (currentEvent.getOtherSymptoms() != null && !(currentEvent.getOtherSymptoms().equals(""))) {
+                        otherEventsText.add(currentEvent.getOtherSymptoms());
                     }
+
+                    //Conto il numero di occorrenze per ogni sintomo
+                    if(currentEvent.getMaleTesta()>0){
+                        eventsCount[0]++;
+                    }
+                    if(currentEvent.getFebbre()>0){
+                        eventsCount[1]++;
+                    }
+                    if(currentEvent.getDoloriMuscolari()>0){
+                        eventsCount[2]++;
+                    }
+                    if(currentEvent.getLinfoadenopatia()>0){
+                        eventsCount[3]++;
+                    }
+                    if(currentEvent.getTachicardia()>0){
+                        eventsCount[4]++;
+                    }
+                    if(currentEvent.getCrisiIpertensiva()>0){
+                        eventsCount[5]++;
+                    }
+
                 }
 
                 for (int i = 0; i < singleEvents.length; i++) {
@@ -566,24 +593,33 @@ public class MainCittadini {
                 }
 
                 PieChart pieChart = (PieChart) centerPageTwo.lookup("#pieChart_symptoms");
-                ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-                pieChartData.add(new PieChart.Data("Mal di testa", singleEvents[0]));
-                pieChartData.add(new PieChart.Data("Febbre", singleEvents[1]));
-                pieChartData.add(new PieChart.Data("Dolori muscolari", singleEvents[2]));
-                pieChartData.add(new PieChart.Data("Linfoadenopatia", singleEvents[3]));
-                pieChartData.add(new PieChart.Data("Tachicardia", singleEvents[4]));
-                pieChartData.add(new PieChart.Data("Crisi ipertensiva", singleEvents[5]));
-                pieChart.setData(pieChartData);
-
-                for(PieChart.Data data : pieChartData) {
-                    data.nameProperty().bind(Bindings.concat(data.getName(), " ", (int)(data.getPieValue() * 100 / total), "%"));
-                }
-
-                pieChart.getStyleClass().add("pieChart");
-
-
                 Label lbl_totalEvents = (Label) centerPageTwo.lookup("#lbl_totalEvents");
-                lbl_totalEvents.setText("Numero totale di eventi registrati: "+eventLines.size());
+
+                if(total==0){
+                    centerPageTwo.lookup("#img_noChartData").setVisible(true);
+                    centerPageTwo.lookup("#lbl_noChartData").setVisible(true);
+
+                    pieChart.setVisible(false);
+                    lbl_totalEvents.setVisible(false);
+                }
+                else {
+                    centerPageTwo.lookup("#img_noChartData").setVisible(false);
+                    centerPageTwo.lookup("#lbl_noChartData").setVisible(false);
+
+                    //Inserisco il numero di occorrenze di ogni sintomo
+                    ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+                    pieChartData.add(new PieChart.Data("Mal di testa ["+eventsCount[0]+"]", eventsCount[0]));
+                    pieChartData.add(new PieChart.Data("Febbre ["+eventsCount[1]+"]", eventsCount[1]));
+                    pieChartData.add(new PieChart.Data("Dolori muscolari ["+eventsCount[2]+"]", eventsCount[2]));
+                    pieChartData.add(new PieChart.Data("Linfoadenopatia ["+eventsCount[3]+"]", eventsCount[3]));
+                    pieChartData.add(new PieChart.Data("Tachicardia ["+eventsCount[4]+"]", eventsCount[4]));
+                    pieChartData.add(new PieChart.Data("Crisi ipertensiva ["+eventsCount[5]+"]", eventsCount[5]));
+                    pieChart.setData(pieChartData);
+
+                    pieChart.getStyleClass().add("pieChart");
+
+                    lbl_totalEvents.setText("Numero totale di eventi registrati: " + eventLines.size());
+                }
 
                 Platform.runLater(() -> {
                     lbl_headacheEffect.setText(String.valueOf(singleEvents[0]));//evento1 = Mal di testa
@@ -867,7 +903,7 @@ public class MainCittadini {
         HashMap<String,String> userData=(HashMap<String,String>)stage.getUserData();
         String user=userData.get("currentUser");
         String center=userData.get("currentCenter");
-        System.out.println(user);
+
         //se l'utente non è loggato, non può inserire eventi avversi
         if(user==null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
