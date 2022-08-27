@@ -104,8 +104,7 @@ public class ServerHandler extends Thread{
 
         try {
             Connection con = connectDB();
-            PreparedStatement stm = con.prepareStatement("SELECT cf FROM public.utente where email=? and password =?");
-            System.out.println("email: "+email+"; password:"+pwd);
+            PreparedStatement stm = con.prepareStatement("SELECT cf FROM utente where email=? and password =?");
             stm.setString(1, email);
             stm.setString(2, pwd);
             ResultSet result = stm.executeQuery();
@@ -133,7 +132,7 @@ public class ServerHandler extends Thread{
         Date date1 = java.sql.Date.valueOf(dateBirth);
         try{
             Connection con = connectDB();
-            String sql ="insert into public.utente(nome,cognome,cf,data_nascita,email,password) values (?,?,?,?,?,?)" ;
+            String sql ="insert into utente(nome,cognome,cf,data_nascita,email,password) values (?,?,?,?,?,?)" ;
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setString(1,name);
             stm.setString(2,surname);
@@ -209,7 +208,7 @@ public class ServerHandler extends Thread{
         String tipologia = parameters_splitted[7];
         try {
             Connection con = connectDB();
-            String sql = "INSERT INTO public.centrivaccinali (qualificatore,via,civico,comune,provincia,cap,tipologia,nome)\n" +
+            String sql = "INSERT INTO centrivaccinali (qualificatore,via,civico,comune,provincia,cap,tipologia,nome)\n" +
                     "VALUES(?,?,?,?,?,?,?,?)";
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setString(1, qualificatore);

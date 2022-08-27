@@ -21,7 +21,7 @@
         </ImageView>
         <TextField fx:id="txt_userLogin" layoutX="100.0" layoutY="136.0" prefHeight="25.0" prefWidth="280.0" promptText="Email" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
         <PasswordField fx:id="pswd_login" layoutX="100.0" layoutY="179.0" prefHeight="25.0" prefWidth="280.0" promptText="Password" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" />
-        <Button fx:id="login_button" layoutX="190.0" layoutY="228.0" mnemonicParsing="false" onAction="#loggaCittadini" prefWidth="95.0" styleClass="buttonSelection" style="-fx-background-radius: 8; -fx-background-color: white;" text="Login">
+        <Button fx:id="login_button" layoutX="190.0" layoutY="228.0" mnemonicParsing="false" onAction="#loggaCittadini" prefWidth="95.0" style="-fx-background-radius: 8; -fx-background-color: white;" styleClass="buttonSelection" text="Login">
             <font>
                 <Font name="Franklin Gothic Medium" size="18.0" />
             </font>
@@ -30,9 +30,9 @@
             <font>
                 <Font size="15.0" />
             </font></Label>
-        <Button fx:id="register_button" layoutX="190.0" layoutY="298.0" mnemonicParsing="false" onAction="#loadRegisterCitizenUI" underline="true" styleClass="buttonSelection" style="-fx-background-color: transparent;" textFill="white" text="Registrati">
+        <Button fx:id="register_button" layoutX="196.0" layoutY="298.0" mnemonicParsing="false" onAction="#loadRegisterCitizenUI" style="-fx-background-color: transparent;" styleClass="buttonSelection" text="Registrati" textFill="white" underline="true">
             <font>
-                <Font name="Franklin Gothic Medium" size="18.0" />
+                <Font name="Franklin Gothic Medium" size="16.0" />
             </font>
         </Button>
     </children>

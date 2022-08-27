@@ -13,6 +13,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import server.ServerHandler;
+
 import java.io.*;
 import java.net.Socket;
 import java.net.URL;
@@ -89,46 +91,46 @@ public class RegistraNuovoCentro {
         String via = ((TextField) currentScene.lookup("#txt_via")).getText();
         String civico = ((TextField) currentScene.lookup("#txt_numeroCivico")).getText();
         String com = ((TextField) currentScene.lookup("#txt_comune")).getText();
-        String prov = ((TextField) currentScene.lookup("#txt_provincia")).getText();
+        String prov = ((TextField) currentScene.lookup("#txt_provincia")).getText().toUpperCase();
         String cap = ((TextField) currentScene.lookup("#txt_cap")).getText();
         String tipolog = ((ChoiceBox<String>) currentScene.lookup("#cbx_tipologia")).getValue();
         String parameters = nome + ";" + qualif + ";" + via + ";" + civico + ";" + com + ";" + prov + ";" + cap + ";" + tipolog;
-        if(prov.length()>2){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Errore");
-            alert.setHeaderText(null);
-            alert.setContentText("Controllare i dati inseriti");
-            alert.showAndWait();
-        }
-        if (nome.equals("") || qualif == null || via.equals("") || civico.equals("") || com.equals("") || prov.equals("") || cap.equals("") || tipolog == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Errore");
-            alert.setHeaderText(null);
-            alert.setContentText("Controllare i dati inseriti");
-            alert.showAndWait();
-        } else {
-            try {
-                becomeClient(parameters);
-                String result = in.readLine();
-                if (result.equals("true")) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Successo");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Centro vaccinale registrato");
-                    alert.showAndWait();
 
-                    Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
-                    loadOpzioniOperatoreUI(stage);
-                } else if (result.equals("false")) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Errore");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Problemi con il server");
-                    alert.showAndWait();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (nome.equals("") || qualif == null || via.equals("") || civico.equals("") || com.equals("") || prov.equals("") || prov.length()>2 || cap.equals("") || cap.length()>5 || tipolog == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText(null);
+            alert.setContentText("Controllare i dati inseriti");
+            alert.show();
+            return;
+        }
+
+        try {
+            becomeClient(parameters);
+            String result = in.readLine();
+            if (result.equals("true")) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Successo");
+                alert.setHeaderText(null);
+                alert.setContentText("Centro vaccinale registrato");
+                alert.showAndWait();
+
+                Stage stage=(Stage)((Button)event.getSource()).getScene().getWindow();
+                loadOpzioniOperatoreUI(stage);
+            } else if (result.equals("false")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Errore");
+                alert.setHeaderText(null);
+                alert.setContentText("Problemi con il server");
+                alert.show();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText(null);
+            alert.setContentText("Problemi con il server");
+            alert.show();
         }
     }
 
@@ -160,6 +162,6 @@ public class RegistraNuovoCentro {
         out = SelectionUI.out_container;
         in = SelectionUI.in_container;
         out.println(parameters);
-        out.println(REGISTER_VACCINECENTRE_OPERATION_CODE);
+        out.println(ServerHandler.REGISTER_CENTER_OP_CODE);
     }
 }
