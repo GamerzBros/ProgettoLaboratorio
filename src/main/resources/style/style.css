@@ -110,3 +110,7 @@
     -fx-pref-width: 455;
     -fx-alignment: center;
 }
+
+.ShadowEf{
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 12, 0, 0, 0);
+}

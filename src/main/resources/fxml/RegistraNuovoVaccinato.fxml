@@ -1,36 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<?import java.net.URL?>
-<AnchorPane prefHeight="345.0" prefWidth="490.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
-   <AnchorPane fx:id="main_anchor_pane">
-      <Button layoutX="4.0" layoutY="7.5" onMouseClicked="#goBackToOpzioniOperatore" styleClass="backButton">
-         <graphic>
-            <ImageView fitHeight="22.0" fitWidth="20.0" preserveRatio="false">
-               <Image url="@/common/goBackIcon.png" />
-            </ImageView>
-         </graphic>
-      </Button>
-      <ImageView layoutX="190.0" layoutY="20" fitHeight="110" fitWidth="110">
-         <Image url="@/centrivaccinali/person.png" />
-      </ImageView>
-      <TextField fx:id="txt_nomePaziente" layoutX="40.0" layoutY="140.0" prefHeight="25.0" prefWidth="190.0" promptText="Nome Paziente" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;"/>
-      <TextField fx:id="txt_cognomePaziente" layoutX="260.0" layoutY="140.0" prefHeight="25.0" prefWidth="190.0" promptText="Cognome Paziente" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;"/>
-      <TextField fx:id="txt_cfPaziente" layoutX="40.0" layoutY="190.0" prefHeight="25.0" prefWidth="190.0" promptText="Codice Fiscale" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;"/>
-      <DatePicker fx:id="datePicker_datavaccinazione" prefWidth="190" prefHeight="25" styleClass="datepicker" layoutX="260.0" layoutY="190.0" promptText="Data Vaccinazione" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;"/>
-      <ChoiceBox fx:id="cbx_centroVaccinale" layoutX="40.0" layoutY="240.0" prefHeight="25.0" prefWidth="190.0"/>
-      <ChoiceBox fx:id="cbx_vaccinoSomministrato" layoutX="260.0" layoutY="240.0" prefWidth="190.0"/>
-      <Button fx:id="nuovoPaziente_confirm" layoutX="190.0" layoutY="290.0" prefWidth="110" mnemonicParsing="false" onAction="#registraVaccinato" styleClass="buttonSelection" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Conferma">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+   <Button onMouseClicked="#goBackToOpzioniOperatore" styleClass="backButton">
+      <graphic>
+         <ImageView fitHeight="22.0" fitWidth="20.0" preserveRatio="false">
+            <Image url="@/common/goBackIcon.png" />
+         </ImageView>
+      </graphic>
+   </Button>
+   <ImageView fitHeight="442.0" fitWidth="464.0" layoutX="67.0" layoutY="-3.0">
+      <Image url="@/centrivaccinali/person.png" />
+   </ImageView>
+   <AnchorPane fx:id="main_anchor_pane" layoutX="25.0" layoutY="45.0" prefHeight="350.0" prefWidth="550.0">
+      <Pane opacity="0.85" prefHeight="350.0" prefWidth="550.0" style="-fx-background-color: #1a73e8; -fx-background-radius: 18;" />
+      <TextField fx:id="txt_nomePaziente" layoutX="30.0" layoutY="100.0" prefHeight="25.0" prefWidth="220.0" promptText="Nome Paziente" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <TextField fx:id="txt_cognomePaziente" layoutX="300.0" layoutY="100.0" prefHeight="25.0" prefWidth="220.0" promptText="Cognome Paziente" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <TextField fx:id="txt_cfPaziente" layoutX="30.0" layoutY="160.0" prefHeight="33.0" prefWidth="220.0" promptText="Codice Fiscale" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <DatePicker fx:id="datePicker_datavaccinazione" layoutX="300.0" layoutY="160.0" prefHeight="33.0" prefWidth="220.0" promptText="Data Vaccinazione" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;" styleClass="datepicker" />
+      <ChoiceBox fx:id="cbx_centroVaccinale" layoutX="30.0" layoutY="230.0" prefHeight="25.0" prefWidth="220.0" style="-fx-background-color: white; -fx-background-radius: 10;" />
+      <ChoiceBox fx:id="cbx_vaccinoSomministrato" layoutX="300.0" layoutY="230.0" prefWidth="220.0" style="-fx-background-color: white; -fx-background-radius: 10;" />
+      <Button fx:id="nuovoPaziente_confirm" layoutX="220.0" layoutY="290.0" mnemonicParsing="false" onAction="#registraVaccinato" prefWidth="110" style="-fx-background-radius: 8px; -fx-background-color: white;" styleClass="buttonSelection" text="Conferma">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
          </font>
       </Button>
    </AnchorPane>
    <stylesheets>
-      <URL value="@/style/style.css"/>
+      <URL value="@/style/style.css" />
    </stylesheets>
 </AnchorPane>
