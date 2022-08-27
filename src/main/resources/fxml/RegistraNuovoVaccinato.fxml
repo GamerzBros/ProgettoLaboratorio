@@ -18,7 +18,7 @@
       <Image url="@/centrivaccinali/person.png" />
    </ImageView>
    <AnchorPane fx:id="main_anchor_pane" layoutX="25.0" layoutY="45.0" prefHeight="350.0" prefWidth="550.0">
-      <Pane opacity="0.85" prefHeight="350.0" prefWidth="550.0" style="-fx-background-color: #1a73e8; -fx-background-radius: 18;" />
+      <Pane opacity="0.85" prefHeight="350.0" prefWidth="550.0" style="-fx-background-color: #1a73e8; -fx-background-radius: 18;" styleClass="ShadowEf" />
       <TextField fx:id="txt_nomePaziente" layoutX="30.0" layoutY="100.0" prefHeight="25.0" prefWidth="220.0" promptText="Nome Paziente" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;">
          <font>
             <Font size="14.0" />
