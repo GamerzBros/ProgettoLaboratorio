@@ -1,9 +1,13 @@
 centrivaccinali\SelectionUI.class
+cittadini\RegistraEventiAvversi.class
 cittadini\MainCittadini.class
-centrivaccinali\RegistraNuovoVaccinato.class
-centrivaccinali\RegistraNuovoCentro.class
 centrivaccinali\SingoloCentroVaccinale.class
 cittadini\LoginUtente.class
-centrivaccinali\PortaleOperatori.class
-MainClass.class
 cittadini\RegistrazioneUtente.class
+centrivaccinali\RegistraNuovoVaccinato.class
+server\Server.class
+server\ServerHandler.class
+centrivaccinali\RegistraNuovoCentro.class
+centrivaccinali\PortaleOperatori.class
+cittadini\EventiAvversi.class
+MainClass.class

@@ -1,37 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<?import java.net.URL?>
-<AnchorPane prefHeight="400.0" prefWidth="550.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="420.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="0.0" layoutY="7.5" onMouseClicked="#goBackToOpzioniOperatore" styleClass="bottomShadow" style="-fx-background-color: transparent;">
+      <Button layoutX="4.0" layoutY="7.5" onMouseClicked="#goBackToOpzioniOperatore" styleClass="backButton">
          <graphic>
-            <ImageView fitHeight="22.0" fitWidth="25.0" preserveRatio="false">
+            <ImageView fitHeight="22.0" fitWidth="20.0" preserveRatio="false">
                <Image url="@/common/goBackIcon.png" />
             </ImageView>
          </graphic>
       </Button>
-      <TextField fx:id="txt_nomeCentro" layoutX="51.0" layoutY="160.0" prefHeight="25.0" prefWidth="213.0" promptText="Nome Centro" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;"/>
-      <TextField fx:id="txt_via" layoutX="286.0" layoutY="160.0" prefHeight="25.0" prefWidth="213.0" promptText="Via" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;"/>
-      <TextField fx:id="txt_numeroCivico" layoutX="50.0" layoutY="199.0" prefHeight="25.0" prefWidth="213.0" promptText="Numero Civico" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;"/>
-      <TextField fx:id="txt_comune" layoutX="285.0" layoutY="199.0" prefHeight="25.0" prefWidth="213.0" promptText="Comune" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;"/>
-      <TextField fx:id="txt_provincia" layoutX="50.0" layoutY="242.0" prefHeight="25.0" prefWidth="213.0" promptText="Provincia" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;"/>
-      <TextField fx:id="txt_cap" layoutX="287.0" layoutY="242.0" prefHeight="25.0" prefWidth="213.0" promptText="CAP" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;"/>
-      <ChoiceBox fx:id="cbx_qualificatore" layoutX="287.0" layoutY="290.0" prefHeight="25.0" prefWidth="213.0"/>
-      <ChoiceBox fx:id="cbx_tipologia" layoutX="51.0" layoutY="290.0" prefHeight="25.0" prefWidth="213.0"/>
-      <Button fx:id="btn_nuovoPaziente" layoutX="216.0" layoutY="341.0" mnemonicParsing="false" onAction="#registraCentroVaccinale" prefHeight="38.0" prefWidth="120.0" style="-fx-background-radius: 8px; -fx-background-color: white;" text="Registra">
-         <font>
-            <Font name="Franklin Gothic Medium" size="18.0" />
-         </font></Button>
-      <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="238.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="@/centrivaccinali/hub.png" />
+      <ImageView fitHeight="415.0" fitWidth="415.0" layoutX="85.0" layoutY="-70.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@/centrivaccinali/ospedale.png" />
       </ImageView>
+      <AnchorPane layoutX="25.0" layoutY="45.0" prefHeight="350.0" prefWidth="550.0">
+         <children>
+            <Pane opacity="0.85" prefHeight="350.0" prefWidth="550.0" style="-fx-background-color: #1a73e8; -fx-background-radius: 18;" styleClass="ShadowEf" />
+            <TextField fx:id="txt_nomeCentro" layoutX="30.0" layoutY="90.0" prefHeight="25.0" prefWidth="220.0" promptText="Nome Centro" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txt_via" layoutX="300.0" layoutY="90.0" prefHeight="27.0" prefWidth="220.0" promptText="Via" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txt_numeroCivico" layoutX="30.0" layoutY="130.0" prefHeight="27.0" prefWidth="220.0" promptText="Numero Civico" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txt_comune" layoutX="300.0" layoutY="130.0" prefHeight="27.0" prefWidth="220.0" promptText="Comune" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txt_provincia" layoutX="30.0" layoutY="170.0" prefHeight="27.0" prefWidth="220.0" promptText="Sigla provincia" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txt_cap" layoutX="300.0" layoutY="170.0" prefHeight="27.0" prefWidth="220.0" promptText="CAP" style="-fx-stroke: 1; -fx-border-style: hidden hidden solid hidden; -fx-border-color: #C4C4C4; -fx-background-color: transparent; -fx-text-fill: white;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <ChoiceBox fx:id="cbx_tipologia" layoutX="30.0" layoutY="230.0" prefHeight="25.0" prefWidth="220.0" style="-fx-background-color: white; -fx-background-radius: 10;" />
+            <ChoiceBox fx:id="cbx_qualificatore" layoutX="300.0" layoutY="230.0" prefHeight="25.0" prefWidth="220.0" style="-fx-background-color: white; -fx-background-radius: 10;" />
+            <Button fx:id="btn_nuovoPaziente" layoutX="215.0" layoutY="290.0" mnemonicParsing="false" onAction="#registraCentroVaccinale" prefWidth="120.0" style="-fx-background-radius: 8px; -fx-background-color: white;" styleClass="buttonSelection" text="Registra">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="18.0" />
+               </font>
+            </Button>
+         </children></AnchorPane>
    </children>
    <stylesheets>
-      <URL value="@/style/style.css"/>
+      <URL value="@/style/style.css" />
    </stylesheets>
 </AnchorPane>
