@@ -96,7 +96,7 @@ public class ServerHandler extends Thread{
      * Controlla nel database se c'è un riscontro delle credenziali con quelle inserite dall'utente, e ne comunica l'esito al client
      * @param parameters La stringa contenente le credenziali dell'utente
      */
-    private void login(String parameters) {
+    private void loginUser(String parameters) {
         String[] parameters_splitted = parameters.split(";");
         String email = parameters_splitted[0];
         String cf=null;
@@ -348,12 +348,13 @@ public class ServerHandler extends Thread{
             prepSt.setInt(2,Integer.parseInt(centerId));
             System.out.println("userID="+userId+"; centerID="+centerId);
             ResultSet result=prepSt.executeQuery();
-            if(!result.next()){
+            result.next();
+            int vaccinationsNum=result.getInt("rowCount");
+            if(vaccinationsNum==0){
                 //l'utente non è stato vaccinato presso il centro selezionato
                 out.println(-1);
                 return;
             }
-            int vaccinationsNum=result.getInt("rowCount");
             sql="SELECT COUNT(*) AS rowCount FROM eventiavversi ea WHERE ea.id_centro=? AND ea.cf_utente=?";
             prepSt=con.prepareStatement(sql);
             prepSt.setInt(1,Integer.parseInt(centerId));
@@ -434,7 +435,7 @@ public class ServerHandler extends Thread{
                 switch (op_converted) {
                     case LOGIN_USER_OP_CODE -> {
                         System.out.println("[THREAD] Login chiamata");
-                        login(parameters);
+                        loginUser(parameters);
                     }
                     case REGISTER_USER_OP_CODE -> {
                         System.out.println("[THREAD] Register chiamata");

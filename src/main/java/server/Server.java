@@ -10,15 +10,15 @@ public class Server {
     /**
      * La porta su cui il server è in ascolto
      */
-    final int PORT = 9870;
+    public final int PORT = 9870;
     /**
      * Il socket del server che sarà in ascolto per nuove connessioni
      */
-    ServerSocket server_socket;
+    private ServerSocket server_socket;
     /**
      * Il socket del client appena connesso che verrà passato al sever slave
      */
-    Socket s;
+    private Socket client_socket;
 
     /**
      * Costruttore principale del server
@@ -36,9 +36,9 @@ public class Server {
         System.out.println("Sono in ascolto");
         try {
             while (true) {
-                s = server_socket.accept();
+                client_socket = server_socket.accept();
                 System.out.println("Un client si è connesso");
-                new ServerHandler(s);
+                new ServerHandler(client_socket);
             }
         } catch (IOException e) {
             e.printStackTrace();

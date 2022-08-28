@@ -5,6 +5,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <AnchorPane prefHeight="400.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="lbl_totalEvents" layoutY="370.0" prefHeight="30.0" prefWidth="580.0" alignment="CENTER" text="Totale eventi: 0">
         <font>
@@ -12,4 +14,12 @@
         </font>
     </Label>
     <PieChart fx:id="pieChart_symptoms" prefHeight="360" prefWidth="580" />
+    <ImageView fitHeight="340" fitWidth="340" layoutX="120" fx:id="img_noChartData" visible="false">
+        <Image url="@/cittadini/noChartData.png"/>
+    </ImageView>
+    <Label fx:id="lbl_noChartData" visible="false" layoutY="340" prefHeight="60" prefWidth="540" layoutX="20" wrapText="true" alignment="CENTER" textAlignment="CENTER" text="Non è possibile generare un grafico perché non è presente nessun evento avverso presso il centro selezionato">
+        <font>
+            <Font name="Franklin Gothic Medium" size="18.0" />
+        </font>
+    </Label>
 </AnchorPane>

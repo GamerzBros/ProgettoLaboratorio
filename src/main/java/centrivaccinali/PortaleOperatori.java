@@ -17,6 +17,7 @@ import java.net.URL;
  * Gestisce la UI del portale operatori di centri vaccinali. Consente agli operatori di passare alla UI di aggiunta centro vaccinale e di aggiunta vaccinazioni
  */
 public class PortaleOperatori {
+
     /**
      * Costruttore principale della classe PortaleOperatori
      * @param stage Lo stage su cui verrà caricata la nuova FX Scene

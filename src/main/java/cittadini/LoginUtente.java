@@ -22,9 +22,6 @@ import java.util.HashMap;
  * Gestisce la UI che permette a un utente di effettuare il login
  */
 public class LoginUtente {
-    /**
-     * Codice operazionale di login per il server
-     */
     public static final int LOGIN_OPERATION_CODE=1;
     /**
      * Buffer che permette di ricevere dati primitivi dal server
@@ -41,7 +38,7 @@ public class LoginUtente {
      */
     public void loggaCittadini(ActionEvent event) {
         Scene currentScene = ((Button) event.getSource()).getScene();
-        String user = ((TextField) currentScene.lookup("#txt_userLogin")).getText();
+        String user = ((TextField) currentScene.lookup("#txt_userLogin")).getText().toLowerCase();
         String pwd = ((TextField) currentScene.lookup("#pswd_login")).getText();
         System.out.println("Login in corso");
         String parameters;
@@ -130,7 +127,7 @@ public class LoginUtente {
     }
 
     /**
-     * Invia al server il relativo codice di operazione per effettuare il login di un utente e i dati
+     * Invia al server il relativo codice di operazione per effettuare il login di un utente
      * @param parameters I dati relativi al login che il server dovrà verificare
      */
     public void becomeClient(String parameters){

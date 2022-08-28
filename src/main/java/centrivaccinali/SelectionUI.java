@@ -18,7 +18,16 @@ import java.net.Socket;
 import java.net.URL;
 
 public class SelectionUI extends Application {
-
+    /**
+     * La stringa contente l'indirizzo IP del server passato come argomento all'avvio dell'applicazione.
+     * Se non è stato passato alcun argomento, viene utilizzato l'indirizzo IP di default (localhost).
+     */
+    private static String connectIp=null;
+    /**
+     * La stringa contente la porta del server passata come argomento all'avvio dell'applicazione.
+     * Se non è stato passato alcun argomento, viene utilizzata la porta di default (8080).
+     */
+    private static int connectPort=9870;
     /**
      * Socket per la connessione al server
      */
@@ -43,6 +52,7 @@ public class SelectionUI extends Application {
      * Container del BufferedReader
      */
     public static BufferedReader in_container;
+
     /**
      * Crea la UI principale che permette di scegliere il portale. Metodo che viene eseguito subito dopo la creazione della classe.
      * @param stage Lo stage che conterrà la scena. Uno stage è una finestra, mentre una scena è tutto ciò contenuto in uno stage.
@@ -154,7 +164,12 @@ public class SelectionUI extends Application {
     public void becomeClient(){
         try {
             System.out.println("[CLIENT] - Tentativo di connessione ");
-            s = new Socket(InetAddress.getLocalHost(),9870);
+            if(connectIp==null){
+                s = new Socket(InetAddress.getLocalHost(),connectPort);
+            }
+            else{
+                s=new Socket(connectIp,connectPort);
+            }
             System.out.println("[CLIENT] - Sono connesso ");
             socket_container=s;
             out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())),true);
@@ -171,6 +186,12 @@ public class SelectionUI extends Application {
     }
 
     public static void main(String[] args) {
+        if(args.length>0){
+            connectIp=args[0];
+        }
+        if(args.length>1) {
+            connectPort = Integer.parseInt(args[1]);
+        }
         launch();
     }
 }

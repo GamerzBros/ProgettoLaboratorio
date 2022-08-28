@@ -13,7 +13,7 @@
         <AnchorPane fx:id="mainPane">
             <children>
                 <Rectangle fill="white" height="45.0" layoutX="0.0" layoutY="0.0" style="-fx-border-style: hidden hidden solid hidden; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 6, 0, 0, 0);" width="920.0" />
-                <ScrollPane fx:id="scrollPane_CentriVaccinali" hbarPolicy="NEVER" layoutX="25.0" layoutY="91.0" prefHeight="435.0" prefWidth="870.0" style="-fx-background-radius: 0; -fx-background-color: transparent; -fx-border-color: #1a73e8;" styleClass="scrollPaneCenters" /> <!-- style="-fx-background: #1a73e8;-->
+                <ScrollPane fx:id="scrollPane_CentriVaccinali" hbarPolicy="NEVER" layoutX="25.0" layoutY="94.0" prefHeight="432.0" prefWidth="870.0" style="-fx-background-radius: 0; -fx-background-color: transparent; -fx-border-color: #1a73e8;" styleClass="scrollPaneCenters" /> <!-- style="-fx-background: #1a73e8;-->
                 <Pane fx:id="pane_center_information" layoutX="895" layoutY="82" prefHeight="443.0" prefWidth="0.0" style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 6, 0, 0, 0);" />
                 <ImageView fx:id="errorImg" fitHeight="390" fitWidth="585" layoutX="167.5" layoutY="90.0" visible="true" />
                 <Label fx:id="errorLabel" alignment="CENTER" layoutX="135" layoutY="475" minHeight="20" prefWidth="650" textFill="white" visible="false">
