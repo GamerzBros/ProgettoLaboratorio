@@ -31,15 +31,15 @@ public class SelectionUI extends Application {
     /**
      * Socket per la connessione al server
      */
-    Socket s;
+    private Socket s;
     /**
      * PrintWriter per inviare messaggi al server
      */
-    PrintWriter out;
+    private PrintWriter out;
     /**
      * BufferedReader per ricevere messaggi dal server
      */
-    BufferedReader in;
+    private BufferedReader in;
     /**
      * Container del Socket
      */

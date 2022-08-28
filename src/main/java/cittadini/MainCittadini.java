@@ -40,7 +40,6 @@ import java.util.Vector;
 /**
  * Gestisce la UI che permette ai cittadini di consultare i centri vaccinali e i loro relativi eventi avversi registrati
  */
-//TODO rivedere quando usare i throws e i try/catch all'interno del progetto
 public class MainCittadini {
     /**
      * Il percorso dell'immagine che verrà mostrata qualora non sia possibile connettersi al server
@@ -325,7 +324,7 @@ public class MainCittadini {
             btnGoTo.setFitWidth(36);
             btnGoTo.setFitHeight(36);
             btnGoTo.getStyleClass().add("buttonSelection");
-            btnGoTo.setId(String.valueOf(i));
+            btnGoTo.setId(String.valueOf(i+1));
             btnGoTo.setOnMouseClicked(this::startOpenInfoPaneAnimation);
 
             HBox.setHgrow(lblAddress, Priority.ALWAYS);
