@@ -275,7 +275,7 @@ public class MainCittadini {
         scrollPane_CentriVaccinali.setVisible(true);
 
         VBox scrollPaneContent=new VBox();
-        scrollPaneContent.setSpacing(15);
+        scrollPaneContent.setSpacing(16);
         scrollPaneContent.setPrefHeight(409);
         //scrollPaneContent.setAlignment(Pos.CENTER);
         scrollPane_CentriVaccinali.setContent(scrollPaneContent);

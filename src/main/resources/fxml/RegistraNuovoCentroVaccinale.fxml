@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="434.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="420.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button layoutX="4.0" layoutY="7.5" onMouseClicked="#goBackToOpzioniOperatore" styleClass="backButton">
          <graphic>
@@ -15,7 +15,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <ImageView fitHeight="418.0" fitWidth="425.0" layoutX="85.0" layoutY="-70.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="415.0" fitWidth="415.0" layoutX="85.0" layoutY="-70.0" pickOnBounds="true" preserveRatio="true">
          <Image url="@/centrivaccinali/ospedale.png" />
       </ImageView>
       <AnchorPane layoutX="25.0" layoutY="45.0" prefHeight="350.0" prefWidth="550.0">
