@@ -61,7 +61,6 @@ public class ServerHandler extends Thread{
     /**
      * Il buffer di dati primitivi in output al client
      */
-
     private PrintWriter out;
     /**
      * L'operation code ricevuto dal client sotto forma di stringa
@@ -167,8 +166,7 @@ public class ServerHandler extends Thread{
         int centroVaccinale = Integer.parseInt(parameters_splitted[4]);
         String dataVaccinazione = parameters_splitted[5];
         Date dataVaccinazioneSQL = java.sql.Date.valueOf(dataVaccinazione);
-        System.out.println(dataVaccinazione);
-        System.out.println(dataVaccinazioneSQL);
+
         try{
             Connection con = connectDB();;
             String sql ="insert into vaccinati (nome,cognome,cf_utente,vaccino,centrovaccinale,data_vaccinazione) VALUES (?,?,?,?,?,?)";
@@ -347,7 +345,6 @@ public class ServerHandler extends Thread{
             PreparedStatement prepSt=con.prepareStatement(sql);
             prepSt.setString(1,userId);
             prepSt.setInt(2,Integer.parseInt(centerId));
-            System.out.println("userID="+userId+"; centerID="+centerId);
             ResultSet result=prepSt.executeQuery();
             result.next();
             int vaccinationsNum=result.getInt("rowCount");
@@ -391,8 +388,6 @@ public class ServerHandler extends Thread{
         String otherSymptoms=eveAvv.getOtherSymptoms();
         int idCentro=eveAvv.getIdCentro();
         String cfUtente =eveAvv.getCfUtente();
-        System.out.println("SONO ARRIVATO QUI ");
-
 
         String sql="INSERT INTO eventiavversi VALUES (DEFAULT,?,?,?,?,?,?,?,?,?)";
         try {

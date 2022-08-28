@@ -33,7 +33,7 @@
             </Button>
             <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="5.0" pickOnBounds="true">
                <image>
-                  <Image url="@/centrivaccinali/person.png" />
+                  <Image url="@/centrivaccinali/vaccinated.png" />
                </image>
             </ImageView>
          </children>
