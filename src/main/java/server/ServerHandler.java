@@ -97,7 +97,7 @@ public class ServerHandler extends Thread{
      * Controlla nel database se le credenziali dell'utente sono corrette e comunica al client l'esito dell'operazione
      * @param parameters La stringa contenente le credenziali dell'utente (email e password)
      */
-    private void login(String parameters) {
+    private void loginUser(String parameters) {
         String[] parameters_splitted = parameters.split(";");
         String email = parameters_splitted[0];
         String cf=null;
@@ -436,7 +436,7 @@ public class ServerHandler extends Thread{
                 switch (op_converted) {
                     case LOGIN_USER_OP_CODE -> {
                         System.out.println("[THREAD] Login chiamata");
-                        login(parameters);
+                        loginUser(parameters);
                     }
                     case REGISTER_USER_OP_CODE -> {
                         System.out.println("[THREAD] Register chiamata");

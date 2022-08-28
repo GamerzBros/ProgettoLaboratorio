@@ -18,7 +18,7 @@ public class Server {
     /**
      * Il socket del client appena connesso che verrà passato al sever slave
      */
-    private Socket s;
+    private Socket client_socket;
 
     /**
      * Costruttore principale del server
@@ -36,9 +36,9 @@ public class Server {
         System.out.println("Sono in ascolto");
         try {
             while (true) {
-                s = server_socket.accept();
+                client_socket = server_socket.accept();
                 System.out.println("Un client si è connesso");
-                new ServerHandler(s);
+                new ServerHandler(client_socket);
             }
         } catch (IOException e) {
             e.printStackTrace();
