@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"centrivaccinali","l":"CentriVaccinali"},{"p":"cittadini","l":"Cittadini"},{"p":"<Unnamed>","l":"MainClass"},{"p":"centrivaccinali","l":"SingoloCentroVaccinale"}];updateSearchResults();
