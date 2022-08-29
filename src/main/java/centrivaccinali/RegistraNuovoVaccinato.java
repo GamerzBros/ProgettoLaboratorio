@@ -84,7 +84,6 @@ public class RegistraNuovoVaccinato {
             loadingPopup.setLayoutY(scene.getHeight()/2-loadingPopup.getMinHeight()/2);
             loadingPopup.setStyle("-fx-progress-color: white");
             ((AnchorPane)scene.getRoot()).getChildren().add(loadingPopup);
-            scene.lookup("#main_anchor_pane").setOpacity(0.60);
 
             new Thread(()->{
                 try {
@@ -107,7 +106,6 @@ public class RegistraNuovoVaccinato {
 
                 Platform.runLater(()->{
                     ((AnchorPane)scene.getRoot()).getChildren().remove(loadingPopup);
-                    scene.lookup("#main_anchor_pane").setOpacity(1);
                 });
             }).start();
 
@@ -135,7 +133,7 @@ public class RegistraNuovoVaccinato {
         if (vaccinationDate != null) {
             dataVaccinazione = vaccinationDate.format(DateTimeFormatter.ofPattern("yyy-MM-dd"));
         }
-        if (name.equals("") || surname.equals("") || codice_fiscale.equals("") || vaccineType.equals("") || dataVaccinazione.equals("")) {
+        if (name.equals("") || surname.equals("") || codice_fiscale.equals("") || codice_fiscale.length()>16 || vaccineType.equals("") || dataVaccinazione.equals("")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setHeaderText(null);
@@ -146,7 +144,6 @@ public class RegistraNuovoVaccinato {
                 String parameters = name+";"+surname+";"+codice_fiscale+";"+vaccineType+";"+centroVaccinale+";"+dataVaccinazione;
                 out.println(parameters);
                 out.println(ServerHandler.REGISTER_VACCINATED_OP_CODE);
-                System.out.println(dataVaccinazione);
                 String result = in.readLine();
                 if (result.equals("true")) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);

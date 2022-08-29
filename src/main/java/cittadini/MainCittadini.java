@@ -195,7 +195,10 @@ public class MainCittadini {
                 }
                 catch (Exception e) {
                     e.printStackTrace();
-                    //TODO popup qui (che dice all'utente che c'è un problema nella creazione vbox)
+                    Alert alert=new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Errore");
+                    alert.setContentText("Abbiamo riscontrato un problema nella creazione del vbox");
+                    alert.show();
                 }
                 Platform.runLater(()->{
                     ((AnchorPane) scrollPane_CentriVaccinali.getScene().getRoot()).getChildren().remove(loadingPopup);
@@ -642,8 +645,6 @@ public class MainCittadini {
                         lbl_otherEventText.setPrefWidth(490);
                         lbl_otherEventText.setPrefHeight(30);
 
-                        //TODO centrare divider
-
                         Separator separator = new Separator();
                         separator.setOrientation(Orientation.HORIZONTAL);
                         separator.setPrefWidth(480);
@@ -658,7 +659,10 @@ public class MainCittadini {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                //TODO aggiungere un feedback visivo per l'errore
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Errore");
+                alert.setContentText("Abbiamo riscontrato un errore nel caricamento dei dati relativi al centro");
+                alert.show();
             }
 
             Platform.runLater(() -> {
@@ -978,7 +982,6 @@ public class MainCittadini {
      * Metodo che invia al server il relativo codice operazione per ottenere una lista di tutti i centri vaccinali presenti nel database
      */
     public static void becomeClient(){
-        //TODO fare in modo che il client provi a ricollegarsi al server se non è connesso
         try {
             System.out.println("[CLIENT MAIN CITTADINI] - Sono già connesso, prendo gli stream ");
             Socket s = SelectionUI.socket_container;

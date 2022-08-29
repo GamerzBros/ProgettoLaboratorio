@@ -61,10 +61,9 @@ public class LoginUtente {
                 noUserAlert.setTitle("Errore di login");
                 noUserAlert.setContentText("Utente non trovato!");
                 noUserAlert.show();
-                //TODO pulire il campo della password
+                ((TextField) currentScene.lookup("#pswd_login")).setText("");
                 return;
             }
-            System.out.println("LOGGATO\nCF utente: "+result);
 
             Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             HashMap<String,String> userData = (HashMap<String,String>) currentStage.getUserData();

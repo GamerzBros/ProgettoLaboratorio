@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<!--TODO mettere un pulsante per passare alla UI di Login (come nella schermata di LoginUtente)-->
 
 <AnchorPane prefHeight="430.0" prefWidth="600.0" style="-fx-background-color: #1a73e8" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cittadini.RegistrazioneUtente">
    <children>
