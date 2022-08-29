@@ -31,7 +31,7 @@ public class RegistrazioneUtente {
 
     /**
      * Registra un cittadino database contente tutti i cittadini registrati.
-     * @param event L'evento che richiama il metodo. Necessario ad ottenere la scena attuale per prendere le informazioni inserite dall'utente.
+     * @param event L'evento che richiama il metodo. Necessario a ottenere la scena attuale per prendere le informazioni inserite dall'utente.
      */
     public void registraCittadino(ActionEvent event){
         Scene currentScene=((Button)event.getSource()).getScene();

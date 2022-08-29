@@ -70,7 +70,7 @@ public class MainCittadini {
      */
     private static final String OPEN_CENTER_INFO_IMG_PATH = "/cittadini/openCenterInfo.png";
     /**
-     * Lista contente tutti i centri vaccinali presenti nel database. Popolata dal metodo getCentriVaccinaliFromFile()
+     * Lista contente tutti i centri vaccinali presenti nel database. Popolata dal metodo getCentriVaccinaliFromDB()
      */
     private Vector<SingoloCentroVaccinale> centriVaccinaliList=null;
     /**
@@ -935,10 +935,10 @@ public class MainCittadini {
     }
 
     /**
-     * Controlla se l'utente è stato vaccinato presso il centro vaccinale selezionato e, in caso positivo, restituisce il numero di eventi avversi ancora da inserire.
+     * Controlla se l'utente è stato vaccinato presso il centro vaccinale selezionato.
      * @param user stringa rappresentante l'utente
      * @param currentCenter stringa rappresentante il centro dove ci si è vaccinati
-     * @return
+     * @return Il numero di eventi avversi già inseriti
      */
     private int getUserEventsNum(String user, String currentCenter){
         try {

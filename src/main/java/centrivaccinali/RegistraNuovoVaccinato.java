@@ -45,7 +45,7 @@ public class RegistraNuovoVaccinato {
      */
     private ObservableList<String> vaccino_somministrato_items = FXCollections.observableArrayList("Pfizer","AstraZeneca","Moderna","J&J");
     /**
-     * Lista contenente i centri vaccinali presenti nel file
+     * Lista contenente i centri vaccinali presenti nel database
      */
     private ObservableList<String> centro_vaccinale_items = FXCollections.observableArrayList();
 
