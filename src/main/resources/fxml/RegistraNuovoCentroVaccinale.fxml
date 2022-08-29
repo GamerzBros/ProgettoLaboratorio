@@ -8,6 +8,9 @@
 
 <AnchorPane prefHeight="420.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" layoutY="18.0" pickOnBounds="true">
+         <Image url="@/centrivaccinali/databg.jpg" />
+      </ImageView>
       <Button layoutX="4.0" layoutY="7.5" onMouseClicked="#goBackToOpzioniOperatore" styleClass="backButton">
          <graphic>
             <ImageView fitHeight="22.0" fitWidth="20.0" preserveRatio="false">
@@ -15,13 +18,10 @@
             </ImageView>
          </graphic>
       </Button>
-      <ImageView fitHeight="400.0" fitWidth="600.0" layoutY="18.0" pickOnBounds="true">
-         <Image url="@/centrivaccinali/dataInputBg.png" />
-      </ImageView>
-      <Label layoutY="11.5" layoutX="165" text="Registra nuovo centro vaccinale" style="-fx-font-size: 18; -fx-font-family: 'Franklin Gothic Medium'" textFill="black" alignment="CENTER" prefWidth="270"/>
+      <Label alignment="CENTER" layoutX="165" layoutY="11.5" prefWidth="270" style="-fx-font-size: 18; -fx-font-family: 'Franklin Gothic Medium'" text="Registra nuovo centro vaccinale" textFill="black" />
       <AnchorPane layoutX="25.0" layoutY="45.0" prefHeight="350.0" prefWidth="550.0">
          <children>
-            <Pane opacity="0.75" prefHeight="350.0" prefWidth="550.0" style="-fx-background-color: #1a73e8; -fx-background-radius: 18;" styleClass="ShadowEf"/>
+            <Pane opacity="0.75" prefHeight="350.0" prefWidth="550.0" style="-fx-background-color: #1a73e8; -fx-background-radius: 18;" styleClass="ShadowEf" />
             <ImageView fitHeight="100" fitWidth="100" layoutX="225.0" layoutY="-12">
                <Image url="@/centrivaccinali/ospedale.png" />
             </ImageView>
