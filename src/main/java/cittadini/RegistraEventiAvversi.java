@@ -87,20 +87,20 @@ public class RegistraEventiAvversi {
         try {
             Scene currentScene =((Button) actionEvent.getSource()).getScene();
 
-            Spinner<Integer> spn_headache = (Spinner<Integer>) currentScene.lookup("#spn_headache");
-            Spinner<Integer> spn_fever = (Spinner<Integer>) currentScene.lookup("#spn_fever");
-            Spinner<Integer> spn_hurt = (Spinner<Integer>) currentScene.lookup("#spn_hurt");
-            Spinner<Integer> spn_linf = (Spinner<Integer>) currentScene.lookup("#spn_linf");
-            Spinner<Integer> spn_tac = (Spinner<Integer>) currentScene.lookup("#spn_tac");
-            Spinner<Integer> spn_crs = (Spinner<Integer>) currentScene.lookup("#spn_crs");
+            ToggleGroup tg_headache = ((RadioButton) currentScene.lookup("#first_radio_headache")).getToggleGroup();
+            ToggleGroup tg_fever = ((RadioButton) currentScene.lookup("#first_radio_fever")).getToggleGroup();
+            ToggleGroup tg_hurt = ((RadioButton) currentScene.lookup("#first_radio_hurt")).getToggleGroup();
+            ToggleGroup tg_linf = ((RadioButton) currentScene.lookup("#first_radio_linf")).getToggleGroup();
+            ToggleGroup tg_tac = ((RadioButton) currentScene.lookup("#first_radio_tac")).getToggleGroup();
+            ToggleGroup tg_crs = ((RadioButton) currentScene.lookup("#first_radio_crs")).getToggleGroup();
             TextField txt_other1 = (TextField) currentScene.lookup("#txt_other");
 
-            int evento1 = spn_headache.getValue();//evento1 = Mal di testa
-            int evento2 = spn_fever.getValue(); //evento2 = Febbre
-            int evento3 = spn_hurt.getValue(); //evento3 = Dolori muscolari o articolari
-            int evento4 = spn_linf.getValue(); //evento4 = Linfoadenopatia
-            int evento5 = spn_tac.getValue(); //evento5 = Tachicardia
-            int evento6 = spn_crs.getValue();//evento6 = Crisi ipertensiva
+            int evento1 = Integer.parseInt(((RadioButton)tg_headache.getSelectedToggle()).getText());//evento1 = Mal di testa
+            int evento2 = Integer.parseInt(((RadioButton)tg_fever.getSelectedToggle()).getText());//evento2 = Febbre
+            int evento3 = Integer.parseInt(((RadioButton)tg_hurt.getSelectedToggle()).getText());//evento3 = Dolori muscolari o articolari
+            int evento4 = Integer.parseInt(((RadioButton)tg_linf.getSelectedToggle()).getText());//evento4 = Linfoadenopatia
+            int evento5 = Integer.parseInt(((RadioButton)tg_tac.getSelectedToggle()).getText());//evento5 = Tachicardia
+            int evento6 = Integer.parseInt(((RadioButton)tg_crs.getSelectedToggle()).getText());//evento6 = Crisi ipertensiva
             String otherEvent = txt_other1.getText();
 
             //inizializzo la classe container e la mando al server tramite l'ObjectOutputWriter
